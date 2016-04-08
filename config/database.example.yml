@@ -1,0 +1,15 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  reconnect: false
+  host: localhost
+  pool: 5
+  username: yournamehere
+
+development:
+  <<: *default
+  database: clean_slate_dev
+
+test:
+  <<: *default
+  database: clean_slate_test
