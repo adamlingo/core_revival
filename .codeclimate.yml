@@ -1,0 +1,9 @@
+# Grading parameters for Code Climate
+
+languages:
+  Ruby: true
+  JavaScript: true
+  PHP: true
+exclude_paths:
+# example:
+# "app/assets/javascripts/modal_for_active_admin.js"
