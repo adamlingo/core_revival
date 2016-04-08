@@ -1,106 +1,68 @@
 source 'https://rubygems.org'
-ruby '2.3.0'
 
-gem 'mime-types', '~> 2.9', require: 'mime/types/columnar' # fix memory issue with mimetypes
-gem 'rails', '~> 4.1.14'
-
-# data
+# DEFAULTS AND POSTGRES
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '4.2.5'
+# Use postgres as the database for Active Record
 gem 'pg'
-gem 'activerecord-import' # active record tools
-gem 'upsert'
 
-gem 'haml' # replace HTML with haml
-
-# javascript
-gem 'uglifier', '>= 1.3.0' # compressor
-gem 'coffee-rails', '~> 4.0.0'
-# gem 'jquery-rails'
+# JAVASCRIPT
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
+# Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails', '~> 4.1.0'
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
+# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
-gem 'jquery-turbolinks'
-gem 'momentjs-rails', '>= 2.8.1'
 
-# css
-gem 'sass-rails', '~> 4.0.3'
+# CSS
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 5.0'
+# bootstrap
 gem 'bootstrap-sass'
-gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
-gem 'jasny_bootstrap_extension_rails'
-gem 'best_in_place' # RESTful unobtrusive jquery inplace editor
-gem 'font-awesome-sass'
-gem 'kaminari' # paginate views
-gem 'bootstrap-kaminari-views' # Paginate kaminari with bootstrap views
-gem 'font_assets'
 
-gem 'carmen-rails' # country and state selector?
-gem 'humanize' # Humanize numbers
+# LOGIN/AUTH
+gem 'devise' # UI tools for client-user login
 
-# auth
-gem 'devise'
-gem 'devise_invitable', '~> 1.3.4'
-gem 'cancancan'
-
-# photo uploads
-gem 'carrierwave'
-gem 'fog'
-gem 'mini_magick'
-
-# services/integration
+# SERVICES/INTEGRATIONS
 gem 'zendesk_api'
-gem 'savon'  # SOAP integration
-gem 'nokogiri' # xlm/html parser
-gem 'spreadsheet' # read and write spreadsheet docs
 gem 'slack-notifier', require: false
 
-# API layer
+# API LAYER
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
-gem 'rack-cors', :require => 'rack/cors'
 
-# Generate pdf from html
-gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
-
-# Generic Admin interface
+# ADMIN UI
 gem 'activeadmin', github: 'activeadmin'
 
-# exception and monitoring
+# ERROR MONITORING
 gem 'sentry-raven'
 
 group :development do
-  gem 'letter_opener'
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console', '~> 2.0'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-
-  gem 'better_errors'  # debugging
-  gem 'binding_of_caller' # debugging
-  gem 'meta_request' # debugging with Rails Panel
-  gem 'foreman'
-  # db related
-  gem 'rails-erd' # generate ERD diagram of db - needs brew install graphviz
-  gem 'bullet' # orm profiling
-  gem 'lol_dba' # find missing indexes
+  # debugging with Rails Panel (Chrome-dev-tools)
+  gem 'meta_request'
+  # db map
+  gem 'rails-erd' # generate ERD diagram of db - needs brew install graphviz 
 end
 
-# Automated tests with RSpec
 group :development, :test do
-  gem 'quiet_assets'
-  # gem 'rspec-rails', '~> 3.0'
-  
-  gem 'timecop' # Testing time-dependent actions
-
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
+  # Optional/better debugging tool (kill byebug later)
+  gem 'pry'
+  # Automated mini-tests
   gem 'minitest-rails'
   gem 'minitest-reporters'
-  gem 'mocha'
-
-  gem 'pry' # debugging
-
+  # CodeClimate score
   gem 'codeclimate-test-reporter', require: nil
-
   gem 'dotenv-rails'  # env variables to function like heroku
 end
 
-group :production do
-  gem 'unicorn', '~> 5.0.0'
-  gem 'unicorn-worker-killer'
-  gem 'rails_12factor'
-  gem 'heroku-deflater'
-end
+# bundle exec rake doc:rails generates the API under doc/api.
+gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'sdoc', '~> 0.4.0',          group: :doc
