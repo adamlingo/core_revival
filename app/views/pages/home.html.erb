@@ -1,4 +1,15 @@
-<h1>Temporary Static Home</h1>
-<p>
-	This is a clean slate for solving our riddles...
-</p>
+<div class="center jumbotron">
+  <h1>Temporary Static Dashboard</h1>
+
+  <h2>
+    This is the home page for the
+    <a href="http://www.railstutorial.org/">Ruby on Rails Tutorial</a>
+    sample application.
+  </h2>
+
+  <%= link_to "Sign up now!", '#', class: "btn btn-lg btn-primary" %>
+</div>
+
+<!-- Display Core logo or string "Core" if error loading icon (linked to old site)-->
+<%= link_to image_tag("favicon.ico", alt: "Core"),
+            'http://coreapp.herokuapp.com' %>
