@@ -11,7 +11,7 @@ class PagesControllerTest < ActionController::TestCase
     get :home
     assert_response :success
     # check for title consistency in html:
-    assert_select "title", "Home | #{@base_title}"
+    assert_select "title", "#{@base_title}"
   end
 
 end
