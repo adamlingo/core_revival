@@ -10,15 +10,15 @@ class PagesControllerTest < ActionController::TestCase
   test "should get home" do
     get :home
     assert_response :success
-    # check for title consistency in html:
-    assert_select "title", "#{@base_title}"
+    # check for title consistency in <title> html:
+    assert_select "title", "Home | #{@base_title}"
   end
   # test companies controller (temp)
   test "should get companies" do
     get :companies
     assert_response :success
-    # check for title consistency in html:
-    assert_select "title", "#{@base_title}"
+    # check for title consistency in <title> html:
+    assert_select "title", "Companies | #{@base_title}"
   end
 
 end
