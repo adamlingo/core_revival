@@ -5,6 +5,15 @@
   List of Companies coming soon!
 </h2>
 
+<table>
+  <tbody>
+      <%= "Our users: " %></br>
+	  <% @users.each do |user| %>
+  	  <%= user.email %><br/>
+	<% end %>
+  </tbody>
+</table>
+
 <div class="container">
   <aside class='sidebar list-group'>
     <ul >
