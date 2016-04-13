@@ -35,8 +35,6 @@ gem 'jbuilder', '~> 2.0'
 
 # ADMIN UI
 gem 'activeadmin', github: 'activeadmin'
-# meta_search is used with activeadmin
-gem 'meta_search', '>= 1.1.0.pre'
 
 # ERROR MONITORING
 gem 'sentry-raven'
