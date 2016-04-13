@@ -4,7 +4,7 @@ class PagesControllerTest < ActionController::TestCase
   
   # setup is run automatically before every test, use instance var to reduce repitition across tests
   def setup
-    @base_title = "Core Employee Solutions"
+    @base_title = "Core Solutions"
   end
 
   test "should get home" do
