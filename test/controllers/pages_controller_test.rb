@@ -13,5 +13,12 @@ class PagesControllerTest < ActionController::TestCase
     # check for title consistency in html:
     assert_select "title", "#{@base_title}"
   end
+  # test companies controller (temp)
+  test "should get companies" do
+    get :companies
+    assert_response :success
+    # check for title consistency in html:
+    assert_select "title", "#{@base_title}"
+  end
 
 end
