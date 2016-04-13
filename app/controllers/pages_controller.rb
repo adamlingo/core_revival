@@ -5,5 +5,6 @@ class PagesController < ApplicationController
 
   # temp space for loading companies
   def companies
+    @users = User.all
   end
 end
