@@ -24,6 +24,31 @@ Rails.application.routes.draw do
   #                       PUT    /users(.:format)                       devise/registrations#update
   #                       DELETE /users(.:format)                       devise/registrations#destroy
 
+
+  # make Employees editable records that belong to companies by id
+  resources :companies do 
+    resources :employees
+  end
+  # this creates resources to have EEs belong to companies, and are listed here:
+  #     company_employees GET    /companies/:company_id/employees(.:format)          employees#index
+  #                       POST   /companies/:company_id/employees(.:format)          employees#create
+  #  new_company_employee GET    /companies/:company_id/employees/new(.:format)      employees#new
+  # edit_company_employee GET    /companies/:company_id/employees/:id/edit(.:format) employees#edit
+  #      company_employee GET    /companies/:company_id/employees/:id(.:format)      employees#show
+  #                       PATCH  /companies/:company_id/employees/:id(.:format)      employees#update
+  #                       PUT    /companies/:company_id/employees/:id(.:format)      employees#update
+  #                       DELETE /companies/:company_id/employees/:id(.:format)      employees#destroy
+  #                       GET    /companies(.:format)                                companies#index
+  #                       POST   /companies(.:format)                                companies#create
+  #           new_company GET    /companies/new(.:format)                            companies#new
+  #          edit_company GET    /companies/:id/edit(.:format)                       companies#edit
+  #               company GET    /companies/:id(.:format)                            companies#show
+  #                       PATCH  /companies/:id(.:format)                            companies#update
+  #                       PUT    /companies/:id(.:format)                            companies#update
+  #                       DELETE /companies/:id(.:format)                            companies#destroy
+  #                       GET    /:controller(/:action(/:id(.:format)))              :controller#:action
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
