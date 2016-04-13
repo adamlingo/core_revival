@@ -2,4 +2,8 @@
 class PagesController < ApplicationController
   def home
   end
+
+  # temp space for loading companies
+  def companies
+  end
 end
