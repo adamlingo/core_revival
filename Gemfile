@@ -35,6 +35,8 @@ gem 'jbuilder', '~> 2.0'
 
 # ADMIN UI
 gem 'activeadmin', github: 'activeadmin'
+# meta_search is used with activeadmin
+gem 'meta_search', '>= 1.1.0.pre'
 
 # ERROR MONITORING
 gem 'sentry-raven'
@@ -46,7 +48,7 @@ group :development do
   gem 'spring'
   # debugging with Rails Panel (Chrome-dev-tools)
   gem 'meta_request'
-  # db map
+  # db map, run with "rake erd"
   gem 'rails-erd' # generate ERD diagram of db - needs brew install graphviz 
 end
 
