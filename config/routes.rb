@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   # home page is root of applicaiton
-  root 'pages#home'
+  root                'pages#home'
 
+  get  'companies' => 'pages#companies'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
