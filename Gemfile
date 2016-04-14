@@ -5,6 +5,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.5'
 # Use postgres as the database for Active Record
 gem 'pg'
+# Gem for using protected attributes (mass assignment security)
+gem 'protected_attributes'
 
 # JAVASCRIPT
 # Use Uglifier as compressor for JavaScript assets
