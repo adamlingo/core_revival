@@ -6,6 +6,7 @@ gem 'rails', '4.2.5'
 # Use postgres as the database for Active Record
 gem 'pg'
 # Gem for using protected attributes (mass assignment security)
+# to gain access to attr_protected and attr_accessible in Models
 gem 'protected_attributes'
 
 # JAVASCRIPT
