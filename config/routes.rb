@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # home page is root of applicaiton
   root                'pages#home'
 
-  get  'companies' => 'pages#companies'
+  get  'companies_static' => 'pages#companies_static'
 
   # Devise routes with ActiveAdmin
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -51,10 +51,10 @@ Rails.application.routes.draw do
   #                       PUT    /users(.:format)                       devise/registrations#update
   #                       DELETE /users(.:format)                       devise/registrations#destroy
 
-  resources :companies
   # make Employees editable records that belong to companies by id
-  # resources :companies do
-  #   resources :employees
+  resources :companies do
+    resources :employees
+  end
   # this creates resources to have EEs belong to companies, and are listed here:
   #     company_employees GET    /companies/:company_id/employees(.:format)          employees#index
   #                       POST   /companies/:company_id/employees(.:format)          employees#create
