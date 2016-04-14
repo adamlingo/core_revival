@@ -51,7 +51,7 @@ Rails.application.routes.draw do
   #                       PUT    /users(.:format)                       devise/registrations#update
   #                       DELETE /users(.:format)                       devise/registrations#destroy
 
-
+  resources :companies
   # make Employees editable records that belong to companies by id
   # resources :companies do
   #   resources :employees
