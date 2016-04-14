@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   end
 
   # temp space for loading companies
-  def companies
+  def companies_static
     @users = User.all
   end
 end
