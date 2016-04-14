@@ -22,5 +22,9 @@ module CleanSlate
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Configure scaffold function for Rails back to default (fix from ActiveAdmin change)
+    config.app_generators.scaffold_controller = :scaffold_controller
   end
 end
+
