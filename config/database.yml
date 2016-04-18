@@ -9,11 +9,11 @@ default: &default
 # this is for humans
 development:
   <<: *default
-  database: clean_slate_dev
+  database: core_redux_dev
 
 
 # this is for robots - do not touch
 # tell the robot to use it with  'rake test'
 test:
   <<: *default
-  database: clean_slate_test
+  database: core_redux_test
