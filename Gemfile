@@ -68,8 +68,11 @@ group :development, :test do
 end
 
 group :production do 
+  # Unicorn handles Procfile w/Heroku
   gem 'unicorn'
   gem 'unicorn-worker-killer'
+  # This gem enables platform features (heroku)
+  gem 'rails_12factor'
 end
 
 # bundle exec rake doc:rails generates the API under doc/api.
