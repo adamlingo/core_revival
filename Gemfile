@@ -66,6 +66,11 @@ group :development, :test do
   gem 'dotenv-rails'  # env variables to function like heroku
 end
 
+group :production do 
+  gem 'unicorn'
+  gem 'unicorn-worker-killer'
+end
+
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
