@@ -64,7 +64,7 @@ Rails.application.routes.draw do
   #                       PATCH  /companies/:company_id/employees/:id(.:format)      employees#update
   #                       PUT    /companies/:company_id/employees/:id(.:format)      employees#update
   #                       DELETE /companies/:company_id/employees/:id(.:format)      employees#destroy
-  #                       GET    /companies(.:format)                                companies#index
+  #             companies GET    /companies(.:format)                                companies#index
   #                       POST   /companies(.:format)                                companies#create
   #           new_company GET    /companies/new(.:format)                            companies#new
   #          edit_company GET    /companies/:id/edit(.:format)                       companies#edit
