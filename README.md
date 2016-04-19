@@ -19,8 +19,8 @@ This app uses minitest for testing. Run the tests with the following command:
 
 ### Production and Stage
 The app lives at:
-prod:  http://http://coreemployeesolutions.com/
-stage: https://core-stage.herokuapp.com/
+prod:  * updating live site link soon!
+stage: * TBD on implementation date.
 
 ### Hosting
 The app is hosted at heroku.
