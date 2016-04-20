@@ -30,6 +30,8 @@ gem 'bootstrap-sass'
 gem 'devise' # UI tools for client-user login
 
 # SERVICES/INTEGRATIONS
+# Codeship required gem:
+gem 'nokogiri' # xlm/html parser
 gem 'zendesk_api'
 gem 'slack-notifier', require: false
 

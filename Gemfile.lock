@@ -299,6 +299,7 @@ DEPENDENCIES
   meta_request
   minitest-rails
   minitest-reporters
+  nokogiri
   pg
   protected_attributes
   pry
