@@ -1,4 +1,4 @@
 class Company < ActiveRecord::Base
-  #attr_accessible :name
-  #has_many :employees
+  # Company is parent of employees
+  has_many :employees
 end
