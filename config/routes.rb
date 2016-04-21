@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
   
-  # home page is root of applicaiton
-  root                'pages#home'
+  # Devise login is root of applicaiton
+  devise_scope :user do
+    root to: "devise/sessions#new"
+  end
 
+  # Roots for static pages (get)
+  get  'home' => 'pages#home'
   get  'companies_static' => 'pages#companies_static'
 
   # Devise routes with ActiveAdmin
