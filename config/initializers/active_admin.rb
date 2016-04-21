@@ -3,7 +3,7 @@ ActiveAdmin.setup do |config|
   config.namespace :admin do |admin|
     admin.build_menu do |menu|
       # Set parent Company to hold child Employee
-      menu.add label: 'Companies', priority: 4
+      menu.add label: 'Companies', priority: 0
     end
   end
 
