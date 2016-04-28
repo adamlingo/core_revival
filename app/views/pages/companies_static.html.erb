@@ -9,6 +9,12 @@
 <table>
   <tbody>
       <!-- Temp body removed -->
+      <% @companies.each do |co| %>
+      <tr>
+        <td><%= co.name %></td>
+        <td><%= co.email %></td>
+      </tr>
+      <% end %>
   </tbody>
 </table>
 </h3>
