@@ -12,6 +12,17 @@ ActiveAdmin.register User do
     actions
   end
 
+  # FILTER USER AS MANAGER OR EE
+  #member_action :sign_as, method: :get do
+  #  user = User.find(params[:id])
+  #  sign_in user
+  #  if user.role == 'manager'
+  #    redirect_to manager_dashboard_path
+  #  else
+  #    redirect_to employee_dashboard_path
+  #  end
+  #end  
+
   filter :email
   filter :current_sign_in_at
   filter :sign_in_count
