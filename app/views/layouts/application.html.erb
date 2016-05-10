@@ -11,12 +11,16 @@
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= render 'layouts/header' %>
-    <!-- attempt sidebar partial -->
+    <!-- sidebar partial to be conditional for EE or manager -->
     <%= render 'layouts/sidebar'%>
-    <div class="container">
+    
+    <div class="content">
       <!-- basic yield to load contents of each page in layout -->
       <%= yield %>
-      <%= render 'layouts/footer' %>
+      
+    </div>
+    <div class="content">
+    <%= render 'layouts/footer' %>
     </div>
   </body>
 </html>
