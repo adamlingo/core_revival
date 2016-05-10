@@ -8,19 +8,16 @@
     <%= render 'layouts/shim' %>
   </head>
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
     <%= render 'layouts/header' %>
     <!-- sidebar partial to be conditional for EE or manager -->
     <%= render 'layouts/sidebar'%>
     
     <div class="content">
       <!-- basic yield to load contents of each page in layout -->
-      <%= yield %>
-      
+      <%= yield %> 
     </div>
     <div class="content">
-    <%= render 'layouts/footer' %>
+      <%= render 'layouts/footer' %>
     </div>
   </body>
 </html>
