@@ -25,7 +25,8 @@ gem 'turbolinks'
 gem 'sass-rails', '~> 5.0'
 # bootstrap
 gem 'bootstrap-sass'
-
+# scss conversion helper for deployment
+gem 'font-awesome-sass'
 # LOGIN/AUTH
 gem 'devise' # UI tools for client-user login
 
