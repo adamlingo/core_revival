@@ -104,6 +104,8 @@ GEM
       multipart-post (>= 1.2, < 3)
     font-awesome-sass (4.5.0)
       sass (>= 3.2)
+    font_assets (0.1.12)
+      rack
     formtastic (3.1.4)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
@@ -297,6 +299,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   font-awesome-sass
+  font_assets
   jbuilder (~> 2.0)
   jquery-rails
   meta_request

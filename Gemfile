@@ -27,6 +27,8 @@ gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass'
 # scss conversion helper for deployment
 gem 'font-awesome-sass'
+gem 'font_assets'
+
 # LOGIN/AUTH
 gem 'devise' # UI tools for client-user login
 
