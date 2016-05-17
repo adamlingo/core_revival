@@ -1,0 +1,75 @@
+@import "colors";
+
+body.devise-sessions, body.devise-passwords, body.devise-registrations, body.devise-invitations, body.company_setup, body.users-registrations {
+  background: $grey-dark;
+  .login-page, .forgot-password, .signup-page, .change-password {
+    margin-top: 110px;
+    .main-logo {
+      margin-left: 0;
+      text-align: center;
+      display: block;
+      line-height: 40px;
+      margin-bottom: 40px;
+    }
+    form {
+      .input-group {
+        .input-group-addon {
+          background: $grey-darker;
+          border: none;
+          padding: 6px 9px;
+          &:after {
+            content: "";
+            position: absolute;
+            background: $grey-dark;
+            height: 35px;
+            width: 1px;
+            left: 50px;
+            top: 7px;
+          }
+          i {
+            font-size: 26px;
+            color: $grey-dark;
+            min-width: 35px;
+          }
+        }
+      }
+      .input-text {
+        font-size: 14px;
+        box-shadow: none;
+        padding: 7px 14px;
+      }
+      .form-control {
+        height: 49px;
+        background: $grey-darker;
+        border: none;
+        &:focus {
+          color: white;
+        }
+      }
+      .checkbox {
+        color: white;
+      }
+      .btn {
+        float: none !important;
+        display: block;
+        margin: 25px 0px 0px 0px;
+        padding: 14px 12px;
+      }
+      .full-width {
+        width: 100%;
+      }
+      .bottom-margin {
+        margin-bottom: 20px;
+      }
+    }
+    .help-links {
+      text-align: center;
+      margin-top: 10px;
+      width: 100%;
+      color: white;
+      a {
+        color: white;
+      }
+    }
+  }
+}
