@@ -1,97 +1,23 @@
 <header class='top-bar'>
-      <div class='main-logo'>
-        <%= image_tag("logo.png", alt: "Core")%>
-      </div>
-      <div class='main-search'>
-        <form accept-charset="UTF-8" action="#" method="get"><div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" /></div>
-          <input id="search" name="search" placeholder="Search" type="text" value="" />
-          <label for='search'>
-            <i class='pe-7s-search'></i>
-          </label>
-        </form>
-      </div>
-      <ul class='profile'>
-        <li>
-          <a class='profile__user' data-toggle='dropdown' href='#' onclick='return false;'>
-            <figure class='pull-left rounded-image profile__img'>
-              <!-- - if current_user.avatar_url.present? -->
-              <!-- = image_tag './images/employee-avatar.jpeg', class: "media-object" -->
-              <!-- - else -->
-              <%= image_tag("user-placeholder.jpeg", alt: "Avatar")%>
-            </figure>
-            <span class='profile__name'>
-              First Name
-              <span>
-              Last Name
-              </span>
-              Company Name
-              <i class='pe-7s-angle-down'></i>
-            </span>
-          </a>
-          <ul class='dropdown-menu pull-right'>
-            <li>
-              <a href="#"><i class='fa fa-info-circle'></i>
-              Edit profile
-              </a>
-            </li>
-            <li>
-              <a href="#"><i class='fa fa-inbox fa-lg'></i>
-              Send Message
-              </a>
-            </li>
-            <li>
-              <a href="#"><i class='fa fa-calendar'></i>
-              My Calendar
-              </a>
-            </li>
-            <li>
-              <a data-method="delete" href="/users/sign_out" rel="nofollow"><i class='fa fa-times'></i>
-              Logout
-              </a>
-            </li>
-            <li>
-              <a href="/admin">Admin</a>
-            </li>
-            <!-- %i.icon.pe-7s-date.pe-fw -->
-            <!-- %i.icon.pe-7s-close-circle.pe-fw -->
-          </ul>
-        </li>
-        <li class='profile--higlighted'>
-          <a class='dropdown-toggle' data-toggle='dropdown' href='#' onclick='return false;'>
-            <i class='pe-7f-mail'></i>
-          </a>
-          <ul class='dropdown-menu pull-right'>
-            <li>
-              <a href="/manager/conversations/show_all"><i class='icon pe-7s-mail'></i>
-              You have 0 new notifications
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class='profile--higlighted'>
-          <a class='dropdown-toggle' data-toggle='dropdown' href='#' onclick='return false;'>
-            <i class='pe-7f-drawer'></i>
-          </a>
-          <ul class='dropdown-menu pull-right'>
-            <li>
-              <a href='#'>
-                <i class='icon pe-7s-drawer'></i>
-                You have 0 new notifications
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a class='dropdown-toggle' data-toggle='dropdown' href='#' onclick='return false;'>
-            <i class='pe-7f-config'></i>
-          </a>
-          <ul class='dropdown-menu pull-right'>
-            <li>
-              <a href="/manager/sync_accounts"><i class='fa fa-refresh'></i>
-              Integrations
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </header>
+  <div class='main-logo'>
+    <%= image_tag("logo.png", alt: "Core")%>
+  </div>
+      
+  <ul class='profile'>
+    <li>
+      <a class='profile__user' data-toggle='dropdown' href='#' onclick='return false;'>
+        <figure class='pull-left rounded-image profile__img'>
+          <%= image_tag("user-placeholder.jpeg", alt: "Avatar")%>
+        </figure>
+        <span class='profile__name'>
+          First Name
+        <span>
+          Last Name
+        </span>
+          Company Name
+        <i class='pe-7s-angle-down'></i>
+        </span>
+      </a>
+    </li>
+  </ul>
+</header>
