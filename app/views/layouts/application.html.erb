@@ -14,10 +14,13 @@
     
     <div class="content">
       <!-- basic yield to load contents of each page in layout -->
-      <%= yield %> 
+      <%= yield %>
+      <% flash.each do |message_type, message| %>
+        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+      <% end %> 
     </div>
     <!--
     <div class="content">
       <!-- Save footer (render 'layouts/footer') -->
-  </body>
+    </body>
 </html>
