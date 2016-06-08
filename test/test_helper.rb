@@ -10,6 +10,7 @@ class ActiveSupport::TestCase
   fixtures :all
   # use ApplicationHelper in all tests
   include ApplicationHelper
-
+  # avoid test errors like "undefined method 'authenticate' "
+  include Devise::TestHelpers
   # Add more helper methods to be used by all tests here...
 end
