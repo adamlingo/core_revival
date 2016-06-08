@@ -29,14 +29,16 @@
                   <input class="btn btn-success full-width" name="commit" type="submit" value="Login" />
             </form>
             <div class='help-links'>
-              <a href="/users/sign_in">Log in</a>
-              |
               <a href="/users/password/new">Forgot your password?</a>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <% flash.each do |message_type, message| %>
+        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+      <% end %> 
     
   </body>
