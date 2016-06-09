@@ -33,8 +33,8 @@ class CompaniesController < ApplicationController
   # end
 
   def destroy
-    Company.find(params[:id].destroy
-      flash[:success] = "Company deleted"  
+    #Company.find(params[:id].destroy
+     # flash[:success] = 'Company deleted' 
   end
 
   private
