@@ -58,6 +58,7 @@ Rails.application.routes.draw do
   # make Employees editable records that belong to companies by id
   resources :companies do
     resources :employees
+    resources :benefit_profiles
   end
   # this creates resources to have EEs belong to companies, and are listed here:
   #     company_employees GET    /companies/:company_id/employees(.:format)          employees#index
@@ -68,6 +69,16 @@ Rails.application.routes.draw do
   #                       PATCH  /companies/:company_id/employees/:id(.:format)      employees#update
   #                       PUT    /companies/:company_id/employees/:id(.:format)      employees#update
   #                       DELETE /companies/:company_id/employees/:id(.:format)      employees#destroy
+  #
+  #company_benefit_profiles     GET        /companies/:company_id/benefit_profiles(.:format)          benefit_profiles#index
+  #                             POST       /companies/:company_id/benefit_profiles(.:format)          benefit_profiles#create
+  # new_company_benefit_profile GET        /companies/:company_id/benefit_profiles/new(.:format)      benefit_profiles#new
+  #edit_company_benefit_profile GET        /companies/:company_id/benefit_profiles/:id/edit(.:format) benefit_profiles#edit
+  #     company_benefit_profile GET        /companies/:company_id/benefit_profiles/:id(.:format)      benefit_profiles#show
+  #                             PATCH      /companies/:company_id/benefit_profiles/:id(.:format)      benefit_profiles#update
+  #                             PUT        /companies/:company_id/benefit_profiles/:id(.:format)      benefit_profiles#update
+  #                             DELETE     /companies/:company_id/benefit_profiles/:id(.:format)      benefit_profiles#destroy
+
   #             companies GET    /companies(.:format)                                companies#index
   #                       POST   /companies(.:format)                                companies#create
   #           new_company GET    /companies/new(.:format)                            companies#new
