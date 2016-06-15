@@ -10,6 +10,7 @@ class BenefitProfilesController < ApplicationController
   # GET /benefit_profiles/1
   # GET /benefit_profiles/1.json
   def show
+    @benefit_profile = BenefitProfile.find(params[:id])
   end
 
   # GET /benefit_profiles/new
