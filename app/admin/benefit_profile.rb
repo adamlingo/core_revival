@@ -3,9 +3,17 @@ ActiveAdmin.register BenefitProfile do
  menu parent: "Companies"
 
   # Edit fields to save
-  permit_params :name, :provider, :provider_plan, :benefit_type
+  permit_params :name, :company_id, :provider, :provider_plan, :benefit_type
 
-  # Index existent info could be here
+  # Index view of benefits
+  index do
+    selectable_column
+    column :company_id
+    id_column
+    # make EE list reflect showing name of Company here
+    column :provider
+    actions
+  end
 
   # form
   form do |f|
