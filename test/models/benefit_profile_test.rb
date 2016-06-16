@@ -5,7 +5,4 @@ class BenefitProfileTest < ActiveSupport::TestCase
     @benefit_profile ||= BenefitProfile.new
   end
 
-  def test_valid
-    assert benefit_profile.valid?
-  end
 end

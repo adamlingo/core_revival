@@ -5,7 +5,4 @@ class AdminUserTest < ActiveSupport::TestCase
     @admin_user ||= AdminUser.new
   end
 
-  def test_valid
-    assert admin_user.valid?
-  end
 end

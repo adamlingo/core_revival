@@ -5,7 +5,4 @@ class CompanyTest < ActiveSupport::TestCase
     @company ||= Company.new
   end
 
-  def test_valid
-    assert company.valid?
-  end
 end

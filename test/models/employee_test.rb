@@ -5,7 +5,4 @@ class EmployeeTest < ActiveSupport::TestCase
     @employee ||= Employee.new
   end
 
-  def test_valid
-    assert employee.valid?
-  end
 end
