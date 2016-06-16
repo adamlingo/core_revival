@@ -24,10 +24,10 @@ ActiveAdmin.register BenefitProfile do
       f.input :provider, as: :select, :collection => [['BCBS'], ['Delta']]
       f.input :provider_plan, as: :select, :collection => [['Bronze'],['Silver']]
       f.input :benefit_type, as: :select, :collection => [['Medical'], ['Dental']]
-      f.input :employee_category, as: :select, :collection => [['1'], ['2'], ['3'], ['4']]
-      f.input :benefit_category, as: :select, :collection => [['SUB'], ['DEP'], ['SPS'], ['CH+1'], ['SPS+1']]
-      f.input :employer_pay_type, as: :select, :collection => [['%'], ['$']]
-      f.input :benefit_amount, :placeholder => "Benefit Amount"
+      #f.input :employee_category, as: :select, :collection => [['1'], ['2'], ['3'], ['4']]
+      #f.input :benefit_category, as: :select, :collection => [['SUB'], ['DEP'], ['SPS'], ['CH+1'], ['SPS+1']]
+      #f.input :employer_pay_type, as: :select, :collection => [['%'], ['$']]
+      #f.input :benefit_amount, :placeholder => "Benefit Amount"
     end
     f.actions
   end
