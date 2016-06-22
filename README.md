@@ -1,21 +1,56 @@
 # Core
 
-## Running on local:
-Get postgres installed: (http://postgresapp.com/)
+## Requirements
+
+- Ruby
+- Rails
+- postgres
+    - postgresapp is highly recommended: http://postgresapp.com/
+
+## Quick start
+
+### Clone it
+
+Clone the repo and `bundle install` the gems.
+
+```
+git clone https://github.com/CoreEmployeeSolutions/core_redux.git
+cd core_redux
+bundle install
+```
+
+### Update database config
+
 Next, create a database config from the example:
-` cp config/database.example.yml config/database.yml `
-You'll want to update the username section: ` username: yournamehere `
+```
+cp config/database.example.yml config/database.yml
+```
+
+You'll want to update the username section:
+ ` username: yournamehere `
 
 Now we can setup our database:
 ```
 rake db:create
 rake db:migrate
 ```
-You should be ready to go!
 
-### Testing
+### Run it
+
+Launch the app in Rails.
+
+```
+rails s
+```
+
+Behold! The app is running: http://locahost:3000/
+
+
+## Testing
 This app uses minitest for testing. Run the tests with the following command:
-` rake test `
+``` rake test ```
+
+----
 
 ### Production and Stage
 The app lives at:
