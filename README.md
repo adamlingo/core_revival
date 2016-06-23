@@ -5,7 +5,7 @@
 - Ruby
 - Rails
 - postgres
-    - postgresapp is highly recommended: http://postgresapp.com/
+    - postgresapp is highly recommended: http://postgresapp.com/ (Mac only)
 
 ## Quick start
 
