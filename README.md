@@ -1,5 +1,7 @@
 # Core
 
+[![Code Climate](https://codeclimate.com/repos/576c5b1cb43e07008d001e28/badges/c72d3ca9182ffcfc94b2/gpa.svg)](https://codeclimate.com/repos/576c5b1cb43e07008d001e28/feed)
+
 ## Requirements
 
 - Ruby
