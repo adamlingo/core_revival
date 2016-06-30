@@ -48,6 +48,11 @@ gem 'activeadmin', github: 'activeadmin'
 # ERROR MONITORING
 gem 'sentry-raven'
 
+# Mailgun gems
+gem 'rest-client'
+
+gem 'mailgun-ruby'
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
