@@ -27,8 +27,11 @@ permit_params :name, :email, :processor_name, :address, :city, :state, :zip, :ph
     column :state
     column :zip
     column :phone_number
-    
-    actions
+
+    actions do |company|
+      link_to "Employees" , admin_employees_path
+    end
+
   end
 
   # Search filters
