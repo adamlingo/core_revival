@@ -21,13 +21,18 @@ permit_params :name, :email, :processor_name, :address, :city, :state, :zip, :ph
     # id_column
     column :name
     column :email
-    column :processor_name
+    # column :processor_name
     column :address
     column :city
     column :state
     column :zip
     column :phone_number
-    actions
+
+    actions dropdown: true do
+      item "Employees", admin_employees_path
+      item "Benefit Profiles", admin_benefit_profiles_path
+    end
+
   end
 
   # Search filters
