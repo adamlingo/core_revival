@@ -18,6 +18,8 @@ ActiveAdmin.register Employee do
     actions
   end
 
+  filter :company
+  filter :name
   filter :email
   filter :current_sign_in_at
   filter :sign_in_count
