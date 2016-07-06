@@ -7,8 +7,6 @@ ActiveAdmin.setup do |config|
 
   end
 
-  config.allow_comments = false
-
   # == Site Title
   #
   # Set the title that is displayed on the main layout
@@ -129,7 +127,7 @@ ActiveAdmin.setup do |config|
   # This allows your users to comment on any resource registered with Active Admin.
   #
   # You can completely disable comments:
-  # config.comments = false
+  config.comments = false
   #
   # You can change the name under which comments are registered:
   # config.comments_registration_name = 'AdminComment'
