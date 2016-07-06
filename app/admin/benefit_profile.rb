@@ -11,7 +11,7 @@ ActiveAdmin.register BenefitProfile do
     column :company_id
     id_column
     column :provider
-    actions dropdown: true do |benefit_profile|
+    actions dropdown: true do
       item "Employees", admin_employees_path
       item "Return to Company", admin_companies_path
     end
