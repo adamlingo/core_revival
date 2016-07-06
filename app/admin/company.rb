@@ -28,8 +28,9 @@ permit_params :name, :email, :processor_name, :address, :city, :state, :zip, :ph
     column :zip
     column :phone_number
 
-    actions do |company|
-      link_to "Employees" , admin_employees_path
+    actions dropdown: true do |company|
+      item "Employees", admin_employees_path
+      item "Benefit Profiles", admin_benefit_profiles_path
     end
 
   end
