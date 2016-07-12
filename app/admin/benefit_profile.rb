@@ -1,6 +1,7 @@
 ActiveAdmin.register BenefitProfile do
 
- menu priority: 5
+ menu priority: 6
+ belongs_to :company
 
   # Edit fields to save
   permit_params :name, :company_id, :provider, :provider_plan, :benefit_type
@@ -11,8 +12,11 @@ ActiveAdmin.register BenefitProfile do
     column :company_id
     id_column
     column :provider
-    actions dropdown: true do
-      item "Employees", admin_employees_path
+    column :provider_plan
+    column :benefit_type
+    actions dropdown: true do |company|
+      item "Employees", admin_company_employees_path(company)
+      # item "Benefit Details", admin_employee_benefit_details_path(company)
       item "Return to Company", admin_companies_path
     end
   end
