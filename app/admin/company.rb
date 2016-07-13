@@ -1,5 +1,6 @@
 ActiveAdmin.register Company do
 menu priority: 4
+
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
@@ -12,13 +13,13 @@ menu priority: 4
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
-permit_params :name, :email, :processor_name, :address, :city, :state, :zip, :phone_number, :federal_id_number,
+permit_params :name, :company_id, :email, :processor_name, :address, :city, :state, :zip, :phone_number, :federal_id_number,
                       :state_wh_number, :unemployment_number
 
   index do
     # Admin columns to show for Company
     selectable_column
-    # id_column
+    id_column
     column :name
     column :email
     # column :processor_name
@@ -28,9 +29,9 @@ permit_params :name, :email, :processor_name, :address, :city, :state, :zip, :ph
     column :zip
     column :phone_number
 
-    actions dropdown: true do
-      item "Employees", admin_employees_path
-      item "Benefit Profiles", admin_benefit_profiles_path
+    actions dropdown: true do |company|
+      item "Employees", admin_company_employees_path(company)
+      item "Benefit Profiles", admin_company_benefit_profiles_path(company)
     end
 
   end
