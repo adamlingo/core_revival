@@ -1,8 +1,8 @@
 ActiveAdmin.register Employee do
   # permit_params :email, :password, :password_confirmation
   # ^^ save defaults just in case
-
-  menu parent: "Companies"
+  menu priority: 5
+  belongs_to :company
 
   # Edit fields to save
   permit_params :name, :company_id, :email, :address, :city, :state, :zip, :phone_number
@@ -15,7 +15,10 @@ ActiveAdmin.register Employee do
     column :name
     column :email
     column :created_at
-    actions
+    actions dropdown: true do |employee|
+      #item "Benefit Profiles", admin_company_benefit_profiles_path(company)
+      item "Benefit Details", admin_employee_benefit_details_path(employee)
+    end
   end
 
   filter :company
