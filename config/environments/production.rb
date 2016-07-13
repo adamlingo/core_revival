@@ -78,6 +78,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # BEGIN SETTING UP PRODUCTION ENV VARIABLES FOR DEVISE
-  config.action_mailer.default_url_options = { :host => 'https://coreapp.herokuapp.com' }
+  # config.action_mailer.default_url_options = { :host => 'https://coreapp.herokuapp.com' }
 
 end
