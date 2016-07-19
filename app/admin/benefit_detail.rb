@@ -4,7 +4,7 @@ ActiveAdmin.register BenefitDetail do
 # belongs_to :benefit_profile
 belongs_to :employee
 
-permit_params :employee_category, :benefit_method, :employee_id, :benefit_profile_id
+permit_params :employee_category, :benefit_method, :employee_id, :benefit_profile_id, :category_sub, :category_dep, :category_sps, :category_ch_pls_one, :category_sps_pls_one
 
 # index details to benefit_profile
 index do
@@ -12,8 +12,12 @@ index do
     column :benefit_profile_id
     column :employee_id
     id_column
+    column :category_sub
+    column :category_dep
+    column :category_sps
+    column :category_ch_pls_one
+    column :category_sps_pls_one
     
-    # column :provider
     actions
   end
 
@@ -28,7 +32,12 @@ index do
       f.input :employee_category, as: :select, :collection => [['1 Employee'], ['2 Manager'], ['3 Owner']]
       # f.input :benefit_category, as: :select, :collection => [['SUB'], ['DEP'], ['SPS'], ['CH+1'], ['SPS+1']]
       # f.input :benefit_method, as: :select, :collection => [['%'], ['$']]
-      f.input :benefit_amount
+      # f.input :benefit_amount
+      f.input :category_sub
+      f.input :category_dep
+      f.input :category_sps
+      f.input :category_ch_pls_one
+      f.input :category_sps_pls_one
 
     end
     f.actions
