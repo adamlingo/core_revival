@@ -14,9 +14,8 @@ ActiveAdmin.register BenefitProfile do
     column :provider
     column :provider_plan
     column :benefit_type
-    actions dropdown: true do |company|
-      item "Employees", admin_company_employees_path(company)
-      # item "Benefit Details", admin_employee_benefit_details_path(company)
+    actions dropdown: true do
+      item "Employees", admin_company_employees_path
       item "Return to Company", admin_companies_path
     end
   end
