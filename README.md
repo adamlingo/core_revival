@@ -56,18 +56,14 @@ This app uses minitest for testing. Run the tests with the following command:
 
 ### Production and Stage
 The app lives at:
-prod:  * updating live site link soon!
-stage: * TBD on implementation date.
+prod:  core-redux.herokuapp.com
 
 ### Hosting
 The app is hosted at heroku.
 DNS is hosted at Godaddy
 
-### Dev Flow
-Read more about the dev flow: https://github.com/CoreEmployeeSolutions/core/wiki/Dev-Flow
-
-### Deployments
-Read more about deployments: https://github.com/CoreEmployeeSolutions/core/wiki/Deployments
+### Custom Rake
+Read more about copying the production db: https://github.com/CoreEmployeeSolutions/core_redux/wiki/Custom-Rake
 
 ### Jobs
-Read more about scheduled jobs here: https://github.com/CoreEmployeeSolutions/core/wiki/Scheduled-Jobs
+Read more about scheduled jobs here: https://github.com/CoreEmployeeSolutions/core_redux/wiki/
