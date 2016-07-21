@@ -54,9 +54,9 @@ This app uses minitest for testing. Run the tests with the following command:
 
 ----
 
-### Production and Stage
-The app lives at:
-prod:  core-redux.herokuapp.com
+### Production
+The app is live at:
+https://core-redux.herokuapp.com
 
 ### Hosting
 The app is hosted at heroku.
