@@ -19,7 +19,9 @@ index do
     column :category_ch_pls_one
     column :category_sps_pls_one
     
-    actions
+    actions dropdown: true do
+      item "Return to Companies", admin_companies_path
+    end
   end
 
 
@@ -29,13 +31,13 @@ index do
       # f.input :name, label: 'Provider Co. Name', :placeholder => "(i.e. BCBS)"
       
       # f.input Employee.find(resource.employee_id).name, readonly: true, label: 'Name'
-      f.input :benefit_profile_id, as: :select, collection: BenefitProfile.where(company_id: Employee.find(resource.employee_id).company_id).map{|b| ["#{b.company_id} #{b.provider} #{b.provider_plan}", b.id]}
+      f.input :benefit_profile_id, as: :select, collection: BenefitProfile.where(company_id: Employee.find(resource.employee_id).company_id).map{|b| ["#{b.provider} #{b.provider_plan}", b.id]}
       f.input :employee_category, as: :select, :collection => [['1 Employee'], ['2 Manager'], ['3 Owner']]
-      f.input :category_sub
-      f.input :category_dep
-      f.input :category_sps
-      f.input :category_ch_pls_one
-      f.input :category_sps_pls_one
+      f.input :category_sub, label: 'SUB Amount'
+      f.input :category_dep, label: 'DEP Amount'
+      f.input :category_sps, label: 'SPS Amount'
+      f.input :category_ch_pls_one, label: 'CH + 1 Amount'
+      f.input :category_sps_pls_one, label: 'SPS + 1 Amount'
 
     end
     f.actions
