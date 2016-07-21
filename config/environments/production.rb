@@ -80,4 +80,7 @@ Rails.application.configure do
   # BEGIN SETTING UP PRODUCTION ENV VARIABLES FOR DEVISE
   # config.action_mailer.default_url_options = { :host => 'https://coreapp.herokuapp.com' }
 
+  # SENTRY ENV variable, Heroku > Settings has DSN link
+  config.dsn = ENV["SENTRY_DSN"]
+
 end
