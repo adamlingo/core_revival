@@ -8,4 +8,4 @@ exclude_paths:
 # example:
 # "app/assets/javascripts/modal_for_active_admin.js"
 
-- "app/db/schema.rb"
+- "db/schema.rb"
