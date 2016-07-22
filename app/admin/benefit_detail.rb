@@ -4,7 +4,8 @@ ActiveAdmin.register BenefitDetail do
 # belongs_to :benefit_profile
 belongs_to :employee
 
-permit_params :employee_category, :benefit_category, :benefit_amount, :benefit_method, :employee_id, :benefit_profile_id
+permit_params :employee_category, :benefit_method, :employee_id, :benefit_profile_id, 
+  :category_sub, :category_dep, :category_sps, :category_ch_pls_one, :category_sps_pls_one
 
 # index details to benefit_profile
 index do
@@ -12,9 +13,15 @@ index do
     column :benefit_profile_id
     column :employee_id
     id_column
+    column :category_sub
+    column :category_dep
+    column :category_sps
+    column :category_ch_pls_one
+    column :category_sps_pls_one
     
-    # column :provider
-    actions
+    actions dropdown: true do
+      item "Return to Companies", admin_companies_path
+    end
   end
 
 
@@ -23,12 +30,14 @@ index do
       f.inputs "Benefit Details" do
       # f.input :name, label: 'Provider Co. Name', :placeholder => "(i.e. BCBS)"
       
-      f.input :employee_id, label: 'Name'
-      #f.input :benefit_profile_id, as: :select, collection: BenefitProfile.where(company_id: Employee.find(:employee_id).company_id).map{|b| ["#{b.company_id} #{b.provider} #{b.provider_plan}", b.id]}
+      # f.input Employee.find(resource.employee_id).name, readonly: true, label: 'Name'
+      f.input :benefit_profile_id, as: :select, collection: BenefitProfile.where(company_id: Employee.find(resource.employee_id).company_id).map{|b| ["#{b.provider} #{b.provider_plan}", b.id]}
       f.input :employee_category, as: :select, :collection => [['1 Employee'], ['2 Manager'], ['3 Owner']]
-      f.input :benefit_category, as: :select, :collection => [['SUB'], ['DEP'], ['SPS'], ['CH+1'], ['SPS+1']]
-      f.input :benefit_method, as: :select, :collection => [['%'], ['$']]
-      f.input :benefit_amount
+      f.input :category_sub, label: 'SUB Amount'
+      f.input :category_dep, label: 'DEP Amount'
+      f.input :category_sps, label: 'SPS Amount'
+      f.input :category_ch_pls_one, label: 'CH + 1 Amount'
+      f.input :category_sps_pls_one, label: 'SPS + 1 Amount'
 
     end
     f.actions

@@ -5,24 +5,25 @@ ActiveAdmin.register Employee do
   belongs_to :company
 
   # Edit fields to save
-  permit_params :name, :company_id, :email, :address, :city, :state, :zip, :phone_number
+  permit_params :name, :first_name, :last_name, :company_id, :email, :address, :city, :state, :zip, :phone_number
   
   index do
     selectable_column
     column :company_id
     id_column
     # make EE list reflect showing name of Company here
-    column :name
+    column :last_name
+    column :first_name
     column :email
     column :created_at
     actions dropdown: true do |employee|
-      #item "Benefit Profiles", admin_company_benefit_profiles_path(company)
       item "Benefit Details", admin_employee_benefit_details_path(employee)
+      item "Return to Companies", admin_companies_path
     end
   end
 
-  filter :company
-  filter :name
+  filter :first_name
+  filter :last_name
   filter :email
   filter :current_sign_in_at
   filter :sign_in_count
@@ -30,8 +31,9 @@ ActiveAdmin.register Employee do
 
   form do |f|
     f.inputs "Employee Details" do
-      f.input :name, label: 'Employee Name', :placeholder => "Employee Name"
-      # EE must be attached to an existent Company
+      f.input :first_name, label: 'First Name', :placeholder => "First Name"
+      f.input :last_name, label: 'Last Name', :placeholder => "Last Name"
+      # EE must be attached to an existent Company, UNMAP FROM ALL TO CURRENT!!
       f.input :company_id, as: :select, collection: Company.all.map{|c| ["#{c.name}", c.id]}
       # EE must also be a current user
       # f.input :user_id, as: :select, collection: User.all.map{|u| ["#{u.last_name} , #{u.first_name}", u.id]}
