@@ -1,8 +1,15 @@
 require "test_helper"
 
+employee(:alice, :blaze, :charlie)
+benefit_detail(:fixed, :%)
+company(:acme, :bovine)
+
+
 class ReconciliationTest < ActiveSupport::TestCase
   
   # test data is valid
+  
+  # test dep calculates correctly
   
   # tests difference computation by reversing computation
   
