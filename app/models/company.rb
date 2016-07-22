@@ -5,6 +5,7 @@ class Company < ActiveRecord::Base
   # Company is parent of employees
   has_many :employees
   has_many :benefit_profiles
+  # has_many :benefit_details
 
   validates_presence_of :name
 end
