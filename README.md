@@ -1,5 +1,7 @@
 # Core
 
+## Integrations & Code Quality
+[![Codeship Status for boennemann/badges](https://www.codeship.io/projects/fbb227e0-e949-0133-529a-7a94674dea5d/status?branch=master)](https://www.codeship.io/projects/12448)
 [![Code Climate](https://codeclimate.com/repos/576c5b1cb43e07008d001e28/badges/c72d3ca9182ffcfc94b2/gpa.svg)](https://codeclimate.com/repos/576c5b1cb43e07008d001e28/feed)
 <a href="https://codeclimate.com/repos/576c5b1cb43e07008d001e28/feed"><img src="https://codeclimate.com/repos/576c5b1cb43e07008d001e28/badges/c72d3ca9182ffcfc94b2/issue_count.svg" /></a>
 
