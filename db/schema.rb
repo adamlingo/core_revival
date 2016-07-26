@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160720231246) do
+ActiveRecord::Schema.define(version: 20160721213738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,25 +50,31 @@ ActiveRecord::Schema.define(version: 20160720231246) do
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "benefit_details", force: :cascade do |t|
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.string   "employee_category"
     t.string   "benefit_category"
     t.string   "benefit_method"
     t.string   "benefit_amount"
     t.integer  "employee_id"
     t.integer  "benefit_profile_id"
+    t.decimal  "category_sub"
+    t.decimal  "category_dep"
+    t.decimal  "category_sps"
+    t.decimal  "category_ch_pls_one"
+    t.decimal  "category_sps_pls_one"
     t.string   "employee_tier"
   end
 
   create_table "benefit_profiles", force: :cascade do |t|
     t.string   "name"
     t.integer  "company_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "provider"
     t.string   "provider_plan"
     t.string   "benefit_type"
+    t.string   "benefit_method"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -98,6 +104,8 @@ ActiveRecord::Schema.define(version: 20160720231246) do
     t.string   "state"
     t.string   "zip"
     t.string   "phone_number"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   create_table "recons", force: :cascade do |t|

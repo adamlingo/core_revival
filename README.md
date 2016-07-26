@@ -1,6 +1,9 @@
 # Core
 
+## Integrations & Code Quality
+[![Codeship Status for boennemann/badges](https://www.codeship.io/projects/fbb227e0-e949-0133-529a-7a94674dea5d/status?branch=master)](https://www.codeship.io/projects/12448)
 [![Code Climate](https://codeclimate.com/repos/576c5b1cb43e07008d001e28/badges/c72d3ca9182ffcfc94b2/gpa.svg)](https://codeclimate.com/repos/576c5b1cb43e07008d001e28/feed)
+<a href="https://codeclimate.com/repos/576c5b1cb43e07008d001e28/feed"><img src="https://codeclimate.com/repos/576c5b1cb43e07008d001e28/badges/c72d3ca9182ffcfc94b2/issue_count.svg" /></a>
 
 ## Requirements
 
@@ -54,20 +57,16 @@ This app uses minitest for testing. Run the tests with the following command:
 
 ----
 
-### Production and Stage
-The app lives at:
-prod:  * updating live site link soon!
-stage: * TBD on implementation date.
+### Production
+The app is live at:
+https://core-redux.herokuapp.com
 
 ### Hosting
 The app is hosted at heroku.
 DNS is hosted at Godaddy
 
-### Dev Flow
-Read more about the dev flow: https://github.com/CoreEmployeeSolutions/core/wiki/Dev-Flow
-
-### Deployments
-Read more about deployments: https://github.com/CoreEmployeeSolutions/core/wiki/Deployments
+### Custom Rake
+Read more about copying the production db: https://github.com/CoreEmployeeSolutions/core_redux/wiki/Custom-Rake
 
 ### Jobs
-Read more about scheduled jobs here: https://github.com/CoreEmployeeSolutions/core/wiki/Scheduled-Jobs
+Read more about scheduled jobs here: https://github.com/CoreEmployeeSolutions/core_redux/wiki/
