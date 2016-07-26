@@ -1,3 +1,4 @@
+class Reconciliation < ActiveRecord::Base
 # ee_category
 
 def employee
@@ -117,6 +118,8 @@ def difference
     difference = insurance.amount - total_co_amount  #need insurance.amount updated with csv reference
     
     puts difference
+end
+
 end
 
             
