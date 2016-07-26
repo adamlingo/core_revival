@@ -1,8 +1,8 @@
 require "test_helper"
 
-employee(:alice, :blaze, :charlie)
-benefit_detail(:fixed, :%)
-company(:acme, :bovine)
+#employee(:alice, :blaze, :charlie)
+#benefit_detail(:fixed, :%)
+#company(:acme, :bovine)
 
 
 class ReconciliationTest < ActiveSupport::TestCase
