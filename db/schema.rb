@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721213738) do
+ActiveRecord::Schema.define(version: 20160726220833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20160721213738) do
     t.decimal  "category_sps"
     t.decimal  "category_ch_pls_one"
     t.decimal  "category_sps_pls_one"
+    t.string   "employee_tier"
   end
 
   create_table "benefit_profiles", force: :cascade do |t|
