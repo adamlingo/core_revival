@@ -1,10 +1,23 @@
 class HealthInvoicesController < ApplicationController
   before_action :set_health_invoice, only: [:show, :edit, :update, :destroy]
+  # before_filter :authenticate_user!
 
   # GET /health_invoices
   # GET /health_invoices.json
   def index
     @health_invoices = HealthInvoice.all
+    respond_to do |format|
+      format.html
+      format.csv {send_data @health_invoices.to_csv(['Account', 'Billing Profile','Category', 'Product', 'Subscriber ID', 
+                                                      'Subscriber Name', 'Tier', 'Change Reason', 'Retro Fee Adjustment', 
+                                                      'Current Charges', 'Total Charges'])}
+                                                      
+    end
+  end
+
+  def import
+    HealthInvoice.import(params[:file])
+    redirect_to root_url, notice: "Health Invoice imported."
   end
 
   # GET /health_invoices/1
