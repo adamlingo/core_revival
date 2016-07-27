@@ -90,6 +90,9 @@ Rails.application.routes.draw do
   #                       GET    /:controller(/:action(/:id(.:format)))              :controller#:action
 
 
+  resources :health_invoices do
+    collection { post :import }
+  end
 
    # default route syntax at bottom instead of get... will match if all other routes fail
   match ':controller(/:action(/:id(.:format)))', :via => :get
