@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Health Invoices</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @health_invoices.each do |health_invoice| %>
+      <tr>
+        <td><%= link_to 'Show', health_invoice %></td>
+        <td><%= link_to 'Edit', edit_health_invoice_path(health_invoice) %></td>
+        <td><%= link_to 'Destroy', health_invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Health invoice', new_health_invoice_path %>
