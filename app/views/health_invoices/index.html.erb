@@ -4,7 +4,7 @@
 
 <%= form_tag import_health_invoices_path, multipart: true, class: 'form-inline' do %>
   <div class="form-group">
-    <%= link_to "Export Health CSV", health_invoices_path(format: :csv), class: 'btn btn-primary'%>
+    <!--<%= link_to "Export Health CSV", health_invoices_path(format: :csv), class: 'btn btn-primary'%>-->
   </div>
 
   <div class="form-group">
@@ -27,7 +27,7 @@
     <% @health_invoices.each do |health_invoice| %>
       <tr>
         <td><%= health_invoice.account_number %></td>
-        <td><%= health_invoice.billing_profile %></td>
+        <td><%= health_invoice.sub_name %></td>
         <td><%= link_to 'Show', health_invoice %></td>
         <td><%= link_to 'Edit', edit_health_invoice_path(health_invoice) %></td>
         <td><%= link_to 'Destroy', health_invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
