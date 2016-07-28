@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160727210754) do
+ActiveRecord::Schema.define(version: 20160728161620) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,8 @@ ActiveRecord::Schema.define(version: 20160727210754) do
     t.decimal  "retro_fee_adjustment"
     t.decimal  "current_charges"
     t.decimal  "total_charges"
+    t.integer  "month"
+    t.integer  "year"
   end
 
   create_table "users", force: :cascade do |t|
