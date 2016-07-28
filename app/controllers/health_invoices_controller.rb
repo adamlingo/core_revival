@@ -17,7 +17,7 @@ class HealthInvoicesController < ApplicationController
 
   def import
     HealthInvoice.import(params[:file])
-    redirect_to root_url, notice: "Health Invoice imported."
+    redirect_to health_invoices_path, notice: "Health Invoice imported."
   end
 
   # GET /health_invoices/1
