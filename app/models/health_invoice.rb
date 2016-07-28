@@ -10,11 +10,15 @@ class HealthInvoice < ActiveRecord::Base
   end
 
   def self.import(file)
+    # Parse file name for Year/Month
+
     CSV.foreach(file.path, headers: true) do |row|
       health_invoice_hash = row.to_hash
+      puts health_invoice_hash
+      # all columns in Health csv
       health_invoice = find_or_create_by!(account_number: health_invoice_hash['Account'],
-                                          health_sub_name: health_invoice_hash['Subscriber Name'])
-      health_invoice.update_attributes(health_invoice_hash)
+                                          sub_name: health_invoice_hash['Subscriber Name'])
+      health_invoice.save!
     end
   end
 end
