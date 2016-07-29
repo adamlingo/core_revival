@@ -25,6 +25,7 @@ end
 
 # lookup health invoice for dependent
 # need date validation
+<<<<<<< HEAD
 
 def health_invoice_dep
   
@@ -37,6 +38,20 @@ def ee_category
     employee.employee_category
 end
 
+=======
+
+def health_invoice_dep
+  
+    health_invoice_dep = Health_invoice.where(tier: "DEP").sum(:amount)
+end
+
+# define ee category
+def ee_category
+
+    employee.employee_category
+end
+
+>>>>>>> health-invoice-csv
 # defin employer pay for subscriber
 def er_pay_sub
   
@@ -69,6 +84,7 @@ def ee_deduct_amount
             else
                 ee_deduct_amount = "N/A-DEPENDENT"
             end
+<<<<<<< HEAD
             
         else 
             
@@ -119,6 +135,35 @@ def ee_deduction_converted
 end
 >>>>>>> Stashed changes
 
+=======
+            
+        else 
+            
+            ee_deduct_amount = "NO MATCH"
+end
+
+#  ee_deduct_converted payroll.number from csv import
+def ee_deduction_converted
+        if payroll.number == 1 or 2 && Company.pay_frequency == "Monthly" or "Semi-Monthly"
+         ee_deduction_converted = ee_deduct_amount
+         
+        else if payroll.number == 2 && Company.pay_frequency == "Bi-Weekly"
+         ee_deduction_converted = ee_deduct_amount / 2 * 26 / 12
+         
+        else if payroll.number == 3 && Company.pay_frequency == "Bi-Weekly"
+         ee_deduction_converted = ee_deduct_amount / 3 * 26 / 12
+         
+        else if payroll.number == 4 && Company.pay_frequency == "Weekly"
+         ee_deduction_converted = ee_deduct_amount / 4 * 52 / 12
+         
+        else if payroll.number == 5 && Company.pay_frequency == "Weekly"
+         ee_deduction_converted = ee_deduct_amount / 5 * 52 / 12
+         
+        else ee_deduction_converted = ee_deduct_amount
+        end
+end
+
+>>>>>>> health-invoice-csv
 # #  total_co_amount
 # #  Still need to address situation where er pays portion of dependent coverage
 def total_co_amount
@@ -141,6 +186,7 @@ end
 def difference
         difference = health_invoice - total_co_amount  #need insurance.amount updated with csv reference
         puts difference
+<<<<<<< HEAD
     
 end
 
@@ -148,6 +194,10 @@ end
 
 
 
+=======
+end
+
+>>>>>>> health-invoice-csv
 # #  er_pay_amount
 
 # def er_pay_amount
@@ -171,4 +221,10 @@ end
 #     er_pay_amount
     
 # end
+<<<<<<< HEAD
 # #  er_pay employer pay for subscriber
+=======
+# #  er_pay employer pay for subscriber
+
+end
+>>>>>>> health-invoice-csv
