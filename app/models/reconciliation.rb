@@ -3,9 +3,9 @@ class Reconciliation < ActiveRecord::Base
 # for each employee, using defined terms below, reconcile the health_invoice amount to
 # the total company amount
 
-employees.each do |ee, dif|
-    puts "#{ee} and #{diff}"
-end
+#employees.each do |ee, dif|
+    #puts "#{ee} and #{diff}"
+#end
 
 
 # ee_category
@@ -71,30 +71,30 @@ def ee_deduct_amount
                 ee_deduct_amount = "N/A-DEPENDENT"
             end
             
-        else 
+        # else 
             
-            ee_deduct_amount = "NO MATCH"
+        #     ee_deduct_amount = "NO MATCH"
 end
 
 #  ee_deduct_converted payroll.number from csv import
 def ee_deduction_converted
-        if payroll.number == 1 or 2 && Company.pay_frequency == "Monthly" or "Semi-Monthly"
-         ee_deduction_converted = ee_deduct_amount
+        # if payroll.number == 1 or 2 && Company.pay_frequency == "Monthly" or "Semi-Monthly"
+        #  ee_deduction_converted = ee_deduct_amount
          
-        else if payroll.number == 2 && Company.pay_frequency == "Bi-Weekly"
-         ee_deduction_converted = ee_deduct_amount / 2 * 26 / 12
+        # elseif payroll.number == 2 && Company.pay_frequency == "Bi-Weekly"
+        #  ee_deduction_converted = ee_deduct_amount / 2 * 26 / 12
          
-        else if payroll.number == 3 && Company.pay_frequency == "Bi-Weekly"
-         ee_deduction_converted = ee_deduct_amount / 3 * 26 / 12
+        # elseif payroll.number == 3 && Company.pay_frequency == "Bi-Weekly"
+        #  ee_deduction_converted = ee_deduct_amount / 3 * 26 / 12
          
-        else if payroll.number == 4 && Company.pay_frequency == "Weekly"
-         ee_deduction_converted = ee_deduct_amount / 4 * 52 / 12
+        # elseif payroll.number == 4 && Company.pay_frequency == "Weekly"
+        #  ee_deduction_converted = ee_deduct_amount / 4 * 52 / 12
          
-        else if payroll.number == 5 && Company.pay_frequency == "Weekly"
-         ee_deduction_converted = ee_deduct_amount / 5 * 52 / 12
+        # elseif payroll.number == 5 && Company.pay_frequency == "Weekly"
+        #  ee_deduction_converted = ee_deduct_amount / 5 * 52 / 12
          
-        else ee_deduction_converted = ee_deduct_amount
-        end
+        # else ee_deduction_converted = ee_deduct_amount
+        # end
 end
 
 
