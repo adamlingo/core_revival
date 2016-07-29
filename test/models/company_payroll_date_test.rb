@@ -6,7 +6,6 @@ class CompanyPayrollDateTest < ActiveSupport::TestCase
   end
 
   def test_valid
-    skip
-    #assert company_payroll_date.valid?
+    assert company_payroll_date.valid?
   end
 end
