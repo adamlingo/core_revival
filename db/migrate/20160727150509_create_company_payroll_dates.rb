@@ -5,7 +5,5 @@ class CreateCompanyPayrollDates < ActiveRecord::Migration
       t.string :pay_period
       t.timestamps null: false
     end
-    
-    add_column :companies, :id, :string
   end
 end
