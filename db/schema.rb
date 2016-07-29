@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160727002924) do
+ActiveRecord::Schema.define(version: 20160727150509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,12 +58,12 @@ ActiveRecord::Schema.define(version: 20160727002924) do
     t.string   "benefit_amount"
     t.integer  "employee_id"
     t.integer  "benefit_profile_id"
-    t.string   "employee_tier"
     t.decimal  "category_sub"
     t.decimal  "category_dep"
     t.decimal  "category_sps"
     t.decimal  "category_ch_pls_one"
     t.decimal  "category_sps_pls_one"
+    t.string   "employee_tier"
   end
 
   create_table "benefit_profiles", force: :cascade do |t|
@@ -94,6 +94,13 @@ ActiveRecord::Schema.define(version: 20160727002924) do
     t.string   "pay_frequency"
   end
 
+  create_table "company_payroll_dates", force: :cascade do |t|
+    t.string   "year"
+    t.string   "pay_period"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "employees", force: :cascade do |t|
     t.string   "name"
     t.integer  "company_id"
@@ -109,9 +116,22 @@ ActiveRecord::Schema.define(version: 20160727002924) do
     t.string   "last_name"
   end
 
-  create_table "recons", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "health_invoices", force: :cascade do |t|
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.string   "account_number"
+    t.string   "billing_profile"
+    t.integer  "category"
+    t.string   "product"
+    t.string   "health_sub_id"
+    t.string   "sub_name"
+    t.string   "tier"
+    t.string   "change_reason"
+    t.decimal  "retro_fee_adjustment"
+    t.decimal  "current_charges"
+    t.decimal  "total_charges"
+    t.integer  "month"
+    t.integer  "year"
   end
 
   create_table "users", force: :cascade do |t|
