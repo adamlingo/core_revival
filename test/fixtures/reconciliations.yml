@@ -8,30 +8,29 @@
 acme co:
   number_pay_periods: 2
     
-    
 bovine inc.:
   number_pay_periods: 3
 
 alice:
-  benefit_detail: fixed
+  benefit_detail: 'fixed'
     
 blaze:
-  #benefit_detail: %
+  benefit_detail: '%'
  
 fixed:
-  benefit_method: FIXED
+  benefit_method: 'FIXED'
   benefit_amount: 200
   employee_category: 1
-  employee_tier: sub
+  employee_tier: 'sub'
 
 percentage:
-  #benefit_method: %
+  benefit_method: '%'
   benefit_amount: .50
   employee_category: 1
-  employee_tier: sub
+  employee_tier: 'sub'
     
 charlie:
-  employee_tier: dep
+  employee_tier: 'dep'
     
 # insurance deduction
 #  Need data schema from csv import
