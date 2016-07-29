@@ -4,7 +4,7 @@
 # This model initially had no columns defined.  If you add columns to the
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
-#
+
 acme co:
   number_pay_periods: 2
     
@@ -16,7 +16,7 @@ alice:
   benefit_detail: fixed
     
 blaze:
-  benefit_detail: %
+  #benefit_detail: %
  
 fixed:
   benefit_method: FIXED
@@ -25,7 +25,7 @@ fixed:
   employee_tier: sub
 
 percentage:
-  benefit_method: %
+  #benefit_method: %
   benefit_amount: .50
   employee_category: 1
   employee_tier: sub
@@ -33,11 +33,11 @@ percentage:
 charlie:
   employee_tier: dep
     
-insurance deduction
- Need data schema from csv import
+# insurance deduction
+#  Need data schema from csv import
 
-column: value
+# column: value
 
-comment out second column to kill duplicate key postgres errors
-two: {}
- column: value
+# comment out second column to kill duplicate key postgres errors
+# two: {}
+#  column: value
