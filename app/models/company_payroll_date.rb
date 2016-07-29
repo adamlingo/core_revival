@@ -10,7 +10,7 @@ class CompanyPayrollDate < ActiveRecord::Base
    
    def initial_date
        #need to be next period end date
-       initial_date = 
+       #initial_date = 
    end
    
    def pay_frequency
@@ -21,16 +21,18 @@ class CompanyPayrollDate < ActiveRecord::Base
        
        100.times do |n|
            initial_date
-           if pay_frequency = "Monthly"
+           if pay_frequency == "Monthly"
                pay_period = initial_date
                
-           else if pay_frequency = "Semi-Monthly"
+           elseif pay_frequency == "Semi-Monthly"
                
-           else if pay_frequency = "Bi-Weekly"
+           elseif pay_frequency == "Bi-Weekly"
                
-           else if pay_frequency = "Weekly"
+           elseif pay_frequency == "Weekly"
                
-           else
+           #else
+          end
+        end
    end
    
   # def next inc
