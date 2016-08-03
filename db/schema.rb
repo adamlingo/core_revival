@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728161620) do
+ActiveRecord::Schema.define(version: 20160729170215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,14 @@ ActiveRecord::Schema.define(version: 20160728161620) do
     t.string   "state_wh_number"
     t.string   "unemployment_number"
     t.string   "processor_name"
+    t.string   "pay_frequency"
+  end
+
+  create_table "company_payroll_dates", force: :cascade do |t|
+    t.string   "year"
+    t.string   "pay_period"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "employees", force: :cascade do |t|
@@ -124,6 +132,9 @@ ActiveRecord::Schema.define(version: 20160728161620) do
     t.decimal  "total_charges"
     t.integer  "month"
     t.integer  "year"
+  end
+
+  create_table "reconciliations", force: :cascade do |t|
   end
 
   create_table "users", force: :cascade do |t|
