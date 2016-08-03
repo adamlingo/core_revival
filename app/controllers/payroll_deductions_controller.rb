@@ -6,6 +6,10 @@ class PayrollDeductionsController < ApplicationController
   # GET /payroll_deductions.json
   def index
     @payroll_deductions = PayrollDeduction.all
+    # respond_to do |format|
+    #   format.html
+    #   format.csv {send_data @payroll_deductions.to_csv([])}                                               
+    # end
   end
 
   # GET /payroll_deductions/1
