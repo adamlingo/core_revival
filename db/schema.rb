@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803155212) do
+ActiveRecord::Schema.define(version: 20160803164923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,8 +135,13 @@ ActiveRecord::Schema.define(version: 20160803155212) do
   end
 
   create_table "payroll_deductions", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "pay_ee_id"
+    t.string   "pay_sub_id"
+    t.string   "pay_sub_name"
+    t.string   "pay_category"
+    t.decimal  "deduction_amount"
   end
 
   create_table "reconciliations", force: :cascade do |t|
