@@ -135,7 +135,7 @@ Rails.application.routes.draw do
   resources :health_invoices do
     collection { post :import }
   end
-  # routes for health csv import:
+  # routes for health invoices csv import:
   #                    import_health_invoices POST       /health_invoices/import(.:format)                                    health_invoices#import
   #                           health_invoices GET        /health_invoices(.:format)                                           health_invoices#index
   #                                           POST       /health_invoices(.:format)                                           health_invoices#create
@@ -145,6 +145,20 @@ Rails.application.routes.draw do
   #                                           PATCH      /health_invoices/:id(.:format)                                       health_invoices#update
   #                                           PUT        /health_invoices/:id(.:format)                                       health_invoices#update
   #                                           DELETE     /health_invoices/:id(.:format)                                       health_invoices#destroy
+
+  resources :payroll_deductions do
+    collection { post :import }
+  end
+  # routes for payroll deductions csv import:
+  #                 import_payroll_deductions POST       /payroll_deductions/import(.:format)                                 payroll_deductions#import
+  #                        payroll_deductions GET        /payroll_deductions(.:format)                                        payroll_deductions#index
+  #                                           POST       /payroll_deductions(.:format)                                        payroll_deductions#create
+  #                     new_payroll_deduction GET        /payroll_deductions/new(.:format)                                    payroll_deductions#new
+  #                    edit_payroll_deduction GET        /payroll_deductions/:id/edit(.:format)                               payroll_deductions#edit
+  #                         payroll_deduction GET        /payroll_deductions/:id(.:format)                                    payroll_deductions#show
+  #                                           PATCH      /payroll_deductions/:id(.:format)                                    payroll_deductions#update
+  #                                           PUT        /payroll_deductions/:id(.:format)                                    payroll_deductions#update
+  #                                           DELETE     /payroll_deductions/:id(.:format)                                    payroll_deductions#destroy
 
    # default route syntax at bottom instead of get... will match if all other routes fail
   match ':controller(/:action(/:id(.:format)))', :via => :get
