@@ -1,4 +1,6 @@
 class HealthInvoice < ActiveRecord::Base
+  # Need code to fix: "Mass assignment is not restricted using attr_accessible"
+
   # change column_names to specific fields after test
   def self.to_csv(fields = column_names, options = {})
     CSV.generate(options) do |csv|
@@ -16,7 +18,7 @@ class HealthInvoice < ActiveRecord::Base
       health_invoice_hash = row.to_hash
       # all columns in Health csv
       health_invoice = find_or_create_by!(account_number: health_invoice_hash['Account'],
-                                          billing_profile: health_invoice_hash['Billing Profile'],
+                                          billing_profile: health_invoice_hash['BillingProfile'],
                                           category: health_invoice_hash['Category'],
                                           product: health_invoice_hash['Product'],
                                           health_sub_id: health_invoice_hash['Subscriber ID'],

@@ -8,7 +8,7 @@ class HealthInvoicesController < ApplicationController
     @health_invoices = HealthInvoice.all
     respond_to do |format|
       format.html
-      format.csv {send_data @health_invoices.to_csv(['Account', 'Billing Profile','Category', 'Product', 'Subscriber ID', 
+      format.csv {send_data @health_invoices.to_csv(['Account', 'BillingProfile','Category', 'Product', 'Subscriber ID', 
                                                       'Subscriber Name', 'Tier', 'Change Reason', 'Retro Fee Adjustment', 
                                                       'Current Charges', 'Total Charges'])}
                                                       
