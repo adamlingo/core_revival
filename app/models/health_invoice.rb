@@ -25,9 +25,9 @@ class HealthInvoice < ActiveRecord::Base
                                           sub_name: health_invoice_hash['Subscriber Name'],
                                           tier: health_invoice_hash['Tier'],
                                           change_reason: health_invoice_hash['Change Reason'],
-                                          retro_fee_adjustment: health_invoice_hash['RetroFeeAdjustment'],
-                                          current_charges: health_invoice_hash['CurrentCharges'],
-                                          total_charges: health_invoice_hash['TotalCharges'])
+                                          retro_fee_adjustment: health_invoice_hash['RetroFee Adjustment'],
+                                          current_charges: health_invoice_hash['Current Charges'],
+                                          total_charges: health_invoice_hash['Total Charges'])
       health_invoice.save!
     end
   end
