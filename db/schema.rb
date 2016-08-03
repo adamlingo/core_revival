@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160729170215) do
+ActiveRecord::Schema.define(version: 20160803155212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,6 +132,11 @@ ActiveRecord::Schema.define(version: 20160729170215) do
     t.decimal  "total_charges"
     t.integer  "month"
     t.integer  "year"
+  end
+
+  create_table "payroll_deductions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "reconciliations", force: :cascade do |t|
