@@ -58,12 +58,12 @@ ActiveRecord::Schema.define(version: 20160803164923) do
     t.string   "benefit_amount"
     t.integer  "employee_id"
     t.integer  "benefit_profile_id"
+    t.string   "employee_tier"
     t.decimal  "category_sub"
     t.decimal  "category_dep"
     t.decimal  "category_sps"
     t.decimal  "category_ch_pls_one"
     t.decimal  "category_sps_pls_one"
-    t.string   "employee_tier"
   end
 
   create_table "benefit_profiles", force: :cascade do |t|
@@ -145,6 +145,11 @@ ActiveRecord::Schema.define(version: 20160803164923) do
   end
 
   create_table "reconciliations", force: :cascade do |t|
+  end
+
+  create_table "recons", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
