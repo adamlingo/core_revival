@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Payroll Deductions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @payroll_deductions.each do |payroll_deduction| %>
+      <tr>
+        <td><%= link_to 'Show', payroll_deduction %></td>
+        <td><%= link_to 'Edit', edit_payroll_deduction_path(payroll_deduction) %></td>
+        <td><%= link_to 'Destroy', payroll_deduction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Payroll deduction', new_payroll_deduction_path %>
