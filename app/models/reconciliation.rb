@@ -44,7 +44,8 @@ def er_pay_sub
     if employee.benefit_method == "FIXED"
         er_pay_sub = employee.category_sub
     else
-         er_pay_sub = employee.category_sub * health_invoice_sub  
+         er_pay_sub = employee.category_sub * health_invoice_sub
+         
     end
 end
 
@@ -66,7 +67,7 @@ def ee_deduct_amount
     
          # if employee.employee_category == "NO MATCH"
             if employee.tier == "SUB" or "SPS" or "CH1" or "SPS1"
-                ee_deduct_amount = Payroll_deduction.where().sum(:deduction_amount) 
+                ee_deduct_amount = Payroll_deduction.where(pay_sub_id: employee.).sum(:deduction_amount) 
                 # pay_sub_id ?  How to lookup in above call?
             else
                 ee_deduct_amount = "N/A-DEPENDENT"
