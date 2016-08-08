@@ -1,5 +1,7 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
+  # must be logged in
+  before_filter :authenticate_user!
 
   def index
     @employees = Employee.all
