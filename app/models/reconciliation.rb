@@ -20,7 +20,7 @@ end
 
 def health_invoice_sub
   
-    health_invoice_sub = Health_invoice.where(tier: "SUB").sum(:amount)
+    health_invoice_sub = Health_invoice.where(tier: "SUB").sum(:total_charges)
 end
 
 # lookup health invoice for dependent
@@ -28,7 +28,7 @@ end
 
 def health_invoice_dep
   
-    health_invoice_dep = Health_invoice.where(tier: "DEP").sum(:amount)
+    health_invoice_dep = Health_invoice.where(tier: "DEP").sum(:total_charges)
 end
 
 # define ee category
@@ -44,7 +44,7 @@ def er_pay_sub
     if employee.benefit_method == "FIXED"
         er_pay_sub = employee.category_sub
     else
-         er_pay_sub = employee.category_sub * health_invoice  
+         er_pay_sub = employee.category_sub * health_invoice_sub  
     end
 end
 
@@ -54,7 +54,7 @@ def er_pay_dep
     if employee.benefit_method == "FIXED"
         er_pay_dep = employee.category_dep
     else
-        er_pay_dep = employee.category_dep * health_invoice
+        er_pay_dep = employee.category_dep * health_invoice_dep
     end
 end
 
@@ -65,8 +65,9 @@ def ee_deduct_amount
     #     @ee_deduct_amount = ""
     
          # if employee.employee_category == "NO MATCH"
-            if employee.tier == sub or sps or ch1 or sps1
-                # look up subscriber_id in payroll import and return sum of deductions
+            if employee.tier == "SUB" or "SPS" or "CH1" or "SPS1"
+                ee_deduct_amount = Payroll_deduction.where().sum(:deduction_amount) 
+                # pay_sub_id ?  How to lookup in above call?
             else
                 ee_deduct_amount = "N/A-DEPENDENT"
             end
@@ -78,23 +79,23 @@ end
 
 #  ee_deduct_converted payroll.number from csv import
 def ee_deduction_converted
-        # if payroll.number == 1 or 2 && Company.pay_frequency == "Monthly" or "Semi-Monthly"
-        #  ee_deduction_converted = ee_deduct_amount
+        if payroll.number == 1 or payroll.number == 2 && Company.pay_frequency == "Monthly" or "Semi-Monthly"
+         ee_deduction_converted = ee_deduct_amount
          
-        # elseif payroll.number == 2 && Company.pay_frequency == "Bi-Weekly"
-        #  ee_deduction_converted = ee_deduct_amount / 2 * 26 / 12
+        elseif payroll.number == 2 && Company.pay_frequency == "Bi-Weekly"
+         ee_deduction_converted = ee_deduct_amount / 2 * 26 / 12
          
-        # elseif payroll.number == 3 && Company.pay_frequency == "Bi-Weekly"
-        #  ee_deduction_converted = ee_deduct_amount / 3 * 26 / 12
+        elseif payroll.number == 3 && Company.pay_frequency == "Bi-Weekly"
+         ee_deduction_converted = ee_deduct_amount / 3 * 26 / 12
          
-        # elseif payroll.number == 4 && Company.pay_frequency == "Weekly"
-        #  ee_deduction_converted = ee_deduct_amount / 4 * 52 / 12
+        elseif payroll.number == 4 && Company.pay_frequency == "Weekly"
+         ee_deduction_converted = ee_deduct_amount / 4 * 52 / 12
          
-        # elseif payroll.number == 5 && Company.pay_frequency == "Weekly"
-        #  ee_deduction_converted = ee_deduct_amount / 5 * 52 / 12
+        elseif payroll.number == 5 && Company.pay_frequency == "Weekly"
+         ee_deduction_converted = ee_deduct_amount / 5 * 52 / 12
          
-        # else ee_deduction_converted = ee_deduct_amount
-        # end
+        else ee_deduction_converted = ee_deduct_amount
+        end
 end
 
 
@@ -106,7 +107,7 @@ def total_co_amount
     #     @total_co_amount = ""
     # else
         if employee.employee_tier != "DEP"
-            total_co_amount = (ee_deduction_converted + er_pay)
+            total_co_amount = (ee_deduction_converted + er_pay_sub)
         else
             if employee.employee_tier == "DEP"
                 total_co_amount = "0"  #what about company pay of dep?
