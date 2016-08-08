@@ -1,6 +1,7 @@
 class PayrollDeductionsController < ApplicationController
   before_action :set_payroll_deduction, only: [:show, :edit, :update, :destroy]
-  # before_filter :authenticate_user!
+  # future admin auth
+  before_filter :authenticate_user!
 
   # GET /payroll_deductions
   # GET /payroll_deductions.json

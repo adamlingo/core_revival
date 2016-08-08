@@ -1,6 +1,7 @@
 class HealthInvoicesController < ApplicationController
   before_action :set_health_invoice, only: [:show, :edit, :update, :destroy]
-  # before_filter :authenticate_user!
+  # future admin auth
+  before_filter :authenticate_user!
 
   # GET /health_invoices
   # GET /health_invoices.json
