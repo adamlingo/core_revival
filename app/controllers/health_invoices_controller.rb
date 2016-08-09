@@ -10,8 +10,8 @@ class HealthInvoicesController < ApplicationController
     respond_to do |format|
       format.html
       format.csv {send_data @health_invoices.to_csv(['Account', 'BillingProfile','Category', 'Product', 'Subscriber ID', 
-                                                      'Subscriber Name', 'Tier', 'Change Reason', 'RetroFee Adjustment', 
-                                                      'Current Charges', 'Total Charges'])}
+                                                      'Subscriber Name', 'Tier', 'Change Reason', 'RetroFeeAdjustment', 
+                                                      'CurrentCharges', 'TotalCharges'])}
                                                       
     end
   end
