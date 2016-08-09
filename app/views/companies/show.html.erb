@@ -1,9 +1,26 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Company Name:</strong>
   <%= @company.name %>
 </p>
+
+<div class="container">
+  <tbody>
+    <% @employees.each do |employee| %>
+      <tr>
+        <td><%= employee.first_name %><%= " " %><%= employee.last_name %></td>
+        </br>
+      </tr>
+    <% end %>
+    <% @benefits.each do |b| %>
+      <tr>
+         <td><%= b.provider %></td>
+         </br>
+      </tr>
+    <% end %>
+  </tbody>
+</div>
 
 <%= link_to 'Edit', edit_company_path(@company) %> |
 <%= link_to 'Back', companies_path %>

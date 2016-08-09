@@ -10,6 +10,9 @@ class CompaniesController < ApplicationController
 
   def show
     @company = Company.find(params[:id])
+    @employees = @company.employees
+    @benefits = @company.benefit_profiles
+    # @details = @employees.benefit_detail
   end
 
   def new

@@ -3,8 +3,11 @@ class EmployeesController < ApplicationController
   # must be logged in
   before_filter :authenticate_user!
 
+  # edit index
   def index
     @employees = Employee.all
+    # @company = Company.find(params[:id])
+    # @employees = @company.employees
   end
 
   def show
