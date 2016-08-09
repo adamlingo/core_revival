@@ -3,18 +3,21 @@ class PayrollDeductionsController < ApplicationController
   # future admin auth
   before_filter :authenticate_user!
 
-  # GET /payroll_deductions
-  # GET /payroll_deductions.json
+
   def index
     @payroll_deductions = PayrollDeduction.all
-    # respond_to do |format|
-    #   format.html
-    #   format.csv {send_data @payroll_deductions.to_csv([])}                                               
-    # end
+    respond_to do |format|
+      format.html
+      format.csv {send_data @payroll_deductions.to_csv(['Employee ID', 'Employee Name', 'Subscriber #',
+                                                        'Category#', 'Amount'])}                                                
+    end
   end
 
-  # GET /payroll_deductions/1
-  # GET /payroll_deductions/1.json
+  def import
+    PayrollDeduction.import(params[:file])
+    redirect_to payroll_deductions_path, notice: "Health Invoice imported."
+  end
+
   def show
   end
 
