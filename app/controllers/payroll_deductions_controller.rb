@@ -15,7 +15,7 @@ class PayrollDeductionsController < ApplicationController
 
   def import
     PayrollDeduction.import(params[:file])
-    redirect_to payroll_deductions_path, notice: "Health Invoice imported."
+    redirect_to payroll_deductions_path, notice: "Payroll Deductions imported."
   end
 
   def show
