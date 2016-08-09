@@ -3,15 +3,15 @@ class Reconciliation < ActiveRecord::Base
 # for each employee, using defined terms below, reconcile the health_invoice amount to
 # the total company amount
 
-#employees.each do |ee, dif|
-    #puts "#{ee} and #{diff}"
-#end
+employees.each do |ee, dif|
+    puts "#{ee} and #{diff}"
+end
 
 
 # ee_category
 
 def employee
-    employee = Employee.benefit_detail
+    @employee = Employee.benefit_detail
 end
 
 
@@ -20,7 +20,7 @@ end
 
 def health_invoice_sub
   
-    health_invoice_sub = Health_invoice.where(tier: "SUB").sum(:total_charges)
+    @health_invoice_sub = Health_invoice.where(tier: "SUB").sum(:total_charges)
 end
 
 # lookup health invoice for dependent
@@ -28,7 +28,7 @@ end
 
 def health_invoice_dep
   
-    health_invoice_dep = Health_invoice.where(tier: "DEP").sum(:total_charges)
+    @health_invoice_dep = Health_invoice.where(tier: "DEP").sum(:total_charges)
 end
 
 # define ee category
@@ -66,8 +66,8 @@ def ee_deduct_amount
     #     @ee_deduct_amount = ""
     
          # if employee.employee_category == "NO MATCH"
-            if employee.tier == "SUB" or "SPS" or "CH1" or "SPS1"
-                ee_deduct_amount = Payroll_deduction.where(pay_sub_id: employee.).sum(:deduction_amount) 
+            if employee.tier == "SUB" or employee.tier == "SPS" or employee.tier == "CH1" or employee.tier == "SPS1"
+                ee_deduct_amount = Payroll_deduction.where(pay_sub_id: employee.sub_id).sum(:deduction_amount) 
                 # pay_sub_id ?  How to lookup in above call?
             else
                 ee_deduct_amount = "N/A-DEPENDENT"
@@ -80,22 +80,22 @@ end
 
 #  ee_deduct_converted payroll.number from csv import
 def ee_deduction_converted
-        if payroll.number == 1 or payroll.number == 2 && Company.pay_frequency == "Monthly" or "Semi-Monthly"
-         ee_deduction_converted = ee_deduct_amount
-         
-        elseif payroll.number == 2 && Company.pay_frequency == "Bi-Weekly"
-         ee_deduction_converted = ee_deduct_amount / 2 * 26 / 12
-         
-        elseif payroll.number == 3 && Company.pay_frequency == "Bi-Weekly"
-         ee_deduction_converted = ee_deduct_amount / 3 * 26 / 12
-         
-        elseif payroll.number == 4 && Company.pay_frequency == "Weekly"
-         ee_deduction_converted = ee_deduct_amount / 4 * 52 / 12
-         
-        elseif payroll.number == 5 && Company.pay_frequency == "Weekly"
-         ee_deduction_converted = ee_deduct_amount / 5 * 52 / 12
-         
-        else ee_deduction_converted = ee_deduct_amount
+        if payroll.number == 1 or payroll.number == 2 && Company.pay_frequency == "Monthly" or Company.pay_frequency == "Semi-Monthly"
+             ee_deduction_converted = ee_deduct_amount
+             
+            elseif payroll.number == 2 && Company.pay_frequency == "Bi-Weekly"
+             ee_deduction_converted = ee_deduct_amount / 2 * 26 / 12
+             
+            elseif payroll.number == 3 && Company.pay_frequency == "Bi-Weekly"
+             ee_deduction_converted = ee_deduct_amount / 3 * 26 / 12
+             
+            elseif payroll.number == 4 && Company.pay_frequency == "Weekly"
+             ee_deduction_converted = ee_deduct_amount / 4 * 52 / 12
+             
+            elseif payroll.number == 5 && Company.pay_frequency == "Weekly"
+             ee_deduction_converted = ee_deduct_amount / 5 * 52 / 12
+             
+            else ee_deduction_converted = ee_deduct_amount
         end
 end
 
@@ -107,20 +107,20 @@ def total_co_amount
     # if employee(:subscriber_id).valid?
     #     @total_co_amount = ""
     # else
-        if employee.employee_tier != "DEP"
-            total_co_amount = (ee_deduction_converted + er_pay_sub)
-        else
-            if employee.employee_tier == "DEP"
-                total_co_amount = "0"  #what about company pay of dep?
-            else
-                total_co_amount = "NO MATCH"
-            end
-        end
+        # if employee.employee_tier != "DEP"
+        @total_co_amount = (ee_deduction_converted + er_pay_sub + er_pay_dep)
+        # else
+        #     if employee.employee_tier == "DEP"
+        #         total_co_amount = "0"  #what about company pay of dep?
+        #     else
+        #         total_co_amount = "NO MATCH"
+        #     end
+        # end
 end
 
 # # Difference of total company amount and health invoice amount
 def difference
-        difference = health_invoice - total_co_amount  #need insurance.amount updated with csv reference
+        difference = Health_invoice.total_charges - total_co_amount  
         puts difference
 end
 
