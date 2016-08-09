@@ -2,6 +2,17 @@
 
 <h1>Listing Payroll Deductions</h1>
 
+<%= form_tag import_payroll_deductions_path, multipart: true, class: 'form-inline' do %>
+  
+  <div class="form-group">
+    <%= file_field_tag :file, class: '' %>
+  </div>
+  
+  <div class="form-group">
+    <%= submit_tag "Import Payroll Deduction CSV", class: 'btn btn-info' %>
+  </div>
+
+<% end %>
 <table>
   <thead>
     <tr>
@@ -12,6 +23,12 @@
   <tbody>
     <% @payroll_deductions.each do |payroll_deduction| %>
       <tr>
+        <td><%= payroll_deduction.pay_ee_id %></td>
+        <td><%= payroll_deduction.pay_sub_name %></td>
+        <td><%= payroll_deduction.pay_sub_id %></td>
+        <td><%= payroll_deduction.pay_category %></td>
+        <td><%= payroll_deduction.deduction_amount %></td>
+        
         <td><%= link_to 'Show', payroll_deduction %></td>
         <td><%= link_to 'Edit', edit_payroll_deduction_path(payroll_deduction) %></td>
         <td><%= link_to 'Destroy', payroll_deduction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
