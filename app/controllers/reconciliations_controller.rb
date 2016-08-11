@@ -7,6 +7,12 @@ class ReconciliationsController < ApplicationController
     @reconciliations = Reconciliation.all
   end
 
+  def calculate
+    company_id = 1
+    @reconciliations = Reconciliation.do_it(company_id)
+    
+    # calculate and
+  end
   # GET /reconciliations/1
   # GET /reconciliations/1.json
   def show
