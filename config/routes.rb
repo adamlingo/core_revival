@@ -160,6 +160,10 @@ Rails.application.routes.draw do
   #                                           PUT        /payroll_deductions/:id(.:format)                                    payroll_deductions#update
   #                                           DELETE     /payroll_deductions/:id(.:format)                                    payroll_deductions#destroy
 
+
+  resources :reconciliations
+
+  
    # default route syntax at bottom instead of get... will match if all other routes fail
   match ':controller(/:action(/:id(.:format)))', :via => :get
 end
