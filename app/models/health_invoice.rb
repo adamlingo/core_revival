@@ -10,11 +10,13 @@ class HealthInvoice < ActiveRecord::Base
     end
   end
 
-  def self.import(file)
-    invoice_date = HealthInvoice.convert_to_date(File.basename(file.path))
-    puts "invoice_date: #{invoice_date}"
-    puts "invoice_date month: #{invoice_date.month}"
-    puts "invoice_date year: #{invoice_date.year}"
+  def self.import(file, filename)
+    puts "filename: #{filename}"
+    # puts "file.path: #{file.path}"
+    # invoice_date = HealthInvoice.convert_to_date(File.basename(file.path))
+    # puts "invoice_date: #{invoice_date}"
+    # puts "invoice_date month: #{invoice_date.month}"
+    # puts "invoice_date year: #{invoice_date.year}"
 
     # Check dups by parsing to billing profile ID and year/month 
     CSV.foreach(file.path, headers: true) do |row|
@@ -45,6 +47,7 @@ class HealthInvoice < ActiveRecord::Base
   end
 
   def self.convert_to_date(file_name)
+    puts "file_name: #{file_name}"
     tokens = file_name.split(/_/)
     date_token = tokens[1]
     Date::strptime(date_token, '%m-%d-%Y')
