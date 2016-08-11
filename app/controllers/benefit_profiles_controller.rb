@@ -1,6 +1,8 @@
 class BenefitProfilesController < ApplicationController
   before_action :set_benefit_profile, only: [:show, :edit, :update, :destroy]
-
+  # must be logged in
+  before_filter :authenticate_user!
+  
   # GET /benefit_profiles
   # GET /benefit_profiles.json
   def index

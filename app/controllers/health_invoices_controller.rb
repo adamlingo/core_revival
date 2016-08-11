@@ -1,6 +1,7 @@
 class HealthInvoicesController < ApplicationController
   before_action :set_health_invoice, only: [:show, :edit, :update, :destroy]
-  # before_filter :authenticate_user!
+  # future admin auth
+  before_filter :authenticate_user!
 
   # GET /health_invoices
   # GET /health_invoices.json
@@ -9,14 +10,15 @@ class HealthInvoicesController < ApplicationController
     respond_to do |format|
       format.html
       format.csv {send_data @health_invoices.to_csv(['Account', 'BillingProfile','Category', 'Product', 'Subscriber ID', 
-                                                      'Subscriber Name', 'Tier', 'Change Reason', 'RetroFee Adjustment', 
-                                                      'Current Charges', 'Total Charges'])}
+                                                      'Subscriber Name', 'Tier', 'Change Reason', 'RetroFeeAdjustment', 
+                                                      'CurrentCharges', 'TotalCharges'])}
                                                       
     end
   end
 
   def import
-    HealthInvoice.import(params[:file])
+    # find header named 'filename' or look for param named with orig. file name
+    HealthInvoice.import(params[:file], request.headers["filename"])
     redirect_to health_invoices_path, notice: "Health Invoice imported."
   end
 
