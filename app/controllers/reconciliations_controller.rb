@@ -8,11 +8,11 @@ class ReconciliationsController < ApplicationController
   end
 
   def calculate
-    company_id = 1
+    company_id = 3
     @reconciliations = Reconciliation.do_it(company_id)
-    
-    # calculate and
+
   end
+  
   # GET /reconciliations/1
   # GET /reconciliations/1.json
   def show

@@ -10,7 +10,7 @@ class Reconciliation < ActiveRecord::Base
     # @rows = Reconciliation.do_it(company_id)
     # then in the view iterate over the @rows variable and display the rows.
 
-    def self.do_it(company_id = 1)
+    def self.do_it(company_id = 3)
         company = Company.find(company_id)
         results = []
 
