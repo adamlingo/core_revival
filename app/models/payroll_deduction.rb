@@ -15,7 +15,7 @@ class PayrollDeduction < ActiveRecord::Base
       unless payroll_hash['Employee ID'].nil?
         payroll_deduction = find_or_create_by!(pay_ee_id: payroll_hash['Employee ID'],
                                             pay_sub_name: payroll_hash['Employee Name'],
-                                            pay_sub_id: payroll_hash['Subscriber #'],
+                                            pay_sub_id: payroll_hash['Subscriber  #'],
                                             pay_category: payroll_hash['Category#'],
                                             deduction_amount: payroll_hash['Amount'])
         payroll_deduction.save!
