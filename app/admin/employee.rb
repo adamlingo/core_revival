@@ -5,7 +5,8 @@ ActiveAdmin.register Employee do
   belongs_to :company
 
   # Edit fields to save
-  permit_params :name, :first_name, :last_name, :company_id, :email, :address, :city, :state, :zip, :phone_number
+  permit_params :name, :first_name, :last_name, :company_id, :email, :address, 
+                :city, :state, :zip, :phone_number, :sub_id
   
   index do
     selectable_column
@@ -14,6 +15,7 @@ ActiveAdmin.register Employee do
     # make EE list reflect showing name of Company here
     column :last_name
     column :first_name
+    column :sub_id
     column :email
     column :created_at
     actions dropdown: true do |employee|
@@ -24,6 +26,7 @@ ActiveAdmin.register Employee do
 
   filter :first_name
   filter :last_name
+  filter :sub_id
   filter :email
   filter :current_sign_in_at
   filter :sign_in_count
@@ -38,6 +41,7 @@ ActiveAdmin.register Employee do
       # EE must also be a current user
       # f.input :user_id, as: :select, collection: User.all.map{|u| ["#{u.last_name} , #{u.first_name}", u.id]}
       f.input :email
+      f.input :sub_id, label: "Sub ID", :placeholder => "Subscriber ID"
       # f.input :password
       # f.input :password_confirmation
       f.input :address, :placeholder => "Street Address"
