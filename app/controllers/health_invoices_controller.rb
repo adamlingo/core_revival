@@ -17,7 +17,8 @@ class HealthInvoicesController < ApplicationController
   end
 
   def import
-    HealthInvoice.import(params[:file])
+    # find header named 'filename' or look for param named with orig. file name
+    HealthInvoice.import(params[:file], request.headers["filename"])
     redirect_to health_invoices_path, notice: "Health Invoice imported."
   end
 
