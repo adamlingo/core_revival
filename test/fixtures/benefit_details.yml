@@ -19,7 +19,7 @@ demo:
   category_sps_pls_one: 1
   employee_tier: 'SUB'
 
-demo:
+demo-dep:
   employee_category: 1
   benefit_category: 'my-benefit-cat'
   benefit_method: 'FIXED'
