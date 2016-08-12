@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Reconciliation Calculation</h1>
+</br>
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <div class="form-group">
+    
+  </div>
+
+  <tbody>
+    <% @reconciliations.each do |r| %>
+      <%= r %>
+      </br>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Reconciliation', reconciliations_path %>
