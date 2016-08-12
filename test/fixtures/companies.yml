@@ -6,5 +6,7 @@ demo:
   name: 'Demo Company'
   pay_frequency: 'Bi-Weekly'
 
-#two:
-  #name: MyString
+example:
+  id: 2
+  name: 'Another Company'
+  pay_frequency: 'Bi-Weekly'

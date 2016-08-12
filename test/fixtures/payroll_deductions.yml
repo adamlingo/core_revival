@@ -12,6 +12,9 @@ demo:
   pay_category: 'FIXED'
   deduction_amount: 100
 
-
-#two: {}
-#  column: value
+example:
+  pay_ee_id: 2 #wat?
+  pay_sub_id: 'my-sub-id-2'
+  pay_sub_name: 'Example, Raymond'
+  pay_category: '%'
+  deduction_amount: 0.8

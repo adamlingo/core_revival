@@ -7,8 +7,8 @@ demo:
   company_id: 1
   sub_id: 'my-sub-id'
 
-one:
-  id: 1
+example:
+  id: 2
   name: 'Raymond Example'
   company_id: 2
   sub_id: 'my-sub-id-2'

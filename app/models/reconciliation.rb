@@ -43,7 +43,7 @@ class Reconciliation < ActiveRecord::Base
         emp_deduction_amount = ee_deduct_amount(benefit_detail, emp_payroll_deduction)
 
         # employer contribution/pay
-        employer_contribution = er_pay_sub(benefit_detail) + er_pay_dep(benefit_detail)
+        employer_contribution = er_pay_sub(benefit_detail, sub_invoice_total) + er_pay_dep(benefit_detail, dep_invoice_total)
 
         # get the ee_deduction_converted
         # employee_contribution = ee_deduction_converted(employee, company)
@@ -89,22 +89,22 @@ class Reconciliation < ActiveRecord::Base
 
 
     # defin employer pay for subscriber
-    def self.er_pay_sub(employee_benefit_detail)
+    def self.er_pay_sub(employee_benefit_detail, sub_invoice_total)
       
-        if employee_benefit_detail.benefit_method == "FIXED"
+        if employee_benefit_detail.benefit_method == 'FIXED'
             er_pay_sub = employee_benefit_detail.category_sub
         else
-             er_pay_sub = employee_benefit_detail.category_sub * health_invoice_sub  
+            er_pay_sub = employee_benefit_detail.category_sub * sub_invoice_total  
         end
     end
 
     # er_pay_dep employer pay for dependents
-    def self.er_pay_dep(employee_benefit_detail)
+    def self.er_pay_dep(employee_benefit_detail, dep_invoice_total)
         
-        if employee_benefit_detail.benefit_method == "FIXED"
+        if employee_benefit_detail.benefit_method == 'FIXED'
             employee_benefit_detail.category_dep
         else
-            employee_benefit_detail.category_dep * health_invoice_dep
+            employee_benefit_detail.category_dep * dep_invoice_total
         end
     end
 

@@ -50,4 +50,48 @@ three:
   month: 7
   year: 2016
 
+four:
+  account_number: 'two'
+  billing_profile: 1
+  category: 'my-cat'
+  product: 'cool-product'
+  health_sub_id: 'my-sub-id-2'
+  sub_name: 'Example, Raymond'
+  tier: 'SUB'
+  change_reason: ''
+  retro_fee_adjustment: 0.00
+  current_charges: 42.24
+  total_charges: 42.24
+  month: 7
+  year: 2016
+
+five:
+  account_number: 'two'
+  billing_profile: 1
+  category: 'my-cat'
+  product: 'cool-product'
+  health_sub_id: 'my-sub-id-2'
+  sub_name: 'Example, Raymond'
+  tier: 'DEP'
+  change_reason: ''
+  retro_fee_adjustment: 0.00 
+  current_charges: 84.84
+  total_charges: 84.84
+  month: 7
+  year: 2016
+
+six:
+  account_number: 'two'
+  billing_profile: 1
+  category: 'my-cat'
+  product: 'cool-product'
+  health_sub_id: 'my-sub-id-2'
+  sub_name: 'Example, Raymond'
+  tier: 'DEP'
+  change_reason: ''
+  retro_fee_adjustment: -21.21 
+  current_charges: 0.00
+  total_charges: -21.21
+  month: 7
+  year: 2016
 
