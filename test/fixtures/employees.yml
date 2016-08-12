@@ -1,10 +1,14 @@
 # Read about fixtures at
 # http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-#one:
-  #name: MyString
-  #company_id: 1
+demo:
+  id: 42
+  name: 'Dana Demo'
+  company_id: 1
+  sub_id: 'my-sub-id'
 
-#two:
-  #name: MyString
-  #company_id: 1
+one:
+  id: 1
+  name: 'Raymond Example'
+  company_id: 2
+  sub_id: 'my-sub-id-2'

@@ -5,8 +5,13 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
+demo:
+  pay_ee_id: 1 #wat?
+  pay_sub_id: 'my-sub-id'
+  pay_sub_name: 'Demo, Dana'
+  pay_category: 'FIXED'
+  deduction_amount: 100
+
+
 #two: {}
 #  column: value

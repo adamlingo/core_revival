@@ -16,16 +16,17 @@ class Reconciliation < ActiveRecord::Base
 
         employees = Employee.where(company_id: company.id)
 
-
         employees.each {|employee|
           diff = compute_employee(employee)
           results.push("#{employee.name} Difference: #{diff}")
         }
+        results
     end
 
     def self.compute_employee(employee)
         # this grabs every invoice row the specific employee
         emp_invoices = HealthInvoice.where(health_sub_id: employee.sub_id)
+
         # this grabs every payroll row the specific employee
         emp_payroll_deduction = PayrollDeduction.where(pay_sub_id: employee.sub_id).first
 
@@ -39,18 +40,19 @@ class Reconciliation < ActiveRecord::Base
         dep_invoice_total = health_invoice_dep(emp_invoices)
 
         # employee deduction
-        emp_deduction_amount = ee_deduct_amount(employee, emp_payroll_deduction)
+        emp_deduction_amount = ee_deduct_amount(benefit_detail, emp_payroll_deduction)
 
         # employer contribution/pay
         employer_contribution = er_pay_sub(benefit_detail) + er_pay_dep(benefit_detail)
 
         # get the ee_deduction_converted
         # employee_contribution = ee_deduction_converted(employee, company)
+        employee_contribution = 50.00
 
-        diff = emp_deduction_amount + employee_contribution - sub_invoice_total - dep_invoice_total
+        emp_deduction_amount + employee_contribution - sub_invoice_total - dep_invoice_total
     end
 
-    def employee_benefit_detail(employee)
+    def self.employee_benefit_detail(employee)
         BenefitDetail.where(employee_id: employee.id).first
     end
 
@@ -58,22 +60,24 @@ class Reconciliation < ActiveRecord::Base
     # lookup health invoice for subscriber
     # need date validation
 
-    def health_invoice_sub(emp_invoices)
+    def self.health_invoice_sub(emp_invoices)
         #HealthInvoice.where(tier: "SUB").sum(:total_charges)
-        sub_invoices = emp_invoices.map {|inv| inv.tier == "SUB"}
         total = 0
-        sub_invoices.each {|inv| total += inv.total_charges }
+        emp_invoices.each {|inv|
+            total += inv.total_charges if inv.tier == 'SUB'
+        }
         total
     end
 
     # lookup health invoice for dependent
     # need date validation
 
-    def health_invoice_dep(emp_invoices)
+    def self.health_invoice_dep(emp_invoices)
         #health_invoice_dep = Health_invoice.where(tier: "DEP").sum(:total_charges)
-        dep_invoices = emp_invoices.map {|inv| inv.tier == "DEP"}
         total = 0
-        dep_invoices.each {|inv| total += inv.total_charges }
+        emp_invoices.each {|inv|
+            total += inv.total_charges if inv.tier == 'DEP'
+        }
         total
     end
 
@@ -85,7 +89,7 @@ class Reconciliation < ActiveRecord::Base
 
 
     # defin employer pay for subscriber
-    def er_pay_sub(employee_benefit_detail)
+    def self.er_pay_sub(employee_benefit_detail)
       
         if employee_benefit_detail.benefit_method == "FIXED"
             er_pay_sub = employee_benefit_detail.category_sub
@@ -95,7 +99,7 @@ class Reconciliation < ActiveRecord::Base
     end
 
     # er_pay_dep employer pay for dependents
-    def er_pay_dep(employee_benefit_detail)
+    def self.er_pay_dep(employee_benefit_detail)
         
         if employee_benefit_detail.benefit_method == "FIXED"
             employee_benefit_detail.category_dep
@@ -105,8 +109,8 @@ class Reconciliation < ActiveRecord::Base
     end
 
     # #  ee_deduct_amount
-    def ee_deduct_amount(employee, payroll_deduction)
-        case employee.tier
+    def self.ee_deduct_amount(employee_benefit_detail, payroll_deduction)
+        case employee_benefit_detail.employee_tier
         when 'SUB', 'SPS', 'CH1', 'SPS1'
             payroll_deduction.deduction_amount
         else

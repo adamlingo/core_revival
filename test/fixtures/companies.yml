@@ -1,8 +1,10 @@
 # Read about fixtures at
 # http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-#one:
-  #name: MyString
+demo:
+  id: 1
+  name: 'Demo Company'
+  pay_frequency: 'Bi-Weekly'
 
 #two:
   #name: MyString

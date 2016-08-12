@@ -6,7 +6,15 @@ require "test_helper"
 
 
 class ReconciliationTest < ActiveSupport::TestCase
-  
+
+  def test_do_it
+    company_id = 1
+    expected = ['Dana Demo Difference: -55.87']
+    actual = Reconciliation.do_it(company_id)
+
+    assert_equal expected, actual
+  end
+
   # test data is valid
   
   # test dep calculates correctly
