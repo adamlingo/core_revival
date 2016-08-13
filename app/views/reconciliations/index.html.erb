@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Reconciliations</h1>
+<h1>Skeleton Test - Reconciliation</h1>
 
 <table>
   <thead>
@@ -9,9 +9,14 @@
     </tr>
   </thead>
 
+  <div class="form-group">
+    <%= button_to 'Reconcile', calculate_reconciliations_path %>
+  </div>
+
   <tbody>
-    <% @reconciliations.each do |reconciliation| %>
+    <% @reconciliations.each do |r| %>
       <tr>
+
         <td><%= link_to 'Show', reconciliation %></td>
         <td><%= link_to 'Edit', edit_reconciliation_path(reconciliation) %></td>
         <td><%= link_to 'Destroy', reconciliation, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -161,7 +161,11 @@ Rails.application.routes.draw do
   #                                           DELETE     /payroll_deductions/:id(.:format)                                    payroll_deductions#destroy
 
 
-  resources :reconciliations
+  resources :reconciliations do 
+    collection do
+      post :calculate
+    end
+  end
 
   
    # default route syntax at bottom instead of get... will match if all other routes fail

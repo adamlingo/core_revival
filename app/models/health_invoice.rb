@@ -10,7 +10,7 @@ class HealthInvoice < ActiveRecord::Base
     end
   end
 
-  def self.import(file, filename)
+  def self.import(file, filename = nil)
     puts "filename: #{filename}"
     # puts "file.path: #{file.path}"
     # invoice_date = HealthInvoice.convert_to_date(File.basename(file.path))
