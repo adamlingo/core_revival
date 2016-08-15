@@ -37,7 +37,7 @@ ActiveAdmin.register BenefitProfile do
       f.input :provider, as: :select, :collection => [['BCBS'], ['Delta']]
       f.input :provider_plan, as: :select, :collection => [['Bronze'],['Silver']]
       f.input :benefit_type, as: :select, :collection => [['Medical'], ['Dental']]
-      f.input :benefit_method, as: :select, :collection => [['%'], ['$']]
+      f.input :benefit_method, as: :select, :collection => [['%'], ['FIXED']]
       
     end
     f.actions

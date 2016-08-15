@@ -1,13 +1,18 @@
 class CompaniesController < ApplicationController
   # muted restrictions
   # before_action :set_company, only: [:show, :edit, :update, :destroy]
- 
+  # must be logged in
+  before_filter :authenticate_user!
+  
   def index
     @companies = Company.all
   end
 
   def show
     @company = Company.find(params[:id])
+    @employees = @company.employees
+    @benefits = @company.benefit_profiles
+    # @details = @employees.benefit_detail
   end
 
   def new

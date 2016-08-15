@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   # Root to pages/home (requires login)
   root 'pages#home'
-  # get  'home' => 'pages#home'
+  get  '/home', to: "pages#home", as: "home"
   get  'companies_static' => 'pages#companies_static'
 
   # Devise routes with ActiveAdmin
@@ -160,6 +160,14 @@ Rails.application.routes.draw do
   #                                           PUT        /payroll_deductions/:id(.:format)                                    payroll_deductions#update
   #                                           DELETE     /payroll_deductions/:id(.:format)                                    payroll_deductions#destroy
 
+
+  resources :reconciliations do 
+    collection do
+      post :calculate
+    end
+  end
+
+  
    # default route syntax at bottom instead of get... will match if all other routes fail
   match ':controller(/:action(/:id(.:format)))', :via => :get
 end
