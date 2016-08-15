@@ -12,6 +12,7 @@ index do
     selectable_column
     column :benefit_profile_id
     column :employee_id
+    column :employee_tier
     id_column
     column :category_sub
     column :category_dep
@@ -33,6 +34,7 @@ index do
       # f.input Employee.find(resource.employee_id).name, readonly: true, label: 'Name'
       f.input :benefit_profile_id, as: :select, collection: BenefitProfile.where(company_id: Employee.find(resource.employee_id).company_id).map{|b| ["#{b.provider} #{b.provider_plan}", b.id]}
       f.input :employee_category, as: :select, :collection => [['1 Employee'], ['2 Manager'], ['3 Owner']]
+      f.input :employee_tier, as: :select, :collection => [['SUB']]
       f.input :category_sub, label: 'SUB Amount'
       f.input :category_dep, label: 'DEP Amount'
       f.input :category_sps, label: 'SPS Amount'
