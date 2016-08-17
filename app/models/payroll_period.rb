@@ -1,9 +1,8 @@
 class CompanyPayrollDate < ActiveRecord::Base
   belongs_to :company
-  
+  require 'date'
   # Creates static payroll period period given an initial date and a set pay frequency for 
   # a company
-
   def self.generate_payroll_dates(company_id, start_date, num_periods, pay_frequency)
     case pay_frequency
       when 'monthly'
@@ -20,33 +19,55 @@ class CompanyPayrollDate < ActiveRecord::Base
   end
 
   private
+   
+
+    
 
     def self.generate_monthly(company_id, start_date, num_periods)
       puts 'generate monthly payroll dates'
-      
-     @date = start_date
-     
-     num_periods.times do |n|
-     
-        n = Date.new(date) << -1
-        
-        n.save
-  
-      
+      puts "company_id: #{company_id}; start_date: #{start_date}; num_periods: #{num_periods}"
+    
+      # create a real Date from our string start_date
+    
+       date = Date.parse(start_date)
+    
+          
+         (2..num_periods).each do |period|
+            date = date >> 1
+         end
     end
 
+
+  
+    
     def self.generate_semi_monthly(company_id, start_date, num_periods, pay_frequency)
       puts 'generate semi-monthly payroll dates'
-      # do the work...
+          
+        date = Date.parse(start_date)
+          
+        (2..num_periods).each do |period|
+          date = date 
+        end
     end
-
+    
     def self.generate_weekly(company_id, start_date, num_periods, pay_frequency)
       puts 'generate weekly payroll dates'
-      # do the work...
+          
+        date = Date.parse(start_date)
+          
+        (2.num_periods).each do |period|
+          date = date + 7.days
+        end
     end
-
+    
     def self.generate_bi_weekly(company_id, start_date, num_periods, pay_frequency)
       puts 'generate bi-weekly payroll dates'
-      # do the work...
+          
+       date = Date.parse(start_date)
+          
+        (2.num_periods).each do |period|
+          date = date + 14.days
+        end
     end
 end
+  
