@@ -50,6 +50,8 @@ class PayrollDate
       puts 'generate semi-monthly payroll dates'
           
         date = Date.parse(start_date)
+        
+        puts "Input Date: #{date}"
           
         (2..num_periods).each do |period|
           case date.day
@@ -61,10 +63,10 @@ class PayrollDate
               date = Date.new(date.year,date.month,-1)
               puts "loop date: #{date}"
             when 16
-              date = Date.new(date.year,date.month,1)
+              date = Date.new(date.year,date.month + 1,1)
               puts "loop date: #{date}"
             else
-              date = Date.new(date.year,date.month >> 1, 1)
+              date = Date.new(date.year,date.month + 1, 15)
               puts "loop date: #{date}"
           # how to increment by half month?  Most likely 1st and 16th OR 15th and end of month
           # this would not work if date was other than thsoe four
