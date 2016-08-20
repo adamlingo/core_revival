@@ -18,8 +18,6 @@ class CompanyPayrollDate < ActiveRecord::Base
     end
   end
 
-
-
   private
    
     def self.generate_monthly(company_id, start_date, num_periods)
@@ -66,7 +64,7 @@ class CompanyPayrollDate < ActiveRecord::Base
             else
               date = Date.new(date.year,date.month + 1, 15)
           # how to increment by half month?  Most likely 1st and 16th OR 15th and end of month
-          # this would not work if date was other than thsoe four
+          # this would not work if date was other than these four
           end
            CompanyPayrollDate.create!(company_id: company_id,
                                   year: date.year, 
