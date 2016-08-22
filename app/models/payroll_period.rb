@@ -18,6 +18,10 @@ class PayrollPeriod < ActiveRecord::Base
     end
   end
 
+  def to_s
+    "year: #{year}, month: #{month}, day: #{day}"
+  end
+
   private
    
     def self.generate_monthly(company_id, start_date, num_periods)
@@ -26,7 +30,12 @@ class PayrollPeriod < ActiveRecord::Base
     
       # create a real Date from our string start_date
     
+<<<<<<< HEAD
        date = Date.parse(start_date)  # is there a refactor that would keep from repeating?
+=======
+       date = Date.strptime(start_date, "%m/%d/%Y")  # is there a refactor that would keep from repeating?
+
+>>>>>>> 42c3862474733034a9b423d55f7ce0e68d3c9cf4
         PayrollPeriod.create!(company_id: company_id,
                                   year: date.year, 
                                   month: date.month,
@@ -45,7 +54,7 @@ class PayrollPeriod < ActiveRecord::Base
     def self.generate_semi_monthly(company_id, start_date, num_periods)
       puts 'generate semi-monthly payroll dates'
           
-        date = Date.parse(start_date)
+        date = Date.strptime(start_date, "%m/%d/%Y")
         
          PayrollPeriod.create!(company_id: company_id,
                                   year: date.year, 
@@ -76,7 +85,7 @@ class PayrollPeriod < ActiveRecord::Base
     def self.generate_weekly(company_id, start_date, num_periods)
       puts 'generate weekly payroll dates'
           
-        date = Date.parse(start_date)
+        date = Date.strptime(start_date, "%m/%d/%Y")
         
         PayrollPeriod.create!(company_id: company_id,
                                   year: date.year, 
@@ -95,7 +104,11 @@ class PayrollPeriod < ActiveRecord::Base
     def self.generate_bi_weekly(company_id, start_date, num_periods)
       puts 'generate bi-weekly payroll dates'
           
+<<<<<<< HEAD
        date = Date.parse(start_date)
+=======
+       date = Date.strptime(start_date, "%m/%d/%Y")
+>>>>>>> 42c3862474733034a9b423d55f7ce0e68d3c9cf4
        PayrollPeriod.create!(company_id: company_id,
                                   year: date.year, 
                                   month: date.month,
