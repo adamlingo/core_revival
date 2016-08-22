@@ -1,9 +1,9 @@
-class CompanyPayrollDate < ActiveRecord::Base
+class PayrollPeriod < ActiveRecord::Base
   belongs_to :company
   require 'date'
   # Creates static payroll period period given an initial date and a set pay frequency for 
   # a company
-  def self.generate_payroll_dates(company_id, start_date, num_periods, pay_period)
+  def self.generate_payroll_dates(company_id, start_date, num_periods)
     case pay_period
       when 'monthly'
         generate_monthly(company_id, start_date, num_periods)
@@ -27,7 +27,7 @@ class CompanyPayrollDate < ActiveRecord::Base
       # create a real Date from our string start_date
     
        date = Date.parse(start_date)  # is there a refactor that would keep from repeating?
-        CompanyPayrollDate.create!(company_id: company_id,
+        PayrollPeriod.create!(company_id: company_id,
                                   year: date.year, 
                                   month: date.month,
                                   day: date.day)      
@@ -35,7 +35,7 @@ class CompanyPayrollDate < ActiveRecord::Base
          (2..num_periods).each do |period|
             date = date >> 1
             
-            CompanyPayrollDate.create!(company_id: company_id,
+            PayrollPeriod.create!(company_id: company_id,
                                   year: date.year, 
                                   month: date.month,
                                   day: date.day)
@@ -47,7 +47,7 @@ class CompanyPayrollDate < ActiveRecord::Base
           
         date = Date.parse(start_date)
         
-         CompanyPayrollDate.create!(company_id: company_id,
+         PayrollPeriod.create!(company_id: company_id,
                                   year: date.year, 
                                   month: date.month,
                                   day: date.day)
@@ -66,7 +66,7 @@ class CompanyPayrollDate < ActiveRecord::Base
           # how to increment by half month?  Most likely 1st and 16th OR 15th and end of month
           # this would not work if date was other than these four
           end
-           CompanyPayrollDate.create!(company_id: company_id,
+           PayrollPeriod.create!(company_id: company_id,
                                   year: date.year, 
                                   month: date.month,
                                   day: date.day)
@@ -78,14 +78,14 @@ class CompanyPayrollDate < ActiveRecord::Base
           
         date = Date.parse(start_date)
         
-        CompanyPayrollDate.create!(company_id: company_id,
+        PayrollPeriod.create!(company_id: company_id,
                                   year: date.year, 
                                   month: date.month,
                                   day: date.day)
           
         (2..num_periods).each do |period|
           date = date + 7
-          CompanyPayrollDate.create!(company_id: company_id,
+          PayrollPeriod.create!(company_id: company_id,
                                   year: date.year, 
                                   month: date.month,
                                   day: date.day)
@@ -96,14 +96,14 @@ class CompanyPayrollDate < ActiveRecord::Base
       puts 'generate bi-weekly payroll dates'
           
        date = Date.parse(start_date)
-       CompanyPayrollDate.create!(company_id: company_id,
+       PayrollPeriod.create!(company_id: company_id,
                                   year: date.year, 
                                   month: date.month,
                                   day: date.day)
           
         (2..num_periods).each do |period|
           date = date + 14
-          CompanyPayrollDate.create!(company_id: company_id,
+          PayrollPeriod.create!(company_id: company_id,
                                   year: date.year, 
                                   month: date.month,
                                   day: date.day)
