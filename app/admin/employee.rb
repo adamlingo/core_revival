@@ -19,7 +19,7 @@ ActiveAdmin.register Employee do
     column :email
     column :created_at
     actions dropdown: true do |employee|
-      item "Benefit Details", admin_employee_benefit_details_path(employee)
+      item "Benefit Profiles", admin_company_benefit_profiles_path(employee)
       item "Return to Companies", admin_companies_path
     end
   end
