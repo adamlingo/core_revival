@@ -2,8 +2,8 @@ class Timework < ActiveRecord::Base
     belongs_to :company
     
     def initialize
-        @user_id = 
-        @password = 
+        @user_id = "sdixon78"
+        @password = "sooner2016"
     end 
     
     def self.createSession(user_id, password)
