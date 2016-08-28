@@ -19,7 +19,7 @@ class Reconciliation < ActiveRecord::Base
 
         employees.each {|employee|
           diff = compute_employee(employee)
-          results.push("#{employee.name} Difference: #{diff}")
+          results.push("#{employee.last_name}, #{employee.first_name} Difference: #{diff}")
         }
         results
     end
@@ -48,9 +48,14 @@ class Reconciliation < ActiveRecord::Base
 
         # get the ee_deduction_converted
         # employee_contribution = ee_deduction_converted(employee, company)
-        employee_contribution = 50.00
+        #employee_contribution = 50.00
+        # puts "emp_payroll_deduction:#{emp_payroll_deduction}"
+        # puts "employer_contribution:#{employer_contribution}"
+        # puts "emp_deduction_amount:#{emp_deduction_amount}"
+        # puts "sub_invoice_total:#{sub_invoice_total}"
+        # puts "dep_invoice_total:#{dep_invoice_total}"
 
-        emp_deduction_amount + employee_contribution - sub_invoice_total - dep_invoice_total
+        emp_deduction_amount + employer_contribution - sub_invoice_total - dep_invoice_total
     end
 
     def self.employee_benefit_detail(employee)

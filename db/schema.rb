@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160822195415) do
+ActiveRecord::Schema.define(version: 20160823153119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,7 +56,6 @@ ActiveRecord::Schema.define(version: 20160822195415) do
     t.string   "benefit_category"
     t.string   "benefit_method"
     t.string   "benefit_amount"
-    t.integer  "employee_id"
     t.integer  "benefit_profile_id"
     t.decimal  "category_sub"
     t.decimal  "category_dep"

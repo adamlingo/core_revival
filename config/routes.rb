@@ -30,43 +30,43 @@ Rails.application.routes.draw do
   #                                             PATCH      /admin/admin_users/:id(.:format)                                     admin/admin_users#update
   #                                             PUT        /admin/admin_users/:id(.:format)                                     admin/admin_users#update
   #                                             DELETE     /admin/admin_users/:id(.:format)                                     admin/admin_users#destroy
-  # batch_action_admin_employee_benefit_details POST       /admin/employees/:employee_id/benefit_details/batch_action(.:format) admin/benefit_details#batch_action
-  #              admin_employee_benefit_details GET        /admin/employees/:employee_id/benefit_details(.:format)              admin/benefit_details#index
-  #                                             POST       /admin/employees/:employee_id/benefit_details(.:format)              admin/benefit_details#create
-  #           new_admin_employee_benefit_detail GET        /admin/employees/:employee_id/benefit_details/new(.:format)          admin/benefit_details#new
-  #          edit_admin_employee_benefit_detail GET        /admin/employees/:employee_id/benefit_details/:id/edit(.:format)     admin/benefit_details#edit
-  #               admin_employee_benefit_detail GET        /admin/employees/:employee_id/benefit_details/:id(.:format)          admin/benefit_details#show
-  #                                             PATCH      /admin/employees/:employee_id/benefit_details/:id(.:format)          admin/benefit_details#update
-  #                                             PUT        /admin/employees/:employee_id/benefit_details/:id(.:format)          admin/benefit_details#update
-  #                                             DELETE     /admin/employees/:employee_id/benefit_details/:id(.:format)          admin/benefit_details#destroy
-  # batch_action_admin_company_benefit_profiles POST       /admin/companies/:company_id/benefit_profiles/batch_action(.:format) admin/benefit_profiles#batch_action
-  #              admin_company_benefit_profiles GET        /admin/companies/:company_id/benefit_profiles(.:format)              admin/benefit_profiles#index
-  #                                             POST       /admin/companies/:company_id/benefit_profiles(.:format)              admin/benefit_profiles#create
-  #           new_admin_company_benefit_profile GET        /admin/companies/:company_id/benefit_profiles/new(.:format)          admin/benefit_profiles#new
-  #          edit_admin_company_benefit_profile GET        /admin/companies/:company_id/benefit_profiles/:id/edit(.:format)     admin/benefit_profiles#edit
-  #               admin_company_benefit_profile GET        /admin/companies/:company_id/benefit_profiles/:id(.:format)          admin/benefit_profiles#show
-  #                                             PATCH      /admin/companies/:company_id/benefit_profiles/:id(.:format)          admin/benefit_profiles#update
-  #                                             PUT        /admin/companies/:company_id/benefit_profiles/:id(.:format)          admin/benefit_profiles#update
-  #                                             DELETE     /admin/companies/:company_id/benefit_profiles/:id(.:format)          admin/benefit_profiles#destroy
-  #                batch_action_admin_companies POST       /admin/companies/batch_action(.:format)                              admin/companies#batch_action
-  #                             admin_companies GET        /admin/companies(.:format)                                           admin/companies#index
-  #                                             POST       /admin/companies(.:format)                                           admin/companies#create
-  #                           new_admin_company GET        /admin/companies/new(.:format)                                       admin/companies#new
-  #                          edit_admin_company GET        /admin/companies/:id/edit(.:format)                                  admin/companies#edit
-  #                               admin_company GET        /admin/companies/:id(.:format)                                       admin/companies#show
-  #                                             PATCH      /admin/companies/:id(.:format)                                       admin/companies#update
-  #                                             PUT        /admin/companies/:id(.:format)                                       admin/companies#update
-  #                                             DELETE     /admin/companies/:id(.:format)                                       admin/companies#destroy
-  #                             admin_dashboard GET        /admin/dashboard(.:format)                                           admin/dashboard#index
-  #        batch_action_admin_company_employees POST       /admin/companies/:company_id/employees/batch_action(.:format)        admin/employees#batch_action
-  #                     admin_company_employees GET        /admin/companies/:company_id/employees(.:format)                     admin/employees#index
-  #                                             POST       /admin/companies/:company_id/employees(.:format)                     admin/employees#create
-  #                  new_admin_company_employee GET        /admin/companies/:company_id/employees/new(.:format)                 admin/employees#new
-  #                 edit_admin_company_employee GET        /admin/companies/:company_id/employees/:id/edit(.:format)            admin/employees#edit
-  #                      admin_company_employee GET        /admin/companies/:company_id/employees/:id(.:format)                 admin/employees#show
-  #                                             PATCH      /admin/companies/:company_id/employees/:id(.:format)                 admin/employees#update
-  #                                             PUT        /admin/companies/:company_id/employees/:id(.:format)                 admin/employees#update
-  #                                             DELETE     /admin/companies/:company_id/employees/:id(.:format)                 admin/employees#destroy
+  # batch_action_admin_benefit_profile_benefit_details POST       /admin/benefit_profiles/:benefit_profile_id/benefit_details/batch_action(.:format) admin/benefit_details#batch_action
+  #            admin_benefit_profile_benefit_details GET        /admin/benefit_profiles/:benefit_profile_id/benefit_details(.:format)              admin/benefit_details#index
+  #                                                  POST       /admin/benefit_profiles/:benefit_profile_id/benefit_details(.:format)              admin/benefit_details#create
+  #         new_admin_benefit_profile_benefit_detail GET        /admin/benefit_profiles/:benefit_profile_id/benefit_details/new(.:format)          admin/benefit_details#new
+  #        edit_admin_benefit_profile_benefit_detail GET        /admin/benefit_profiles/:benefit_profile_id/benefit_details/:id/edit(.:format)     admin/benefit_details#edit
+  #             admin_benefit_profile_benefit_detail GET        /admin/benefit_profiles/:benefit_profile_id/benefit_details/:id(.:format)          admin/benefit_details#show
+  #                                                  PATCH      /admin/benefit_profiles/:benefit_profile_id/benefit_details/:id(.:format)          admin/benefit_details#update
+  #                                                  PUT        /admin/benefit_profiles/:benefit_profile_id/benefit_details/:id(.:format)          admin/benefit_details#update
+  #                                                  DELETE     /admin/benefit_profiles/:benefit_profile_id/benefit_details/:id(.:format)          admin/benefit_details#destroy
+  #      batch_action_admin_company_benefit_profiles POST       /admin/companies/:company_id/benefit_profiles/batch_action(.:format)               admin/benefit_profiles#batch_action
+  #                   admin_company_benefit_profiles GET        /admin/companies/:company_id/benefit_profiles(.:format)                            admin/benefit_profiles#index
+  #                                                  POST       /admin/companies/:company_id/benefit_profiles(.:format)                            admin/benefit_profiles#create
+  #                new_admin_company_benefit_profile GET        /admin/companies/:company_id/benefit_profiles/new(.:format)                        admin/benefit_profiles#new
+  #               edit_admin_company_benefit_profile GET        /admin/companies/:company_id/benefit_profiles/:id/edit(.:format)                   admin/benefit_profiles#edit
+  #                    admin_company_benefit_profile GET        /admin/companies/:company_id/benefit_profiles/:id(.:format)                        admin/benefit_profiles#show
+  #                                                  PATCH      /admin/companies/:company_id/benefit_profiles/:id(.:format)                        admin/benefit_profiles#update
+  #                                                  PUT        /admin/companies/:company_id/benefit_profiles/:id(.:format)                        admin/benefit_profiles#update
+  #                                                  DELETE     /admin/companies/:company_id/benefit_profiles/:id(.:format)                        admin/benefit_profiles#destroy
+  #                     batch_action_admin_companies POST       /admin/companies/batch_action(.:format)                                            admin/companies#batch_action
+  #                                  admin_companies GET        /admin/companies(.:format)                                                         admin/companies#index
+  #                                                  POST       /admin/companies(.:format)                                                         admin/companies#create
+  #                                new_admin_company GET        /admin/companies/new(.:format)                                                     admin/companies#new
+  #                               edit_admin_company GET        /admin/companies/:id/edit(.:format)                                                admin/companies#edit
+  #                                    admin_company GET        /admin/companies/:id(.:format)                                                     admin/companies#show
+  #                                                  PATCH      /admin/companies/:id(.:format)                                                     admin/companies#update
+  #                                                  PUT        /admin/companies/:id(.:format)                                                     admin/companies#update
+  #                                                  DELETE     /admin/companies/:id(.:format)                                                     admin/companies#destroy
+  #                                  admin_dashboard GET        /admin/dashboard(.:format)                                                         admin/dashboard#index
+  #             batch_action_admin_company_employees POST       /admin/companies/:company_id/employees/batch_action(.:format)                      admin/employees#batch_action
+  #                          admin_company_employees GET        /admin/companies/:company_id/employees(.:format)                                   admin/employees#index
+  #                                                  POST       /admin/companies/:company_id/employees(.:format)                                   admin/employees#create
+  #                       new_admin_company_employee GET        /admin/companies/:company_id/employees/new(.:format)                               admin/employees#new
+  #                      edit_admin_company_employee GET        /admin/companies/:company_id/employees/:id/edit(.:format)                          admin/employees#edit
+  #                           admin_company_employee GET        /admin/companies/:company_id/employees/:id(.:format)                               admin/employees#show
+  #                                                  PATCH      /admin/companies/:company_id/employees/:id(.:format)                               admin/employees#update
+  #                                                  PUT        /admin/companies/:company_id/employees/:id(.:format)                               admin/employees#update
+  #                                                  DELETE     /admin/companies/:company_id/employees/:id(.:format)                               admin/employees#destroy
   #                    batch_action_admin_users POST       /admin/users/batch_action(.:format)                                  admin/users#batch_action
   #                                 admin_users GET        /admin/users(.:format)                                               admin/users#index
   #                                             POST       /admin/users(.:format)                                               admin/users#create
