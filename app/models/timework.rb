@@ -1,23 +1,29 @@
+require 'net/http'
+
 class Timework < ActiveRecord::Base
     belongs_to :company
-    
-    def initialize
-        @user_id = "sdixon78"
-        @password = "sooner2016"
-    end 
+
+    def self.build_encoded_uri(user_id, password)
+        api_url = 'https://www.swipeclock.com/pg/api12.asmx'
+        request_url = "#{api_url}/CreateSession"
+        query_params = [
+            ['login', user_id],
+            ['password', password],
+            ]
+        uri = URI.parse(request_url)
+        uri.query = URI.encode_www_form(query_params)
+        uri
+    end
     
     def self.createSession(user_id, password)
-    initialize
-    
-    require 'net/http'
-    request_url = 'http://www.swipeclock.com/pg/api12.asmx/CreateSession?login='+user_id+'&password='+password+'&secondFactor= '
-    url = URI.parse(request_url)
-    req = Net::HTTP::Get.new(url.to_s)
-    res = Net::HTTP.start(url.host, url.port) {|http|
-      http.request(req)
-    }
-    h = Hash.from_xml(res.body)
-    sesID = h['CreateSessionResult']['SessionID']
-    return sesID
+
+        uri = build_encoded_uri(user_id, password)
+        req = Net::HTTP::Get.new(uri.to_s)
+        res = Net::HTTP.start(uri.host, uri.port) {|http|
+                                                http.request(req)
+                                                   }
+        h = Hash.from_xml(res.body)
+        h['CreateSessionResult']['SessionID']
+
     end
 end

@@ -38,9 +38,9 @@ class Timeworks
     #end
  #end
 
-  def self.createSession(user, pass)
+  def self.createSession(user_id, password)
     require 'net/http'
-    request_url = 'http://www.swipeclock.com/pg/api12.asmx/CreateSession?login='+user+'&password='+pass+'&secondFactor= '
+    request_url = 'http://www.swipeclock.com/pg/api12.asmx/CreateSession?login='+user_id+'&password='+password+'&secondFactor= '
     url = URI.parse(request_url)
     req = Net::HTTP::Get.new(url.to_s)
     res = Net::HTTP.start(url.host, url.port) {|http|
