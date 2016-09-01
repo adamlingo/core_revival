@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160826184218) do
+ActiveRecord::Schema.define(version: 20160901222609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,8 @@ ActiveRecord::Schema.define(version: 20160826184218) do
     t.string   "unemployment_number"
     t.string   "processor_name"
     t.string   "pay_frequency"
+    t.string   "timework_id"
+    t.string   "timework_pass"
   end
 
   create_table "employees", force: :cascade do |t|
