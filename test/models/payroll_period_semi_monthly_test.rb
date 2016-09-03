@@ -16,6 +16,7 @@ class PayrollPeriodSemiMonthlyTest < ActiveSupport::TestCase
     expected_year = 2016
     expected_month = 8
     expected_day = 16
+    expected_pay_period = 'semi-monthly'
 
     PayrollPeriod.generate_payroll_dates(company_id, 'semi-monthly', start_date, num_periods, "%m/%d/%Y")
 
@@ -27,6 +28,7 @@ class PayrollPeriodSemiMonthlyTest < ActiveSupport::TestCase
     assert_equal expected_year, actual.year
     assert_equal expected_month, actual.month
     assert_equal expected_day, actual.day
+    assert_equal expected_pay_period, actual.pay_period
     assert_equal payroll_count_before + num_periods, payroll_count_after
   end
 
@@ -41,6 +43,7 @@ class PayrollPeriodSemiMonthlyTest < ActiveSupport::TestCase
     expected_year = 2017
     expected_month = 8
     expected_day = 1
+    expected_pay_period = 'semi-monthly'
 
     PayrollPeriod.generate_payroll_dates(company_id, 'semi-monthly', start_date, num_periods, "%m/%d/%Y")
 
@@ -52,6 +55,7 @@ class PayrollPeriodSemiMonthlyTest < ActiveSupport::TestCase
     assert_equal expected_year, actual.year
     assert_equal expected_month, actual.month
     assert_equal expected_day, actual.day
+    assert_equal expected_pay_period, actual.pay_period
     assert_equal payroll_count_before + num_periods, payroll_count_after
   end
 end

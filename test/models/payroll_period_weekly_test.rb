@@ -16,6 +16,7 @@ class PayrollPeriodWeeklyTest < ActiveSupport::TestCase
     expected_year = 2016
     expected_month = 8
     expected_day = 8
+    expected_pay_period = 'weekly'
 
     PayrollPeriod.generate_payroll_dates(company_id, 'weekly', start_date, num_periods, "%m/%d/%Y")
 
@@ -27,6 +28,7 @@ class PayrollPeriodWeeklyTest < ActiveSupport::TestCase
     assert_equal expected_year, actual.year
     assert_equal expected_month, actual.month
     assert_equal expected_day, actual.day
+    assert_equal expected_pay_period, actual.pay_period
     assert_equal payroll_count_before + num_periods, payroll_count_after
   end
 
@@ -40,6 +42,7 @@ class PayrollPeriodWeeklyTest < ActiveSupport::TestCase
     expected_year = 2017
     expected_month = 7
     expected_day = 31
+    expected_pay_period = 'weekly'
 
     PayrollPeriod.generate_payroll_dates(company_id, 'weekly', start_date, num_periods, "%m/%d/%Y")
 
@@ -48,9 +51,10 @@ class PayrollPeriodWeeklyTest < ActiveSupport::TestCase
 
     payroll_count_after = PayrollPeriod.count
 
-    assert_equal payroll_count_before + num_periods, payroll_count_after
     assert_equal expected_year, actual.year
     assert_equal expected_month, actual.month
     assert_equal expected_day, actual.day
+    assert_equal expected_pay_period, actual.pay_period
+    assert_equal payroll_count_before + num_periods, payroll_count_after
   end
 end

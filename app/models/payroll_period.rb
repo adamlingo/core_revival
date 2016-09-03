@@ -23,7 +23,7 @@ class PayrollPeriod < ActiveRecord::Base
   end
 
   def to_s
-    "year: #{year}, month: #{month}, day: #{day}"
+    "year: #{year}, month: #{month}, day: #{day}, pay period; #{pay_period}"
   end
 
   private
@@ -32,10 +32,12 @@ class PayrollPeriod < ActiveRecord::Base
 
       (1...num_periods).each do |period|
         date = date >> 1        
+
         PayrollPeriod.create!(company_id: company_id,
                               year: date.year, 
                               month: date.month,
-                              day: date.day)
+                              day: date.day,
+                              pay_period: 'monthly')
       end
     end
 
@@ -60,18 +62,21 @@ class PayrollPeriod < ActiveRecord::Base
         PayrollPeriod.create!(company_id: company_id,
                               year: date.year, 
                               month: date.month,
-                              day: date.day)
+                              day: date.day,
+                              pay_period: 'semi-monthly')
       end
     end
     
     def self.generate_weekly(company_id, date, num_periods)
 
       (1...num_periods).each do |period|
-        date += 7.days
+        date += 1.weeks
+
         PayrollPeriod.create!(company_id: company_id,
                               year: date.year, 
                               month: date.month,
-                              day: date.day)
+                              day: date.day,
+                              pay_period: 'weekly')
       end
     end
     
@@ -79,10 +84,12 @@ class PayrollPeriod < ActiveRecord::Base
 
       (1...num_periods).each do |period|
         date += 2.weeks
+
         PayrollPeriod.create!(company_id: company_id,
                               year: date.year, 
                               month: date.month,
-                              day: date.day)
+                              day: date.day,
+                              pay_period: 'bi-weekly')
         end
     end
 end
