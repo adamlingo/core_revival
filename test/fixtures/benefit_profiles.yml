@@ -1,10 +1,42 @@
 # Read about fixtures at
 # http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  name: MyString
+medical_fixed_company_1:
+  id: 1
+  name: 'Benefit Profile - Medical'
   company_id: 1
+  provider: 'Medical Provider'
+  provider_plan: 'Provider Plan 1'
+  benefit_type: 'Medical'
+  benefit_method: 'Fixed'
+  account_number: '42-med'
 
-two:
-  name: MyString
+dental_fixed_company_1:
+  id: 2
+  name: 'Benefit Profile - Dental'
   company_id: 1
+  provider: 'Dental Provider'
+  provider_plan: 'Provider Plan 1'
+  benefit_type: 'Dental'
+  benefit_method: 'Fixed'
+  account_number: '42-dental'
+
+medical_percentage_company_2:
+  id: 3
+  name: 'Benefit Profile - Medical'
+  company_id: 2
+  provider: 'Medical Provider'
+  provider_plan: 'Provider Plan 1'
+  benefit_type: 'Medical'
+  benefit_method: '%'
+  account_number: 'fourty-two-med'
+
+dental_percentage_company_2:
+  id: 4
+  name: 'Benefit Profile - Dental'
+  company_id: 2
+  provider: 'Dental Provider'
+  provider_plan: 'Provider Plan 1'
+  benefit_type: 'Dental'
+  benefit_method: '%'
+  account_number: 'fourty-two-dental'

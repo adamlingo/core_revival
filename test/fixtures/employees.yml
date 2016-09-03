@@ -1,14 +1,21 @@
 # Read about fixtures at
 # http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-demo:
-  id: 42
+employee_1:
+  id: 1
   name: 'Dana Demo'
+  last_name: 'Demo'
+  first_name: 'Dana'
   company_id: 1
   sub_id: 'my-sub-id'
+  employee_category: 'Employee'
 
-example:
+employee_2:
   id: 2
   name: 'Raymond Example'
+  last_name: 'Example'
+  first_name: 'Raymond'
   company_id: 2
   sub_id: 'my-sub-id-2'
+  employee_category: 'Employee'
+

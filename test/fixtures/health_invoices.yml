@@ -6,7 +6,7 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
-  account_number: 'one'
+  account_number: '42-med'
   billing_profile: 1
   category: 'my-cat'
   product: 'cool-product'
@@ -21,7 +21,7 @@ one:
   year: 2016
 
 two:
-  account_number: 'one'
+  account_number: '42-med'
   billing_profile: 1
   category: 'my-cat'
   product: 'cool-product'
@@ -36,7 +36,7 @@ two:
   year: 2016
 
 three:
-  account_number: 'one'
+  account_number: '42-med'
   billing_profile: 1
   category: 'my-cat'
   product: 'cool-product'
@@ -51,7 +51,7 @@ three:
   year: 2016
 
 four:
-  account_number: 'two'
+  account_number: 'fourty-two-med'
   billing_profile: 1
   category: 'my-cat'
   product: 'cool-product'
@@ -66,7 +66,7 @@ four:
   year: 2016
 
 five:
-  account_number: 'two'
+  account_number: 'fourty-two-med'
   billing_profile: 1
   category: 'my-cat'
   product: 'cool-product'
@@ -81,7 +81,7 @@ five:
   year: 2016
 
 six:
-  account_number: 'two'
+  account_number: 'fourty-two-med'
   billing_profile: 1
   category: 'my-cat'
   product: 'cool-product'
