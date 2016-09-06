@@ -27,6 +27,6 @@ class Timework < ActiveRecord::Base
         }
         h = Hash.from_xml(res.body)
         h['CreateSessionResult']['SessionID']
-        puts h
+        
     end
 end
