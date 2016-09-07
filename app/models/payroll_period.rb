@@ -90,7 +90,7 @@ class PayrollPeriod < ActiveRecord::Base
                               month: date.month,
                               day: date.day,
                               pay_period: 'bi-weekly')
-        end
+      end
     end
 end
   
