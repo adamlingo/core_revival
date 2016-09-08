@@ -10,8 +10,8 @@ class Timework < ActiveRecord::Base
             ['login', user_id],
             ['password', password],
             ['secondFactor', ''],
-            ['matchfield', 'ClientName'],
-            ['ClientID', 'MMW']
+            ['matchfield', 'EmployerID'],
+            ['ClientID', '72007800']
             ]
         uri = URI.parse(request_url)
         uri.query = URI.encode_www_form(query_params)
