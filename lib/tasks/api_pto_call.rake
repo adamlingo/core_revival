@@ -22,16 +22,7 @@ namespace :api_pto_call do
             # Employees.all.each { |employee|
             
         task get_pto_data: :environment do
-            session_id = Timework.createSession('fiducialok','Thunder2016')
-            puts session_id
-            api_url = 'https://www.payrollservers.us/pg/api12.asmx'
-            request_url = "#{api_url}/GetActivityFile?sessionID=#{session_id}&BeginDate=2016-8-14&EndDate=2016-8-27&FormatName=swipeclockpt&OptionalLaborMapping=''"
-                uri = URI.parse(request_url)
-                req = Net::HTTP::Get.new(uri)
-                res = Net::HTTP.start(uri.host, uri.port) {|http|
-                        http.request(req)
-                }
-                puts res.body
+            Timework.pto_report
         end
             
         
