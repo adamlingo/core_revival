@@ -11,11 +11,11 @@ demo_employee:
   benefit_method: 'FIXED'
   benefit_amount: 100
   benefit_profile_id: 1
-  category_sub: 1
-  category_dep: 1
-  category_sps: 1
-  category_ch_pls_one: 1
-  category_sps_pls_one: 1
+  category_sub: 100
+  category_dep: 80
+  category_sps: 0
+  category_ch_pls_one: 0
+  category_sps_pls_one: 0
   employee_tier: 'SUB'
 
 demo_owner:
@@ -37,8 +37,8 @@ example:
   benefit_method: '%'
   benefit_amount: 80
   benefit_profile_id: 3
-  category_sub: 1
-  category_dep: 1
+  category_sub: 80
+  category_dep: 50
   category_sps: 1
   category_ch_pls_one: 1
   category_sps_pls_one: 1
