@@ -12,15 +12,14 @@ class Timework < ActiveRecord::Base
             ['password', password],
             ['secondFactor', ''],
             ['matchfield', 'ClientName'],
-            ['ClientID', 'MMW']
+            ['ClientID', 'Green Bambino']
             ]
         uri = URI.parse(request_url)
         uri.query = URI.encode_www_form(query_params)
         uri
     end
-    
-    
-    def self.pto_report        
+
+    def self.pto_report
         session_id = Timework.createSession('fiducialok','Thunder2016')
         puts session_id
 
