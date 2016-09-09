@@ -8,7 +8,7 @@ namespace :api_pto_call do
                 timework = Timework.where(company_id: company.id).first
                 if true || timework.present?
                     # use the timework record for the username, password, client_id
-                    raw_data = Timework.pto_report_by_client('fiducialok', 'Thunder2016', company.client_id)
+                    raw_data = Timework.pto_report_by_client('fiducialok', 'Thunder2016', Company.client_id)
                     # Employee.save_pto(company.id, raw_data)
                     puts raw_data.body
                 else
