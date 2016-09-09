@@ -1,4 +1,5 @@
 require 'net/http'
+require 'date'
 
 class Timework < ActiveRecord::Base
     belongs_to :company
@@ -11,7 +12,7 @@ class Timework < ActiveRecord::Base
             ['login', user_id],
             ['password', password],
             ['secondFactor', ''],
-            ['matchfield', 'ClientName'],
+            ['matchfield', 'EmployerID'],
             ['ClientID', client_id]
             ]
         uri = URI.parse(request_url)
@@ -34,12 +35,14 @@ class Timework < ActiveRecord::Base
     def self.pto_report_by_client(user_id, password, client_id)
         session_id = Timework.createSession(user_id, password, client_id)
         puts session_id
-
+        date = Date.today
+        begin_date = date.beginning_of_year
+ 
         request_url = "#{API_URL}/GetActivityFile"
         query_params = [
             ['sessionID', session_id],
-            ['BeginDate', '2016-8-14'],
-            ['EndDate', '2016-8-27'],
+            ['BeginDate', begin_date.strftime('%Y-%m-%d')],
+            ['EndDate', date.strftime('%Y-%m-%d')],
             ['FormatName', 'swipeclockpto'],
             ['OptionalLaborMapping','']
         ]
