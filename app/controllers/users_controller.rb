@@ -10,6 +10,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     # need to add redirect for user type
+
+    # creating a new user creates a new session
     if @user.save
       session[:user_id] = @user.id
       redirect_to '/home'
