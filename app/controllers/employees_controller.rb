@@ -24,6 +24,7 @@ class EmployeesController < ApplicationController
   def create
     @employee = Employee.new(employee_params)
 
+    # @user = User.new(user_params) << want to use :email field for new user record
     # need @employee.save if/else clause to render proper template
     
   end

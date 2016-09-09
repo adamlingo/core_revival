@@ -7,6 +7,17 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def create
+    @user = User.new(user_params)
+    # need to add redirect for user type
+    if @user.save
+      session[:user_id] = @user.id
+      redirect_to '/home'
+    else
+      redirect_to '/users/signup'
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
