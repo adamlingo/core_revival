@@ -24,8 +24,16 @@
   
 
   <div class="field">
+    <%= f.label "Select User Type: " %><br />
+   
+    <%= f.radio_button :user, 'employee', :checked => true %><br />
+    <%= f.label :employee %>
+
+    <%= f.radio_button :user, 'manager' %><br />
+    <%= f.label :manager %>
     
-    <%= f.check_box :manager %> 
+    <%= f.radio_button :user, 'admin' %>
+    <%= f.label :admin %>
   </div>
 
 
