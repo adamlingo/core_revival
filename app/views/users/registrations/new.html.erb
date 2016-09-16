@@ -24,19 +24,19 @@
   
 
   <div class="field">
-    <%= f.label "Select User Type: " %><br />
+    <!---<%= f.label "Select User Type: " %><br />
    
-    <%= f.radio_button :user, 'employee', :checked => true %><br />
-    <%= f.label :employee %>
+    <%= f.radio_button :employee, false %>
+    <%= f.label :users_employee, 'Employee' %><br />
 
-    <%= f.radio_button :user, 'manager' %><br />
-    <%= f.label :manager %>
+    <%= f.radio_button :manager, false %>
+    <%= f.label :users_manager, 'Manager' %><br />
     
-    <%= f.radio_button :user, 'admin' %>
-    <%= f.label :admin %>
+    <%= f.radio_button :admin, false %>
+    <%= f.label :users_admin, 'Admin' %>
   </div>
 
-
+  -->
 
   <div class="actions">
     <%= f.submit "Sign up" %>
