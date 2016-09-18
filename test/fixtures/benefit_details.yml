@@ -10,7 +10,6 @@ demo:
   benefit_category: 'my-benefit-cat'
   benefit_method: 'FIXED'
   benefit_amount: 100
-  employee_id: 42
   benefit_profile_id: 1
   category_sub: 1
   category_dep: 1
@@ -24,7 +23,6 @@ example:
   benefit_category: 'my-benefit-cat'
   benefit_method: '%'
   benefit_amount: 80
-  employee_id: 2
   benefit_profile_id: 1
   category_sub: 1
   category_dep: 1
