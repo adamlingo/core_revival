@@ -5,9 +5,9 @@ class EmployeesController < ApplicationController
 
   # edit index
   def index
-    @employees = Employee.all
-    # @company = Company.find(params[:id])
-    # @employees = @company.employees
+    # only show all Employees of selected company
+    @company = Company.find(params[:company_id])
+    @employees = @company.employees
   end
 
   def show
