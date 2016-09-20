@@ -14,7 +14,7 @@
     <% @companies.each do |company| %>
       <tr>
         <td><%= company.name %></td>
-        <td><%= link_to 'go to empoyees', company_employees_path(company) %> </td>
+        <td><%= link_to 'View Employees', company_employees_path(company) %> </td>
         <td><%= link_to 'Show', company %></td>
         <td><%= link_to 'Edit', edit_company_path(company) %></td>
         <td><%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' } %></td>
