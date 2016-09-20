@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root 'pages#home'
   get  '/home', to: "pages#home", as: "home"
   get  'companies_static' => 'pages#companies_static'
+  get  'users' => 'users#index'
 
   # Devise routes with ActiveAdmin
   devise_for :admin_users, ActiveAdmin::Devise.config
