@@ -10,7 +10,7 @@ namespace :api_pto_call do
                 timework = Timework.where(company_id: company.id).first
                 if timework.present? && timework.client_id.present?
                     # use the timework record for the username, password, client_id
-                    raw_data = Timework.pto_report_by_client(ENV['TIMEWORKS_API_ADMIN_USER'], ENV['TIMEWORKS_API_ADMIN_PASSWORD'] timework.client_id)
+                    raw_data = Timework.pto_report_by_client(ENV['TIMEWORKS_API_ADMIN_USER'], ENV['TIMEWORKS_API_ADMIN_PASSWORD'], timework.client_id)
                     puts raw_data
                     #parse data
                     CSV.foreach(raw_data, headers: true) do |row|
