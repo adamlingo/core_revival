@@ -8,7 +8,7 @@ class Employee < ActiveRecord::Base
   
   
     def self.import(file_path)
-      file_path = '/home/ubuntu/workspace/core_redux/lib/assets/EmployeeList.csv'
+      # file_path = '/home/ubuntu/workspace/core_redux/lib/assets/EmployeeList.csv'
       CSV.foreach(file_path, headers: true) do |row|
         import_hash = row.to_hash
         unless import_hash['First Name'].nil?
