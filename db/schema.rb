@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921004538) do
+ActiveRecord::Schema.define(version: 20160923203305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,14 @@ ActiveRecord::Schema.define(version: 20160921004538) do
     t.string   "timework_pass"
   end
 
+  create_table "employee_additional_logins", force: :cascade do |t|
+    t.string   "subscriber_id"
+    t.string   "swipeclock_ee_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "employee_id"
+  end
+
   create_table "employee_benefits", force: :cascade do |t|
     t.decimal  "pto_balance"
     t.datetime "created_at",  null: false
@@ -117,6 +125,8 @@ ActiveRecord::Schema.define(version: 20160921004538) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "sub_id"
+    t.string   "dob"
+    t.string   "doh"
   end
 
   create_table "health_invoices", force: :cascade do |t|

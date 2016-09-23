@@ -12,9 +12,11 @@
   </thead>
 
   <tbody>
-        <% @benefit_profiles.each do |benefit_profile| %>
+        <% @employee_benefits.each do |employee_benefit| %>
           <tr>
-        
+              <td><%= employee_benefit.employee.last_name %></td>
+              <td><%= employee_benefit.employee.first_name%></td>
+              <td><%= employee_benefit.pto_balance%></td>
 
 
           </tr>
