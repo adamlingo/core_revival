@@ -10,11 +10,11 @@
           <%= image_tag("user-placeholder.jpeg", alt: "Avatar")%>
         </figure>
         <span class='profile__name'>
-          First Name
+          <%= current_user.first_name %>
         <span>
-          Last Name
+          <%= current_user.last_name %>
         </span>
-          Company Name
+          <!--<%= current_user.company_name %> -->
         </span>
       </a>
     </li>
