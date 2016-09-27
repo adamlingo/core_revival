@@ -1,17 +1,15 @@
 class EmployeesController < ApplicationController
-  before_action :set_employee, only: [:show, :edit, :update, :destroy]
   # must be logged in
-  before_filter :authenticate_user!
+  # before_filter :authenticate_user!
+  #before_action :set_employee, only: [:show, :edit, :update, :destroy]
 
-  # edit index
   def index
     # only show all Employees of selected company
-    @company = Company.find(params[:company_id])
-    @employees = @company.employees
+    @employees = find_company.employees
   end
 
   def show
-    @employee = Employee.find(params[:id])
+    @employee = set_employee
   end
 
   def new
@@ -19,6 +17,7 @@ class EmployeesController < ApplicationController
   end
 
   def edit
+    @employee = set_employee
   end
 
   def create
@@ -51,12 +50,18 @@ class EmployeesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+
+    # Employees need to find company they are associated with
+    def find_company
+      Company.find(params[:company_id])
+    end
+
     def set_employee
-      @employee = Employee.find(params[:id])
+      find_company.employees.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-      params.require(:employee).permit(:name, :company_id)
+      params.require(:employee).permit(:company_id, :first_name, :last_name, :email)
     end
 end
