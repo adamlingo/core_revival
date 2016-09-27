@@ -14,8 +14,8 @@
   <tbody>
         <% @employee_benefits.each do |employee_benefit| %>
           <tr>
-              <td><%= employee_benefit.employee.last_name %></td>
-              <td><%= employee_benefit.employee.first_name%></td>
+              <td><%= employee_benefit.ee_id %></td>
+              <td><%= employee_benefit.ee_id.last_name%></td>
               <td><%= employee_benefit.pto_balance%></td>
 
 

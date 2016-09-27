@@ -13,8 +13,12 @@ class Employee < ActiveRecord::Base
       CSV.foreach(file_path, headers: true) do |row|
         import_hash = row.to_hash
         unless import_hash['First Name'].nil?
-          import = find_or_create_by!(first_name: import_hash['First Name'],
-                                            last_name: import_hash['Last Name'],
+          combined_name = import_hash['First Name']
+          names = combined_name.split(' ')
+          first_name = names[0] 
+          import = find_or_create_by!(first_name: first_name.capitalize,
+                                            last_name: import_hash['Last Name'].capitalize,
+                                            company_id: 2,
                                             address: import_hash['Home Address'],
                                             dob: import_hash['Birth Date'],
                                             doh: import_hash['Hire Date'])

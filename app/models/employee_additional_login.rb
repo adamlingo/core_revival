@@ -13,7 +13,7 @@ class EmployeeAdditionalLogin < ActiveRecord::Base
           import_hash = row.to_hash
           unless import_hash['Employee Name'].nil?
             emp_name = import_hash['Employee Name']
-            names = emp_name.split(',')
+            names = emp_name.split(/[\s,]+/)
             last_name = names[0]
             first_name = names[1].sub(/\ /, '')
             last_name = last_name.capitalize
