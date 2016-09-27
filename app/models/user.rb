@@ -8,21 +8,21 @@ class User < ActiveRecord::Base
   def company_id
     e = Employee.find_by(user_id: id)
     e.company_id
-  end
+  end 
 
-  def company_name
-    e = Employee.find_by(user_id: id)
-    e.company.name
-  end
+  # def company_name
+  #   e = Employee.find_by(user_id: id)
+  #   e.company.name
+  # end
 
-  def first_name
-    e = Employee.find_by(user_id: id)
-    e.first_name
-  end
+  # def first_name
+  #   e = Employee.find_by(user_id: id)
+  #   e.first_name
+  # end
 
-  def last_name
-    e = Employee.find_by(user_id: id)
-    e.last_name
-  end
+  # def last_name
+  #   e = Employee.find_by(user_id: id)
+  #   e.last_name
+  # end
 
 end
