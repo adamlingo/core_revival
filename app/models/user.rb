@@ -10,10 +10,10 @@ class User < ActiveRecord::Base
     e.company_id
   end 
 
-  # def company_name
-  #   e = Employee.find_by(user_id: id)
-  #   e.company.name
-  # end
+  def company_name
+    e = Employee.find_by(user_id: id)
+    e.company.name
+  end
 
   # def first_name
   #   e = Employee.find_by(user_id: id)
