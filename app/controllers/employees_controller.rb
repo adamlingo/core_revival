@@ -14,6 +14,8 @@ class EmployeesController < ApplicationController
 
   def new
     @employee = Employee.new
+    @company = find_company
+    @employee.company_id = @company.id
   end
 
   def edit
