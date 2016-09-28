@@ -5,6 +5,7 @@ class EmployeeBenefitsController < ApplicationController
   
   def index
     @employee_benefits = EmployeeBenefit.all
+    
   end
 
 
