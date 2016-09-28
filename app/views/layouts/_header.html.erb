@@ -15,7 +15,7 @@
           <%= 'LAST NAME' %>
         </span>
           <% if current_user.manager? || current_user.employee? %>
-            <%= current_user.company_id %> 
+            <%= current_user.company_name %> 
           <% else %>
             <%= 'Admin User' %>
           <% end %>
