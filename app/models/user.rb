@@ -15,14 +15,14 @@ class User < ActiveRecord::Base
     e.company.name
   end
 
-  # def first_name
-  #   e = Employee.find_by(user_id: id)
-  #   e.first_name
-  # end
+  def first_name
+    e = Employee.find_by(user_id: id)
+    e.first_name
+  end
 
-  # def last_name
-  #   e = Employee.find_by(user_id: id)
-  #   e.last_name
-  # end
+  def last_name
+    e = Employee.find_by(user_id: id)
+    e.last_name
+  end
 
 end
