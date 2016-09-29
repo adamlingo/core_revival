@@ -26,11 +26,11 @@ class HealthInvoice < ActiveRecord::Base
       current_charges = HealthInvoice.convert_to_decimal(health_invoice_hash['CurrentCharges'])
       total_charges = HealthInvoice.convert_to_decimal(health_invoice_hash['TotalCharges'])
 
-      health_invoice = find_or_create_by!(account_number: health_invoice_hash['Account'],
-                                          billing_profile: health_invoice_hash['BillingProfile'],
-                                          category: health_invoice_hash['Category'],
+      health_invoice = find_or_create_by!(account_number: health_invoice_hash['Account'].to_i.to_s,
+                                          billing_profile: health_invoice_hash['BillingProfile'].to_i.to_s,
+                                          category: health_invoice_hash['Category'].to_i.to_s,
                                           product: health_invoice_hash['Product'],
-                                          health_sub_id: health_invoice_hash['Subscriber ID'],
+                                          health_sub_id: health_invoice_hash['Subscriber ID'].to_i.to_s,
                                           sub_name: health_invoice_hash['Subscriber Name'],
                                           tier: health_invoice_hash['Tier'],
                                           change_reason: health_invoice_hash['Change Reason'],

@@ -22,6 +22,9 @@ class Reconciliation < ActiveRecord::Base
     def self.compute_employee_diff(company, employee)
         # this grabs every invoice row the specific employee
         emp_invoices = HealthInvoice.where(health_sub_id: employee.sub_id)
+        return 0 if emp_invoices.nil? || emp_invoices.count == 0
+
+        puts "sub_id: #{employee.sub_id} - #{emp_invoices}"
 
         # this grabs every payroll row the specific employee
         emp_payroll_deduction = PayrollDeduction.where(pay_sub_id: employee.sub_id).first
@@ -86,7 +89,7 @@ class Reconciliation < ActiveRecord::Base
     def self.health_invoice_dep(emp_invoices)
         total = 0
         emp_invoices.each {|inv|
-            total += inv.total_charges if inv.tier == 'DEP' || inv.tier == 'SPS'
+            total += inv.total_charges if inv.tier != 'SUB'
         }
 
         total
