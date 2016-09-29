@@ -10,9 +10,17 @@
           <%= image_tag("user-placeholder.jpeg", alt: "Avatar")%>
         </figure>
         <span class='profile__name'>
-          <%= 'FIRST NAME' %>
+          <% if current_user.manager? || current_user.employee? %>
+            <%= current_user.first_name %> 
+          <% else %>
+            <%= current_user.email %>
+          <% end %>
         <span>
-          <%= 'LAST NAME' %>
+          <% if current_user.manager? || current_user.employee? %>
+            <%= current_user.last_name %> 
+          <% else %>
+            <!-- Maybe consider other condition here -->
+          <% end %>
         </span>
           <% if current_user.manager? || current_user.employee? %>
             <%= current_user.company_name %> 
