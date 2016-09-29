@@ -1,24 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Benefit Profiles</h1>
+<h1>Listing Employee Benefits-This is new</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Company</th>
+      <th>Employee Name</th>
+      <th>PTO Balance</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @benefit_profiles.each do |benefit_profile| %>
-      <tr>
-        <td><%= benefit_profile.provider %></td>
-        <td><%= benefit_profile.company.name %></td>
+        <% @employee_benefits.each do |employee_benefit| %>
         
-      </tr>
-    <% end %>
+                <td><%= employee_benefit.employee_id.last_name %></td>
+                <td><%= employee_benefit.employee_id.first_name%></td>
+                <td><%= employee_benefit.pto_balance%></td>
+          <tr>
+        
+
+
+          </tr>
+      <% end %>
   </tbody>
 </table>
 

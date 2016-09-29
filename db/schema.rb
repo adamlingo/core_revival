@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823153119) do
+ActiveRecord::Schema.define(version: 20160923203305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,13 +91,24 @@ ActiveRecord::Schema.define(version: 20160823153119) do
     t.string   "unemployment_number"
     t.string   "processor_name"
     t.string   "pay_frequency"
+    t.string   "timework_id"
+    t.string   "timework_pass"
   end
 
-  create_table "company_payroll_dates", force: :cascade do |t|
-    t.string   "year"
-    t.string   "pay_period"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "employee_additional_logins", force: :cascade do |t|
+    t.string   "subscriber_id"
+    t.string   "swipeclock_ee_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "employee_id"
+  end
+
+  create_table "employee_benefits", force: :cascade do |t|
+    t.decimal  "pto_balance"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "ee_id"
+    t.string   "employee_id"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -114,6 +125,8 @@ ActiveRecord::Schema.define(version: 20160823153119) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "sub_id"
+    t.string   "dob"
+    t.string   "doh"
   end
 
   create_table "health_invoices", force: :cascade do |t|
@@ -144,9 +157,29 @@ ActiveRecord::Schema.define(version: 20160823153119) do
     t.decimal  "deduction_amount"
   end
 
+  create_table "payroll_periods", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "pay_period"
+    t.integer  "year"
+    t.integer  "month"
+    t.integer  "day"
+    t.integer  "company_id"
+  end
+
   create_table "reconciliations", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "timeworks", force: :cascade do |t|
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "company_id"
+    t.string   "user_id"
+    t.string   "password"
+    t.string   "secondFactor"
+    t.string   "client_id"
   end
 
   create_table "users", force: :cascade do |t|

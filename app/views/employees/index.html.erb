@@ -14,7 +14,9 @@
   <tbody>
     <% @employees.each do |employee| %>
       <tr>
-        <td><%= employee.name %></td>
+        <td><%= employee.first_name %></td>
+        <td><%= employee.last_name %></td>
+        <td><%= employee.id %></td>
         <td><%= employee.company.name %></td>
       </tr>
     <% end %>
