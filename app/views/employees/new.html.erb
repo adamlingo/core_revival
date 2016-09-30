@@ -1,6 +1,6 @@
 <h1>New Employee</h1>
 
-<%= form_for @employee, :url => new_company_employee_path(@company) do |f| %>
+<%= form_for @employee, :url => company_employees_path(@company) do |f| %>
   <% if @employee.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
@@ -14,8 +14,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label "Company ID #{@employee.company_id}" %>
-    <%= f.label :company_id %><br>
+    <%= f.label "Company name: #{current_user.company_name.upcase}" %>
   </div>
 
   <div class="field">
