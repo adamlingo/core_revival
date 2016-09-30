@@ -6,16 +6,25 @@
     Eventual home page for the new Core App!
   </h2>
   </br>
-  <a>
-  	<%= link_to 'View Companies', companies_path %>
-  </a>
-  </br></br>
-  <a>
-  	<%= link_to 'View Users', users_path %>
-  </a>
-  </br></br>
-  <a>
-  	<%= "Current User: #{current_user.email}" %>
-  </a>
+
+  <% if current_user.admin? %>
+    <a>
+    	<%= link_to 'View Companies', companies_path %>
+    </a>
+    </br></br>
+    <a>
+    	<%= link_to 'View Users', users_path %>
+    </a>
+    </br></br>
+  <% elsif current_user.employee? %>
+    <a href="https://www.swipeclock.com/WebClock" class="btn btn-success btn-sm" role="button">Clock in / out
+    </a>
+    </br></br>
+  <% end %>
+    <a>
+    	<%= "Current User: #{current_user.email}" %>
+    </a>
+
+
 </div>
   
