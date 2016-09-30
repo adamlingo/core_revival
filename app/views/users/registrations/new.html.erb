@@ -22,10 +22,22 @@
   </div>
 
   
+
   <div class="field">
-    <%= f.label :manager %><br/>
-    <%= f.check_box :manager %> 
+    <!-- Needs work on radio button organization -->
+    <%= f.label "Select User Type: " %><br />
+   
+    <%= f.radio_button :employee, false %>
+    <%= f.label :users_employee, 'Employee' %><br />
+
+    <%= f.radio_button :manager, false %>
+    <%= f.label :users_manager, 'Manager' %><br />
+    
+    <%= f.radio_button :admin, false %>
+    <%= f.label :users_admin, 'Admin' %>
   </div>
+
+  
 
   <div class="actions">
     <%= f.submit "Sign up" %>

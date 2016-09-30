@@ -1,0 +1,22 @@
+<ul>
+  <% @users.each do |user| %>
+  <li>
+  	<%= 'User e-mail: ' %>
+    <%= user.email %>
+    	<% if user.manager? %>
+    		</br>
+    		<%= ' :Manager' %>
+    	<% elsif user.employee? %>
+    		</br>
+    		<%= ' :Employee' %>
+    	<% elsif user.admin? %>
+    		</br>
+    		<%= ' :Admin' %>
+    	<% else %>
+    		</br>
+    		<%= ' **No role selected' %>
+    	<% end %>
+    </br></br>
+  </li>
+  <% end %>
+</ul>
