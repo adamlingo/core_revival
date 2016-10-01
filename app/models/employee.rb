@@ -8,7 +8,7 @@ class Employee < ActiveRecord::Base
   
   
   
-    def self.import(file_path)
+    def self.import(company_id, file_path)
       # file_path = '/home/ubuntu/workspace/core_redux/lib/assets/EmployeeList.csv'
       CSV.foreach(file_path, headers: true) do |row|
         import_hash = row.to_hash
@@ -18,7 +18,7 @@ class Employee < ActiveRecord::Base
           first_name = names[0] 
           import = find_or_create_by!(first_name: first_name.capitalize,
                                             last_name: import_hash['Last Name'].capitalize,
-                                            company_id: 2,
+                                            company_id: company_id,
                                             address: import_hash['Home Address'],
                                             date_of_birth: import_hash['Birth Date'],
                                             date_of_hire: import_hash['Hire Date'])
