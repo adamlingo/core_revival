@@ -92,6 +92,24 @@ ActiveRecord::Schema.define(version: 20160903121236) do
     t.string   "unemployment_number"
     t.string   "processor_name"
     t.string   "pay_frequency"
+    t.string   "timework_id"
+    t.string   "timework_pass"
+  end
+
+  create_table "employee_additional_logins", force: :cascade do |t|
+    t.string   "subscriber_id"
+    t.string   "swipeclock_ee_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "employee_id"
+  end
+
+  create_table "employee_benefits", force: :cascade do |t|
+    t.decimal  "pto_balance"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "ee_id"
+    t.string   "employee_id"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -109,6 +127,9 @@ ActiveRecord::Schema.define(version: 20160903121236) do
     t.string   "last_name"
     t.string   "sub_id"
     t.string   "employee_category", null: false
+    t.integer  "user_id"
+    t.string   "dob"
+    t.string   "doh"
   end
 
   create_table "health_invoices", force: :cascade do |t|
@@ -154,19 +175,32 @@ ActiveRecord::Schema.define(version: 20160903121236) do
     t.datetime "updated_at"
   end
 
+  create_table "timeworks", force: :cascade do |t|
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "company_id"
+    t.string   "user_id"
+    t.string   "password"
+    t.string   "secondFactor"
+    t.string   "client_id"
+  end
+
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "manager",                default: false
+    t.boolean  "admin"
+    t.boolean  "employee"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

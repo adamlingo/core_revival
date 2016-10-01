@@ -10,8 +10,12 @@
   <body>
     <%= render 'layouts/header' %>
     <!-- sidebar partial to be conditional for EE or manager -->
-    <%= render 'layouts/sidebar'%>
-    
+    <% if current_user.manager? %>
+      <%= render 'layouts/sidebar'%>
+    <% elsif current_user.employee? %>
+      <%= render 'layouts/sidebar_ee' %>
+    <% end %>
+
     <div class="content">
       <!-- basic yield to load contents of each page in layout -->
       <%= yield %>

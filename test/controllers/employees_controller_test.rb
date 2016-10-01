@@ -1,5 +1,11 @@
 require "test_helper"
 
 class EmployeesControllerTest < ActionController::TestCase
-  # Write future EE controller tests
+  
+  # get new action to work
+  def test_new
+    # skip
+    get :new
+    assert_response :success
+  end
 end
