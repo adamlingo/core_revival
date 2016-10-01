@@ -6,11 +6,12 @@ ActiveAdmin.register Employee do
 
   # Edit fields to save
   permit_params :name, :first_name, :last_name, :company_id, :email, :address, 
-                :city, :state, :zip, :phone_number, :sub_id
+                :city, :state, :zip, :phone_number, :sub_id, :user_id
   
   index do
     selectable_column
     column :company_id
+    column :user_id
     id_column
     # make EE list reflect showing name of Company here
     column :last_name

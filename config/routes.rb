@@ -1,104 +1,20 @@
 Rails.application.routes.draw do
   
   # Devise login is home page based on pages#home before_filter
-  devise_scope :user do
-  end
 
   # Root to pages/home (requires login)
   root 'pages#home'
   get  '/home', to: "pages#home", as: "home"
-  get  'companies_static' => 'pages#companies_static'
+  get  'users' => 'users#index'
 
   # Devise routes with ActiveAdmin
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  #                      new_admin_user_session GET        /admin/login(.:format)                                               active_admin/devise/sessions#new
-  #                          admin_user_session POST       /admin/login(.:format)                                               active_admin/devise/sessions#create
-  #                  destroy_admin_user_session DELETE|GET /admin/logout(.:format)                                              active_admin/devise/sessions#destroy
-  #                         admin_user_password POST       /admin/password(.:format)                                            active_admin/devise/passwords#create
-  #                     new_admin_user_password GET        /admin/password/new(.:format)                                        active_admin/devise/passwords#new
-  #                    edit_admin_user_password GET        /admin/password/edit(.:format)                                       active_admin/devise/passwords#edit
-  #                                             PATCH      /admin/password(.:format)                                            active_admin/devise/passwords#update
-  #                                             PUT        /admin/password(.:format)                                            active_admin/devise/passwords#update
-  #                                  admin_root GET        /admin(.:format)                                                     admin/dashboard#index
-  #              batch_action_admin_admin_users POST       /admin/admin_users/batch_action(.:format)                            admin/admin_users#batch_action
-  #                           admin_admin_users GET        /admin/admin_users(.:format)                                         admin/admin_users#index
-  #                                             POST       /admin/admin_users(.:format)                                         admin/admin_users#create
-  #                        new_admin_admin_user GET        /admin/admin_users/new(.:format)                                     admin/admin_users#new
-  #                       edit_admin_admin_user GET        /admin/admin_users/:id/edit(.:format)                                admin/admin_users#edit
-  #                            admin_admin_user GET        /admin/admin_users/:id(.:format)                                     admin/admin_users#show
-  #                                             PATCH      /admin/admin_users/:id(.:format)                                     admin/admin_users#update
-  #                                             PUT        /admin/admin_users/:id(.:format)                                     admin/admin_users#update
-  #                                             DELETE     /admin/admin_users/:id(.:format)                                     admin/admin_users#destroy
-  # batch_action_admin_benefit_profile_benefit_details POST       /admin/benefit_profiles/:benefit_profile_id/benefit_details/batch_action(.:format) admin/benefit_details#batch_action
-  #            admin_benefit_profile_benefit_details GET        /admin/benefit_profiles/:benefit_profile_id/benefit_details(.:format)              admin/benefit_details#index
-  #                                                  POST       /admin/benefit_profiles/:benefit_profile_id/benefit_details(.:format)              admin/benefit_details#create
-  #         new_admin_benefit_profile_benefit_detail GET        /admin/benefit_profiles/:benefit_profile_id/benefit_details/new(.:format)          admin/benefit_details#new
-  #        edit_admin_benefit_profile_benefit_detail GET        /admin/benefit_profiles/:benefit_profile_id/benefit_details/:id/edit(.:format)     admin/benefit_details#edit
-  #             admin_benefit_profile_benefit_detail GET        /admin/benefit_profiles/:benefit_profile_id/benefit_details/:id(.:format)          admin/benefit_details#show
-  #                                                  PATCH      /admin/benefit_profiles/:benefit_profile_id/benefit_details/:id(.:format)          admin/benefit_details#update
-  #                                                  PUT        /admin/benefit_profiles/:benefit_profile_id/benefit_details/:id(.:format)          admin/benefit_details#update
-  #                                                  DELETE     /admin/benefit_profiles/:benefit_profile_id/benefit_details/:id(.:format)          admin/benefit_details#destroy
-  #      batch_action_admin_company_benefit_profiles POST       /admin/companies/:company_id/benefit_profiles/batch_action(.:format)               admin/benefit_profiles#batch_action
-  #                   admin_company_benefit_profiles GET        /admin/companies/:company_id/benefit_profiles(.:format)                            admin/benefit_profiles#index
-  #                                                  POST       /admin/companies/:company_id/benefit_profiles(.:format)                            admin/benefit_profiles#create
-  #                new_admin_company_benefit_profile GET        /admin/companies/:company_id/benefit_profiles/new(.:format)                        admin/benefit_profiles#new
-  #               edit_admin_company_benefit_profile GET        /admin/companies/:company_id/benefit_profiles/:id/edit(.:format)                   admin/benefit_profiles#edit
-  #                    admin_company_benefit_profile GET        /admin/companies/:company_id/benefit_profiles/:id(.:format)                        admin/benefit_profiles#show
-  #                                                  PATCH      /admin/companies/:company_id/benefit_profiles/:id(.:format)                        admin/benefit_profiles#update
-  #                                                  PUT        /admin/companies/:company_id/benefit_profiles/:id(.:format)                        admin/benefit_profiles#update
-  #                                                  DELETE     /admin/companies/:company_id/benefit_profiles/:id(.:format)                        admin/benefit_profiles#destroy
-  #                     batch_action_admin_companies POST       /admin/companies/batch_action(.:format)                                            admin/companies#batch_action
-  #                                  admin_companies GET        /admin/companies(.:format)                                                         admin/companies#index
-  #                                                  POST       /admin/companies(.:format)                                                         admin/companies#create
-  #                                new_admin_company GET        /admin/companies/new(.:format)                                                     admin/companies#new
-  #                               edit_admin_company GET        /admin/companies/:id/edit(.:format)                                                admin/companies#edit
-  #                                    admin_company GET        /admin/companies/:id(.:format)                                                     admin/companies#show
-  #                                                  PATCH      /admin/companies/:id(.:format)                                                     admin/companies#update
-  #                                                  PUT        /admin/companies/:id(.:format)                                                     admin/companies#update
-  #                                                  DELETE     /admin/companies/:id(.:format)                                                     admin/companies#destroy
-  #                                  admin_dashboard GET        /admin/dashboard(.:format)                                                         admin/dashboard#index
-  #             batch_action_admin_company_employees POST       /admin/companies/:company_id/employees/batch_action(.:format)                      admin/employees#batch_action
-  #                          admin_company_employees GET        /admin/companies/:company_id/employees(.:format)                                   admin/employees#index
-  #                                                  POST       /admin/companies/:company_id/employees(.:format)                                   admin/employees#create
-  #                       new_admin_company_employee GET        /admin/companies/:company_id/employees/new(.:format)                               admin/employees#new
-  #                      edit_admin_company_employee GET        /admin/companies/:company_id/employees/:id/edit(.:format)                          admin/employees#edit
-  #                           admin_company_employee GET        /admin/companies/:company_id/employees/:id(.:format)                               admin/employees#show
-  #                                                  PATCH      /admin/companies/:company_id/employees/:id(.:format)                               admin/employees#update
-  #                                                  PUT        /admin/companies/:company_id/employees/:id(.:format)                               admin/employees#update
-  #                                                  DELETE     /admin/companies/:company_id/employees/:id(.:format)                               admin/employees#destroy
-  #                    batch_action_admin_users POST       /admin/users/batch_action(.:format)                                  admin/users#batch_action
-  #                                 admin_users GET        /admin/users(.:format)                                               admin/users#index
-  #                                             POST       /admin/users(.:format)                                               admin/users#create
-  #                              new_admin_user GET        /admin/users/new(.:format)                                           admin/users#new
-  #                             edit_admin_user GET        /admin/users/:id/edit(.:format)                                      admin/users#edit
-  #                                  admin_user GET        /admin/users/:id(.:format)                                           admin/users#show
-  #                                             PATCH      /admin/users/:id(.:format)                                           admin/users#update
-  #                                             PUT        /admin/users/:id(.:format)                                           admin/users#update
-  #                                             DELETE     /admin/users/:id(.:format)                                           admin/users#destroy
-  #                              admin_comments GET        /admin/comments(.:format)                                            admin/comments#index
-  #                                             POST       /admin/comments(.:format)                                            admin/comments#create
-  #                               admin_comment GET        /admin/comments/:id(.:format)                                        admin/comments#show
-  #                                             DELETE     /admin/comments/:id(.:format)                                        admin/comments#destroy
 
   # Devise user routes
-  devise_for :users
-  # All included routes for Devise (rake routes):
-  #      new_user_session GET    /users/sign_in(.:format)               devise/sessions#new
-  #          user_session POST   /users/sign_in(.:format)               devise/sessions#create
-  #  destroy_user_session DELETE /users/sign_out(.:format)              devise/sessions#destroy
-  #         user_password POST   /users/password(.:format)              devise/passwords#create
-  #     new_user_password GET    /users/password/new(.:format)          devise/passwords#new
-  #    edit_user_password GET    /users/password/edit(.:format)         devise/passwords#edit
-  #                       PATCH  /users/password(.:format)              devise/passwords#update
-  #                       PUT    /users/password(.:format)              devise/passwords#update
-  # cancel_user_registration GET    /users/cancel(.:format)             devise/registrations#cancel
-  #     user_registration POST   /users(.:format)                       devise/registrations#create
-  # new_user_registration GET    /users/sign_up(.:format)               devise/registrations#new
-  #edit_user_registration GET    /users/edit(.:format)                  devise/registrations#edit
-  #                       PATCH  /users(.:format)                       devise/registrations#update
-  #                       PUT    /users(.:format)                       devise/registrations#update
-  #                       DELETE /users(.:format)                       devise/registrations#destroy
+  devise_for :users, controllers: { sessions: "users/sessions",
+                                    registrations: "users/registrations"}
+  
 
   # make Employees editable records that belong to companies by id
   resources :companies do

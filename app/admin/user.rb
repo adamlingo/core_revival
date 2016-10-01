@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  permit_params :email, :password, :password_confirmation
+  permit_params :email, :password, :password_confirmation, :manager, :employee, :admin
   menu priority: 3
 
   index do
@@ -9,6 +9,9 @@ ActiveAdmin.register User do
     column :current_sign_in_at
     column :sign_in_count
     column :created_at
+    column :manager
+    column :employee
+    column :admin
     actions
   end
 
@@ -33,6 +36,9 @@ ActiveAdmin.register User do
       f.input :email
       f.input :password
       f.input :password_confirmation
+      f.input :manager, as: :boolean
+      f.input :employee, as: :boolean
+      f.input :admin, as: :boolean
     end
     f.actions
   end
