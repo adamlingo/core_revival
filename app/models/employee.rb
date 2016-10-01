@@ -3,8 +3,6 @@ require 'csv'
 class Employee < ActiveRecord::Base
   # child of Company
   belongs_to :company
-  # each EE has a UserID
-  belongs_to :user
   has_many :benefit_profiles, through: :company
   has_one :employee_additional_login
   
@@ -22,8 +20,8 @@ class Employee < ActiveRecord::Base
                                             last_name: import_hash['Last Name'].capitalize,
                                             company_id: 2,
                                             address: import_hash['Home Address'],
-                                            dob: import_hash['Birth Date'],
-                                            doh: import_hash['Hire Date'])
+                                            date_of_birth: import_hash['Birth Date'],
+                                            date_of_hire: import_hash['Hire Date'])
         import.save!
         end
     end
