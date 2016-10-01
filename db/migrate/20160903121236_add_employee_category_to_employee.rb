@@ -1,5 +1,7 @@
 class AddEmployeeCategoryToEmployee < ActiveRecord::Migration
   def change
-    add_column :employees, :employee_category, :string, null: false
+    unless column_exists?(:employees, :employee_category)
+      add_column :employees, :employee_category, :string, null: true
+    end
   end
 end
