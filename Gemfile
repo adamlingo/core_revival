@@ -53,6 +53,9 @@ gem 'rest-client'
 
 gem 'mailgun-ruby'
 
+# db map, run with "rake erd"
+  gem 'rails-erd' # generate ERD diagram of db - needs brew install graphviz 
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
@@ -60,8 +63,7 @@ group :development do
   gem 'spring'
   # debugging with Rails Panel (Chrome-dev-tools)
   gem 'meta_request'
-  # db map, run with "rake erd"
-  gem 'rails-erd' # generate ERD diagram of db - needs brew install graphviz 
+  
 end
 
 group :development, :test do

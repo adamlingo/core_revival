@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161001162438) do
+ActiveRecord::Schema.define(version: 20161002234956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,9 @@ ActiveRecord::Schema.define(version: 20161001162438) do
     t.datetime "updated_at",  null: false
     t.string   "ee_id"
     t.string   "employee_id"
+    t.string   "name"
+    t.string   "description"
+    t.string   "url"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -132,10 +135,9 @@ ActiveRecord::Schema.define(version: 20161001162438) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "sub_id"
+    t.integer  "user_id"
     t.date     "date_of_birth"
     t.date     "date_of_hire"
-    t.integer  "user_id"
-
   end
 
   create_table "health_invoices", force: :cascade do |t|
@@ -166,6 +168,16 @@ ActiveRecord::Schema.define(version: 20161001162438) do
     t.decimal  "deduction_amount"
   end
 
+  create_table "payroll_periods", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "pay_period"
+    t.integer  "year"
+    t.integer  "month"
+    t.integer  "day"
+    t.integer  "company_id"
+  end
+
   create_table "reconciliations", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -194,9 +206,9 @@ ActiveRecord::Schema.define(version: 20161001162438) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.boolean  "admin",                  default: false
+    t.boolean  "employee",               default: false
     t.boolean  "manager",                default: false
-    t.boolean  "admin"
-    t.boolean  "employee"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
