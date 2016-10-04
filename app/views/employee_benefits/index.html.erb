@@ -54,10 +54,9 @@
           <td>
             <%= link_to benefit.url, benefit.url, :target => "_blank" %>
           </td>
+
           
-          <%# Adam to review controller and view for admin user%>
-          
-          <% if current_admin_user.present? %>
+          <% if current_user.admin? %>
             <% if !(@employee.employee_benefits.include? benefit.id) %>
               <td>
                 <%= link_to "Hide" , employee_benefit_hide_benefit_path(benefit.id) ,:class => "btn btn-primary" %>
