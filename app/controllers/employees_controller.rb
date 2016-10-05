@@ -20,6 +20,7 @@ class EmployeesController < ApplicationController
 
   def edit
     @employee = set_employee
+    @company = find_company
   end
 
   def create
@@ -43,9 +44,15 @@ class EmployeesController < ApplicationController
     
   end
 
-  #def update
-    
-  #end
+  def update
+    @employee = set_employee
+
+    if @employee.update!(employee_params)
+      redirect_to company_employees_path
+    else
+      redirect_to edit_company_employee_path(find_company, @employee) 
+    end
+  end
 
   def destroy
     # cannot delete records currently from client-side
@@ -60,11 +67,13 @@ class EmployeesController < ApplicationController
     end
 
     def set_employee
-      find_company.employees.find(params[:id])
+      Employee.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
+      puts "IN employee_params: "
+      puts params
       params.require(:employee).permit(:company_id, :first_name, :last_name, :email)
     end
 end

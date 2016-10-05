@@ -1,6 +1,8 @@
 <h1>Editing Employee</h1>
 
-<%= render 'form' %>
+<%= render 'form_edit' %>
 
-<%= link_to 'Show', @employee %> |
-<%= link_to 'Back', company_employee_path %>
+<hr>
+
+<%= link_to 'Show', company_employee_path(@employee.company, @employee) %> | 
+<%= link_to 'Back', company_employees_path %>
