@@ -6,10 +6,12 @@ class EmployeesController < ApplicationController
   def index
     # only show all Employees of selected company
     @employees = find_company.employees
+    @company = find_company
   end
 
   def show
     @employee = set_employee
+    @company = find_company
   end
 
   def new
@@ -32,10 +34,10 @@ class EmployeesController < ApplicationController
       flash[:success] = "New employee created"
       # create User invite
       # user = User.invite!(:email => @employee.email)
-      # user.employee = true
-      # user.save!
-      # @employee.user_id = user.id
-      # @employee.save
+      user.employee = true
+      user.save!
+      @employee.user_id = user.id
+      @employee.save
       redirect_to company_employees_path
     else
       render 'new'
@@ -52,8 +54,6 @@ class EmployeesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-
     # Employees need to find company they are associated with
     def find_company
       Company.find(params[:company_id])
@@ -65,6 +65,6 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-      params.require(:employee).permit(:company_id, :first_name, :last_name, :email)
+      params.require(:employee).permit(:company_id, :first_name, :last_name, :email, :user_id)
     end
 end
