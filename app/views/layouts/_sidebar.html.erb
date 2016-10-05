@@ -17,7 +17,7 @@
       <% end %>
     </li>
     <li class='main-nav__link' role='presentation'>
-      <%=  class: 'main-nav__link' do %>
+      <%= link_to company_employees_path(current_user.company_id), class: 'main-nav__link' do %>
         <span class='main-nav__icon'>
           <i class='icon pe-7s-id'></i>
         </span>
