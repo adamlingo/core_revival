@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Employees</h1>
-
+</br>
 <table>
   <thead>
     <tr>
@@ -18,8 +18,7 @@
         <td><%= employee.first_name %></td>
         <td><%= employee.last_name %></td>
         <td><%= employee.company.name %></td>
-      
-        
+        <td><%= link_to 'Show', company_employee_path %></td>
       </tr>
     <% end %>
   </tbody>
