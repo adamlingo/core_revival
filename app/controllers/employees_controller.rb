@@ -21,6 +21,7 @@ class EmployeesController < ApplicationController
 
   def edit
     @employee = set_employee
+    @company = find_company
   end
 
   def create
@@ -30,7 +31,7 @@ class EmployeesController < ApplicationController
     # @user = User.new(user_params) << want to use :email field for new user record
     # need @employee.save if/else clause to render proper template
     if @employee.save
-      flash[:success] = "New employee created"
+      flash[:success] = "New employee created!"
       # create User invite
       # user = User.invite!(:email => @employee.email)
       user.employee = true
@@ -44,9 +45,17 @@ class EmployeesController < ApplicationController
     
   end
 
-  #def update
+  def update
+    @employee = set_employee
     
-  #end
+    if @employee.update_attributes(employee_params)
+      flash[:success] = "Employee updated!"
+      redirect_to company_employees_path
+    else
+      render 'edit'
+    end
+
+  end
 
   def destroy
     # cannot delete records currently from client-side
