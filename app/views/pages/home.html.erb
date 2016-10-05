@@ -1,13 +1,14 @@
 <% provide(:title, 'Home') %>
 <div class="center jumbotron">
-  <h1>Under Construction</h1>
+  
+
+  <% if current_user.admin? %>
+  <h1>Nearly Constructed...</h1>
   </br></br>
   <h2>
     Eventual home page for the new Core App!
   </h2>
   </br>
-
-  <% if current_user.admin? %>
     <a>
     	<%= link_to 'View Companies', companies_path %>
     </a>
