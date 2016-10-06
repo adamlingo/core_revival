@@ -1,13 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Employees</h1>
-
+</br>
 <table>
   <thead>
     <tr>
       <th>First Name</th>
       <th>Last Name</th>
-      <th>Company</th>
+      <th>E-mail</th>
+      <th>Actions</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,9 +18,9 @@
       <tr>
         <td><%= employee.first_name %></td>
         <td><%= employee.last_name %></td>
-        <td><%= employee.company.name %></td>
-      
-        
+        <td><%= employee.email %></td>
+        <td><%= link_to 'Show', company_employee_path(employee.company, employee) %></td>
+        <td><%= link_to 'Edit', edit_company_employee_path(employee.company, employee) %></td>
       </tr>
     <% end %>
   </tbody>

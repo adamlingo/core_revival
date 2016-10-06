@@ -1,6 +1,43 @@
 <h1>Editing Employee</h1>
+</br>
+<%= form_for @employee, :url => {:action => "update" } do |f| %>
+  <% if @employee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
 
-<%= render 'form' %>
+      <ul>
+      <% @employee.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<%= link_to 'Show', @employee %> |
-<%= link_to 'Back', company_employee_path %>
+  <div class="field">
+    <%= f.label :company_name, "Company: #{@company.name}"%>
+  </div>
+
+  <div class="field">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>
+
+
+<%= link_to 'Show', company_employee_path %> |
+<%= link_to 'Back', company_employees_path %>

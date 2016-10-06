@@ -10,6 +10,7 @@ class EmployeesController < ApplicationController
 
   def show
     @employee = set_employee
+    @company = find_company
   end
 
   def new
@@ -20,6 +21,7 @@ class EmployeesController < ApplicationController
 
   def edit
     @employee = set_employee
+    @company = find_company
   end
 
   def create
@@ -29,8 +31,8 @@ class EmployeesController < ApplicationController
     # @user = User.new(user_params) << want to use :email field for new user record
     # need @employee.save if/else clause to render proper template
     if @employee.save
-      flash[:success] = "New employee created"
-      # create User invite
+      flash[:success] = "New employee created!"
+      # create User & User invite
       # user = User.invite!(:email => @employee.email)
       # user.employee = true
       # user.save!
@@ -43,17 +45,23 @@ class EmployeesController < ApplicationController
     
   end
 
-  #def update
+  def update
+    @employee = set_employee
     
-  #end
+    if @employee.update_attributes(employee_params)
+      flash[:success] = "Employee updated!"
+      redirect_to company_employees_path
+    else
+      render 'edit'
+    end
+
+  end
 
   def destroy
     # cannot delete records currently from client-side
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-
     # Employees need to find company they are associated with
     def find_company
       Company.find(params[:company_id])
@@ -65,6 +73,6 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-      params.require(:employee).permit(:company_id, :first_name, :last_name, :email)
+      params.require(:employee).permit(:company_id, :first_name, :last_name, :email, :user_id)
     end
 end

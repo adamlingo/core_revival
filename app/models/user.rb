@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   def company_name
     e = Employee.find_by(user_id: id)
-    e.company.name
+    e.company.name.upcase!
   end
 
   def first_name
