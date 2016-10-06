@@ -56,4 +56,25 @@ describe Timework, type: :model do
       expect(actual).not_to eql(interpolation)
     end
   end
+  
+  context 'pto api report by client' do
+    it 'total of api call should equal total of csv hash' do
+      user_id = ENV['TIMEWORKS_API_ADMIN_USER']
+      password = ENV['TIMEWORKS_API_ADMIN_PASSWORD']
+      client_id =  #how to select a valid timework.client_id?
+      raw_data = Timework.pto_report_by_client(user_id, password, client_id)
+      actual = EmployeeBenefit.import(raw_data) #how to sum employee_benefit.pto_balance before it is saved?
+      expected = #employee_benefit.pto_balance.sum
+      
+      expect(actual).to eql(expected)
+    end 
+    
+    it 'total number of companies should equal total called' do
+       Company.all.each
+    
+    
+    
+    end
+    
+  end
 end
