@@ -1,47 +1,36 @@
-<body class='devise-sessions'>
-    <div class='container-fluid'>
-      <div class='wrapper login-page'>
-        <div class='row'>
-          <div class='col-md-4 col-md-offset-4'>
-            <div class='main-logo'>
-              <%= image_tag("logo.png", alt: "Core")%>
-            </div>
-            <form accept-charset="UTF-8" action="/users/sign_in" class="new_user" id="new_user" method="post"><div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="S/lY1OmypLEHr6ybXJWy+f/D10xDrbJ9yNswT7zFW3A=" /></div>      <div class='input-group bottom-margin'>
-                    <span class='input-group-addon'>
-                      <i class='icon pe-7s-user'></i>
-                    </span>
-                    <input autocomplete="off" autofocus="autofocus" class="form-control input-text" id="user_email" name="user[email]" placeholder="Email" type="email" value="" />
-                  </div>
-                  <div class='input-group'>
-                    <span class='input-group-addon'>
-                      <i class='icon pe-7s-lock'></i>
-                    </span>
-                    <input autocomplete="off" class="form-control input-text" id="user_password" name="user[password]" placeholder="Password" type="password" />
-                  </div>
-                  <div class='form-group'>
-                    <div class='checkbox'>
-                      <label>
-                        <input name="user[remember_me]" type="hidden" value="0" /><input id="user_remember_me" name="user[remember_me]" type="checkbox" value="1" />
-                        Remember me
-                      </label>
-                    </div>
-                  </div>
-                  <input class="btn btn-success full-width" name="commit" type="submit" value="Login" />
-            </form>
-            <div class='help-links'>
-              <a href="/users/password/new">Forgot your password?</a>
-            </div>
-            <div class='help-links'>
-              <a href="/users/sign_up">Sign up</a>
+<div class="wrapper login-page">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <div class="main-logo">
+        <%= image_tag 'shared/logo.png' %>
+      </div>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <% add_error(resource.errors.full_messages.to_sentence, 'alert') if resource.errors.present? %>
+        <div class="input-group bottom-margin">
+          <span class="input-group-addon">
+            <i class="fa fa-user"></i>
+          </span>
+          <%= f.email_field :email, autofocus: true, autocomplete: "off", placeholder: t("devise.session_new.email"), class: "form-control input-text" %>
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="fa fa-lock"></i>
+          </span>
+          <%= f.password_field :password, autocomplete: "off", placeholder: t("devise.session_new.password"), class: "form-control input-text" %>
+        </div>
+        <% if devise_mapping.rememberable? %>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <%= f.check_box :remember_me %>
+                <%= t("devise.session_new.remember_me") %>
+              </label>
             </div>
           </div>
-        </div>
-      </div>
+        <% end %>
+        <%= f.submit t("devise.session_new.login"), class: "btn btn-success full-width" %>
+      <% end %>
+      <%= render "devise/shared/links" %>
     </div>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <% flash.each do |message_type, message| %>
-        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
-      <% end %> 
-    
-  </body>
+  </div>
+</div>
