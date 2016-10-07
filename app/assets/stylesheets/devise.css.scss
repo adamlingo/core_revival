@@ -49,11 +49,16 @@ body.devise-sessions, body.devise-passwords, body.devise-registrations, body.dev
       .checkbox {
         color: white;
       }
-      .btn {
+      .btn-success {
         float: none !important;
         display: block;
         margin: 25px 0px 0px 0px;
         padding: 14px 12px;
+        text-shadow: none;
+        color: #fff;
+        background-color: #4cae4c;
+        border-color: #4cae4c;
+        background-image: none;
       }
       .full-width {
         width: 100%;
