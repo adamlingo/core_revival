@@ -18,8 +18,10 @@ Rails.application.routes.draw do
 
   # make Employees editable records that belong to companies by id
   resources :companies do
-    resources :employees
     resources :benefit_profiles
+    resources :employees do
+      resources :employee_benefit_selections
+    end
   end
   # this creates resources to have EEs and BenefitProfiles belong to companies, and are listed here:
   #                         company_employees GET        /companies/:company_id/employees(.:format)                           employees#index

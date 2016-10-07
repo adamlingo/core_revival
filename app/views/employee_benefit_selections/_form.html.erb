@@ -1,0 +1,39 @@
+<%= form_for @employee_benefit_selection, url: company_employee_employee_benefit_selections_path do |f| %>
+  <% if @employee_benefit_selection.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@employee_benefit_selection.errors.count, "error") %> prohibited this employee_benefit_selection from being saved:</h2>
+
+      <ul>
+      <% @employee_benefit_selection.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :employee_id %>:&nbsp;<%= @employee_benefit_selection.employee.display_name %><br>
+    <%= f.hidden_field :employee_id %>
+  </div>
+  <div class="field">
+    <%= f.label :decline_benefit %><br>
+    <%= f.check_box :decline_benefit %>
+  </div>
+  <div class="field">
+    <%= f.label 'Benefit Selection' %><br>
+    <%= f.collection_select(:benefit_detail_id, @benefit_selections, :benefit_detail_id, :display_name) %> <br>
+  </div>
+<% if false %>
+  <div class="field">
+    <%= f.label :benefit_type %><br>
+    <%= f.text_field :benefit_type %>
+  </div>
+  <div class="field">
+    <%= f.label :benefit_detail_id %><br>
+    <%= f.number_field :benefit_detail_id %>
+  </div>
+<% end %>  
+ <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

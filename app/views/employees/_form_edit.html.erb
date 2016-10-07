@@ -1,4 +1,5 @@
-<%= form_for @employee, url:  if @employee.is_new  company_employees_path(@company, @employee) do |f| %>
+<%= form_for @employee, url: company_employee_path(@company, @employee) do |f| %>
+
   <% if @employee.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
@@ -58,4 +59,5 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+
 <% end %>

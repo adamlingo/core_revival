@@ -5,7 +5,8 @@ class EmployeesController < ApplicationController
 
   def index
     # only show all Employees of selected company
-    @employees = find_company.employees
+    @company = find_company
+    @employees = @company.employees
   end
 
   def show
