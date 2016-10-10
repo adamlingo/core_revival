@@ -31,14 +31,13 @@ class EmployeesController < ApplicationController
     # @user = User.new(user_params) << want to use :email field for new user record
     # need @employee.save if/else clause to render proper template
     if @employee.save
-      flash[:success] = "New employee created"
       # create User invite
       # user = User.invite!(:email => @employee.email)
       # user.employee = true
       # user.save!
       # @employee.user_id = user.id
       # @employee.save
-      redirect_to company_employees_path
+      redirect_to company_employees_path, notice: 'Employee was successfully created.'
     else
       render 'new'
     end
@@ -48,10 +47,11 @@ class EmployeesController < ApplicationController
   def update
     @employee = set_employee
 
-    if @employee.update!(employee_params)
-      redirect_to company_employees_path
+    if @employee.update(employee_params)
+      redirect_to company_employees_path, notice: 'Employee was successfully updated.'
     else
-      redirect_to edit_company_employee_path(find_company, @employee) 
+      @company = find_company
+      render :edit 
     end
   end
 
@@ -73,8 +73,6 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-      puts "IN employee_params: "
-      puts params
       params.require(:employee).permit(:company_id, :first_name, :last_name, :email)
     end
 end

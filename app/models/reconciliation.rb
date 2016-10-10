@@ -10,7 +10,7 @@ class Reconciliation < ActiveRecord::Base
         company = Company.find(company_id)
         results = []
 
-        employees = Employee.where(company_id: company.id)
+        employees = company.employees
 
         employees.each {|employee|
           diff = compute_employee_diff(company, employee)
@@ -62,7 +62,8 @@ class Reconciliation < ActiveRecord::Base
 
     def self.employee_benefit_detail(company, insurance_account_number, employee)
         benefit_profiles = company.benefit_profiles.where(account_number: insurance_account_number)
-        raise StandardError.new('Should only have one benefit_profiles for a given insurance_account_number') if benefit_profiles.count != 1
+        raise StandardError.new("No benefit_profiles found for insurance_account_number: #{insurance_account_number}") if benefit_profiles.count == 0
+        raise StandardError.new("Should only have one benefit_profiles for a given insurance_account_number: #{insurance_account_number}") if benefit_profiles.count != 1
 
         benefit_profile = benefit_profiles.first
 

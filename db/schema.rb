@@ -107,8 +107,8 @@ ActiveRecord::Schema.define(version: 20161007004935) do
   create_table "employee_benefit_selections", force: :cascade do |t|
     t.integer  "employee_id",                       null: false
     t.string   "benefit_type",                      null: false
-    t.boolean  "decline_benefit",   default: false
-    t.integer  "benefit_detail_id",                 null: false
+    t.boolean  "decline_benefit",   default: false, null: false
+    t.integer  "benefit_detail_id"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
   end

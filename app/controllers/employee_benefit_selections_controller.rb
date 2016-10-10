@@ -17,11 +17,13 @@ class EmployeeBenefitSelectionsController < ApplicationController
   # GET /employee_benefit_selections/new
   def new
     @employee_benefit_selection = EmployeeBenefitSelection.new(employee_id: params[:employee_id])
+    @benefit_types = EmployeeBenefitDetailSelection.get_benefit_types(params[:company_id])
     @benefit_selections = EmployeeBenefitDetailSelection.get_choices(params[:company_id])
   end
 
   # GET /employee_benefit_selections/1/edit
   def edit
+    @benefit_types = EmployeeBenefitDetailSelection.get_benefit_types(params[:company_id])
     @benefit_selections = EmployeeBenefitDetailSelection.get_choices(params[:company_id])
   end
 
@@ -29,7 +31,9 @@ class EmployeeBenefitSelectionsController < ApplicationController
   # POST /employee_benefit_selections.json
   def create
     @employee_benefit_selection = EmployeeBenefitSelection.new(employee_benefit_selection_params)
-    @employee_benefit_selection.benefit_type = get_benefit_type
+
+    puts employee_benefit_selection_params
+    puts @employee_benefit_selection
 
     respond_to do |format|
       if @employee_benefit_selection.save
@@ -50,6 +54,8 @@ class EmployeeBenefitSelectionsController < ApplicationController
         format.html { redirect_to company_employee_employee_benefit_selections_path, notice: 'Employee benefit selection was successfully updated.' }
         format.json { render :show, status: :ok, location: @employee_benefit_selection }
       else
+        @benefit_types = EmployeeBenefitDetailSelection.get_benefit_types(params[:company_id])
+        @benefit_selections = EmployeeBenefitDetailSelection.get_choices(params[:company_id])
         format.html { render :edit }
         format.json { render json: @employee_benefit_selection.errors, status: :unprocessable_entity }
       end
@@ -76,18 +82,4 @@ class EmployeeBenefitSelectionsController < ApplicationController
     def employee_benefit_selection_params
       params.require(:employee_benefit_selection).permit(:employee_id, :benefit_type, :decline_benefit, :benefit_detail_id)
     end
-
-    def get_benefit_type
-      benefit_detail = BenefitDetail.find_by(id: employee_benefit_selection_params[:benefit_detail_id])
-      puts "benefit_detail_id: #{employee_benefit_selection_params[:benefit_detail_id]}"
-      if benefit_detail.present?
-        puts "benefit_profile_id: #{employee_benefit_selection_params[:benefit_profile_id]}"
-        benefit_profile = BenefitProfile.find_by(id: benefit_detail.benefit_profile_id)
-        benefit_profile.benefit_type if benefit_profile.present?
-      else 
-        puts "NILLLL!!!!!"
-        nil
-      end
-    end
-
 end

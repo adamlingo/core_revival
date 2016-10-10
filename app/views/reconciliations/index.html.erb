@@ -2,6 +2,49 @@
 
 <h1>Skeleton Test - Reconciliation</h1>
 </br>
+<%= link_to 'Reconcile', company_calculate_path %>
+
+<%= form_tag import_health_invoices_path, multipart: true, class: 'form-inline' do %>
+  
+  <div class="form-group">
+    <%= file_field_tag :file, class: '' %>
+  </div>
+  
+  <div class="form-group">
+    <%= submit_tag "Import Health CSV", class: 'btn btn-info' %>
+  </div>
+
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @health_invoices.each do |health_invoice| %>
+      <tr>
+        <td><%= health_invoice.account_number %></td>
+        <td><%= health_invoice.billing_profile %></td>
+        <td><%= health_invoice.category %></td>
+        <td><%= health_invoice.product %></td>
+        <td><%= health_invoice.health_sub_id %></td>
+        <td><%= health_invoice.sub_name %></td>
+        <td><%= health_invoice.tier %></td>
+        <td><%= health_invoice.change_reason %></td>
+        <td><%= health_invoice.retro_fee_adjustment %></td>
+        <td><%= health_invoice.current_charges %></td>
+        <td><%= health_invoice.total_charges %></td>
+        <td><%= link_to 'Show', health_invoice %></td>
+        <td><%= link_to 'Edit', edit_health_invoice_path(health_invoice) %></td>
+        <td><%= link_to 'Destroy', health_invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% if false %>
 <table>
   <thead>
     <tr>
@@ -25,3 +68,4 @@
   </tbody>
 </table>
 
+ <% end %>

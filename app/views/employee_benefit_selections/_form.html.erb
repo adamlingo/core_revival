@@ -1,4 +1,6 @@
-<%= form_for @employee_benefit_selection, url: company_employee_employee_benefit_selections_path do |f| %>
+
+<%= form_for @employee_benefit_selection,
+            url: (@employee_benefit_selection.persisted? ? company_employee_employee_benefit_selection_path : company_employee_employee_benefit_selections_path) do |f| %>
   <% if @employee_benefit_selection.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@employee_benefit_selection.errors.count, "error") %> prohibited this employee_benefit_selection from being saved:</h2>
@@ -16,12 +18,16 @@
     <%= f.hidden_field :employee_id %>
   </div>
   <div class="field">
+    <%= f.label 'Benefit Type' %><br>
+    <%= f.select(:benefit_type, @benefit_types) %>
+  </div>
+  <div class="field">
     <%= f.label :decline_benefit %><br>
     <%= f.check_box :decline_benefit %>
   </div>
   <div class="field">
     <%= f.label 'Benefit Selection' %><br>
-    <%= f.collection_select(:benefit_detail_id, @benefit_selections, :benefit_detail_id, :display_name) %> <br>
+    <%= f.collection_select(:benefit_detail_id, @benefit_selections, :benefit_detail_id, :display_name, :include_blank => true) %> <br>
   </div>
 <% if false %>
   <div class="field">

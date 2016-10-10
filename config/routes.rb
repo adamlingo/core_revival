@@ -18,6 +18,9 @@ Rails.application.routes.draw do
 
   # make Employees editable records that belong to companies by id
   resources :companies do
+    get 'reconciliations', to: 'reconciliations#index', as: :index
+    get 'reconciliations/calculate', to: 'reconciliations#calculate', as: :calculate
+
     resources :benefit_profiles
     resources :employees do
       resources :employee_benefit_selections
@@ -79,11 +82,6 @@ Rails.application.routes.draw do
   #                                           DELETE     /payroll_deductions/:id(.:format)                                    payroll_deductions#destroy
 
 
-  resources :reconciliations do 
-    collection do
-      post :calculate
-    end
-  end
 
   
    # default route syntax at bottom instead of get... will match if all other routes fail
