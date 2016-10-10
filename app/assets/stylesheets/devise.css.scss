@@ -9,7 +9,7 @@ body.devise-sessions, body.devise-passwords, body.devise-registrations, body.dev
       text-align: center;
       display: block;
       line-height: 40px;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
     }
     form {
       .input-group {
@@ -27,47 +27,55 @@ body.devise-sessions, body.devise-passwords, body.devise-registrations, body.dev
             top: 7px;
           }
           i {
-            font-size: 26px;
-            color: $grey-dark;
+            font-size: 35px;
+            color: $grey;
             min-width: 35px;
+
           }
         }
       }
       .input-text {
         font-size: 14px;
+        font-family: sans-serif;
         box-shadow: none;
         padding: 7px 14px;
       }
       .form-control {
         height: 49px;
-        background: $grey-darker;
+        background: rgb(250, 255, 189);
         border: none;
         &:focus {
-          color: white;
+          color: black;
         }
       }
       .checkbox {
         color: white;
       }
       .btn-success {
+        font-size: 16px;
         float: none !important;
         display: block;
-        margin: 25px 0px 0px 0px;
+        margin: 5px 0px 0px 0px;
         padding: 14px 12px;
         text-shadow: none;
         color: #fff;
-        background-color: #4cae4c;
-        border-color: #4cae4c;
+        background-color: #5cb85c;
+        border: none;
+        border-radius: 4px;
         background-image: none;
+        &:hover{
+          background-color: #4cae4c;
+        }
       }
       .full-width {
         width: 100%;
       }
       .bottom-margin {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
       }
     }
     .help-links {
+      font-size: 14px;
       text-align: center;
       margin-top: 10px;
       width: 100%;
