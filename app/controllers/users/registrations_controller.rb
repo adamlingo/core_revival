@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_filter :configure_sign_up_params, only: [:create]
+# before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -8,10 +8,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  def create
-    super
-    puts 'Actually creating something AGAIN'
-  end
+  # def create
+  #   super
+  # end
 
   # GET /resource/edit
   # def edit
@@ -37,12 +36,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  protected
+  # protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  def configure_sign_up_params
-    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit( :manager, :employee, :admin, :email, :password, :password_confirmation) }
-  end
+  # def configure_sign_up_params
+  #   devise_parameter_sanitizer.for(:sign_up) { |u| u.permit( :manager, :employee, :admin, :email, :password, :password_confirmation) }
+  # end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
