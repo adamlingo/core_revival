@@ -57,24 +57,26 @@ describe Timework, type: :model do
     end
   end
   
+  
+  
   context 'pto api report by client' do
     it 'total of api call should equal total of csv hash' do
-      user_id = ENV['TIMEWORKS_API_ADMIN_USER']
-      password = ENV['TIMEWORKS_API_ADMIN_PASSWORD']
-      client_id =  #how to select a valid timework.client_id?
-      raw_data = Timework.pto_report_by_client(user_id, password, client_id)
-      actual = EmployeeBenefit.import(raw_data) #how to sum employee_benefit.pto_balance before it is saved?
-      expected = #employee_benefit.pto_balance.sum
+      
+      PATH_TO_DATA_FILE = "#{Rails.root}/spec/fixtures/PTO.csv".freeze
+      raw_data = File.read(PATH_TO_DATA_FILE)
+      
+      Timework.pto_report_by_client.stub(:user_id, :password, :client_id).and_return(raw_data)
+      
+      
+      
+      EmployeeBenefit.import(raw_data)
+      
+      actual = EmployeeBenefit.sum(:pto_balance)
+      expected = 520
       
       expect(actual).to eql(expected)
     end 
-    
-    it 'total number of companies should equal total called' do
-       Company.all.each
-    
-    
-    
-    end
+
     
   end
 end
