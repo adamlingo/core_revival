@@ -31,6 +31,7 @@ gem 'font_assets'
 
 # LOGIN/AUTH
 gem 'devise' # UI tools for client-user login
+gem 'devise_invitable'
 
 # SERVICES/INTEGRATIONS
 # Codeship required gem:
