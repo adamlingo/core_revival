@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
   # must be logged in
-  # before_filter :authenticate_user!
+  before_filter :authenticate_user!
   #before_action :set_employee, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -33,11 +33,12 @@ class EmployeesController < ApplicationController
     if @employee.save
       flash[:success] = "New employee created!"
       # create User & User invite
-      # user = User.invite!(:email => @employee.email)
-      # user.employee = true
-      # user.save!
-      # @employee.user_id = user.id
-      # @employee.save
+      user = User.invite!(:email => "adamglingo@gmail.com")
+      puts "#{@employee.email}"
+      user.employee = true
+      user.save!
+      @employee.user_id = user.id
+      @employee.save
       redirect_to company_employees_path
     else
       render 'new'
