@@ -5,6 +5,11 @@ describe Timework, type: :model do
     @timework ||= Timework.new  	
   end
 
+  before(:each) do
+    @initial_count = EmployeeBenefit.all.count
+    puts "before each count: #{@initial_count}"
+  end
+
   it 'should be valid' do
   	expect(timework.valid?).to eql(true)
   end
@@ -56,27 +61,31 @@ describe Timework, type: :model do
       expect(actual).not_to eql(interpolation)
     end
   end
-  
-  
-  
+
   context 'pto api report by client' do
     it 'total of api call should equal total of csv hash' do
-      
+      user_id = 'my-user-id' 
+      password = 'my-password' 
+      client_id =  'any-client-id'
+
       PATH_TO_DATA_FILE = "#{Rails.root}/spec/fixtures/PTO.csv".freeze
       raw_data = File.read(PATH_TO_DATA_FILE)
-      
-      Timework.pto_report_by_client.stub(:user_id, :password, :client_id).and_return(raw_data)
-      
-      
-      
-      EmployeeBenefit.import(raw_data)
+      allow(Timework).to receive(:pto_report_by_client).and_return( raw_data )
+
+      actual_data = Timework.pto_report_by_client(user_id, password, client_id)
+
+      before_count = EmployeeBenefit.all.count
+
+      EmployeeBenefit.import(actual_data)
+
+      after_count = EmployeeBenefit.all.count
       
       actual = EmployeeBenefit.sum(:pto_balance)
       expected = 520
       
       expect(actual).to eql(expected)
-    end 
-
-    
+      expect(after_count).to eql(before_count + 16)
+      
+    end
   end
 end

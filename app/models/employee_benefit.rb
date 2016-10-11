@@ -33,7 +33,7 @@ class EmployeeBenefit < ActiveRecord::Base
             if pto_hash['Type'] == 'PTO'
                 employee_benefit = find_or_create_by!(ee_id: pto_hash['EE Code'])
                 
-                employee_benefit.pto_balance = pto_hash['Ending Balance'].round(1)
+                employee_benefit.pto_balance = pto_hash['Ending Balance'] #.round(1)
                 employee_benefit.save!
             else
             end

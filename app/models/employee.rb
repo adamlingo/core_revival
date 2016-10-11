@@ -7,6 +7,8 @@ class Employee < ActiveRecord::Base
   belongs_to :user
   has_many :benefit_profiles, through: :company
   has_one :employee_additional_login
+
+  validates_presence_of :company_id
   
   
   
