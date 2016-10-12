@@ -30,15 +30,16 @@
             </form>
             <div class='help-links'>
               <a href="/users/password/new">Forgot your password?</a>
+              <p class="notice"><%= notice %></p>
+              <p class="alert"><%= alert %></p>
+                <% flash.each do |message_type, message| %>
+                <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+                <% end %> 
             </div>
           </div>
         </div>
       </div>
     </div>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <% flash.each do |message_type, message| %>
-        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
-      <% end %> 
+    
     
   </body>
