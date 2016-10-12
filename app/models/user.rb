@@ -25,4 +25,9 @@ class User < ActiveRecord::Base
     e.last_name
   end
 
+  # *** This method is needed to kill an error in devise_invitable
+  # that causes passwords not to be sent.
+  def after_password_reset;
+  end
+
 end
