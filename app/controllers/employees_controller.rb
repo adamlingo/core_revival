@@ -34,7 +34,6 @@ class EmployeesController < ApplicationController
       flash[:success] = "New employee created!"
       # create User & User invite
       user = User.invite!(:email => "adamglingo@gmail.com")
-      puts "#{@employee.email}"
       user.employee = true
       user.save!
       @employee.user_id = user.id
@@ -51,6 +50,14 @@ class EmployeesController < ApplicationController
     
     if @employee.update_attributes(employee_params)
       flash[:success] = "Employee updated!"
+      if @employee.user_id.present?
+        user = User.find(@employee.user_id)
+        # password reset invite
+        # email notif here?
+        user.email = @employee.email
+        user.save!
+      end
+
       redirect_to company_employees_path
     else
       render 'edit'
