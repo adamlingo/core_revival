@@ -32,8 +32,10 @@ class EmployeesController < ApplicationController
     # need @employee.save if/else clause to render proper template
     if @employee.save
       flash[:success] = "New employee created!"
-      # create User & User invite
-      user = User.invite!(:email => "adamglingo@gmail.com")
+      # create User & User invite (skip invite for now)
+      user = User.invite!(:email => @employee.email) do |u|
+        u.skip_invitation = true
+      end
       user.employee = true
       user.save!
       @employee.user_id = user.id
