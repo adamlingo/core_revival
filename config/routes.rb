@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   # Devise user routes
-  devise_for :users, controllers: { sessions: "users/sessions"}
+  devise_for :users, controllers: { sessions: "users/sessions",
+                                    passwords: "users/passwords"}
   as :user do
     get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
     put 'users' => 'devise/registrations#update', :as => 'user_registration'
