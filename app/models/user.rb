@@ -8,6 +8,12 @@ class User < ActiveRecord::Base
   def company_id
     e = Employee.find_by(user_id: id)
     e.company_id
+  end
+
+  # find current user employee id
+  def employee_id
+    e = Employee.find_by(user_id: id)
+    e.id
   end 
 
   def company_name
