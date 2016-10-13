@@ -11,10 +11,10 @@ class ZendeskService
 
     private def set_credentials
       ZendeskAPI::Client.new do |config|
-        config.url = ENV['Z_URL'] # e.g. https://mydesk.zendesk.comapi/v2
-        config.username = ENV['USERNAME']
-        config.token = ENV['TOKEN']
-        config.password = ENV['PASSWORD']
+        config.url = ENV['ZENDESK_URL'] # e.g. https://mydesk.zendesk.comapi/v2
+        config.username = ENV['ZENDESK_USERNAME']
+        config.token = ENV['ZENDESK_TOKEN']
+        config.password = ENV['ZENDESK_PASSWORD']
         config.retry = true
       end
     end
