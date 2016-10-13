@@ -58,6 +58,12 @@ class EmployeesController < ApplicationController
     if @employee.update_attributes(employee_params)
       flash[:success] = "Employee updated!"
       if @employee.user_id.present?
+        # send zen desk notification of employee info changes
+        user_hash = {name: @employee.last_name, email: @employee.email}
+        ticket_id = ZendeskService.create_ticket(user_hash, "Information Edited by #{current_user.email}", 'EMPLOYEE INFO Changed')
+        puts "ticket id is: "
+        puts ticket_id
+        # update User record email to match Employee
         user = User.find(@employee.user_id)
         # password reset invite
         # email notif here?
