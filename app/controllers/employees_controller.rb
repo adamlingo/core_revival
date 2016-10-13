@@ -32,6 +32,11 @@ class EmployeesController < ApplicationController
     # need @employee.save if/else clause to render proper template
     if @employee.save
       flash[:success] = "New employee created!"
+      # send zendesk notification of new employee
+      user_hash = {name: @employee.last_name, email: @employee.email}
+      ticket_id = ZendeskService.create_ticket(user_hash, "Information Edited by #{current_user.email}", 'NEW EMPLOYEE ADDED')
+      puts "ticket id is: "
+      puts ticket_id
       # create User & User invite (skip invite for now)
       user = User.invite!(:email => @employee.email) do |u|
         u.skip_invitation = true
