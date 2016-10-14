@@ -95,6 +95,13 @@ ActiveRecord::Schema.define(version: 20161001162438) do
     t.string   "timework_pass"
   end
 
+  create_table "company_payroll_dates", force: :cascade do |t|
+    t.string   "year"
+    t.string   "pay_period"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "employee_additional_logins", force: :cascade do |t|
     t.string   "subscriber_id"
     t.string   "swipeclock_ee_id"
@@ -125,9 +132,9 @@ ActiveRecord::Schema.define(version: 20161001162438) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "sub_id"
+    t.integer  "user_id"
     t.date     "date_of_birth"
     t.date     "date_of_hire"
-    t.integer  "user_id"
   end
 
   create_table "health_invoices", force: :cascade do |t|
@@ -156,16 +163,6 @@ ActiveRecord::Schema.define(version: 20161001162438) do
     t.string   "pay_sub_name"
     t.string   "pay_category"
     t.decimal  "deduction_amount"
-  end
-
-  create_table "payroll_periods", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "pay_period"
-    t.integer  "year"
-    t.integer  "month"
-    t.integer  "day"
-    t.integer  "company_id"
   end
 
   create_table "reconciliations", force: :cascade do |t|
