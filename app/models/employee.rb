@@ -7,8 +7,10 @@ class Employee < ActiveRecord::Base
   belongs_to :user
   has_many :benefit_profiles, through: :company
   has_one :employee_additional_login
+
+  validates_presence_of :company_id
   
-  
+  validates :email, presence:true, uniqueness: true
   
     def self.import(file_path)
       # file_path = '/home/ubuntu/workspace/core_redux/lib/assets/EmployeeList.csv'
@@ -22,8 +24,8 @@ class Employee < ActiveRecord::Base
                                             last_name: import_hash['Last Name'].capitalize,
                                             company_id: 2,
                                             address: import_hash['Home Address'],
-                                            dob: import_hash['Birth Date'],
-                                            doh: import_hash['Hire Date'])
+                                            date_of_birth: import_hash['Birth Date'],
+                                            date_of_hire: import_hash['Hire Date'])
         import.save!
         end
     end

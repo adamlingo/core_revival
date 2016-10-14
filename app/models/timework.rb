@@ -61,31 +61,5 @@ class Timework < ActiveRecord::Base
         h['GetActivityFileApiResult']['FormatText']       
     end
 
-    # def self.pto_report
-    #     session_id = Timework.createSession('fiducialok','Thunder2016')
-    #     puts session_id
-
-    #     request_url = "#{API_URL}/GetActivityFile"
-    #     query_params = [
-    #         ['sessionID', session_id],
-    #         ['BeginDate', '2016-8-14'],
-    #         ['EndDate', '2016-8-27'],
-    #         ['FormatName', 'swipeclockpto'],
-    #         ['OptionalLaborMapping','']
-    #     ]
-
-    #     uri = URI.parse(request_url)
-    #     uri.query = URI.encode_www_form(query_params)
-
-    #     http = Net::HTTP.new(uri.host, uri.port)
-    #     http.use_ssl = true
-
-    #     req = Net::HTTP::Get.new(uri)
-    #     res = http.request(req)
-
-    #     h = Hash.from_xml(res.body)
-    #     # return the CSV data
-    #     h['GetActivityFileApiResult']['FormatText']       
-    # end
 
 end
