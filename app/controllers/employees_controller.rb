@@ -1,15 +1,16 @@
 class EmployeesController < ApplicationController
   # must be logged in
-  before_filter :authenticate_user!
-  before_filter :authorize_company!
-  # skip_filter (if needed)
-  # before_action :set_employee, only: [:show, :edit, :update, :destroy]
+  # before_filter :authenticate_user!
+  #before_action :set_employee, only: [:show, :edit, :update, :destroy]
 
   def index
     # only show all Employees of selected company
     @employees = find_company.employees
   end
 
+  def show
+    @employee = set_employee
+  end
   def show
     @employee = set_employee
     @company = find_company
