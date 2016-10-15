@@ -1,4 +1,16 @@
+<% content_for :head do %>
+  <script type="text/javascript">
+    $(function() {
+      console.log('guh')
+      var $benefit_type = $('#employee_benefit_selection_benefit_type');
 
+      $benefit_type.change(function() {
+        var val = $benefit_type.val();
+        alert(':metal: ' + val + ' :metal');
+      });
+    })();
+  </script>
+<% end %>
 <%= form_for @employee_benefit_selection,
             url: (@employee_benefit_selection.persisted? ? company_employee_employee_benefit_selection_path : company_employee_employee_benefit_selections_path) do |f| %>
   <% if @employee_benefit_selection.errors.any? %>

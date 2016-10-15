@@ -22,7 +22,8 @@ class Reconciliation < ActiveRecord::Base
     def self.compute_employee_diff(company, employee)
         # this grabs every invoice row the specific employee
         emp_invoices = HealthInvoice.where(health_sub_id: employee.sub_id)
-        return 0 if emp_invoices.nil? || emp_invoices.count == 0
+
+        return "No Invoices" if emp_invoices.nil? || emp_invoices.count == 0
 
         puts "sub_id: #{employee.sub_id} - #{emp_invoices}"
 
@@ -66,8 +67,10 @@ class Reconciliation < ActiveRecord::Base
         raise StandardError.new("Should only have one benefit_profiles for a given insurance_account_number: #{insurance_account_number}") if benefit_profiles.count != 1
 
         benefit_profile = benefit_profiles.first
+        benefit_selection = EmployeeBenefitSelection.where(employee_id: employee.id, benefit_type: benefit_profile.benefit_type).first
+        return nil if benefit_selection.decline_benefit
 
-        BenefitDetail.where(benefit_profile_id: benefit_profile.id, employee_tier: 'SUB', employee_category: employee.employee_category).first
+        BenefitDetail.find(benefit_selection.benefit_detail_id)
     end
 
 
