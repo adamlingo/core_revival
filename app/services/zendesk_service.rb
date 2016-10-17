@@ -6,7 +6,9 @@ class ZendeskService
 
     def create_ticket(user, subject, comment, priority = 'normal')
       client = set_credentials
-      ZendeskAPI::Ticket.create!(client, requester: user, subject: subject, comment: { value: comment }, priority: priority)
+      if Rails.env.production?
+        ZendeskAPI::Ticket.create!(client, requester: user, subject: subject, comment: { value: comment }, priority: priority)
+      end
     end
 
     private def set_credentials
