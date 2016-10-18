@@ -19,7 +19,9 @@ Rails.application.routes.draw do
   # make Employees editable records that belong to companies by id
   resources :companies do
     get 'reconciliations', to: 'reconciliations#index', as: :index
-    get 'reconciliations/calculate', to: 'reconciliations#calculate', as: :calculate
+    post 'reconciliations/calculate', to: 'reconciliations#calculate', as: :calculate
+    post 'reconciliations/import_health_invoices', to: 'reconciliations#import_health_invoices', as: :import_health_invoices
+    post 'reconciliations/import_payroll_deductions', to: 'reconciliations#import_payroll_deductions', as: :import_payroll_deductions
 
     resources :benefit_profiles
     resources :employees do

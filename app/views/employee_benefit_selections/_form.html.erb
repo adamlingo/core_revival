@@ -3,10 +3,12 @@
     $(function() {
       console.log('guh')
       var $benefit_type = $('#employee_benefit_selection_benefit_type');
+      var $benefit_choices = $('employee_benefit_selection_benefit_detail_id');
 
       $benefit_type.change(function() {
         var val = $benefit_type.val();
         alert(':metal: ' + val + ' :metal');
+        
       });
     })();
   </script>

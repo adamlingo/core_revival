@@ -10,11 +10,17 @@ class HealthInvoice < ActiveRecord::Base
     end
   end
 
-  def self.import(file, filename = nil)
+  def self.import(file)
+    health_invoices = []
+    if (file.original_filename.present?)
+      filename = file.original_filename
+    else
+      filename = File.basename(file.path)
+    end
     puts "filename: #{filename}"
-    # puts "file.path: #{file.path}"
-    # invoice_date = HealthInvoice.convert_to_date(File.basename(file.path))
-    # puts "invoice_date: #{invoice_date}"
+
+    invoice_date = HealthInvoice.convert_to_date(filename)
+    puts "invoice_date: #{invoice_date}"
     # puts "invoice_date month: #{invoice_date.month}"
     # puts "invoice_date year: #{invoice_date.year}"
 
@@ -36,9 +42,13 @@ class HealthInvoice < ActiveRecord::Base
                                           change_reason: health_invoice_hash['Change Reason'],
                                           retro_fee_adjustment: retro_fee_adjustment,
                                           current_charges: current_charges,
-                                          total_charges: total_charges)
+                                          total_charges: total_charges,
+                                          month: invoice_date.month,
+                                          year: invoice_date.year)
       health_invoice.save!
+      health_invoices << health_invoice
     end
+    health_invoices
   end
 
   

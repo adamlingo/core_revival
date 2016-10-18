@@ -17,9 +17,10 @@ class HealthInvoicesController < ApplicationController
   end
 
   def import
-    # find header named 'filename' or look for param named with orig. file name
-    HealthInvoice.import(params[:file], request.headers["filename"])
-    redirect_to health_invoices_path, notice: "Health Invoice imported."
+    upload_file = params[:file]
+    HealthInvoice.import(upload_file)
+    #render to a friendly partial!
+    #redirect_to health_invoices_path, notice: "Health Invoice imported."
   end
 
   # GET /health_invoices/1
