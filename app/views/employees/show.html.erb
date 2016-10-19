@@ -1,5 +1,24 @@
 <p id="notice"><%= notice %></p>
-
+<div class="row">
+  <aside class="col-md-4">
+  	<%= "Name: " %>
+    <%= @employee.first_name %><%= @employee.last_name %></br></br>
+    <%= "E-mail: " %>
+    <%= @employee.email %></br>
+    <%=	"Address: " %>
+    <%= @employee.address %></br>
+    <%= "City: " %>
+    <%= @employee.city %></br>
+    <%= "State: " %>
+    <%= @employee.state %></br>
+    <%= "Zip: " %>
+    <%= @employee.zip %></br>
+    <%= "Phone number: " %>
+    <%= @employee.phone_number %></br>
+    <%= "Subscriber ID: " %>
+    <%= @employee.sub_id %></br>
+  </aside>
+</div>
 
 <%= link_to 'Edit', edit_company_employee_path%> |
 <%= link_to 'Back', company_employees_path %>

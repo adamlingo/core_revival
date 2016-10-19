@@ -9,7 +9,7 @@
       <% end %>
     </li>
     <li role="presentation">
-      <%= link_to root_path, class: 'main-nav__link' do %>
+      <%= link_to company_employee_path(current_user.company_id, current_user.employee_id), class: 'main-nav__link' do %>
         <span class="main-nav__icon">
           <i class="icon pe-7s-users"></i>
         </span>

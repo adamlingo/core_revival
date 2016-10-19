@@ -13,8 +13,11 @@ Rails.application.routes.draw do
 
   # Devise user routes
   devise_for :users, controllers: { sessions: "users/sessions",
-                                    registrations: "users/registrations"}
-  
+                                    passwords: "users/passwords"}
+  as :user do
+    get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
+    put 'users' => 'devise/registrations#update', :as => 'user_registration'
+  end
 
   # make Employees editable records that belong to companies by id
   resources :companies do

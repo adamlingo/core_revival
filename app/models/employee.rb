@@ -10,6 +10,8 @@ class Employee < ActiveRecord::Base
 
   validates_presence_of :company_id
   
+  validates :email, presence:true, uniqueness: true
+  
     def self.import(file_path)
       # file_path = '/home/ubuntu/workspace/core_redux/lib/assets/EmployeeList.csv'
       CSV.foreach(file_path, headers: true) do |row|
