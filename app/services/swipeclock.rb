@@ -48,15 +48,20 @@ class Swipeclock < ActiveRecord::Base
   def self.authenticate
     
     token = sso
-    http = Net::HTTP.new("https://clock.payrollservers.us/AuthenticationService/oauth2/usertoken")
+    
+    request_url = "https://clock.payrollservers.us/AuthenticationService/oauth2"
+    uri = URI.parse(request_url)
+    
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
     
     header = {
       'Authorization' => "Bearer #{token}",
       'Content-type' => "application/json"
     }
     
-    request = Net::HTTP::Post.new(header)
-    response = http.request(request)
+    req = Net::HTTP::Post.new(header)
+    res = http.request(req)
 
     # request_url = "#{API_URL}/#{token}"
     # uri = URI.parse(request_url)
@@ -65,7 +70,7 @@ class Swipeclock < ActiveRecord::Base
     # req = Net::HTTP::Post.new(uri)
     # res = http.request(req)
     
-    # puts res
+    puts res
   end
 
 
