@@ -1,6 +1,8 @@
 require 'jwt'
+require 'net/http'
+require 'uri'
 
-class SSO < ActiveRecord::Base
+class Swipeclock < ActiveRecord::Base
     
 
 # create originating token
@@ -41,7 +43,26 @@ class SSO < ActiveRecord::Base
 
 # # call authentication service
 
-# POST https://clock.payrollservers.us/AuthenticationService/oauth2/usertoken
+    # API_URL = "https://clock.payrollservers.us/AuthenticationService/oauth2".freeze
+
+  def self.authenticate
+    
+    token = sso
+    http = Net::HTTP.new("https://clock.payrollservers.us/AuthenticationService/oauth2/usertoken")
+    
+    request = Net::HTTP::Post.new("/#{token}")
+    response = http.request(request)
+
+    # request_url = "#{API_URL}/#{token}"
+    # uri = URI.parse(request_url)
+    # http = Net::HTTP.new(uri.host, uri.port)
+    # http.use_ssl = true
+    # req = Net::HTTP::Post.new(uri)
+    # res = http.request(req)
+    
+    # puts res
+  end
+
 
 # # return token
 end
