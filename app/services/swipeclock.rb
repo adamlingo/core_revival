@@ -50,7 +50,12 @@ class Swipeclock < ActiveRecord::Base
     token = sso
     http = Net::HTTP.new("https://clock.payrollservers.us/AuthenticationService/oauth2/usertoken")
     
-    request = Net::HTTP::Post.new("/#{token}")
+    header = {
+      'Authorization' => "Bearer #{token}",
+      'Content-type' => "application/json"
+    }
+    
+    request = Net::HTTP::Post.new(header)
     response = http.request(request)
 
     # request_url = "#{API_URL}/#{token}"
