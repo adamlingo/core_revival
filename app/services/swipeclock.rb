@@ -6,24 +6,22 @@ class Swipeclock < ActiveRecord::Base
     
 
 # create originating token
-    def self.sso #(employee)
+    def self.sso(employee_id)
     
-        # header = {
-        #   'typ' => 'JWT',
-        #   'alg' => 'HS256'
-        # }
-
         t = Time.now + 60
+       
       
-        # emp_id = EmployeeAdditionalLogin.find_by(employee_id: employee.id)
+        ee = EmployeeAdditionalLogin.find_by(employee_id: employee_id)
+        ee_id = ee.swipeclock_ee_id
+       
         payload = {
-          'iss' => 539,
+          'iss' => ENV['SWIPECLOCK_ACCOUNTANT_ID'],
           'exp' => t.to_i,
           'user' => {
             'type' => 'empcode',
-            'id' => '0156'
+            'id' => ee_id
           },
-          'site' => 53466,
+          'site' => ENV['SWIPECLOCK_SITE'],
           'iat' => t.to_i,
           'product' => 'twpemp'          
         }
@@ -47,11 +45,11 @@ class Swipeclock < ActiveRecord::Base
 
     # API_URL = "https://clock.payrollservers.us/AuthenticationService/oauth2".freeze
 
-  def self.authenticate
+  def self.authenticate(employee_id)
     
-    token = sso
+    originating_token = sso(employee_id)
     
-    puts "\n-- request token from AuthorizationService --\n"
+    puts "\n-- request originating_token from AuthorizationService --\n"
     request_url = "https://clock.payrollservers.us/AuthenticationService/oauth2/usertoken"
     uri = URI.parse(request_url)
     
@@ -63,14 +61,30 @@ class Swipeclock < ActiveRecord::Base
 
     req = Net::HTTP::Post.new(uri)
 
-    req['Authorization'] = "Bearer #{token}"
+    req['Authorization'] = "Bearer #{originating_token}"
     req['Content-type'] = 'application/json'
     res = http.request(req)
     
-    return res
+    puts "res.body:: #{res.body}"
+    
+    response_hash = JSON.parse(res.body)
+    
+    puts "response_hash: #{response_hash}"
+    token = response_hash['token']
+    
+    puts "\n --presenting the auth token--\n"
+    puts token
+    token
+    
   end
 
 
-# # return token
+def self.clock_in(employee_id)
+  
+  token = self.authenticate(employee_id)
+  login_url = "https://clock.payrollservers.us/?enclosed=1&compact=1&showess=1&jwt=#{token}"
+  uri - URI.parse(login_url)
+  
+end
 end
 
