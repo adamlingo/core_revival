@@ -49,9 +49,9 @@ class Swipeclock < ActiveRecord::Base
 
   def self.authenticate
     
-    token = sso
+    originating_token = sso
     
-    puts "\n-- request token from AuthorizationService --\n"
+    puts "\n-- request originating_token from AuthorizationService --\n"
     request_url = "https://clock.payrollservers.us/AuthenticationService/oauth2/usertoken"
     uri = URI.parse(request_url)
     
@@ -63,11 +63,25 @@ class Swipeclock < ActiveRecord::Base
 
     req = Net::HTTP::Post.new(uri)
 
-    req['Authorization'] = "Bearer #{token}"
+    req['Authorization'] = "Bearer #{originating_token}"
     req['Content-type'] = 'application/json'
     res = http.request(req)
-    
-    return res
+  
+    puts "res.body: #{res.body}"
+
+    response_hash = JSON.parse(res.body)
+
+    puts "response_hash: #{response_hash}"
+    token = response_hash['token']
+
+    puts "\n -- presenting the auth token -- \n"
+    puts token
+    token
+  end
+
+  def self.clock_in
+    token = self.authenticate
+    # do stuff..
   end
 
 
