@@ -49,13 +49,33 @@ RSpec.describe EmployeesController, type: :controller do
     end
 
 
-    # it "should have the same email as the user"
-
     # it "should send email notification"
 
-    # it "should update name of user"
+    it "should update name and email of user" do
+    before_employee = Employee.find_by(first_name: 'Ima', last_name: 'New Employee')
+      expect(before_employee).to be(nil)
 
-    # it "should udpate email of user"
+      employee_payload = {
+        company_id: 1,
+        employee: {
+        first_name: 'Ima',
+        last_name: 'New Employee',
+        email: 'totally-fake@core-redux.com'
+        }
+      }
+
+      post :update, employee_payload
+
+      expect(response).to have_http_status(:found)
+      expect(response).to redirect_to(company_employees_path)
+
+      after_employee = Employee.find_by(first_name: 'Ima', last_name: 'New Employee')
+      expect(after_employee).not_to be(nil)
+
+      user = User.find_by(id: after_employee.user_id)
+      expect(user).not_to be(nil)
+      expect(user.email).to eq(after_employee.email)
+    end
 
     # it "should display a new employee created message"
 
