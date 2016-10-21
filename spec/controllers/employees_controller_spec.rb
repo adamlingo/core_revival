@@ -52,15 +52,18 @@ RSpec.describe EmployeesController, type: :controller do
     # it "should send email notification"
 
     it "should update name and email of user" do
-    before_employee = Employee.find_by(first_name: 'Ima', last_name: 'New Employee')
-      expect(before_employee).to be(nil)
-
+      
+      before_employee = Employee.create!(company_id: 1, last_name: "Robin", first_name: "Christopher", email: 'pooh@bridge.com')
+      
+      puts before_employee.id
+      
       employee_payload = {
-        company_id: 1,
+        company_id: before_employee.company_id,
+        id: before_employee.id,
         employee: {
-        first_name: 'Ima',
-        last_name: 'New Employee',
-        email: 'totally-fake@core-redux.com'
+          first_name: 'Ima',
+          last_name: 'New Employee',
+          email: 'totally-fake@core-redux.com'
         }
       }
 
@@ -69,12 +72,13 @@ RSpec.describe EmployeesController, type: :controller do
       expect(response).to have_http_status(:found)
       expect(response).to redirect_to(company_employees_path)
 
-      after_employee = Employee.find_by(first_name: 'Ima', last_name: 'New Employee')
+      after_employee = Employee.find_by(id: before_employee.id)
       expect(after_employee).not_to be(nil)
 
-      user = User.find_by(id: after_employee.user_id)
-      expect(user).not_to be(nil)
-      expect(user.email).to eq(after_employee.email)
+      expect(after_employee.first_name).to eq("Ima")
+      expect(after_employee.last_name).to eq("New Employee")
+      expect(after_employee.email).to eq("totally-fake@core-redux.com")
+      
     end
 
     # it "should display a new employee created message"
