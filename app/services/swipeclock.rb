@@ -35,9 +35,11 @@ class Swipeclock < ActiveRecord::Base
                 
         puts "token: #{token}"
         
-        decoded_token = JWT.decode token, hmac_secret, true, { :algorithm => 'HS256' }
+        # decoded_token = JWT.decode token, hmac_secret, true, { :algorithm => 'HS256' }
        
-        puts "decoded_token: #{decoded_token}"
+        # puts "decoded_token: #{decoded_token}"
+
+        token
     end
 
 
@@ -49,28 +51,23 @@ class Swipeclock < ActiveRecord::Base
     
     token = sso
     
-    request_url = "https://clock.payrollservers.us/AuthenticationService/oauth2"
+    puts "\n-- request token from AuthorizationService --\n"
+    request_url = "https://clock.payrollservers.us/AuthenticationService/oauth2/usertoken"
     uri = URI.parse(request_url)
     
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
-    
-    header = {
-      'Authorization' => "Bearer #{token}",
-      'Content-type' => "application/json"
-    }
-    
-    req = Net::HTTP::Post.new(header)
-    res = http.request(req)
 
-    # request_url = "#{API_URL}/#{token}"
-    # uri = URI.parse(request_url)
-    # http = Net::HTTP.new(uri.host, uri.port)
-    # http.use_ssl = true
-    # req = Net::HTTP::Post.new(uri)
-    # res = http.request(req)
+    # we need to figure out how to do without VERIFY_NONE
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE     
+
+    req = Net::HTTP::Post.new(uri)
+
+    req['Authorization'] = "Bearer #{token}"
+    req['Content-type'] = 'application/json'
+    res = http.request(req)
     
-    puts res
+    return res
   end
 
 
