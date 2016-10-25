@@ -27,7 +27,7 @@ class Swipeclock < ActiveRecord::Base
         }
           
         puts "payload: #{payload}"
-        hmac_secret = 'XMhgNMqD550tqqDhj1Ic5cDvghhQbjNaUd1xdwQ1CXNDspCmf2ljIpNneGfHfzOz'
+        hmac_secret = 'SWIPECLOCK_SECRET_KEY'
         
         token = JWT.encode payload, hmac_secret, 'HS256'
                 
@@ -79,12 +79,25 @@ class Swipeclock < ActiveRecord::Base
   end
 
 
-def self.clock_in(employee_id)
+    def self.clock_in(employee_id)
   
-  token = self.authenticate(employee_id)
-  login_url = "https://clock.payrollservers.us/?enclosed=1&compact=1&showess=1&jwt=#{token}"
-  uri - URI.parse(login_url)
+      token = self.authenticate(employee_id)
+      
+      request_url = "https://clock.payrollservers.us/?enclosed=1&compact=1&showess=1&jwt=#{token}"
+      uri = URI.parse(request_url)
+      
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
   
-end
+      # we need to figure out how to do without VERIFY_NONE
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE     
+  
+      # req = Net::HTTP::Post.new(uri)
+      # # req['Content-type'] = 'application/json'
+      # res = http.request(req)
+      
+      # puts "res.body:: #{res.body}"
+    
+    end
 end
 

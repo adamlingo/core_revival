@@ -18,7 +18,8 @@
     </a>
     </br></br>
   <% elsif current_user.employee? %>
-    <a href="https://www.swipeclock.com/WebClock" class="btn btn-success btn-sm" role="button">Clock in / out
+    <a>  ee_id = EmployeeAdditionalLogin.find_by(employee_id: current_user.id) </a>
+    <a Swipeclock.clock_in(ee_id) class="btn btn-success btn-sm" role="button">Clock in / out
     </a>
     </br></br>
   <% end %>
