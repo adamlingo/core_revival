@@ -48,7 +48,12 @@ Rails.application.routes.draw do
   #                                           DELETE     /companies/:id(.:format)                                             companies#destroy
 
   # Folder/file routes
-  resources :folders
+  resources :folders do
+    delete "delete_doc/:doc_id", to: 'folders#delete_doc', as: 'delete_doc'
+    post "add_doc", to: 'folders#add_doc', as: 'add_doc'
+    # folder_delete_doc DELETE  /folders/:folder_id/delete_doc/:doc_id(.:format)    folders#delete_doc
+    # folder_add_doc POST       /folders/:folder_id/add_doc(.:format)               folders#add_doc
+  end
 
   resources :health_invoices do
     collection { post :import }
