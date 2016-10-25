@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  
-  # Devise login is home page based on pages#home before_filter
-
   # Root to pages/home (requires login)
   root 'pages#home'
   get  '/home', to: "pages#home", as: "home"
@@ -50,6 +47,8 @@ Rails.application.routes.draw do
   #                                           PUT        /companies/:id(.:format)                                             companies#update
   #                                           DELETE     /companies/:id(.:format)                                             companies#destroy
 
+  # Folder/file routes
+  resources :folders
 
   resources :health_invoices do
     collection { post :import }
