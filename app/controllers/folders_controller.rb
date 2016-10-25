@@ -43,10 +43,35 @@ class FoldersController < ApplicationController
     redirect_to :folders
   end
 
+  # delete individual document from folder
+  def delete_doc
+    @folder = Folder.find(params[:folder_id])
+    doc_id = params[:doc_id]
+    doc = Document.find_by(id: doc_id, folder_id: @folder.id)
+    if doc.present?
+      puts "found"
+      doc.delete
+      flash[:info] = "Document deleted successfully"
+    else
+      flash[:error] = "No document found"
+      puts "not found"
+    end
+    
+    redirect_to folder_url(@folder)
+  end
+
+  # add individual document to folder
+  def add_doc
+    documents = params[:documents_files]
+
+
+    redirect_to folder_url(@folder)
+  end
+
   private
 
     # folder params permissions
     def folder_params
-      params.fetch(:folder).permit(:title, :image, :description, documents_files: [])
+      params.fetch(:folder).permit(:title, :image, :remove_image, :description, documents_files: [])
     end
 end
