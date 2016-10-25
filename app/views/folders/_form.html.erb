@@ -11,6 +11,8 @@
         <p>
           <%= attachment_image_tag @folder, :image, :fill, 60, 60 %>
           <%= form.attachment_field :image %>
+          <%= form.check_box :remove_image %>
+          <%= form.label :remove_image %>
         </p>
         <%= field_errors(@folder, :image) %>
       </div>

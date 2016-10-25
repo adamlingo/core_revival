@@ -3,10 +3,11 @@
 <h1><%= @folder.title %></h1>
 
 <p>
-  <%= link_to "Edit folder", [:edit, @folder], class: "btn btn-primary" %>
-  <%= link_to "Delete folder", @folder, data: { method: "delete", confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  <%= link_to "Edit folder", edit_folder_path %>
+  </br>
+  <%= link_to "Add document", folder_path %>
 </p>
-
+</br>
 <p>
   <%= attachment_image_tag(@folder, :image, :fill, 200, 200) %>
 </p>
@@ -27,8 +28,7 @@
         <th><%= link_to document.file_filename, attachment_url(document, :file) %></th>
         <th><%= document.file_content_type %></th>
         <th><%= number_to_human_size document.file_size %></th>
-        
-        <th><%= link_to 'add document', root_path %></th>
+        <th><%= link_to 'delete', folder_delete_doc_path(@folder, document.id), data: { method: "delete", confirm: "Are you sure?" } %></th> 
       </tr>
     <% end %>
   </tbody>
@@ -40,5 +40,9 @@
 </br>
 <p>
   <%= link_to "RETURN TO YOUR FOLDERS", folders_path %>
+</p>
+</br>
+<p>
+  <%= link_to "Delete folder", @folder, data: { method: "delete", confirm: "Are you sure?" }, class: "btn btn-danger" %>	
 </p>
 
