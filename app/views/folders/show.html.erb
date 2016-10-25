@@ -1,4 +1,44 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_folder_path(@folder) %> |
-<%= link_to 'Back', folders_path %>
+<h1><%= @folder.title %></h1>
+
+<p>
+  <%= link_to "Edit folder", [:edit, @folder], class: "btn btn-primary" %>
+  <%= link_to "Delete folder", @folder, data: { method: "delete", confirm: "Are you sure?" }, class: "btn btn-danger" %>
+</p>
+
+<p>
+  <%= attachment_image_tag(@folder, :image, :fill, 200, 200) %>
+</p>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Filename</th>
+      <th>Content type</th>
+      <th>Size</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @folder.documents.each do |document| %>
+      <tr>
+        <th><%= link_to document.file_filename, attachment_url(document, :file) %></th>
+        <th><%= document.file_content_type %></th>
+        <th><%= number_to_human_size document.file_size %></th>
+        
+        <th><%= link_to 'add document', root_path %></th>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
+
+<%= simple_format @folder.description %>
+</br>
+</br>
+<p>
+  <%= link_to "RETURN TO YOUR FOLDERS", folders_path %>
+</p>
+
