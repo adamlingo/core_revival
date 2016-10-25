@@ -1,5 +1,6 @@
 class FoldersController < ApplicationController
-  before_action :set_folder, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
+  before_filter :authorize_company!
 
   def index
     @folders = Folder.all
@@ -43,7 +44,7 @@ class FoldersController < ApplicationController
   end
 
   private
-  
+
     # folder params permissions
     def folder_params
       params.fetch(:folder).permit(:title, :image, :description, documents_files: [])
