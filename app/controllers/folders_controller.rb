@@ -3,7 +3,13 @@ class FoldersController < ApplicationController
   before_filter :authorize_company!
 
   def index
-    @folders = Folder.all
+    # @folders = Folder.joins(:company_folders).where(company_id: params[:company_id])
+    # puts @folders
+
+    @folders = []
+    CompanyFolder.where(company_id: params[:company_id]).each{|company_folder|
+      @folders << Folder.find(company_folder.folder_id)
+    }
   end
 
   def show
