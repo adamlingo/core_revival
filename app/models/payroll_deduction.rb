@@ -8,18 +8,25 @@ class PayrollDeduction < ActiveRecord::Base
     end
   end
 
-  def self.import(file)
+  def self.import(file, month = nil, year = nil)
     CSV.foreach(file.path, headers: true) do |row|
       payroll_hash = row.to_hash
+
       # all columns in Payroll Deduction csv
       unless payroll_hash['Employee ID'].nil?
         payroll_deduction = find_or_create_by!(pay_ee_id: payroll_hash['Employee ID'],
                                             pay_sub_name: payroll_hash['Employee Name'],
-                                            pay_sub_id: payroll_hash['Subscriber  #'],
+                                            pay_sub_id: payroll_hash['Subscriber  #   '],
                                             pay_category: payroll_hash['Category#'],
-                                            deduction_amount: payroll_hash['Amount'])
+                                            deduction_amount: payroll_hash['Amount'],
+                                            month: month,
+                                            year: year)
         payroll_deduction.save!
       end
     end
+  end
+
+  def to_s
+    "pay_ee_id: #{self.pay_ee_id}\npay_sub_name: #{self.pay_sub_name}\npay_sub_id: #{self.pay_sub_id}\npay_category: #{self.pay_category}\ndeduction_amount: #{self.deduction_amount}\nmonth: #{self.month}\nyear: #{self.year}"
   end
 end

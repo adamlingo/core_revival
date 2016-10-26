@@ -8,7 +8,6 @@ employee_1:
   first_name: 'Dana'
   company_id: 1
   sub_id: 'my-sub-id'
-  employee_category: 'Employee'
 
 employee_2:
   id: 2
@@ -17,5 +16,4 @@ employee_2:
   first_name: 'Raymond'
   company_id: 2
   sub_id: 'my-sub-id-2'
-  employee_category: 'Employee'
 

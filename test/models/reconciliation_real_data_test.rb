@@ -6,14 +6,16 @@ class ReconciliationRealDataTest < ActiveSupport::TestCase
   FILE_NAME_WITH_REAL_INVOICE_DATA='0000167878_08-01-2016_09-01-2016.csv'.freeze
   PATH_TO_ACTUAL_INVOICE_FILE = "#{Rails.root}/test/fixtures/#{FILE_NAME_WITH_REAL_INVOICE_DATA}".freeze
 
+  TEST_MONTH = 8
+  TEST_YEAR = 2016
 
-   def init
+  def init
     @company = Company.new
     @company.name = 'My Effin Test Company'
     @company.save!
 
     load_employees_into_new_company_from_real_data_file
-    load_payroll_deduction_from_real_data_file
+    load_payroll_deduction_from_real_data_file(TEST_MONTH, TEST_YEAR)
     load_health_invoice_from_real_data_file
 
     invoice = HealthInvoice.last
@@ -25,29 +27,31 @@ class ReconciliationRealDataTest < ActiveSupport::TestCase
     benefit_profile.provider = 'BenefitProfile - provider'
     benefit_profile.provider_plan = 'BenefitProfile - plan'
     benefit_profile.benefit_type = 'Medical'
-    benefit_profile.benefit_method = 'Fixed'
+    benefit_profile.benefit_method = '%'
     benefit_profile.save!
 
-   end
+  end
 
-   test 'should do the needful' do
+  test 'should do the needful' do
     init
 
+    reconciliation = Reconciliation.new(@company.id, TEST_MONTH, TEST_YEAR)
     expected = 'IDK!'
-    actual = Reconciliation.do_it(@company.id)
+    #actual = Reconciliation.do_it(@company.id)
+    actual = reconciliation.calculate
     puts actual
 
     assert_equal actual, expected
-   end
+  end
 
   private
 
-  def load_payroll_deduction_from_real_data_file
+  def load_payroll_deduction_from_real_data_file(month, year)
     puts 'load_payroll_deduction_from_real_data_file not implemented'
     file = File.new(PATH_TO_ACTUAL_DEDUCTION_FILE)
     before = PayrollDeduction.all.count
 
-    PayrollDeduction.import(file)
+    PayrollDeduction.import(file, month, year)
 
     after = PayrollDeduction.all.count
     puts "deductions -\nbefore: #{before} \nafter: #{after}"
@@ -80,8 +84,7 @@ class ReconciliationRealDataTest < ActiveSupport::TestCase
         emp = Employee.create!(company_id: @company.id,
                                 sub_id: subscriber_id,
                                 last_name: names[0],
-                                first_name: names[1].sub(/\ /, ''),
-                                employee_category: 'employee'
+                                first_name: names[1].sub(/\ /, '')
                                 )
       end
     end

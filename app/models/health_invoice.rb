@@ -12,7 +12,7 @@ class HealthInvoice < ActiveRecord::Base
 
   def self.import(file)
     health_invoices = []
-    if (file.original_filename.present?)
+    if (file.respond_to?(:original_filename)) # .original_filename.present?)
       filename = file.original_filename
     else
       filename = File.basename(file.path)
