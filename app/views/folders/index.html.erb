@@ -3,14 +3,13 @@
 <h1>Folders</h1>
 
 <p>
-  <%= link_to "New folder", :new_folder, class: "btn btn-primary", role: "button" %>
+  <%= link_to "New folder", :new_company_folder, class: "btn btn-primary", role: "button" %>
 </p>
 </br>
 
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th>Image</th>
       <th>Title</th>
       <!-- document count here? -->
     </tr>
@@ -18,11 +17,8 @@
   <tbody>
     <% @folders.each do |folder| %>
       <tr>
-        <td class='image'>
-          <%= attachment_image_tag folder, :image, :fill, 60, 60 %>
-        </td>
         <td>
-          <%= link_to folder.title, folder %>
+          <%= link_to folder.title, company_folder_path(id: folder.id) %>
         </td>
         
           <!-- document count here? -->
