@@ -4,6 +4,7 @@ class Folder < ActiveRecord::Base
   attachment :image, type: :image
 
   has_many :documents, dependent: :destroy
+  has_many :company_folders
 
   accepts_attachments_for :documents
 
