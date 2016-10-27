@@ -92,11 +92,11 @@ class Swipeclock < ActiveRecord::Base
       # we need to figure out how to do without VERIFY_NONE
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE     
   
-      # req = Net::HTTP::Post.new(uri)
-      # # req['Content-type'] = 'application/json'
-      # res = http.request(req)
+      req = Net::HTTP::Post.new(uri)
+      # req['Content-type'] = 'application/json'
+      res = http.request(req)
       
-      # puts "res.body:: #{res.body}"
+      puts "res.body:: #{res.body}"
     
     end
 end
