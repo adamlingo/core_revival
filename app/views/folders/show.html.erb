@@ -3,9 +3,9 @@
 <h1><%= @folder.title %></h1>
 
 <p>
-  <%= link_to "Edit folder", edit_folder_path %>
+  <%= link_to "Edit folder", edit_company_folder_path %>
   </br>
-  <%= link_to "Add document", folder_path %>
+  <%= link_to "Add document", company_folder_path %>
 </p>
 </br>
 <p>
@@ -28,7 +28,7 @@
         <th><%= link_to document.file_filename, attachment_url(document, :file) %></th>
         <th><%= document.file_content_type %></th>
         <th><%= number_to_human_size document.file_size %></th>
-        <th><%= link_to 'delete', folder_delete_doc_path(@folder, document.id), data: { method: "delete", confirm: "Are you sure?" } %></th> 
+        <th><%= link_to 'delete', company_folder_delete_doc_path(@folder, document.id), data: { method: "delete", confirm: "Are you sure?" } %></th> 
       </tr>
     <% end %>
   </tbody>
@@ -39,7 +39,7 @@
 </br>
 </br>
 <p>
-  <%= link_to "RETURN TO YOUR FOLDERS", folders_path %>
+  <%= link_to "RETURN TO YOUR FOLDERS", company_folders_path(current_user.company_id) %>
 </p>
 </br>
 <p>
