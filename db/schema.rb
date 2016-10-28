@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161026003823) do
+ActiveRecord::Schema.define(version: 20161028225820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,6 +136,13 @@ ActiveRecord::Schema.define(version: 20161026003823) do
     t.string   "url"
   end
 
+  create_table "employee_folders", force: :cascade do |t|
+    t.integer  "employee_id", null: false
+    t.integer  "folder_id",   null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "employees", force: :cascade do |t|
     t.string   "name"
     t.integer  "company_id"
@@ -244,4 +251,6 @@ ActiveRecord::Schema.define(version: 20161026003823) do
   add_foreign_key "company_folders", "companies"
   add_foreign_key "company_folders", "folders"
   add_foreign_key "documents", "folders"
+  add_foreign_key "employee_folders", "employees"
+  add_foreign_key "employee_folders", "folders"
 end
