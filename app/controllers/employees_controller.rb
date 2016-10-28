@@ -1,6 +1,10 @@
 class EmployeesController < ApplicationController
   # must be logged in
   before_filter :authenticate_user!
+  before_filter :authorize_company!
+  before_filter :authorize_manager!
+  
+  
   #before_action :set_employee, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -8,9 +12,6 @@ class EmployeesController < ApplicationController
     @employees = find_company.employees
   end
 
-  def show
-    @employee = set_employee
-  end
   def show
     @employee = set_employee
     @company = find_company
