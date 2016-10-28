@@ -27,7 +27,9 @@ class FoldersController < ApplicationController
   def create
     @folder = Folder.new(folder_params)
     if @folder.save
-      redirect_to @folder
+      CompanyFolder.create!(company_id: params[:company_id], folder_id: @folder.id)
+
+      redirect_to company_folder_path(company_id: params[:company_id], id: @folder.id)
     else
       render :new
     end
@@ -36,7 +38,7 @@ class FoldersController < ApplicationController
   def update
     @folder = Folder.find(params[:id])
     if @folder.update_attributes(folder_params)
-      redirect_to @folder
+      redirect_to company_folder_path
     else
       render :edit
     end
@@ -46,32 +48,39 @@ class FoldersController < ApplicationController
     @folder = Folder.find(params[:id])
     # write prompt first?
     @folder.destroy
-    redirect_to :folders
+    redirect_to company_folders_path
   end
 
   # delete individual document from folder
   def delete_doc
-    @folder = Folder.find(params[:folder_id])
-    doc_id = params[:doc_id]
-    doc = Document.find_by(id: doc_id, folder_id: @folder.id)
-    if doc.present?
-      puts "found"
-      doc.delete
-      flash[:info] = "Document deleted successfully"
-    else
+    company_folder = CompanyFolder.find_by(company_id: params[:company_id], folder_id: params[:folder_id])
+    unless company_folder.present?
       flash[:error] = "No document found"
-      puts "not found"
+    else
+      @folder = Folder.find(params[:folder_id])
+      doc_id = params[:doc_id]
+      doc = Document.find_by(id: doc_id, folder_id: @folder.id)
+      if doc.present?
+        puts "found"
+        doc.delete
+        flash[:info] = "Document deleted successfully"
+      else
+        flash[:error] = "No document found"
+        puts "not found"
+      end
     end
-    
-    redirect_to folder_url(@folder)
+    redirect_to company_folder_path(company_id: params[:company_id], id: params[:folder_id])
   end
 
+  def new_doc
+    @folder = Folder.find(params[:folder_id])
+  end
   # add individual document to folder
   def add_doc
     documents = params[:documents_files]
+    # add document to documents
 
-
-    redirect_to folder_url(@folder)
+    redirect_to company_folder_path(company_id: params[:company_id], id: params[:folder_id])
   end
 
   private
