@@ -23,7 +23,8 @@ Rails.application.routes.draw do
     # Folder/file routes
     resources :folders do
       delete "delete_doc/:doc_id", to: 'folders#delete_doc', as: 'delete_doc'
-      post "add_doc", to: 'folders#add_doc', as: 'add_doc'
+      get "new_doc", to: 'folders#new_doc', as: 'new_doc'
+      patch "add_doc", to: 'folders#add_doc', as: 'add_doc'
       # company_folder_delete_doc DELETE     /companies/:company_id/folders/:folder_id/delete_doc/:doc_id(.:format)             folders#delete_doc
       #    company_folder_add_doc POST       /companies/:company_id/folders/:folder_id/add_doc(.:format)                        folders#add_doc
       #           company_folders GET        /companies/:company_id/folders(.:format)                                           folders#index
