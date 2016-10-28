@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= f.label :last_name %><br>
-   <% if current_user.manager? || current_user.admin? %>
+    <% if current_user.manager? || current_user.admin? %>
       <%= f.text_field :last_name %>
     <% else %>
       <%= f.label @employee.last_name %>
@@ -67,7 +67,11 @@
 
   <div class="field">
     <%= f.label :sub_id %><br>
-    <%= f.text_field :sub_id %>
+    <% if current_user.manager? || current_user.admin? %>  
+      <%= f.text_field :sub_id %>
+    <% else %>
+      <%= f.label @employee.sub_id %>
+    <% end %>
   </div>
 
   <div class="actions">

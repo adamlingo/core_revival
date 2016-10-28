@@ -116,6 +116,9 @@ ActiveRecord::Schema.define(version: 20161011231908) do
     t.datetime "updated_at",  null: false
     t.string   "ee_id"
     t.string   "employee_id"
+    t.string   "name"
+    t.string   "description"
+    t.string   "url"
   end
 
   create_table "employees", force: :cascade do |t|
