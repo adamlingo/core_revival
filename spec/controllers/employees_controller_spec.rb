@@ -49,8 +49,6 @@ RSpec.describe EmployeesController, type: :controller do
     end
 
 
-    # it "should send email notification"
-
     it "should update name and email of user" do
       
       before_employee = Employee.create!(company_id: 1, last_name: "Robin", first_name: "Christopher", email: 'pooh@bridge.com')
@@ -80,14 +78,53 @@ RSpec.describe EmployeesController, type: :controller do
       expect(after_employee.email).to eq("totally-fake@core-redux.com")
       
     end
+    
+  context 'authenticated employee' do
+    before(:each) do
+      allow(ZendeskService).to receive(:create_ticket).and_return(42)
+
+      ee_user = users(:employee)
+      sign_in(ee_user)
+    end
+    
+    it "should not allow an employee user to create a new user" do
+      before_employee = Employee.find_by(first_name: 'Ima', last_name: 'New Employee')
+      expect(before_employee).to be(nil)
+  
+      employee_payload = {
+          company_id: 1,
+          employee: {
+          first_name: 'Ima',
+          last_name: 'New Employee',
+          email: 'totally-fake@core-redux.com'
+          }
+        }
+  
+      post :create, employee_payload
+  
+      expect(response).not_to have_http_status(:found)
+      expect(response).to redirect_to(root_path)
+  
+      after_employee = Employee.find_by(first_name: 'Ima', last_name: 'New Employee')
+      expect(after_employee).to be(nil)
+  
+      user = User.find_by(id: after_employee.user_id)
+      expect(user).to be(nil)
+    end
+
+
+  end
+  
+      
 
     # it "should display a new employee created message"
+    
+    # it "should send email notification"
 
     # it "should create a zendesk ticket for new"
 
     # it "should display a employee updated message"
 
     # it "should create a zendesk ticket for update"
-
   end
 end
