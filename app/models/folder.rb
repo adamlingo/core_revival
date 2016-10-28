@@ -5,6 +5,7 @@ class Folder < ActiveRecord::Base
 
   has_many :documents, dependent: :destroy
   has_many :company_folders, dependent: :destroy
+  has_many :employee_folders, dependent: :destroy
 
   accepts_attachments_for :documents
 
