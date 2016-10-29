@@ -2,8 +2,10 @@ class EmployeesController < ApplicationController
   # must be logged in
   before_filter :authenticate_user!
   before_filter :authorize_company!
-  # skip_filter (if needed)
-  # before_action :set_employee, only: [:show, :edit, :update, :destroy]
+  skip_filter :authorize_manager!, only: [:show]
+  
+  
+  #before_action :set_employee, only: [:show, :edit, :update, :destroy]
 
   def index
     # only show all Employees of selected company
@@ -34,11 +36,9 @@ class EmployeesController < ApplicationController
     # need @employee.save if/else clause to render proper template
     if @employee.save
       flash[:success] = "New employee created!"
-      # send zendesk notification of new employee
-      user_hash = {name: @employee.last_name, email: @employee.email}
-      ticket_id = ZendeskService.create_ticket(user_hash, "Information Edited by #{current_user.email}", 'NEW EMPLOYEE ADDED')
-      puts "ticket id is: "
-      puts ticket_id
+
+      notify_zendesk('NEW EMPLOYEE ADDED')
+
       # create User & User invite (skip invite for now)
       user = User.invite!(:email => @employee.email) do |u|
         u.skip_invitation = true
@@ -47,6 +47,7 @@ class EmployeesController < ApplicationController
       user.save!
       @employee.user_id = user.id
       @employee.save
+  
       redirect_to company_employees_path
     else
       render 'new'
@@ -60,11 +61,9 @@ class EmployeesController < ApplicationController
     if @employee.update_attributes(employee_params)
       flash[:success] = "Employee updated!"
       if @employee.user_id.present?
-        # send zen desk notification of employee info changes
-        user_hash = {name: @employee.last_name, email: @employee.email}
-        ticket_id = ZendeskService.create_ticket(user_hash, "Information Edited by #{current_user.email}", 'EMPLOYEE INFO Changed')
-        puts "ticket id is: "
-        puts ticket_id
+  
+        notify_zendesk('EMPLOYEE INFO Changed')
+  
         # update User record email to match Employee
         user = User.find(@employee.user_id)
         # password reset invite
@@ -85,13 +84,24 @@ class EmployeesController < ApplicationController
   end
 
   private
+    def notify_zendesk(message)
+      # remove if block once we know how to "authenticate" in the tests.
+      if current_user.present?
+        # send zen desk notification of employee info changes
+        user_hash = {name: @employee.last_name, email: @employee.email}
+        ticket_id = ZendeskService.create_ticket(user_hash, "Information Edited by #{current_user.email}", message)
+        puts "ticket id is: "
+        puts ticket_id
+      end
+    end
+
     # Employees need to find company they are associated with
     def find_company
-      Company.find(params[:company_id])
+      Company.find(params[:company_id].to_i)
     end
 
     def set_employee
-      find_company.employees.find(params[:id])
+      find_company.employees.find(params[:id].to_i)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
