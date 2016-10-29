@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe EmployeesController, type: :controller do
-  fixtures :companies, :users
+  fixtures :companies, :users, :employees
 
   context 'not authenticated' do
     it "blocks unauthenticated access" do
@@ -83,14 +83,13 @@ RSpec.describe EmployeesController, type: :controller do
     before(:each) do
       allow(ZendeskService).to receive(:create_ticket).and_return(42)
 
-      ee_user = users(:employee)
-      sign_in(ee_user)
+      employee_user = users(:employee)
+      sign_in(employee_user)
     end
     
     it "should not allow an employee user to create a new user" do
-      before_employee = Employee.find_by(first_name: 'Ima', last_name: 'New Employee')
-      expect(before_employee).to be(nil)
-  
+      before_count = Employee.count
+
       employee_payload = {
           company_id: 1,
           employee: {
@@ -101,15 +100,13 @@ RSpec.describe EmployeesController, type: :controller do
         }
   
       post :create, employee_payload
+      
+      after_count = Employee.count
+      expect(after_count).to eq(before_count)
   
-      expect(response).not_to have_http_status(:found)
+      expect(response).to have_http_status(:found)
       expect(response).to redirect_to(root_path)
   
-      after_employee = Employee.find_by(first_name: 'Ima', last_name: 'New Employee')
-      expect(after_employee).to be(nil)
-  
-      user = User.find_by(id: after_employee.user_id)
-      expect(user).to be(nil)
     end
 
 
