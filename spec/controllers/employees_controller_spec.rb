@@ -21,6 +21,24 @@ RSpec.describe EmployeesController, type: :controller do
       admin_user = users(:admin)
       sign_in(admin_user)
     end
+    
+    it "should display a new employee created message" do
+        
+      employee_payload = {
+      company_id: 1,
+      employee: {
+      first_name: 'Ima',
+      last_name: 'New Employee',
+      email: 'totally-fake@core-redux.com'
+        }
+      } 
+
+      post :create, employee_payload
+      
+      expect(flash[:success]).to be_present
+    
+    end
+    
 
     it "should create a related user" do
       before_employee = Employee.find_by(first_name: 'Ima', last_name: 'New Employee')
@@ -69,6 +87,7 @@ RSpec.describe EmployeesController, type: :controller do
 
       expect(response).to have_http_status(:found)
       expect(response).to redirect_to(company_employees_path)
+      expect(flash[:success]).to be_present
 
       after_employee = Employee.find_by(id: before_employee.id)
       expect(after_employee).not_to be(nil)
@@ -114,13 +133,11 @@ RSpec.describe EmployeesController, type: :controller do
   
       
 
-    # it "should display a new employee created message"
+    
     
     # it "should send email notification"
 
     # it "should create a zendesk ticket for new"
-
-    # it "should display a employee updated message"
 
     # it "should create a zendesk ticket for update"
   end
