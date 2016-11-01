@@ -27,7 +27,7 @@ class Swipeclock < ActiveRecord::Base
         }
           
         puts "payload: #{payload}"
-        hmac_secret = 'SWIPECLOCK_SECRET_KEY'
+        hmac_secret = ENV['SWIPECLOCK_SECRET_KEY']
         
         token = JWT.encode payload, hmac_secret, 'HS256'
                 
@@ -93,7 +93,7 @@ class Swipeclock < ActiveRecord::Base
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE     
   
       req = Net::HTTP::Post.new(uri)
-      # req['Content-type'] = 'application/json'
+      req['Content-type'] = 'application/json'
       res = http.request(req)
       
       puts "res.body:: #{res.body}"
