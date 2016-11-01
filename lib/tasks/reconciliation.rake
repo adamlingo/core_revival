@@ -44,6 +44,21 @@ desc "reconciliation development"
     results = reconciliation.calculate
     puts results
   end
+
+  task annualize_demo: :environment do
+    annual_rate = 1200.00
+    monthly_rate = annual_rate/12
+    puts "----------------------------------------------"
+    puts "Expected annualized rates demo"
+    puts "Annual rate: #{annual_rate}, monthly rate: #{monthly_rate}"
+    puts "----------------------------------------------"
+    puts "monthly: #{PayrollAnnualizer.new(monthly_rate, 1, 'monthly').annualize}"
+    puts "semi-monthly: #{PayrollAnnualizer.new(monthly_rate, 2, 'semi-monthly').annualize}"
+    puts "weekly, 4 checks: #{PayrollAnnualizer.new(monthly_rate, 4, 'weekly').annualize}"
+    puts "weekly, 5 checks: #{PayrollAnnualizer.new(monthly_rate, 5, 'weekly').annualize}"
+    puts "bi-weekly, 2 checks: #{PayrollAnnualizer.new(monthly_rate, 2, 'bi-weekly').annualize}"
+    puts "bi-weekly, 3 checks: #{PayrollAnnualizer.new(monthly_rate, 3, 'bi-weekly').annualize}"
+  end
   
 end
     

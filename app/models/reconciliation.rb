@@ -26,17 +26,24 @@ class Reconciliation < ActiveRecord::Base
               results.push("#{employee.last_name}, #{employee.first_name} - no sub_id")
           end
         }
-        results        
+        results
     end
 
     def calculate_diff(employee)
-        # this grabs every invoice row the specific employee
         emp_invoices = HealthInvoice.where(health_sub_id: employee.sub_id, month: @month, year: @year)
 
         return "No Invoices for month: #{@month} year: #{@year}" if emp_invoices.nil? || emp_invoices.count == 0
 
         # this grabs every payroll row for the specific employee for the specific month/year
         emp_payroll_deduction = PayrollDeduction.find_by(pay_sub_id: employee.sub_id, month: @month, year: @year)
+
+        # we expect only one payroll per month (though this could be up to 5 payments aggregated)
+        # we need to annualize the pay deductions to compare against the monthly invoice rates
+        # so we need to look at the number of payroll periods to know how to annualize a monthly deduction
+
+        # ultimately for a given month the difference should be zero.
+        # but it might also be worth annualizing both the monthly invoice and payroll deduction and reporting those differences...
+
 
         if emp_payroll_deduction.nil?
             #return "No payroll deductions for month: #{@month} year: #{@year}"
@@ -52,7 +59,7 @@ class Reconciliation < ActiveRecord::Base
 
         benefit_detail = BenefitDetail.find(benefit_selection.benefit_detail_id)
 
-        # sub totals
+        # subscriber totals
         sub_invoice_total = health_invoice_sub_charges(emp_invoices)
 
         # dependent totals
@@ -115,7 +122,7 @@ class Reconciliation < ActiveRecord::Base
         when 'SUB', 'SPS', 'CH1', 'SPS1'
             payroll_deduction.deduction_amount
         else
-            0
+            raise StandardError.new "#{employee_benefit_detail.employee_tier} does not match"
         end
     end
 
