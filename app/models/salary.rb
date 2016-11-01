@@ -1,5 +1,4 @@
 class Salary < ActiveRecord::Base
-    belongs_to :company
-    has_many :employees, through: :company
-    
+    belongs_to :employee
+
 end
