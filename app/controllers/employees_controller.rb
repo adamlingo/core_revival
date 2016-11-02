@@ -10,9 +10,6 @@ class EmployeesController < ApplicationController
 
   def show
     @employee = set_employee
-  end
-  def show
-    @employee = set_employee
     @company = find_company
   end
 

@@ -1,0 +1,42 @@
+<h1>Add New Pay/Salary Rate</h1>
+
+<div class="col-md-8">
+<%= form_for @salary, :url => {:action => "create" } do |f| %>
+<!--  <% if @employee.errors.any? %>-->
+<!--    <div id="error_explanation">-->
+<!--      <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>-->
+
+<!--      <ul>-->
+<!--      <% @employee.errors.full_messages.each do |message| %>-->
+<!--        <li><%= message %></li>-->
+<!--      <% end %>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  <% end %>-->
+
+  <div class="form-group">
+    <%= f.label :company_name, "Company: #{@company.name}"%>
+  </div>
+  
+  <div class="form-group">
+      <%= f.label :employee_name, "#{@employee.display_name}"%>
+  </div>
+
+  <div class="form-group">
+      <%= f.label :employee_rate, "Rate Per Hour/Year"%>
+      <%= f.text_field :rate%>
+  </div>
+  
+    <div class="form-group">
+      <%= f.label :start_date, "Rate Effective What Date?"%>
+      <%= f.text_field :start_date%>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+  <div class="col-md-4"></div>
+</div>
+
+
+<%= link_to 'Back', company_employees_path %>

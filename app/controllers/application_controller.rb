@@ -12,4 +12,12 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+  
+  def authorize_manager!
+    unless current_user.admin? || current_user.manager?
+      redirect_to root_path
+      flash[:error] = "You do not have permission to view page"
+    end
+  end
+  
 end
