@@ -77,19 +77,23 @@ class FoldersController < ApplicationController
   end
   # add individual document to folder
   def add_doc
-    documents_params = params[:documents_files]
-    # add document to documents
-    puts documents_params
-    @folder = Folder.find(params[:folder_id])
-    document = Document.new(documents_params)
-    # if @folder.update_attributes(documents_params)
-    if document.save!
-      redirect_to company_folder_path(company_id: params[:company_id], id: params[:folder_id])
+    folder_id = params[:folder_id]
+    @folder = Folder.new(folder_params)
+    @folder.title = "Temporary Folder"
+    if @folder.save
+      # CompanyFolder.create!(company_id: params[:company_id], folder_id: @folder.id)
+      @folder.documents.each{|doc|
+        doc.folder_id = folder_id
+        doc.save!
+      }
+      @folder.delete
+
+      redirect_to company_folder_path(company_id: params[:company_id], id: folder_id)
       flash[:info] = "Document added to folder"
     else
       redirect_to company_folder_new_doc_path(company_id: params[:company_id], id: params[:folder_id])
       flash[:error] = "Document NOT added to folder"
-    end   
+    end 
   end
 
   private
