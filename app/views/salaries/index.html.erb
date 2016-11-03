@@ -9,6 +9,7 @@
       <th>Start Date</th>
       <th>End Date</th>
       <th>Salary/Rate</th>
+      <th>Pay Type</th>
       </tr>
   </thead>
 
@@ -19,10 +20,13 @@
               <td><%= salary.start_date%></td>
               <td><%= salary.end_date%></td>
               <td><%= salary.rate%></td>
-              <td><%= link_to 'New', new_company_employee_salary_path %></td>
+              <td><%= salary.pay_type%></td>
+              
           </tr>
       <% end %>
   </tbody>
 </table>
 
 <br>
+
+<%= link_to 'New', new_company_employee_salary_path %>

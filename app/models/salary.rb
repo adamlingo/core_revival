@@ -1,11 +1,10 @@
 class Salary < ActiveRecord::Base
     belongs_to :employee
     
-    def employee
-        @employee = Employee.find(params[:employee_id])
-    end
+    validates_presence_of :start_date
+    validates_presence_of :rate
+    validates_presence_of :pay_type
     
-    def company
-    end
+
 
 end

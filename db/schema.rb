@@ -195,11 +195,11 @@ ActiveRecord::Schema.define(version: 20161101001308) do
   create_table "salaries", force: :cascade do |t|
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "employee_id"
-    t.date     "start_date"
+    t.integer  "employee_id", null: false
+    t.date     "start_date",  null: false
     t.date     "end_date"
-    t.decimal  "rate"
-    t.string   "type"
+    t.decimal  "rate",        null: false
+    t.string   "pay_type",    null: false
   end
 
   create_table "timeworks", force: :cascade do |t|
@@ -244,5 +244,4 @@ ActiveRecord::Schema.define(version: 20161101001308) do
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "salaries", "employees"
 end

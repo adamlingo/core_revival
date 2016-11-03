@@ -3,11 +3,11 @@ class CreateSalaries < ActiveRecord::Migration
     create_table :salaries do |t|
 
       t.timestamps null: false
-      t.integer :employee_id
-      t.date :start_date
+      t.integer :employee_id, null: false
+      t.date :start_date, null: false
       t.date :end_date
-      t.decimal :rate
-      t.string :type
+      t.decimal :rate, null: false
+      t.string :pay_type, null: false
     end
   end
 end
