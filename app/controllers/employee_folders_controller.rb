@@ -1,0 +1,2 @@
+class EmployeeFoldersController < ApplicationController
+end
