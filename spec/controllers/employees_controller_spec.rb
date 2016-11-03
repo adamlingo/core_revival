@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe EmployeesController, type: :controller do
-  fixtures :companies, :users
+  fixtures :companies, :users, :employees
 
   context 'not authenticated' do
     it "blocks unauthenticated access" do
@@ -21,6 +21,24 @@ RSpec.describe EmployeesController, type: :controller do
       admin_user = users(:admin)
       sign_in(admin_user)
     end
+    
+    it "should display a new employee created message" do
+        
+      employee_payload = {
+      company_id: 1,
+      employee: {
+      first_name: 'Ima',
+      last_name: 'New Employee',
+      email: 'totally-fake@core-redux.com'
+        }
+      } 
+
+      post :create, employee_payload
+      
+      expect(flash[:success]).to be_present
+    
+    end
+    
 
     it "should create a related user" do
       before_employee = Employee.find_by(first_name: 'Ima', last_name: 'New Employee')
@@ -49,8 +67,6 @@ RSpec.describe EmployeesController, type: :controller do
     end
 
 
-    # it "should send email notification"
-
     it "should update name and email of user" do
       
       before_employee = Employee.create!(company_id: 1, last_name: "Robin", first_name: "Christopher", email: 'pooh@bridge.com')
@@ -71,6 +87,7 @@ RSpec.describe EmployeesController, type: :controller do
 
       expect(response).to have_http_status(:found)
       expect(response).to redirect_to(company_employees_path)
+      expect(flash[:success]).to be_present
 
       after_employee = Employee.find_by(id: before_employee.id)
       expect(after_employee).not_to be(nil)
@@ -80,14 +97,48 @@ RSpec.describe EmployeesController, type: :controller do
       expect(after_employee.email).to eq("totally-fake@core-redux.com")
       
     end
+    
+  context 'authenticated employee' do
+    before(:each) do
+      allow(ZendeskService).to receive(:create_ticket).and_return(42)
 
-    # it "should display a new employee created message"
+      employee_user = users(:employee)
+      sign_in(employee_user)
+    end
+    
+    it "should not allow an employee user to create a new user" do
+      before_count = Employee.count
+
+      employee_payload = {
+          company_id: 1,
+          employee: {
+          first_name: 'Ima',
+          last_name: 'New Employee',
+          email: 'totally-fake@core-redux.com'
+          }
+        }
+  
+      post :create, employee_payload
+      
+      after_count = Employee.count
+      expect(after_count).to eq(before_count)
+  
+      expect(response).to have_http_status(:found)
+      expect(response).to redirect_to(root_path)
+  
+    end
+
+
+  end
+  
+      
+
+    
+    
+    # it "should send email notification"
 
     # it "should create a zendesk ticket for new"
 
-    # it "should display a employee updated message"
-
     # it "should create a zendesk ticket for update"
-
   end
 end

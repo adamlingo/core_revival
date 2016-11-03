@@ -1,7 +1,7 @@
 <h1>Add New Pay/Salary Rate</h1>
 
 </br>
-<%= form_for @employee, :url => company_employees_path(@company) do |f| %>
+<%= form_for @salary, :url => company_employee_salaries_path(@salary) do |f| %>
 
   <div class="field">
     <%= f.label :company_name, "Company: #{@company.name}"%>

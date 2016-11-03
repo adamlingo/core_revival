@@ -15,9 +15,18 @@ class ApplicationController < ActionController::Base
   
   def authorize_manager!
     unless current_user.admin? || current_user.manager?
+<<<<<<< .merge_file_gdhDQy
       redirect_to root_path
       flash[:error] = "You do not have permission to view page"
     end
   end
   
 end
+=======
+        redirect_to root_path
+        flash[:error] = "You do not have permission to view page"
+    end
+  end
+       
+end
+>>>>>>> .merge_file_E8l3uy
