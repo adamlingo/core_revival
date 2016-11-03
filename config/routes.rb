@@ -18,7 +18,13 @@ Rails.application.routes.draw do
 
   # make Employees editable records that belong to companies by id
   resources :companies do
-    resources :employees
+    resources :employees do 
+      resources :folders, controller: 'employee_folders' do
+        delete "delete_doc/:doc_id", to: 'employee_folders#delete_doc', as: 'delete_doc'
+        get "new_doc", to: 'employee_folders#new_doc', as: 'new_doc'
+        patch "add_doc", to: 'employee_folders#add_doc', as: 'add_doc'
+      end
+    end
     resources :benefit_profiles
     # Folder/file routes
     resources :folders do
