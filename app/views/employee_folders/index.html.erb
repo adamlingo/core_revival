@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Folders</h1>
+
+<p>
+  <%= link_to "New Folder", :new_company_employee_folder, class: "btn btn-primary", role: "button" %>
+</p>
+</br>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <!-- document count here? -->
+    </tr>
+  </thead>
+  <tbody>
+    <% @folders.each do |folder| %>
+      <tr>
+        <td>
+          <%= link_to folder.title, company_employee_folder_path(id: folder.id) %>
+        </td>
+          <!-- document count here? -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  <%= link_to "RETURN TO ALL EMPLOYEES", company_employees_path %>
+</p>
