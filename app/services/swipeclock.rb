@@ -17,12 +17,12 @@ class Swipeclock < ActiveRecord::Base
         payload = {
           'iss' => ENV['SWIPECLOCK_ACCOUNTANT_ID'],
           'exp' => t.to_i,
-          'employeeId' => 115521021,
-          'id' => 115521021,
-          # 'user' => {
-          #   'type' => 'empcode',
-          #   'id' => ee_id
-          # },
+          # 'employeeId' => 115521021,
+          # 'id' => 115521021,
+          'user' => {
+            'type' => 'empcode',
+            'id' => ee_id
+          },
           'site' => ENV['SWIPECLOCK_SITE'],
           'iat' => t.to_i,
           'product' => 'twpemp'          
