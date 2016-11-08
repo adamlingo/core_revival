@@ -17,10 +17,12 @@ class Swipeclock < ActiveRecord::Base
         payload = {
           'iss' => ENV['SWIPECLOCK_ACCOUNTANT_ID'],
           'exp' => t.to_i,
-          'user' => {
-            'type' => 'empcode',
-            'id' => ee_id
-          },
+          'employeeId' => 115521021,
+          'id' => 115521021,
+          # 'user' => {
+          #   'type' => 'empcode',
+          #   'id' => ee_id
+          # },
           'site' => ENV['SWIPECLOCK_SITE'],
           'iat' => t.to_i,
           'product' => 'twpemp'          
@@ -43,7 +45,6 @@ class Swipeclock < ActiveRecord::Base
 
 # # call authentication service
 
-    # API_URL = "https://clock.payrollservers.us/AuthenticationService/oauth2".freeze
 
   def self.authenticate(employee_id)
     
