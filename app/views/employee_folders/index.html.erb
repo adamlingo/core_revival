@@ -1,9 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Folders</h1>
+<h1>File Management</h1>
 
 <p>
-  <%= link_to "New Folder", :new_company_employee_folder, class: "btn btn-primary", role: "button" %>
+  <% if current_user.manager? || current_user.admin? %>
+    <%= link_to "New Folder", :new_company_employee_folder, class: "btn btn-primary", role: "button" %>
+  <% end %>
 </p>
 </br>
 
@@ -27,5 +29,9 @@
 </table>
 
 <p>
-  <%= link_to "RETURN TO ALL EMPLOYEES", company_employees_path %>
+  <% if current_user.manager? || current_user.admin? %>
+    <%= link_to "RETURN TO ALL EMPLOYEES", company_employees_path %>
+  <% else %>
+    <%= link_to "Home", root_path %>
+  <% end %>
 </p>

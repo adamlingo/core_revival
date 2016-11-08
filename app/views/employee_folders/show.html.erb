@@ -3,9 +3,11 @@
 <h1><%= @folder.title %></h1>
 
 <p>
-  <%= link_to "Edit folder", edit_company_employee_folder_path %>
-  </br>
-  <%= link_to "Add document", company_employee_folder_new_doc_path(folder_id: @folder.id) %>
+  <% if current_user.manager? || current_user.admin? %>
+    <%= link_to "Edit folder", edit_company_employee_folder_path %>
+    </br>
+    <%= link_to "Add document", company_employee_folder_new_doc_path(folder_id: @folder.id) %>
+  <% end %>
 </p>
 </br>
 <p>
@@ -18,7 +20,9 @@
       <th>Filename</th>
       <th>Content type</th>
       <th>Size</th>
-      <th>Actions</th>
+      <% if current_user.manager? || current_user.admin? %>
+        <th>Actions</th>
+      <% end %>
     </tr>
   </thead>
 
@@ -28,7 +32,9 @@
         <th><%= link_to document.file_filename, attachment_url(document, :file) %></th>
         <th><%= document.file_content_type %></th>
         <th><%= number_to_human_size document.file_size %></th>
-        <th><%= link_to 'delete', company_employee_folder_delete_doc_path(folder_id: @folder.id, doc_id: document.id), data: { method: "delete", confirm: "Are you sure?" } %></th> 
+        <% if current_user.manager? || current_user.admin? %>
+          <th><%= link_to 'delete', company_employee_folder_delete_doc_path(folder_id: @folder.id, doc_id: document.id), data: { method: "delete", confirm: "Are you sure?" } %></th>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -38,11 +44,17 @@
 <%= simple_format @folder.description %>
 </br>
 </br>
-<p>
-  <%= link_to "View all folders for this Employee", company_employee_folders_path %>
-</p>
-</br>
-<p>
-  <%= link_to "Delete folder", company_employee_folder_path(folder_id: @folder.id), data: { method: "delete", confirm: "Are you sure?" }, class: "btn btn-danger" %>	
-</p>
 
+<% if current_user.manager? || current_user.admin? %>
+  <p>
+    <%= link_to "View all folders for this Employee", company_employee_folders_path %>
+  </p>
+  </br>
+  <p>
+    <%= link_to "Delete folder", company_employee_folder_path(folder_id: @folder.id), data: { method: "delete", confirm: "Are you sure?" }, class: "btn btn-danger" %>	
+  </p>
+<% elsif current_user.employee? %>
+  <p>
+    <%= link_to "Return to all Folders", company_employee_folders_path %>
+  </p>
+<% end %>
