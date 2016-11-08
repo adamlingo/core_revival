@@ -1,6 +1,7 @@
 class EmployeeFoldersController < ApplicationController
   before_filter :authenticate_user!
   before_filter :authorize_company!
+  before_filter :authorize_manager!, except: [:index, :show]
 
   def index
     @employee = Employee.find(params[:employee_id])
