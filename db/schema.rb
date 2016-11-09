@@ -202,7 +202,7 @@ ActiveRecord::Schema.define(version: 20161109002301) do
   end
 
   create_table "payroll_records", force: :cascade do |t|
-    t.integer  "employee_id",    null: false
+    t.integer  "employee_id"
     t.decimal  "reg_hours"
     t.decimal  "ot_hours"
     t.decimal  "other_pay"
