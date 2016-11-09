@@ -18,9 +18,11 @@
     </a>
     </br></br>
   <% elsif current_user.employee? %>
-    <a>  ee_id = EmployeeAdditionalLogin.find_by(employee_id: current_user.id) </a>
-    <a Swipeclock.clock_in(ee_id) class="btn btn-success btn-sm" role="button">Clock in / out
-    </a>
+    <% if @token.present? %>
+      <%= link_to "Clock In/Out", @request_url, :target => '_blank' %>
+    <% else %>
+    <!--Employee Doesn't Have a Valid Timeclock ID-->
+    <% end %>
     </br></br>
   <% end %>
     <a>

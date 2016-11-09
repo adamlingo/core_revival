@@ -26,5 +26,9 @@ class User < ActiveRecord::Base
     e = Employee.find_by(user_id: id)
     e.last_name
   end
+  
+  def current_employee
+   Employee.find_by(user_id: id)
+  end
 
 end

@@ -4,16 +4,22 @@ require 'uri'
 
 class Swipeclock < ActiveRecord::Base
     
+    
+    def ee_id_clock_in
+      ee_id_clock_in = EmployeeAdditionalLogin.find_by(employee_id: current_user.id)
+    end
+      
 
 # create originating token
     def self.sso(employee_id)
     
-        t = Time.now + 60
-       
-      
         ee = EmployeeAdditionalLogin.find_by(employee_id: employee_id)
+        if ee.nil?
+          return nil
+        end
+        
         ee_id = ee.swipeclock_ee_id
-       
+        t = Time.now + 60
         payload = {
           'iss' => ENV['SWIPECLOCK_ACCOUNTANT_ID'],
           'exp' => t.to_i,
@@ -49,7 +55,11 @@ class Swipeclock < ActiveRecord::Base
   def self.authenticate(employee_id)
     
     originating_token = sso(employee_id)
-
+    
+    if originating_token.nil?
+      return nil
+    end
+    
     
     puts "\n-- request originating_token from AuthorizationService --\n"
     request_url = "https://clock.payrollservers.us/AuthenticationService/oauth2/usertoken"
@@ -93,7 +103,7 @@ class Swipeclock < ActiveRecord::Base
       # we need to figure out how to do without VERIFY_NONE
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE     
   
-      req = Net::HTTP::Post.new(uri)
+      req = Net::HTTP::Get.new(uri)
       req['Content-type'] = 'application/json'
       res = http.request(req)
       
