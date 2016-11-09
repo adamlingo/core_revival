@@ -3,6 +3,7 @@ class CompaniesController < ApplicationController
   # before_action :set_company, only: [:show, :edit, :update, :destroy]
   # must be logged in
   before_filter :authenticate_user!
+  before_filter :authorize_company!
   
   def index
     @companies = Company.all

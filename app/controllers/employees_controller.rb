@@ -61,7 +61,7 @@ class EmployeesController < ApplicationController
     if @employee.update_attributes(employee_params)
       flash[:success] = "Employee updated!"
       if @employee.user_id.present?
-  
+        
         notify_zendesk('EMPLOYEE INFO Changed')
   
         # update User record email to match Employee
@@ -71,8 +71,12 @@ class EmployeesController < ApplicationController
         user.email = @employee.email
         user.save!
       end
-
-      redirect_to company_employees_path
+      # redirect to index for Managers, show for Employees
+      if current_user.manager? || current_user.admin?
+        redirect_to company_employees_path
+      else
+        redirect_to company_employee_path
+      end
     else
       render 'edit'
     end
@@ -106,6 +110,7 @@ class EmployeesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
-      params.require(:employee).permit(:company_id, :first_name, :last_name, :email, :user_id)
+      params.require(:employee).permit(:company_id, :first_name, :last_name,
+         :email, :address, :city, :state, :zip, :phone_number, :user_id, :sub_id)
     end
 end
