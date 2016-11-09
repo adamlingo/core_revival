@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   # make Employees editable records that belong to companies by id
   resources :companies do
     # PayrollRecord
+    resources :benefit_profiles
     resources :payroll_records 
     resources :employees do
       # EmployeeFolder
@@ -39,7 +40,7 @@ Rails.application.routes.draw do
         #                                    DELETE     /companies/:company_id/employees/:employee_id/folders/:id(.:format)                           employee_folders#destroy
       end
     end
-    resources :benefit_profiles
+    
     # Folder/CompanyFolder routes
     resources :folders do
       delete "delete_doc/:doc_id", to: 'folders#delete_doc', as: 'delete_doc'
