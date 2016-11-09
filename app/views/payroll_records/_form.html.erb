@@ -1,0 +1,17 @@
+<%= form_for(@payroll_record) do |f| %>
+  <% if @payroll_record.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@payroll_record.errors.count, "error") %> prohibited this payroll_record from being saved:</h2>
+
+      <ul>
+      <% @payroll_record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
