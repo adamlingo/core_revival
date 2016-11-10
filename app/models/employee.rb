@@ -35,6 +35,9 @@ class Employee < ActiveRecord::Base
     def display_name
       "#{first_name} #{last_name}"
     end
-
+    
+    def current_salary
+      self.salaries.where(end_date: nil).first
+    end
 
 end

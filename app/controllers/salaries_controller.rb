@@ -25,23 +25,43 @@ class SalariesController < ApplicationController
         @company = find_company
         @salary = Salary.new
     end
+
     
     def create
       @employee = Employee.find(params[:employee_id])
       @company = find_company
-      @current_start_date = Salary.find(params[:employee_id, @employee.employee_id, :start_date.last])
+      
+      if @employee.current_salary.present?
+        @current_start_date = @employee.current_salary.start_date
+      else
+        @current_start_date = nil
+      end
+        
       @salary = Salary.new(salary_params)
-      if @current_start_date <= @salary.start_date
-        @salary.employee_id = @employee.id
+      @salary.employee_id = @employee.id
+      
+      if @current_start_date.nil?
         if @salary.save
           flash[:success] = "New payrate updated"
           redirect_to company_employees_path
         else
+          flash[:error] = "Save new Pay Rate failed"
+          render 'new'
+        end
+      elsif @current_start_date <= @salary.start_date
+        @employee.current_salary.end_date = @salary.start_date
+        if @salary.save && @employee.current_salary.save!
+          flash[:success] = "New Payrate Updated"
+          redirect_to company_employees_path
+        else
+          flash[:error] = "Save new Pay Rate failed"
           render 'new'
         end
       else
         flash[:error] = "Start Date must be after Current Pay Start Date"
+        render 'new'
       end
+        
     end
     
     
