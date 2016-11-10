@@ -5,7 +5,12 @@ class PayrollRecordsController < ApplicationController
   before_filter :authorize_manager!
 
   def index
-    @payroll_records = PayrollRecord.all
+    # @payroll_records = []
+    @employees = find_company.employees.order(:last_name, :first_name).to_a
+    # @employees.each {|employee|
+    #   @payroll_records << PayrollRecord.new(employee_id: employee.id)
+    # }
+    # puts @payroll_records[0].employee_id
   end
 
   def show
@@ -53,6 +58,10 @@ class PayrollRecordsController < ApplicationController
   end
 
   private
+    # find company for current payroll records.
+    def find_company
+      Company.find(params[:company_id].to_i)
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_payroll_record
       @payroll_record = PayrollRecord.find(params[:id])
