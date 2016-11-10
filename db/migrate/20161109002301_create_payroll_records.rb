@@ -1,6 +1,7 @@
 class CreatePayrollRecords < ActiveRecord::Migration
   def change
     create_table :payroll_records do |t|
+      t.integer :company_id
       t.integer :employee_id
       t.decimal :reg_hours
       t.decimal :ot_hours
