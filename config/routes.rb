@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   # make Employees editable records that belong to companies by id
   resources :companies do
+    resources :employee_benefits
     resources :employees do 
       # EmployeeFolder
       resources :folders, controller: 'employee_folders' do
