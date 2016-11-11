@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Payroll Records</h1>
+
+<form>
+  <table>
+    <thead>
+      <tr>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>REG Hour</th>
+        <th>OT Hour</th>
+        <th>Other Pay</th>
+        <th>Sick</th>
+        <th>Vacation</th>
+        <th>Holiday</th>
+        <th>Memo</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @employees.each do |employee| %>
+        <tr>
+          <td><%= employee.last_name %></td>
+          <td><%= employee.first_name %></td>
+          <td><input id="reg_hours-<%=employee.last_name%>" type="number" value=""></td>
+          <td><input id="ot_hours-<%=employee.last_name%>" type="number" value=""></td>
+          <td><input id="other_pay-<%=employee.last_name%>" type="number" value=""></td>
+          <td><input id="sick_hours-<%=employee.last_name%>" type="number" value=""></td>
+          <td><input id="vacation_hours-<%=employee.last_name%>" type="number" value=""></td>
+          <td><input id="holiday_hours-<%=employee.last_name%>" type="number" value=""></td>
+          <td><input id="memo-<%=employee.last_name%>" type="text" value=""></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <button type="submit"> Save </button>
+</form>
+<br>
+
