@@ -6,8 +6,8 @@
   <thead>
     <tr>
       <th>Employee ID</th>
-      <th>Employee Name</th>
-      <th>PTO Balance</th>
+      <!--<th>Employee Name</th>-->
+      <th style="text-align: right">PTO Balance</th>
       </tr>
   </thead>
 
@@ -15,8 +15,8 @@
         <% @employee_benefits.each do |employee_benefit| %>
           <tr>
               <td><%= employee_benefit.ee_id %></td>
-              <td><%= employee_benefit.employee_name%></td>
-              <td><%= employee_benefit.pto_balance%></td>
+              <!--<td><%= employee_benefit.employee_name%></td>-->
+              <td style="text-align: right"><%= employee_benefit.pto_balance %></td>
 
 
           </tr>
