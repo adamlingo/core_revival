@@ -11,4 +11,12 @@ module ApplicationHelper
       page_title + " | " + base_title
     end
   end
+
+  # this can be used for field entry directions to users in views
+  def field_errors(object, column)
+    errors = object.errors[column]
+    if errors.present?
+      content_tag(:p, errors.to_sentence, class: "field-error")
+    end
+  end
 end 
