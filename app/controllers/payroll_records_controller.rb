@@ -5,8 +5,14 @@ class PayrollRecordsController < ApplicationController
   before_filter :authorize_manager!
 
   def index
+    # @payroll_records = []
     @employees = find_company.employees.order(:last_name, :first_name).to_a
-    
+    # @employees.each {|employee|
+    #   @payroll_records << PayrollRecord.new(employee_id: employee.id)
+    # }
+    # puts @payroll_records[0].employee_id
+
+    end
   end
 
   def show
@@ -50,6 +56,7 @@ class PayrollRecordsController < ApplicationController
       puts "*******************"
     }
     flash[:success] = "Payroll Successfully Submitted"
+    notify_zendesk("New Payroll Submitted")
     # after save, return to index/table view
     redirect_to company_payroll_records_path
   end
@@ -61,16 +68,44 @@ class PayrollRecordsController < ApplicationController
   def destroy
     
   end
+  
+  def export
+    
+    @payroll_records = find_company.payroll_record.last
+    
+    respond_to do |format|
+      format.html
+      format.csv { send_data @payroll_records.to_csv, filename: "payroll_record-#{Date.today}.csv" } 
+
+    end
+  end
+  
 
   private
     # find company for current payroll records.
     def find_company
       Company.find(params[:company_id].to_i)
     end
+
     # SET PARAMS HERE IF NEEDED FOR SECURITY
 
     # Never trust parameters from the scary internet, only allow the white list through.
     # def payroll_record_params
     #   params.fetch(:payroll_record, {})
     # end
-end
+    def set_payroll_record
+      @payroll_record = PayrollRecord.find(params[:id])
+    end
+    
+    def notify_zendesk(message)
+      # remove if block once we know how to "authenticate" in the tests.
+      if current_user.present?
+        # send zen desk notification of employee info changes
+        user_hash = {name: @employee.last_name, email: @employee.email}
+        ticket_id = ZendeskService.create_ticket(user_hash, "Information Edited by #{current_user.email}", message)
+        puts "ticket id is: "
+        puts ticket_id
+      end
+    end
+
+
