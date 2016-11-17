@@ -2,7 +2,7 @@ class EmployeesController < ApplicationController
   # must be logged in
   before_filter :authenticate_user!
   before_filter :authorize_company!
-  before_filter :authorize_manager!, except: [:show, :edit, :update]
+  skip_filter :authorize_manager!, only: [:show]
   
   
   #before_action :set_employee, only: [:show, :edit, :update, :destroy]

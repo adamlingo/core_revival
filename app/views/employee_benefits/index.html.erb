@@ -6,8 +6,8 @@
   <thead>
     <tr>
       <th>Employee ID</th>
-      <th>Employee Name</th>
-      <th>PTO Balance</th>
+      <!--<th>Employee Name</th>-->
+      <th style="text-align: right">PTO Balance</th>
       </tr>
   </thead>
 
@@ -15,8 +15,8 @@
         <% @employee_benefits.each do |employee_benefit| %>
           <tr>
               <td><%= employee_benefit.ee_id %></td>
-              <td><%= employee_benefit.employee_name%></td>
-              <td><%= employee_benefit.pto_balance%></td>
+              <!--<td><%= employee_benefit.employee_name%></td>-->
+              <td style="text-align: right"><%= employee_benefit.pto_balance %></td>
 
 
           </tr>
@@ -32,45 +32,4 @@
     <% @benefits_to_show << benefit %>
   <%# end %>
 <% end %>
-<% if @benefits_to_show.present? && @benefits_to_show.count > 0 %>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name of Benefit</th>
-        <th>Description</th>
-        <th>URL</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @benefits_to_show.each do |benefit| %>
-        <tr>
-          <td>
-            <%= benefit.name %>
-          </td>
-          <td>
-            <%= benefit.description %>
-          </td>
-          <td>
-            <%= link_to benefit.url, benefit.url, :target => "_blank" %>
-          </td>
 
-          
-          <% if current_user.admin? %>
-            <% if !(@employee.employee_benefits.include? benefit.id) %>
-              <td>
-                <%= link_to "Hide" , employee_benefit_hide_benefit_path(benefit.id) ,:class => "btn btn-primary" %>
-              </td>
-            <% else %>
-              <td>
-                <%= link_to "Show" , employee_benefit_show_benefit_path(benefit.id) ,:class => "btn btn-primary" %>
-              </td>
-            <% end %>
-          <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <h1>"No Benefits to show" </h1>
-<% end %>

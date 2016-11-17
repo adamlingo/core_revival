@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   # make Employees editable records that belong to companies by id
   resources :companies do
-    # PayrollRecord
+    resources :employee_benefits
     resources :benefit_profiles
     resources :payroll_records 
     resources :employees do
