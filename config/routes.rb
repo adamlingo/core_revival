@@ -20,9 +20,9 @@ Rails.application.routes.draw do
   resources :companies do
     resources :employee_benefits
     resources :benefit_profiles
-    resources :payroll_records do
-      get "export", to: 'payroll_records#export', as: 'export'
-    end
+    resources :payroll_records
+    get "payroll_records/export", to: 'payroll_records#export', as: 'payroll_records_export'
+
     resources :employees do
       # EmployeeFolder
       resources :folders, controller: 'employee_folders' do

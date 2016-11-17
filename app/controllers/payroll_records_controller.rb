@@ -57,6 +57,7 @@ class PayrollRecordsController < ApplicationController
     }
     flash[:success] = "Payroll Successfully Submitted"
     notify_zendesk("New Payroll Submitted")
+    notify_slack
     # after save, return to index/table view
     redirect_to company_payroll_records_path
   end
@@ -99,6 +100,7 @@ class PayrollRecordsController < ApplicationController
     
     def notify_zendesk(message)
       # remove if block once we know how to "authenticate" in the tests.
+      # HINT: look at how authentication is done in other tests. ;-)
       if current_user.present?
         # send zen desk notification of employee info changes
         user_hash = {name: @employee.last_name, email: @employee.email}
@@ -106,6 +108,11 @@ class PayrollRecordsController < ApplicationController
         puts "ticket id is: "
         puts ticket_id
       end
+    end
+
+    def notify_slack
+      message = "Get yer payroll export right here: #{company_payroll_records_export_url}"
+      SlackService.notify(message)
     end
 
 
