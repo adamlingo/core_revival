@@ -11,7 +11,9 @@ class PayrollRecordsController < ApplicationController
     #   @payroll_records << PayrollRecord.new(employee_id: employee.id)
     # }
     # puts @payroll_records[0].employee_id
+
   end
+  
 
   def show
   end
@@ -24,51 +26,87 @@ class PayrollRecordsController < ApplicationController
   end
 
   def create
-    @payroll_record = PayrollRecord.new(payroll_record_params)
+    @employees = find_company.employees
+    
+    # pluck ids from company's employees
+    @employee_ids = @employees.where(company_id: params[:company_id]).pluck(:id)
+  
+    # unique id for csv export for records created at the same time
+    export_id = Time.now.to_i
+    
+    puts "**** START TABLE INFO ****"
+    @employee_ids.each {|employee_id|
+      # create new PayrollRecord for each EE in table
+      payroll_record = PayrollRecord.new(employee_id: employee_id, company_id: find_company.id,
+                                        reg_hours: (params["#{employee_id}-reg_hours"].to_f),
+                                        ot_hours:  (params["#{employee_id}-ot_hours"].to_f),
+                                        other_pay: (params["#{employee_id}-other_pay"].to_f),
+                                        sick_hours:(params["#{employee_id}-sick_hours"].to_f),
+                                        vacation_hours:(params["#{employee_id}-vacation_hours"].to_f),
+                                        holiday_hours: (params["#{employee_id}-holiday_hours"].to_f),
+                                        memo: (params["#{employee_id}-memo"]))
+      # puts statements for console = data lines up with correct employee
+      puts Employee.find(employee_id).last_name
+      puts employee_id
+      print "reg_hours as entered in form: "
+      puts params["#{employee_id}-reg_hours"]
+      print "reg_hours in payroll_record: "
+      puts payroll_record.reg_hours
 
-    respond_to do |format|
-      if @payroll_record.save
-        format.html { redirect_to @payroll_record, notice: 'Payroll record was successfully created.' }
-        format.json { render :show, status: :created, location: @payroll_record }
-      else
-        format.html { render :new }
-        format.json { render json: @payroll_record.errors, status: :unprocessable_entity }
-      end
-    end
+      payroll_record.save
+      # reload after save...
+      payroll_record.reload
+      puts "reg_hours AFTER save: #{payroll_record.reg_hours}"
+      puts "*******************"
+    }
+    flash[:success] = "Payroll Successfully Submitted"
+    # notify_zendesk("New Payroll Submitted")
+    notify_slack(export_id)
+    # after save, return to index/table view
+    redirect_to company_payroll_records_path
   end
 
   def update
-    respond_to do |format|
-      if @payroll_record.update(payroll_record_params)
-        format.html { redirect_to @payroll_record, notice: 'Payroll record was successfully updated.' }
-        format.json { render :show, status: :ok, location: @payroll_record }
-      else
-        format.html { render :edit }
-        format.json { render json: @payroll_record.errors, status: :unprocessable_entity }
-      end
-    end
+    
   end
 
   def destroy
-    @payroll_record.destroy
+    
+  end
+  
+  def export
+    
+    @payroll_records = PayrollRecord.where(company_id: params[:company_id], export_id: params[:export_id])
+    
     respond_to do |format|
-      format.html { redirect_to payroll_records_url, notice: 'Payroll record was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html
+      format.csv { send_data @payroll_records.to_csv, filename: "payroll_record-#{Date.today}.csv" } 
+
     end
   end
+  
 
   private
     # find company for current payroll records.
     def find_company
       Company.find(params[:company_id].to_i)
     end
-    # Use callbacks to share common setup or constraints between actions.
+
+    # SET PARAMS HERE IF NEEDED FOR SECURITY
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    # def payroll_record_params
+    #   params.fetch(:payroll_record, {})
+    # end
     def set_payroll_record
       @payroll_record = PayrollRecord.find(params[:id])
     end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def payroll_record_params
-      params.fetch(:payroll_record, {})
+    
+    def notify_slack(export_id)
+      #verify name of path
+      channel = channel
+      message = "A new payroll has been submitted for #{find_company.name}: <#{company_export_url}.csv?export_id=#{export_id}|Click here>"
+      SlackService.notify(channel, message)
     end
+
 end
