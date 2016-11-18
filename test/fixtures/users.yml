@@ -12,11 +12,13 @@ admin:
   admin: true
 
 manager:
+  company_id: 1
   id: 2
   email: 'manager@coreredux.com'
   manager: true
 
 employee:
+  company_id: 1
   id: 3
   email: 'employee@coreredux.com'
   employee: true
