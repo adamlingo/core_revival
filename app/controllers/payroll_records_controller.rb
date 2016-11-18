@@ -12,8 +12,8 @@ class PayrollRecordsController < ApplicationController
     # }
     # puts @payroll_records[0].employee_id
 
-    end
   end
+  
 
   def show
   end
@@ -30,6 +30,10 @@ class PayrollRecordsController < ApplicationController
     
     # pluck ids from company's employees
     @employee_ids = @employees.where(company_id: params[:company_id]).pluck(:id)
+  
+    # unique id for csv export for records created at the same time
+    export_id = Time.now.to_i
+    
     puts "**** START TABLE INFO ****"
     @employee_ids.each {|employee_id|
       # create new PayrollRecord for each EE in table
@@ -56,8 +60,8 @@ class PayrollRecordsController < ApplicationController
       puts "*******************"
     }
     flash[:success] = "Payroll Successfully Submitted"
-    notify_zendesk("New Payroll Submitted")
-    notify_slack
+    # notify_zendesk("New Payroll Submitted")
+    notify_slack(export_id)
     # after save, return to index/table view
     redirect_to company_payroll_records_path
   end
@@ -72,7 +76,7 @@ class PayrollRecordsController < ApplicationController
   
   def export
     
-    @payroll_records = find_company.payroll_record.last
+    @payroll_records = PayrollRecord.where(company_id: params[:company_id], export_id: params[:export_id])
     
     respond_to do |format|
       format.html
@@ -98,21 +102,11 @@ class PayrollRecordsController < ApplicationController
       @payroll_record = PayrollRecord.find(params[:id])
     end
     
-    def notify_zendesk(message)
-      # remove if block once we know how to "authenticate" in the tests.
-      # HINT: look at how authentication is done in other tests. ;-)
-      if current_user.present?
-        # send zen desk notification of employee info changes
-        user_hash = {name: @employee.last_name, email: @employee.email}
-        ticket_id = ZendeskService.create_ticket(user_hash, "Information Edited by #{current_user.email}", message)
-        puts "ticket id is: "
-        puts ticket_id
-      end
+    def notify_slack(export_id)
+      #verify name of path
+      channel = channel
+      message = "A new payroll has been submitted for #{find_company.name}: <#{company_export_url}.csv?export_id=#{export_id}|Click here>"
+      SlackService.notify(channel, message)
     end
 
-    def notify_slack
-      message = "Get yer payroll export right here: #{company_payroll_records_export_url}"
-      SlackService.notify(message)
-    end
-
-
+end
