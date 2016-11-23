@@ -37,7 +37,9 @@ class PayrollRecordsController < ApplicationController
     puts "**** START TABLE INFO ****"
     @employee_ids.each {|employee_id|
       # create new PayrollRecord for each EE in table
-      payroll_record = PayrollRecord.new(employee_id: employee_id, company_id: find_company.id,
+      payroll_record = PayrollRecord.new(export_id: export_id,
+                                        employee_id: employee_id,
+                                        company_id: find_company.id,
                                         reg_hours: (params["#{employee_id}-reg_hours"].to_f),
                                         ot_hours:  (params["#{employee_id}-ot_hours"].to_f),
                                         other_pay: (params["#{employee_id}-other_pay"].to_f),
@@ -45,6 +47,7 @@ class PayrollRecordsController < ApplicationController
                                         vacation_hours:(params["#{employee_id}-vacation_hours"].to_f),
                                         holiday_hours: (params["#{employee_id}-holiday_hours"].to_f),
                                         memo: (params["#{employee_id}-memo"]))
+
       # puts statements for console = data lines up with correct employee
       puts Employee.find(employee_id).last_name
       puts employee_id
@@ -53,14 +56,14 @@ class PayrollRecordsController < ApplicationController
       print "reg_hours in payroll_record: "
       puts payroll_record.reg_hours
 
-      payroll_record.save
+      payroll_record.save!
       # reload after save...
       payroll_record.reload
       puts "reg_hours AFTER save: #{payroll_record.reg_hours}"
       puts "*******************"
     }
+
     flash[:success] = "Payroll Successfully Submitted"
-    # notify_zendesk("New Payroll Submitted")
     notify_slack(export_id)
     # after save, return to index/table view
     redirect_to company_payroll_records_path
@@ -78,11 +81,10 @@ class PayrollRecordsController < ApplicationController
     
     @payroll_records = PayrollRecord.where(company_id: params[:company_id], export_id: params[:export_id])
     
-    respond_to do |format|
-      format.html
-      format.csv { send_data @payroll_records.to_csv, filename: "payroll_record-#{Date.today}.csv" } 
-
-    end
+    # respond_to do |format|
+    #   format.csv { send_data @payroll_records.to_csv, filename: "payroll_record-#{Date.today}.csv" } 
+    # end
+    send_data @payroll_records.to_csv, filename: "payroll_record-#{Date.today}.csv"
   end
   
 
@@ -104,7 +106,7 @@ class PayrollRecordsController < ApplicationController
     
     def notify_slack(export_id)
       #verify name of path
-      channel = channel
+      channel = "#core-operation"
       message = "A new payroll has been submitted for #{find_company.name}: <#{company_export_url}.csv?export_id=#{export_id}|Click here>"
       SlackService.notify(channel, message)
     end
