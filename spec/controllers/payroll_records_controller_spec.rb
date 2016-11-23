@@ -115,12 +115,60 @@ RSpec.describe PayrollRecordsController, type: :controller do
     end
 
 
-        it "should notify slack when saved"
+        it "should notify slack when saved" do
         
-        # mock time and test for specific url
-        # mock notify_slack method via :export
+        export_id = Time.now.to_i
+
+        company_id = 2
+        company_name = Company.find(company_id).name
+
+        form_payload = {
+            company_id: company_id,
+            '2-reg_hours': 40,
+            '2-ot_hours': 2
+                        }
+            
+        post :create, form_payload
+        
+        allow(SlackService).to receive(:notify).and_return("A new payroll has been submitted for #{company_name}: <#{company_export_url}.csv?export_id=#{export_id}|Click here>")
         
         
-        it "should not allow an employee user to create a record"
+        
+        
+        end
+        
+        
+        
+        
+        
+    context 'authenticated employee' do
+        before(:each) do
+            allow(SlackService).to receive(:notify).and_return(nil)
+
+            employee_user = users(:employee)
+            sign_in(employee_user)
+        end        
+        
+        it "should not allow an employee user to create a record" do
+            company_id = 2
+            # company = Company.find(company_id)
+            expect_diff = 0
+            before_count = PayrollRecord.count
+            
+            form_payload = {
+                company_id: company_id,
+                '2-reg_hours': 40,
+                '2-ot_hours': 2
+                            }
+            
+            post :create, form_payload
+            
+            expect(response).to have_http_status(:found)
+            expect(response).to redirect_to(root_path)
+            after_count = PayrollRecord.count
+            after_diff = after_count - before_count
+            expect(after_diff).to eq(expect_diff)
+            expect(SlackService).not_to have_received(:notify)
+        end
     end
-# end
+end
