@@ -89,8 +89,8 @@ GEM
     byebug (9.0.6)
     callsite (0.0.11)
     choice (0.2.0)
-    codeclimate-test-reporter (0.6.0)
-      simplecov (>= 0.7.1, < 1.0.0)
+    codeclimate-test-reporter (1.0.3)
+      simplecov
     coderay (1.1.1)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -362,7 +362,7 @@ DEPENDENCIES
   activeadmin!
   bootstrap-sass
   byebug
-  codeclimate-test-reporter
+  codeclimate-test-reporter (~> 1.0.0)
   coffee-rails (~> 4.1.0)
   devise
   devise_invitable
@@ -392,6 +392,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   sentry-raven
+  simplecov
   slack-notifier
   spring
   turbolinks
