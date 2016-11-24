@@ -92,7 +92,7 @@ class PayrollRecordsController < ApplicationController
     # find company for current payroll records.
     def find_company
       Company.find(params[:company_id].to_i)
-    end
+    end 
 
     # SET PARAMS HERE IF NEEDED FOR SECURITY
 

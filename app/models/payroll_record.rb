@@ -4,6 +4,9 @@ class PayrollRecord < ActiveRecord::Base
   belongs_to :companies
   has_one :employee
   
+  validates_presence_of :company_id
+  validates_presence_of :employee_id
+  
   def self.save
     
   
