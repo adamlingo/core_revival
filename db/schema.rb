@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20161118135207) do
+ActiveRecord::Schema.define(version: 20161125001909) do
 
 
   # These are extensions that must be enabled in order to support this database
@@ -51,6 +50,13 @@ ActiveRecord::Schema.define(version: 20161118135207) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "benefit_accepts", force: :cascade do |t|
+    t.boolean  "accept"
+    t.integer  "benefit_profile_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
   create_table "benefit_details", force: :cascade do |t|
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
@@ -70,12 +76,21 @@ ActiveRecord::Schema.define(version: 20161118135207) do
   create_table "benefit_profiles", force: :cascade do |t|
     t.string   "name"
     t.integer  "company_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "provider"
     t.string   "provider_plan"
     t.string   "benefit_type"
     t.string   "benefit_method"
+    t.integer  "eligibility_days"
+  end
+
+  create_table "benefit_rates", force: :cascade do |t|
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "benefit_detail_id"
+    t.integer  "age"
+    t.decimal  "rate"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -157,8 +172,8 @@ ActiveRecord::Schema.define(version: 20161118135207) do
   create_table "employees", force: :cascade do |t|
     t.string   "name"
     t.integer  "company_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "email"
     t.string   "address"
     t.string   "city"
@@ -171,6 +186,7 @@ ActiveRecord::Schema.define(version: 20161118135207) do
     t.integer  "user_id"
     t.date     "date_of_birth"
     t.date     "date_of_hire"
+    t.boolean  "benefit_eligible"
   end
 
   create_table "folders", force: :cascade do |t|
