@@ -49,15 +49,15 @@ desc "reconciliation development"
     annual_rate = 1200.00
     monthly_rate = annual_rate/12
     puts "----------------------------------------------"
-    puts "Expected annualized rates demo"
-    puts "Annual rate: #{annual_rate}, monthly rate: #{monthly_rate}"
+    puts "Expected monthly rates demo"
+    puts "Annual rate: #{annual_rate}, annualized monthly rate: #{monthly_rate}"
     puts "----------------------------------------------"
-    puts "monthly: #{PayrollAnnualizer.new(monthly_rate, 1, 'monthly').annualize}"
-    puts "semi-monthly: #{PayrollAnnualizer.new(monthly_rate, 2, 'semi-monthly').annualize}"
-    puts "weekly, 4 checks: #{PayrollAnnualizer.new(monthly_rate, 4, 'weekly').annualize}"
-    puts "weekly, 5 checks: #{PayrollAnnualizer.new(monthly_rate, 5, 'weekly').annualize}"
-    puts "bi-weekly, 2 checks: #{PayrollAnnualizer.new(monthly_rate, 2, 'bi-weekly').annualize}"
-    puts "bi-weekly, 3 checks: #{PayrollAnnualizer.new(monthly_rate, 3, 'bi-weekly').annualize}"
+    puts "'expected' monthly: #{InvoiceConverter.new(monthly_rate, 1, 'monthly').to_monthly_expected_amount}"
+    puts "'expected' semi-monthly: #{InvoiceConverter.new(monthly_rate, 2, 'semi-monthly').to_monthly_expected_amount}"
+    puts "'expected' weekly, 4 checks: #{InvoiceConverter.new(monthly_rate, 4, 'weekly').to_monthly_expected_amount}"
+    puts "'expected' weekly, 5 checks: #{InvoiceConverter.new(monthly_rate, 5, 'weekly').to_monthly_expected_amount}"
+    puts "'expected' bi-weekly, 2 checks: #{InvoiceConverter.new(monthly_rate, 2, 'bi-weekly').to_monthly_expected_amount}"
+    puts "'expected' bi-weekly, 3 checks: #{InvoiceConverter.new(monthly_rate, 3, 'bi-weekly').to_monthly_expected_amount}"
   end
   
 end

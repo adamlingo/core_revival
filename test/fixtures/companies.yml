@@ -10,3 +10,9 @@ example:
   id: 2
   name: 'Another Company'
   pay_frequency: 'Bi-Weekly'
+
+weekly_payroll:
+  id: 3
+  name: 'Weekly Payroll Company'
+  pay_frequency: 'weekly'
+

@@ -1,4 +1,7 @@
-class PayrollAnnualizer
+# scale the monthly invoice amount to calculate
+# a 'scaled' monthly amount to be able to compare monthly difference
+# in amount invoiced versus amount collected
+class InvoiceConverter
 
   def initialize(monthy_invoice_amount, num_monthly_periods, pay_period)
     @monthy_invoice_amount = monthy_invoice_amount
@@ -6,7 +9,7 @@ class PayrollAnnualizer
     @pay_period = pay_period
   end
 
-  def annualize
+  def to_monthly_expected_amount
     case @pay_period
     when 'monthly'
       compute_monthly_expected(@monthy_invoice_amount, 1, 12)
