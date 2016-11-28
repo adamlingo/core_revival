@@ -70,6 +70,8 @@ group :development do
   gem 'spring'
   # debugging with Rails Panel (Chrome-dev-tools)
   gem 'meta_request'
+  # Brakeman static analysis of app for security vulnerabilities.
+  gem 'brakeman'
   # db map, run with "rake erd"
   gem 'rails-erd' # generate ERD diagram of db - needs brew install graphviz 
 end
