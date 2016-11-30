@@ -48,6 +48,7 @@ desc "reconciliation development"
   task annualize_demo: :environment do
     annual_rate = 1200.00
     monthly_rate = annual_rate/12
+    # monthly_rate = 178.18
     puts "----------------------------------------------"
     puts "Expected monthly rates demo"
     puts "Annual rate: #{annual_rate}, annualized monthly rate: #{monthly_rate}"

@@ -86,7 +86,7 @@ class Reconciliation < ActiveRecord::Base
             raise StandardError.new ("Totals do not match for sub_id #{employee.sub_id}: invoice_total: #{invoice_total}; sum_total: #{sum_total}") if invoice_total != sum_total
             expected_monthly_deduction_for_invoice = InvoiceConverter.new(invoice_total, @num_payroll_periods, @payroll_periods[0].pay_period).to_monthly_expected_amount
 
-            annualizer = PayrollAnnualizer.new(invoice_total, employee_contribution, employer_contribution, @num_payroll_periods)
+            annualizer = PayrollAnnualizer.new(invoice_total, employee_contribution, employer_contribution, @num_payroll_periods, @pay_period)
             monthly_diff = (employee_contribution + employer_contribution) - expected_monthly_deduction_for_invoice
 
             puts "-----------------------------------------------"

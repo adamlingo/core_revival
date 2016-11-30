@@ -1,14 +1,15 @@
+require 'date'
+
 class PayrollPeriod < ActiveRecord::Base
   belongs_to :company
-  require 'date'
 
   # Creates static payroll period period given an initial date and a set pay frequency for 
   # a company
-  def self.generate_payroll_dates(company_id, pay_frequency, start_date, num_periods, date_format)
+  def self.generate_payroll_dates(company_id, pay_period, start_date, num_periods, date_format)
     date = Date.strptime(start_date, date_format)
     num_periods += 1
 
-    case pay_frequency
+    case pay_period
       when 'monthly'
         generate_monthly(company_id, date, num_periods)
       when 'semi-monthly'
@@ -18,7 +19,7 @@ class PayrollPeriod < ActiveRecord::Base
       when 'bi-weekly'
         generate_bi_weekly(company_id, date, num_periods)
       else
-        raise StandardError.new "OMG! OMG! OMG! '#{pay_frequency}' is not a valid payroll type"
+        raise StandardError.new "OMG! OMG! OMG! '#{pay_period}' is not a valid payroll type"
     end
   end
 
@@ -90,6 +91,21 @@ class PayrollPeriod < ActiveRecord::Base
                               month: date.month,
                               day: date.day,
                               pay_period: 'bi-weekly')
+      end
+    end
+
+    def self.num_yearly_checks(pay_period)
+      case pay_period
+      when 'monthly'
+        12
+      when 'semi-monthly'
+        24
+      when 'bi-weekly'
+        26
+      when 'weekly'
+        52
+      else
+        raise StandardError.new "Unknown pay period: #{pay_period}"
       end
     end
 end

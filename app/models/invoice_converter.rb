@@ -40,6 +40,7 @@ class InvoiceConverter
 
   private
     def compute_monthly_expected(monthly_amount, num_monthly_checks, num_yearly_checks)
+      # monthly amount * (12 month/year) * [ (num checks/month) / (num checks/year) ]
       (monthly_amount*12)*(num_monthly_checks)/num_yearly_checks
     end
 end
