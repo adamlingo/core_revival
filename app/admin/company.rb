@@ -50,7 +50,7 @@ permit_params :name, :company_id, :email, :processor_name, :address, :city, :sta
       f.input :processor_name, label: 'Processor Name', :placeholder => "Processor Name"
       f.input :address, :placeholder => "Street Address"
       f.input :city, :placeholder => "City"
-      f.input :state, as: :select, :collection => States.ABBREVIATIONS                                   
+      f.input :state, as: :select, :collection => States::ABBREVIATIONS                                   
       f.input :zip, :placeholder => "Zip"
       f.input :phone_number, :placeholder => "Phone"
       f.input :federal_id_number, :placeholder => "Federal ID number"
