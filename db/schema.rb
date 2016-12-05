@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161125001909) do
+ActiveRecord::Schema.define(version: 20161126202443) do
 
 
   # These are extensions that must be enabled in order to support this database
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20161125001909) do
     t.integer  "benefit_detail_id"
     t.integer  "age"
     t.decimal  "rate"
+    t.date     "effective_date"
   end
 
   create_table "companies", force: :cascade do |t|
