@@ -29,7 +29,13 @@ class Employee < ActiveRecord::Base
         end
     end
     
-    end 
+    end
+    
+    def benefit_eligible
+    end
+    
+    def effective_date
+    end
 
 
 end
