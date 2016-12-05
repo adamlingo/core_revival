@@ -10,20 +10,8 @@ class HealthInvoice < ActiveRecord::Base
     end
   end
 
-  def self.import(file)
+  def self.import_by_month_and_year(file, month, year)
     health_invoices = []
-    if (file.respond_to?(:original_filename)) # .original_filename.present?)
-      filename = file.original_filename
-    else
-      filename = File.basename(file.path)
-    end
-    puts "filename: #{filename}"
-
-    invoice_date = HealthInvoice.convert_to_date(filename)
-    puts "invoice_date: #{invoice_date}"
-    # puts "invoice_date month: #{invoice_date.month}"
-    # puts "invoice_date year: #{invoice_date.year}"
-
     # Check dups by parsing to billing profile ID and year/month 
     CSV.foreach(file.path, headers: true) do |row|
       health_invoice_hash = row.to_hash
@@ -43,12 +31,25 @@ class HealthInvoice < ActiveRecord::Base
                                           retro_fee_adjustment: retro_fee_adjustment,
                                           current_charges: current_charges,
                                           total_charges: total_charges,
-                                          month: invoice_date.month,
-                                          year: invoice_date.year)
+                                          month: month,
+                                          year: year)
       health_invoice.save!
       health_invoices << health_invoice
     end
     health_invoices
+  end
+
+  def self.import(file)
+    if (file.respond_to?(:original_filename)) # .original_filename.present?)
+      filename = file.original_filename
+    else
+      filename = File.basename(file.path)
+    end
+    puts "filename: #{filename}"
+
+    invoice_date = HealthInvoice.convert_to_date(filename)
+    puts "invoice_date: #{invoice_date}"
+    HealthInvoice.import_by_month_and_year(file, invoice_date.month, invoice_date.year)
   end
 
   

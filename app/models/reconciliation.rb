@@ -39,7 +39,8 @@ class Reconciliation < ActiveRecord::Base
     end
 
     def self.do_it(company_id, month, year)
-        reconciliation = Reconciliation.new(company_id: company_id, month: month, year: year)
+        puts "reconciliation -- company_id: #{company_id}; month: #{month}; year: #{year}"
+        reconciliation = Reconciliation.new(company_id, month, year)
         reconciliation.calculate
     end
 

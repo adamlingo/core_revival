@@ -9,6 +9,8 @@ class PayrollDeduction < ActiveRecord::Base
   end
 
   def self.import(file, month = nil, year = nil)
+    payroll_deductions = []
+
     CSV.foreach(file.path, headers: true) do |row|
       payroll_hash = row.to_hash
 
@@ -22,8 +24,10 @@ class PayrollDeduction < ActiveRecord::Base
                                             month: month,
                                             year: year)
         payroll_deduction.save!
+        payroll_deductions << payroll_deduction
       end
     end
+    payroll_deductions
   end
 
   def to_s

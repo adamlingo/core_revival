@@ -1,34 +1,89 @@
 class ReconciliationsController < ApplicationController
-  respond_to :html, :js, only: [:import_health_invoices, :import_payroll_deductions]
-  protect_from_forgery with: :null_session, only: [:import_health_invoices, :import_payroll_deductions]
 
   def index
-    company_id = params[:company_id]
-    @company = Company.find(company_id)
+    helper_attributes = {
+      company_id: params[:company_id],
+      month: params[:month],
+      year: params[:year]      
+    }
+
+    @helper = ReconciliationHelper.new(helper_attributes)
+    if @helper.valid? && @helper.check_for_records!
+      flash[:info] = 'Ready to calculate reconciliations!'
+    else
+      flash[:error] = "Unable to process reconciliations: #{@helper.errors.full_messages.to_sentence}"
+    end
+
     @health_invoices = []
     @payroll_deductions = []
-
-    # BenefitProfile.where(company_id: company_id).each { |benefit_profile|
-    #   invoices = HealthInvoice.where(account_number: benefit_profile.account_number)
-    #   @health_invoices + invoices
-    # }
   end
 
   def calculate
-    company_id = params[:company_id]
-    @company = Company.find(company_id)
-    @reconciliations = Reconciliation.do_it(company_id)
+    calculator_attributes = {
+      company_id: params[:company_id],
+      month: params[:month],
+      year: params[:year]      
+    }
+    @helper = ReconciliationHelper.new(calculator_attributes)
+    if @helper.valid? && @helper.check_for_records!
+      flash[:error] = ''
+      calculator = ReconciliationCalculator.new(calculator_attributes)
+      if calculator.valid? && calculator.calculate!
+        flash[:info] = 'Reconciliations calculated!'
+        flash[:error] = ''
+        @reconciliations = calculator.reconciliations
+      else
+        flash[:error] = "Unable to process reconciliations: #{calculator.errors.full_messages.to_sentence}"
+        redirect_to company_index_url(calculator_attributes)
+      end
+    else
+      flash[:error] = "Unable to process reconciliations: #{@helper.errors.full_messages.to_sentence}"
+      redirect_to company_index_url(calculator_attributes)
+    end
   end
 
   def import_health_invoices
+    importer_attributes = {
+      company_id: params[:company_id],
+      month: params[:month],
+      year: params[:year]      
+    }
+    importer = HealthInvoicesImporter.new(importer_attributes)
+
     upload_file = params[:file]
-    @health_invoices = HealthInvoice.import(upload_file)
-    puts @health_invoices
+
+    puts "health invoice importer_attributes: #{importer_attributes}"
+
+    if importer.valid? && importer.import!(upload_file)
+      flash[:info] = "Health invoices imported successfully!"
+    else
+      puts "Unable to import health invoices: #{importer.errors.full_messages.to_sentence}"
+      flash[:error] = "Unable to import health invoices: #{importer.errors.full_messages.to_sentence}"
+    end
+
+    redirect_to company_index_url(importer_attributes)
   end
 
   def import_payroll_deductions
+    importer_attributes = {
+      company_id: params[:company_id],
+      month: params[:month],
+      year: params[:year]      
+    }
+    importer = PayrollDeductionsImporter.new(importer_attributes)
+
     upload_file = params[:file]
-    @payroll_deductions = PayrollDeduction.import(upload_file)
+
+    puts "payroll deductions importer_attributes: #{importer_attributes}"
+
+    if importer.valid? && importer.import!(upload_file)
+      flash[:info] = "Payroll deductions imported successfully!"
+    else
+      puts "Unable to import payroll deductions: #{importer.errors.full_messages.to_sentence}"
+      flash[:error] = "Unable to import payroll deductions: #{importer.errors.full_messages.to_sentence}"
+    end
+
+    redirect_to company_index_url(importer_attributes)
   end
 
   private
@@ -36,4 +91,5 @@ class ReconciliationsController < ApplicationController
     def reconciliation_params
       params.permit(:company_id)
     end
+
 end

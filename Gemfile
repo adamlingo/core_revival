@@ -50,8 +50,10 @@ gem 'sentry-raven'
 
 # Mailgun gems
 gem 'rest-client'
-
 gem 'mailgun-ruby'
+
+# resource model
+gem 'resource_model'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views

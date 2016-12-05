@@ -1,17 +1,38 @@
 <% content_for :head do %>
-  <%= javascript_include_tag :defaults %>
-  <%= csrf_meta_tag %>
-  <!-- fuck yeah! -->
+<!--   <%= csrf_meta_tag %> -->
 <% end %>
-
 <p id="notice"><%= notice %></p>
 
 <h1>Skeleton Test - Reconciliation</h1>
 </br>
 
+<h2>Reconcile it!</h2>
+
+<%= form_tag company_calculate_path, class: 'form-inline' do %>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+  <div class="field">
+    <%= label_tag :month -%><br>
+    <%= text_field_tag :month, @helper.month -%>
+  </div>
+  <div class="field">
+    <%= label_tag :year -%><br>
+    <%= text_field_tag :year, @helper.year -%>
+  </div>
+
+  <div class="form-group">
+    <%= submit_tag "Calculate Reconciliation", class: 'btn btn-info' %>
+  </div>
+
+<% end %>
+
+<hr>
+
 <h2>Health Invoices</h2>
-<%= form_tag import_health_invoices_path, multipart: true, remote: true, class: 'form-inline' do %>
-  
+<%= form_tag company_import_health_invoices_path, multipart: true, remote: true, class: 'form-inline' do %>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+  <%= hidden_field_tag :month, @helper.month -%>
+  <%= hidden_field_tag :year, @helper.year -%>
+
   <div class="form-group">
     <%= file_field_tag :file, class: '' %>
   </div>
@@ -31,7 +52,10 @@
 
 <h2>Payroll Deductions</h2>
 <%= form_tag company_import_payroll_deductions_path, multipart: true, remote: true, class: 'form-inline' do %>
-  
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+  <%= hidden_field_tag :month, @helper.month -%>
+  <%= hidden_field_tag :year, @helper.year -%>
+
   <div class="form-group">
     <%= file_field_tag :file, class: '' %>
   </div>
@@ -42,79 +66,3 @@
 
 <% end %>
 
-<!-- payroll deductions -->
-<!-- render 'import_payroll_deductions' -->
-<div id='import_payroll_deductions' style='display:none;'></div>
-<hr>
-<h2>Reconcile it!</h2>
-<% if false %>
-<%= link_to 'Reconcile', company_calculate_path %>
-<% end %>
-
-<%= form_tag company_calculate_path, class: 'form-inline' do %>
-  
-  <div class="form-group">
-    <%= submit_tag "Calculate Reconciliation", class: 'btn btn-info' %>
-  </div>
-
-<% end %>
-
-
-<% if false %>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @health_invoices.each do |health_invoice| %>
-      <tr>
-        <td><%= health_invoice.account_number %></td>
-        <td><%= health_invoice.billing_profile %></td>
-        <td><%= health_invoice.category %></td>
-        <td><%= health_invoice.product %></td>
-        <td><%= health_invoice.health_sub_id %></td>
-        <td><%= health_invoice.sub_name %></td>
-        <td><%= health_invoice.tier %></td>
-        <td><%= health_invoice.change_reason %></td>
-        <td><%= health_invoice.retro_fee_adjustment %></td>
-        <td><%= health_invoice.current_charges %></td>
-        <td><%= health_invoice.total_charges %></td>
-        <td><%= link_to 'Show', health_invoice %></td>
-        <td><%= link_to 'Edit', edit_health_invoice_path(health_invoice) %></td>
-        <td><%= link_to 'Destroy', health_invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<% end %>
-
-<% if false %>
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <div class="form-group">
-    <%= button_to 'Reconcile', calculate_reconciliations_path %>
-  </div>
-
-  <tbody>
-    <% @reconciliations.each do |r| %>
-      <tr>
-
-        <td><%= link_to 'Show', reconciliation %></td>
-        <td><%= link_to 'Edit', edit_reconciliation_path(reconciliation) %></td>
-        <td><%= link_to 'Destroy', reconciliation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
- <% end %>
