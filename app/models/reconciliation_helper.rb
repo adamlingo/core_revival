@@ -30,8 +30,8 @@ class ReconciliationHelper < ResourceModel::Base
       return false unless self.valid?
       num_invoices = HealthInvoice.where(month: self.month, year: self.year).count
       num_deductions = PayrollDeduction.where(month: self.month, year: self.year).count
-      @has_health_invoices = num_invoices > 0
-      @has_payroll_deductions = num_deductions > 0
+      @has_health_invoices = num_invoices != 0
+      @has_payroll_deductions = num_deductions != 0
 
       unless @has_health_invoices
         errors.add(:health_invoices, "no health invoices found for month #{month} and year #{year}")
@@ -41,7 +41,7 @@ class ReconciliationHelper < ResourceModel::Base
         errors.add(:payroll_deductions, "no payroll deductions found for month #{month} and year #{year}")
       end
 
-      return @has_payroll_deductions && @has_payroll_deductions
+      @has_health_invoices && @has_payroll_deductions
     end
 
     def is_valid_month

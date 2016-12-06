@@ -19,6 +19,23 @@ class HealthInvoicesImporter < ResourceModel::Base
 
   def import!(file)
     return false unless self.valid?
+    invoice_date = get_invoice_date(file)
+    
+    is_valid_date = true
+    if invoice_date.month != self.month.to_i
+      errors.add(:month, "month in file name does not match input month")
+      is_valid_date = false
+    end
+
+    if invoice_date.year != self.year.to_i
+      errors.add(:year, "year in file name does not match input year")
+      is_valid_date = false
+    end
+
+    unless is_valid_date
+      return false
+    end
+
     @health_invoices = HealthInvoice.import_by_month_and_year(file, self.month.to_i, self.year.to_i)
     true
   end
@@ -61,5 +78,15 @@ class HealthInvoicesImporter < ResourceModel::Base
 
     def is_int?(input)
       true if Integer(input) rescue false
+    end
+
+    def get_invoice_date(file)
+      if (file.respond_to?(:original_filename))
+        filename = file.original_filename
+      else
+        filename = File.basename(file.path)
+      end
+
+      HealthInvoice.convert_to_date(filename)
     end
 end

@@ -52,16 +52,15 @@ class ReconciliationsController < ApplicationController
 
     upload_file = params[:file]
 
-    puts "health invoice importer_attributes: #{importer_attributes}"
-
     if importer.valid? && importer.import!(upload_file)
-      flash[:info] = "Health invoices imported successfully!"
+      message = "Health invoices imported successfully!"
+      flash[:info] = message
     else
-      puts "Unable to import health invoices: #{importer.errors.full_messages.to_sentence}"
-      flash[:error] = "Unable to import health invoices: #{importer.errors.full_messages.to_sentence}"
+      message = "Unable to import health invoices: #{importer.errors.full_messages.to_sentence}"
+      flash[:error] = message
     end
 
-    redirect_to company_index_url(importer_attributes)
+    redirect_to company_index_url(importer_attributes), notice: message
   end
 
   def import_payroll_deductions
@@ -74,13 +73,12 @@ class ReconciliationsController < ApplicationController
 
     upload_file = params[:file]
 
-    puts "payroll deductions importer_attributes: #{importer_attributes}"
-
     if importer.valid? && importer.import!(upload_file)
-      flash[:info] = "Payroll deductions imported successfully!"
+      message = "Payroll deductions imported successfully!"
+      flash[:info] = message
     else
-      puts "Unable to import payroll deductions: #{importer.errors.full_messages.to_sentence}"
-      flash[:error] = "Unable to import payroll deductions: #{importer.errors.full_messages.to_sentence}"
+      message = "Unable to import payroll deductions: #{importer.errors.full_messages.to_sentence}"
+      flash[:error] = message
     end
 
     redirect_to company_index_url(importer_attributes)
