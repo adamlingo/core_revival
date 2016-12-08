@@ -59,7 +59,7 @@ gem 'jwt'
 
 # FILE/FOLDER-HANDLING
 # Refile upload gems
-gem "refile", require: "refile/rails", github: "refile/refile"
+gem "refile", require: "refile/rails", :git => "https://github.com/refile/refile"
 gem "refile-mini_magick"
 gem "refile-s3"
 

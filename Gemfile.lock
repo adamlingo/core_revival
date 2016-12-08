@@ -18,7 +18,7 @@ GIT
       sprockets (< 4.1)
 
 GIT
-  remote: git://github.com/refile/refile.git
+  remote: https://github.com/refile/refile
   revision: d7a42dcd7cf631ba94b01231f535bda061f6af92
   specs:
     refile (0.6.2)
