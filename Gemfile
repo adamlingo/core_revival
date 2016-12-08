@@ -59,7 +59,7 @@ gem 'jwt'
 
 # FILE/FOLDER-HANDLING
 # Refile upload gems
-gem "refile", require: "refile/rails", github: "refile/refile"
+gem "refile", require: "refile/rails", :git => "https://github.com/refile/refile"
 gem "refile-mini_magick"
 gem "refile-s3"
 
@@ -70,6 +70,8 @@ group :development do
   gem 'spring'
   # debugging with Rails Panel (Chrome-dev-tools)
   gem 'meta_request'
+  # Brakeman static analysis of app for security vulnerabilities.
+  gem 'brakeman'
   # db map, run with "rake erd"
   gem 'rails-erd' # generate ERD diagram of db - needs brew install graphviz 
 end

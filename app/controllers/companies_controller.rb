@@ -1,13 +1,15 @@
 class CompaniesController < ApplicationController
-  # muted restrictions
-  # before_action :set_company, only: [:show, :edit, :update, :destroy]
-  # must be logged in
   before_filter :authenticate_user!
-  before_filter :authorize_company!
+  # before_filter :authorize_company! <-- private method instead here
+  before_filter :authorize_my_company!
   before_filter :authorize_manager!
   
   def index
-    @companies = Company.all
+    if current_user.admin?
+      @companies = Company.all
+    else
+      @companies = Company.where(id: current_user.company_id)
+    end
   end
 
   def show
@@ -55,5 +57,9 @@ class CompaniesController < ApplicationController
                                       :phone_number, :federal_id_number, :state_wh_number,
                                       :unemployment_number, :processor_name, :pay_frequency,
                                       :timework_id, :timework_pass)
+    end
+
+    def authorize_my_company!
+      check_company(params[:id])
     end
 end
