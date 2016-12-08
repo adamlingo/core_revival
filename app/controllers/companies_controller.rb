@@ -60,12 +60,6 @@ class CompaniesController < ApplicationController
     end
 
     def authorize_my_company!
-      unless current_user.admin?
-        company_id = params[:id]
-        if company_id.present? && (current_user.company_id != company_id.to_i)
-          redirect_to root_path
-          flash[:error] = "You do not have permission to view page"
-        end
-      end
+      check_company(params[:id])
     end
 end

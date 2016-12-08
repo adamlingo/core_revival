@@ -4,13 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def authorize_company!
-    unless current_user.admin?
-      company_id = params[:company_id]
-      if company_id.present? && (current_user.company_id != company_id.to_i)
-        redirect_to root_path
-        flash[:error] = "You do not have permission to view page"
-      end
-    end
+    check_company(params[:company_id])
   end
 
   def authorize_manager!
@@ -19,5 +13,15 @@ class ApplicationController < ActionController::Base
         flash[:error] = "You do not have permission to view page"
     end
   end
-       
+
+  protected
+
+    def check_company(company_id)
+      unless current_user.admin?
+        if company_id.present? && (current_user.company_id != company_id.to_i)
+          redirect_to root_path
+          flash[:error] = "You do not have permission to view page"
+        end
+      end
+    end
 end
