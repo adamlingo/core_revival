@@ -1,6 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<h1>File Management</h1>
+<% if current_user.manager? || current_user.admin? %>
+  <h1>File Management</h1>
+<% else %>
+  <h1>File Overview</h1>
+<% end %>
 
 <p>
   <% if current_user.manager? || current_user.admin? %>
