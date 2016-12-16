@@ -4,33 +4,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-
-/* line 1, ../sass/partials/_resets.scss */
-[title="JavaScript charts"] {
-  display: none !important;
-}
-
-/* line 2, ../sass/partials/_resets.scss */
-.media {
-  margin-top: 0;
-}
-
-/* line 3, ../sass/partials/_resets.scss */
-*:focus, *:active {
-  outline: none !important;
-}
-
-/* line 6, ../sass/partials/_resets.scss */
-.btn .badge {
-  position: absolute !important;
-  top: -7px !important;
-}
-
-/* line 10, ../sass/partials/_resets.scss */
-.btn-block {
-  display: inline-block;
-}
-
 @font-face {
   font-family: 'open_sansregular';
   src: url("fonts/OpenSans-Regular-webfont.eot");
