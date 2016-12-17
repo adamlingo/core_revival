@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161126202443) do
+ActiveRecord::Schema.define(version: 20161217155104) do
 
 
   # These are extensions that must be enabled in order to support this database
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20161126202443) do
     t.integer  "benefit_profile_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.integer  "employee_id"
   end
 
   create_table "benefit_details", force: :cascade do |t|
@@ -83,6 +84,7 @@ ActiveRecord::Schema.define(version: 20161126202443) do
     t.string   "benefit_type"
     t.string   "benefit_method"
     t.integer  "eligibility_days"
+    t.string   "account_number"
   end
 
   create_table "benefit_rates", force: :cascade do |t|
@@ -120,13 +122,6 @@ ActiveRecord::Schema.define(version: 20161126202443) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "company_payroll_dates", force: :cascade do |t|
-    t.string   "year"
-    t.string   "pay_period"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "contacts", force: :cascade do |t|
     t.string   "full_name"
     t.string   "email"
@@ -150,6 +145,15 @@ ActiveRecord::Schema.define(version: 20161126202443) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "employee_id"
+  end
+
+  create_table "employee_benefit_selections", force: :cascade do |t|
+    t.integer  "employee_id",                       null: false
+    t.string   "benefit_type",                      null: false
+    t.boolean  "decline_benefit",   default: false, null: false
+    t.integer  "benefit_detail_id"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   create_table "employee_benefits", force: :cascade do |t|
@@ -227,6 +231,8 @@ ActiveRecord::Schema.define(version: 20161126202443) do
     t.string   "pay_sub_name"
     t.string   "pay_category"
     t.decimal  "deduction_amount"
+    t.integer  "month"
+    t.integer  "year"
   end
 
   create_table "payroll_records", force: :cascade do |t|
