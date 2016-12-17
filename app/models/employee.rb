@@ -32,6 +32,7 @@ class Employee < ActiveRecord::Base
     end
     
     def benefit_eligible
+      self.benefit_eligible
     end
     
     def effective_date
