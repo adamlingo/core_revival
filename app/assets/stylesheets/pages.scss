@@ -14,186 +14,14 @@
   font-style: normal;
 }
 
-/* General typo stuff */
-/* line 918, ../sass/partials/_typography.scss */
-p {
-  color: #444444;
-}
-
-/* line 922, ../sass/partials/_typography.scss */
-h3 {
-  color: #444;
-  font-size: 16px;
-}
-
-/* line 927, ../sass/partials/_typography.scss */
-a, a:hover, a:focus {
-  color: #66cccc;
-}
-
-/* line 931, ../sass/partials/_typography.scss */
-.center {
-  text-align: center;
-}
-
-/*****************************
-**** GENERAL Layout styles ***
-******************************/
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-100 {
-  margin-top: 100px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-95 {
-  margin-top: 95px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-90 {
-  margin-top: 90px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-85 {
-  margin-top: 85px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-80 {
-  margin-top: 80px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-75 {
-  margin-top: 75px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-70 {
-  margin-top: 70px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-65 {
-  margin-top: 65px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-60 {
-  margin-top: 60px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-55 {
-  margin-top: 55px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-50 {
-  margin-top: 50px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-45 {
-  margin-top: 45px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-40 {
-  margin-top: 40px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-35 {
-  margin-top: 35px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-30 {
-  margin-top: 30px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-25 {
-  margin-top: 25px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-20 {
-  margin-top: 20px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-15 {
-  margin-top: 15px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-10 {
-  margin-top: 10px;
-}
-
-/* line 7, ../sass/partials/_layout.scss */
-.mtop-5 {
-  margin-top: 5px;
-}
-
-/* line 15, ../sass/partials/_layout.scss */
-.font-18 {
-  font-size: 18px !important;
-}
-
-/* line 15, ../sass/partials/_layout.scss */
-.font-17 {
-  font-size: 17px !important;
-}
-
-/* line 15, ../sass/partials/_layout.scss */
-.font-16 {
-  font-size: 16px !important;
-}
-
-/* line 15, ../sass/partials/_layout.scss */
-.font-15 {
-  font-size: 15px !important;
-}
-
-/* line 15, ../sass/partials/_layout.scss */
-.font-14 {
-  font-size: 14px !important;
-}
-
-/* line 15, ../sass/partials/_layout.scss */
-.font-13 {
-  font-size: 13px !important;
-}
-
-/* line 15, ../sass/partials/_layout.scss */
-.font-12 {
-  font-size: 12px !important;
-}
-
-/* line 15, ../sass/partials/_layout.scss */
-.font-11 {
-  font-size: 11px !important;
-}
-
-/* line 22, ../sass/partials/_layout.scss */
-body {
-  background: #f6f6f6;
-  font-family: 'open_sansregular', sans-serif;
-}
-
 /* TOP BAR */
-/* line 28, ../sass/partials/_layout.scss */
 .top-bar {
   width: 100%;
   height: 74px;
   background: #444444;
   position: relative;
 }
-/* line 34, ../sass/partials/_layout.scss */
+
 .top-bar:before {
   content: '';
   position: fixed;
@@ -201,7 +29,7 @@ body {
   left: 0;
   z-index: -1;
   width: 100%;
-  height: 2px;
+  height: 3px;
   background-color: #cdde81;
   -webkit-transform: translate3d(-100%, 0, 0);
   -moz-transform: translate3d(-100%, 0, 0);
@@ -268,10 +96,10 @@ body {
   color: #fff;
   font-size: 24px;
   font-family: "open_sansbold";
-  line-height: 70px;
-  margin-left: 27px;
-  margin-right: 20px;
-  margin-top:10px;
+  line-height: 65px;
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-top: 5px;
   display: inline-block;
 }
 /* line 62, ../sass/partials/_layout.scss */
@@ -292,7 +120,7 @@ body {
 /* line 78, ../sass/partials/_layout.scss */
 .sidebar {
   float: left;
-  width: 280px;
+  width: 300px;
   position: relative;
   background: #f9f9f9;
   border-right: 1px solid #e5e5e5;
@@ -331,8 +159,8 @@ body {
 }
 /* line 110, ../sass/partials/_layout.scss */
 .main-nav__link:after {
-  font-family: "Pe-icon-7-stroke" !important;
-  content: '\e684';
+  font-family: "Pe-icon-7-filled" !important;
+  content: "\e6a4";
   font-size: 22px;
   position: absolute;
   right: 20px;
