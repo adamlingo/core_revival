@@ -7,19 +7,26 @@ class BenefitRate < ActiveRecord::Base
     def new
     end
     
-    def self.compute_rate(company_id, employee_id)
+    def self.compute_rate(employee_id, benefit_detail_id, effective_date)
         
-        @employee = Employee.find(company_id,employee_id)
+        benefit_detail = BenefitDetail.find(benefit_detail_id)
+        employee = Employee.find(employee_id)
         # if employee is eligible
-        if @employee.benefit_eligible == true
-            ee_dob = @employee.date_of_birth
+        if employee.benefit_eligible == true
+            ee_dob = employee.date_of_birth
             
-            eff_date = self.effective_date
+            # eff_date = benefit_rate.effective_date
             
-            ee_age = ee_dob.year - eff_date.year
             
-            ee_rate = self.rate.where(age: ee_age)
+            # need month and day in calculation
+            ee_age = effective_date.year - ee_dob.year 
+             
+             puts "Employee Age #{ee_age}"
+             puts "Effective Date #{effective_date}"
+             
+            benefit_rate = BenefitRate.find_by(age: ee_age, benefit_detail_id: benefit_detail_id)
             
+            ee_rate = benefit_rate.rate
             puts ee_rate
         # take employee dob and compute age
         

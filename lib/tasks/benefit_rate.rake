@@ -9,9 +9,10 @@ namespace :benefit_rate do
   task compute_rate: :environment do
     
     employee_id = 4
-    company_id = 3
+    effective_date = Date.parse("2017-02-01")
+    benefit_detail_id = 4
     
-    BenefitRate.compute_rate(company_id, employee_id)
+    BenefitRate.compute_rate(employee_id, benefit_detail_id, effective_date)
     
   end
 end
