@@ -42,6 +42,4 @@ class Employee < ActiveRecord::Base
       self.salaries.where(end_date: nil).first
     end
 
-
-
 end

@@ -11,7 +11,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20161217162725) do
 
   # These are extensions that must be enabled in order to support this database
@@ -85,6 +84,8 @@ ActiveRecord::Schema.define(version: 20161217162725) do
     t.string   "benefit_method"
     t.integer  "eligibility_days"
     t.string   "account_number"
+    t.boolean  "spouse_eligible"
+    t.boolean  "child_eligible"
   end
 
   create_table "benefit_rates", force: :cascade do |t|
@@ -123,13 +124,6 @@ ActiveRecord::Schema.define(version: 20161217162725) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "company_payroll_dates", force: :cascade do |t|
-    t.string   "year"
-    t.string   "pay_period"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "contacts", force: :cascade do |t|
     t.string   "full_name"
     t.string   "email"
@@ -138,7 +132,6 @@ ActiveRecord::Schema.define(version: 20161217162725) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
-
 
   create_table "dependents", force: :cascade do |t|
     t.integer  "employee_id"
@@ -225,34 +218,34 @@ ActiveRecord::Schema.define(version: 20161217162725) do
   end
 
   create_table "health_invoices", force: :cascade do |t|
-   t.datetime "created_at",           null: false
-   t.datetime "updated_at",           null: false
-   t.string   "account_number"
-   t.string   "billing_profile"
-   t.integer  "category"
-   t.string   "product"
-   t.string   "health_sub_id"
-   t.string   "sub_name"
-   t.string   "tier"
-   t.string   "change_reason"
-   t.decimal  "retro_fee_adjustment"
-   t.decimal  "current_charges"
-   t.decimal  "total_charges"
-   t.integer  "month"
-   t.integer  "year"
- end
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.string   "account_number"
+    t.string   "billing_profile"
+    t.integer  "category"
+    t.string   "product"
+    t.string   "health_sub_id"
+    t.string   "sub_name"
+    t.string   "tier"
+    t.string   "change_reason"
+    t.decimal  "retro_fee_adjustment"
+    t.decimal  "current_charges"
+    t.decimal  "total_charges"
+    t.integer  "month"
+    t.integer  "year"
+  end
 
- create_table "payroll_deductions", force: :cascade do |t|
-   t.datetime "created_at",       null: false
-   t.datetime "updated_at",       null: false
-   t.string   "pay_ee_id"
-   t.string   "pay_sub_id"
-   t.string   "pay_sub_name"
-   t.string   "pay_category"
-   t.decimal  "deduction_amount"
-   t.integer  "month"
-   t.integer  "year"
- end
+  create_table "payroll_deductions", force: :cascade do |t|
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "pay_ee_id"
+    t.string   "pay_sub_id"
+    t.string   "pay_sub_name"
+    t.string   "pay_category"
+    t.decimal  "deduction_amount"
+    t.integer  "month"
+    t.integer  "year"
+  end
 
   create_table "payroll_records", force: :cascade do |t|
     t.integer  "company_id"
