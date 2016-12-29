@@ -14,6 +14,7 @@
 
 ActiveRecord::Schema.define(version: 20161118135207) do
 
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -110,6 +111,15 @@ ActiveRecord::Schema.define(version: 20161118135207) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "contacts", force: :cascade do |t|
+    t.string   "full_name"
+    t.string   "email"
+    t.integer  "phone_number"
+    t.text     "address"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+  
   create_table "documents", force: :cascade do |t|
     t.integer "folder_id",         null: false
     t.string  "file_id",           null: false
@@ -220,6 +230,16 @@ ActiveRecord::Schema.define(version: 20161118135207) do
   create_table "reconciliations", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "salaries", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "employee_id", null: false
+    t.date     "start_date",  null: false
+    t.date     "end_date"
+    t.decimal  "rate",        null: false
+    t.string   "pay_type",    null: false
   end
 
   create_table "timeworks", force: :cascade do |t|

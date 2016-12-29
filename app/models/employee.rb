@@ -4,6 +4,8 @@ class Employee < ActiveRecord::Base
   # child of Company
   belongs_to :company
   has_many :benefit_profiles, through: :company
+  has_many :salaries
+  has_many :employee_benefits
   belongs_to :payroll_record
   has_one :employee_additional_login
 
@@ -31,11 +33,12 @@ class Employee < ActiveRecord::Base
     
     end 
     
-    # sso using Swipeclock API
-    def self.sc_login
-      
+    def display_name
+      "#{first_name} #{last_name}"
     end
     
-
+    def current_salary
+      self.salaries.where(end_date: nil).first
+    end
 
 end

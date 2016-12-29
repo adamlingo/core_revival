@@ -25,6 +25,8 @@ Rails.application.routes.draw do
 
     
     resources :employees do
+      resources :salaries
+      resources :employee_benefits
       # EmployeeFolder
       resources :folders, controller: 'employee_folders' do
         delete "delete_doc/:doc_id", to: 'employee_folders#delete_doc', as: 'delete_doc'
