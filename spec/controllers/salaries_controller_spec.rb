@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SalariesController, type: :controller do
+Rspec.describe SalariesController, type: :controller do
     # fixtures:
     
     context 'not authenticated' do
