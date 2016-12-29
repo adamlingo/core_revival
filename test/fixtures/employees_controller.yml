@@ -1,8 +1,0 @@
-employee_payload:
-        company_id: 1,
-        employee: 
-        first_name: 'Ima',
-        last_name: 'New Employee',
-        email: 'totally-fake@core-redux.com'
-        
-      

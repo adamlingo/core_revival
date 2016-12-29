@@ -66,11 +66,11 @@
   </div>
 
   <div class="field">
-    <%= f.label :sub_id %><br>
+    <%= f.label 'Subscriber ID' %><br>
     <% if current_user.manager? || current_user.admin? %>  
       <%= f.text_field :sub_id %>
     <% else %>
-      <%= f.label @employee.sub_id %>
+      <%= f.label @employee.sub_id %><br>
     <% end %>
   </div>
 
@@ -82,4 +82,8 @@
 
 
 <%= link_to 'Show', company_employee_path %> |
-<%= link_to 'Back', company_employees_path %>
+<% if current_user.manager? || current_user.admin? %>
+  <%= link_to 'Back to Employees', company_employees_path %>
+<% else %>
+  <%= link_to 'Back to Profile', company_employee_path %>
+<% end %>

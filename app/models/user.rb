@@ -32,6 +32,10 @@ class User < ActiveRecord::Base
     e = Employee.find_by(user_id: id)
     e.last_name
   end
+  
+  def current_employee
+   Employee.find_by(user_id: id)
+  end
 
   # *** This method is needed to kill an error in devise_invitable
   # that causes passwords not to be sent.

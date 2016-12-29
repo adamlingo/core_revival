@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @folder.title %></h1>
+
+<p>
+  <%= link_to "Edit folder", edit_company_folder_path %>
+  </br>
+  <%= link_to "Add document", company_folder_new_doc_path(folder_id: @folder.id) %>
+</p>
+</br>
+<p>
+  <%= attachment_image_tag(@folder, :image, :fill, 200, 200) %>
+</p>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Filename</th>
+      <th>Content type</th>
+      <th>Size</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @folder.documents.each do |document| %>
+      <tr>
+        <th><%= link_to document.file_filename, attachment_url(document, :file) %></th>
+        <th><%= document.file_content_type %></th>
+        <th><%= number_to_human_size document.file_size %></th>
+        <th><%= link_to 'delete', company_folder_delete_doc_path(folder_id: @folder.id, doc_id: document.id), data: { method: "delete", confirm: "Are you sure?" } %></th> 
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
+
+<%= simple_format @folder.description %>
+</br>
+</br>
+<p>
+  <%= link_to "RETURN TO YOUR FOLDERS", company_folders_path(current_user.company_id) %>
+</p>
+</br>
+<p>
+  <%= link_to "Delete folder", company_folder_path(folder_id: @folder.id), data: { method: "delete", confirm: "Are you sure?" }, class: "btn btn-danger" %>	
+</p>
+

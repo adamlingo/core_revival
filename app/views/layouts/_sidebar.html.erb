@@ -9,7 +9,7 @@
       <% end %>
     </li>
     <li role='presentation'>
-      <%= link_to root_path, class: 'main-nav__link' do %>
+      <%= link_to company_payroll_records_path(current_user.company_id), class: 'main-nav__link' do %>
         <span class='main-nav__icon'>
           <i class='icon pe-7s-safe'></i>
         </span>
@@ -25,7 +25,7 @@
       <% end %>
     </li>
     <li role='presentation'>
-      <%= link_to root_path, class: 'main-nav__link' do %>
+      <%= link_to company_employee_benefits_path(current_user.company_id), class: 'main-nav__link' do %>
         <span class='main-nav__icon'>
           <i class='icon pe-7s-glasses'></i>
         </span>
@@ -49,11 +49,11 @@
       <% end %>
     </li>
     <li role='presentation'>
-      <%= link_to root_path, class: 'main-nav__link' do %>
+      <%= link_to company_folders_path(current_user.company_id), class: 'main-nav__link' do %>
         <span class='main-nav__icon'>
           <i class='icon pe-7s-copy-file'></i>
         </span>
-        Files
+        Co. Documents
       <% end %>
     </li>
   </ul>

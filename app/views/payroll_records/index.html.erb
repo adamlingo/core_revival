@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Payroll Records</h1>
+
+<%= form_tag company_payroll_records_path do %>
+  <table>
+    <thead>
+      <tr>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>REG Hour</th>
+        <th>OT Hour</th>
+        <th>Other Pay</th>
+        <th>Sick</th>
+        <th>Vacation</th>
+        <th>Holiday</th>
+        <th>Memo</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @employees.each do |employee| %>
+        <tr>
+          <td><%= employee.last_name %></td>
+          <td><%= employee.first_name %></td>
+          <td><%= text_field_tag "#{employee.id}-reg_hours"  %></td>
+          <td><%= text_field_tag "#{employee.id}-ot_hours"  %></td>
+          <td><%= text_field_tag "#{employee.id}-other_pay"  %></td>
+          <td><%= text_field_tag "#{employee.id}-sick_hours"  %></td>
+          <td><%= text_field_tag "#{employee.id}-vacation_hours"  %></td>
+          <td><%= text_field_tag "#{employee.id}-holiday_hours"  %></td>
+          <td><%= text_field_tag "#{employee.id}-memo"  %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= submit_tag 'Save' %>
+<% end %>
+<br>
+

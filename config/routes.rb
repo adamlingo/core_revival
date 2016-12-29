@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  
-  # Devise login is home page based on pages#home before_filter
-
   # Root to pages/home (requires login)
   root 'pages#home'
   get  '/home', to: "pages#home", as: "home"
@@ -21,14 +18,50 @@ Rails.application.routes.draw do
 
   # make Employees editable records that belong to companies by id
   resources :companies do
+    resources :employee_benefits
+    resources :benefit_profiles
+    resources :payroll_records, only: [:index, :create] 
+    get "payroll_records/export", to: 'payroll_records#export', as: 'export'
+
+    
     resources :employees do
       resources :salaries
       resources :employee_benefits
+      # EmployeeFolder
+      resources :folders, controller: 'employee_folders' do
+        delete "delete_doc/:doc_id", to: 'employee_folders#delete_doc', as: 'delete_doc'
+        get "new_doc", to: 'employee_folders#new_doc', as: 'new_doc'
+        patch "add_doc", to: 'employee_folders#add_doc', as: 'add_doc'
+        # company_employee_folder_delete_doc DELETE     /companies/:company_id/employees/:employee_id/folders/:folder_id/delete_doc/:doc_id(.:format) employee_folders#delete_doc
+        #    company_employee_folder_new_doc GET        /companies/:company_id/employees/:employee_id/folders/:folder_id/new_doc(.:format)            employee_folders#new_doc
+        #    company_employee_folder_add_doc PATCH      /companies/:company_id/employees/:employee_id/folders/:folder_id/add_doc(.:format)            employee_folders#add_doc
+        #           company_employee_folders GET        /companies/:company_id/employees/:employee_id/folders(.:format)                               employee_folders#index
+        #                                    POST       /companies/:company_id/employees/:employee_id/folders(.:format)                               employee_folders#create
+        #        new_company_employee_folder GET        /companies/:company_id/employees/:employee_id/folders/new(.:format)                           employee_folders#new
+        #       edit_company_employee_folder GET        /companies/:company_id/employees/:employee_id/folders/:id/edit(.:format)                      employee_folders#edit
+        #            company_employee_folder GET        /companies/:company_id/employees/:employee_id/folders/:id(.:format)                           employee_folders#show
+        #                                    PATCH      /companies/:company_id/employees/:employee_id/folders/:id(.:format)                           employee_folders#update
+        #                                    PUT        /companies/:company_id/employees/:employee_id/folders/:id(.:format)                           employee_folders#update
+        #                                    DELETE     /companies/:company_id/employees/:employee_id/folders/:id(.:format)                           employee_folders#destroy
+      end
     end
-   
-    resources :benefit_profiles
     
-    
+    # Folder/CompanyFolder routes
+    resources :folders do
+      delete "delete_doc/:doc_id", to: 'folders#delete_doc', as: 'delete_doc'
+      get "new_doc", to: 'folders#new_doc', as: 'new_doc'
+      patch "add_doc", to: 'folders#add_doc', as: 'add_doc'
+      # company_folder_delete_doc DELETE     /companies/:company_id/folders/:folder_id/delete_doc/:doc_id(.:format)             folders#delete_doc
+      #    company_folder_add_doc POST       /companies/:company_id/folders/:folder_id/add_doc(.:format)                        folders#add_doc
+      #           company_folders GET        /companies/:company_id/folders(.:format)                                           folders#index
+      #                           POST       /companies/:company_id/folders(.:format)                                           folders#create
+      #        new_company_folder GET        /companies/:company_id/folders/new(.:format)                                       folders#new
+      #       edit_company_folder GET        /companies/:company_id/folders/:id/edit(.:format)                                  folders#edit
+      #            company_folder GET        /companies/:company_id/folders/:id(.:format)                                       folders#show
+      #                           PATCH      /companies/:company_id/folders/:id(.:format)                                       folders#update
+      #                           PUT        /companies/:company_id/folders/:id(.:format)                                       folders#update
+      #                           DELETE     /companies/:company_id/folders/:id(.:format)                                       folders#destroy                      
+    end
   end
   # this creates resources to have EEs and BenefitProfiles belong to companies, and are listed here:
   #                         company_employees GET        /companies/:company_id/employees(.:format)                           employees#index
@@ -55,7 +88,6 @@ Rails.application.routes.draw do
   #                                           PATCH      /companies/:id(.:format)                                             companies#update
   #                                           PUT        /companies/:id(.:format)                                             companies#update
   #                                           DELETE     /companies/:id(.:format)                                             companies#destroy
-
 
   resources :health_invoices do
     collection { post :import }

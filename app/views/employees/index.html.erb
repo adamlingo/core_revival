@@ -22,6 +22,7 @@
         <td><%= link_to 'View', company_employee_path(employee.company, employee) %></td>
         <td><%= link_to 'Edit', edit_company_employee_path(employee.company, employee) %></td>
         <td><%= link_to 'Salary/Rate', company_employee_salaries_path(employee.company, employee) %></td>
+        <td><%= link_to 'Files', company_employee_folders_path(employee.company, employee) %></td>
       </tr>
     <% end %>
   </tbody>

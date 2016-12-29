@@ -6,6 +6,7 @@ class Employee < ActiveRecord::Base
   has_many :benefit_profiles, through: :company
   has_many :salaries
   has_many :employee_benefits
+  belongs_to :payroll_record
   has_one :employee_additional_login
 
   validates_presence_of :company_id
