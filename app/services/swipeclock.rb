@@ -6,7 +6,7 @@ class Swipeclock < ActiveRecord::Base
     
     
     def ee_id_clock_in
-      ee_id_clock_in = EmployeeAdditionalLogin.find_by(employee_id: current_user.id)
+      EmployeeAdditionalLogin.find_by(employee_id: current_user.id)
     end
       
 
