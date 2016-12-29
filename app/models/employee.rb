@@ -30,6 +30,12 @@ class Employee < ActiveRecord::Base
     end
     
     end 
+    
+    # sso using Swipeclock API
+    def self.sc_login
+      
+    end
+    
 
 
 end

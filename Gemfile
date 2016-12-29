@@ -63,6 +63,7 @@ gem "refile", require: "refile/rails", :git => "https://github.com/refile/refile
 gem "refile-mini_magick"
 gem "refile-s3"
 
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'

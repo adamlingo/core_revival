@@ -19,8 +19,11 @@
     </a>
     </br></br>
   <% elsif current_user.employee? %>
-    <a href="https://www.swipeclock.com/WebClock" class="btn btn-success btn-sm" role="button">Clock in / out
-    </a>
+    <% if @token.present? %>
+      <%= link_to "Clock In/Out", @request_url, :target => '_blank' %>
+    <% else %>
+    <!--Employee Doesn't Have a Valid Timeclock ID-->
+    <% end %>
     </br></br>
   <% end %>
   
