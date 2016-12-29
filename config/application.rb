@@ -1,7 +1,8 @@
 require File.expand_path('../boot', __FILE__)
 
-require 'rails/all'
 require 'csv'
+require 'rails/all'
+
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -29,6 +30,9 @@ module CoreRedux
 
     # Configure scaffold function for Rails back to default (fix from ActiveAdmin change)
     config.app_generators.scaffold_controller = :scaffold_controller
+
+    # disable mass assignment
+    config.active_record.whitelist_attributes = true
   end
 end
 

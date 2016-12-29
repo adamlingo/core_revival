@@ -77,10 +77,23 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # BEGIN SETTING UP PRODUCTION ENV VARIABLES FOR DEVISE
-  # config.action_mailer.default_url_options = { :host => 'https://coreapp.herokuapp.com' }
-
   # SENTRY ENV variable, Heroku > Settings has DSN link
   config.dsn = ENV["SENTRY_DSN"]
+
+  # PRODUCTION ENV VARIABLES FOR MAILGUN SMTP
+  config.action_mailer.default_url_options = { :host => 'https://core-redux.herokuapp.com' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.smtp_settings = {
+    :port =>           '587',
+    :address =>        'smtp.mailgun.org',
+    :user_name =>      ENV['MAILGUN_USERNAME'],
+    :password =>       ENV['MAILGUN_PASSWORD'],
+    :domain =>         'core-redux.herokuapp.com',
+    :authentication => :plain
+  }
+  
 
 end

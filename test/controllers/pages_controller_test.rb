@@ -13,12 +13,5 @@ class PagesControllerTest < ActionController::TestCase
     # check for title consistency in <title> html:
     assert_select "title", "Home | #{@base_title}"
   end
-  # test companies controller (temp)
-  test "should get companies" do
-    get :companies_static
-    assert_response :success
-    # check for title consistency in <title> html:
-    assert_select "title", "Companies | #{@base_title}"
-  end
-
+  
 end

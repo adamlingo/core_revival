@@ -19,17 +19,59 @@
 
   <div class="field">
     <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
+    <% if current_user.manager? || current_user.admin? %>
+      <%= f.text_field :first_name %>
+    <% else %>
+      <%= f.label @employee.first_name %>
+    <% end %>
   </div>
 
   <div class="field">
     <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
+    <% if current_user.manager? || current_user.admin? %>
+      <%= f.text_field :last_name %>
+    <% else %>
+      <%= f.label @employee.last_name %>
+    <% end %>
   </div>
   
   <div class="field">
     <%= f.label :email %><br>
     <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address %><br>
+    <%= f.text_field :address %>
+  </div>
+
+  <div class="field">
+    <%= f.label :city %><br>
+    <%= f.text_field :city %>
+  </div>
+
+  <div class="field">
+    <%= f.label :state %><br>
+    <%= f.text_field :state %>
+  </div>
+
+  <div class="field">
+    <%= f.label :zip %><br>
+    <%= f.text_field :zip %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phone_number %><br>
+    <%= f.text_field :phone_number %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Subscriber ID' %><br>
+    <% if current_user.manager? || current_user.admin? %>  
+      <%= f.text_field :sub_id %>
+    <% else %>
+      <%= f.label @employee.sub_id %><br>
+    <% end %>
   </div>
 
   <div class="actions">
@@ -40,4 +82,8 @@
 
 
 <%= link_to 'Show', company_employee_path %> |
-<%= link_to 'Back', company_employees_path %>
+<% if current_user.manager? || current_user.admin? %>
+  <%= link_to 'Back to Employees', company_employees_path %>
+<% else %>
+  <%= link_to 'Back to Profile', company_employee_path %>
+<% end %>

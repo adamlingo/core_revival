@@ -1,11 +1,15 @@
 class CompaniesController < ApplicationController
-  # muted restrictions
-  # before_action :set_company, only: [:show, :edit, :update, :destroy]
-  # must be logged in
   before_filter :authenticate_user!
+  # before_filter :authorize_company! <-- private method instead here
+  before_filter :authorize_my_company!
+  before_filter :authorize_manager!
   
   def index
-    @companies = Company.all
+    if current_user.admin?
+      @companies = Company.all
+    else
+      @companies = Company.where(id: current_user.company_id)
+    end
   end
 
   def show
@@ -35,7 +39,7 @@ class CompaniesController < ApplicationController
   end
 
   # def update
-    # kill auto-generated code for update
+    
   # end
 
   def destroy
@@ -44,13 +48,18 @@ class CompaniesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_company
       @company = Company.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:name)
+      params.require(:company).permit(:name, :email, :address, :city, :state,:zip,
+                                      :phone_number, :federal_id_number, :state_wh_number,
+                                      :unemployment_number, :processor_name, :pay_frequency,
+                                      :timework_id, :timework_pass)
+    end
+
+    def authorize_my_company!
+      check_company(params[:id])
     end
 end

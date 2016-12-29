@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161011231908) do
+
+ActiveRecord::Schema.define(version: 20161118135207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,11 +96,26 @@ ActiveRecord::Schema.define(version: 20161011231908) do
     t.string   "timework_pass"
   end
 
+  create_table "company_folders", force: :cascade do |t|
+    t.integer  "company_id", null: false
+    t.integer  "folder_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "company_payroll_dates", force: :cascade do |t|
     t.string   "year"
     t.string   "pay_period"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.integer "folder_id",         null: false
+    t.string  "file_id",           null: false
+    t.string  "file_filename",     null: false
+    t.string  "file_size",         null: false
+    t.string  "file_content_type", null: false
   end
 
   create_table "employee_additional_logins", force: :cascade do |t|
@@ -121,6 +137,13 @@ ActiveRecord::Schema.define(version: 20161011231908) do
     t.string   "url"
   end
 
+  create_table "employee_folders", force: :cascade do |t|
+    t.integer  "employee_id", null: false
+    t.integer  "folder_id",   null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "employees", force: :cascade do |t|
     t.string   "name"
     t.integer  "company_id"
@@ -138,6 +161,17 @@ ActiveRecord::Schema.define(version: 20161011231908) do
     t.integer  "user_id"
     t.date     "date_of_birth"
     t.date     "date_of_hire"
+  end
+
+  create_table "folders", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "image_id"
+    t.string   "image_filename"
+    t.string   "image_content_type"
+    t.integer  "image_size"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "health_invoices", force: :cascade do |t|
@@ -166,6 +200,21 @@ ActiveRecord::Schema.define(version: 20161011231908) do
     t.string   "pay_sub_name"
     t.string   "pay_category"
     t.decimal  "deduction_amount"
+  end
+
+  create_table "payroll_records", force: :cascade do |t|
+    t.integer  "company_id"
+    t.integer  "employee_id"
+    t.decimal  "reg_hours"
+    t.decimal  "ot_hours"
+    t.decimal  "other_pay"
+    t.decimal  "sick_hours"
+    t.decimal  "vacation_hours"
+    t.decimal  "holiday_hours"
+    t.text     "memo"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "export_id"
   end
 
   create_table "reconciliations", force: :cascade do |t|
@@ -215,4 +264,9 @@ ActiveRecord::Schema.define(version: 20161011231908) do
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "company_folders", "companies"
+  add_foreign_key "company_folders", "folders"
+  add_foreign_key "documents", "folders"
+  add_foreign_key "employee_folders", "employees"
+  add_foreign_key "employee_folders", "folders"
 end
