@@ -11,9 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20161118135207) do
-
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,15 +109,6 @@ ActiveRecord::Schema.define(version: 20161118135207) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "contacts", force: :cascade do |t|
-    t.string   "full_name"
-    t.string   "email"
-    t.integer  "phone_number"
-    t.text     "address"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-  
   create_table "documents", force: :cascade do |t|
     t.integer "folder_id",         null: false
     t.string  "file_id",           null: false
@@ -289,4 +278,5 @@ ActiveRecord::Schema.define(version: 20161118135207) do
   add_foreign_key "documents", "folders"
   add_foreign_key "employee_folders", "employees"
   add_foreign_key "employee_folders", "folders"
+  add_foreign_key "salaries", "employees"
 end
