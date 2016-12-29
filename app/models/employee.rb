@@ -8,6 +8,7 @@ class Employee < ActiveRecord::Base
   has_many :employee_benefits
   belongs_to :payroll_record
   has_one :employee_additional_login
+  has_one :dependent
 
   validates_presence_of :company_id
   
