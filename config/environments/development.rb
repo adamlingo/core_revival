@@ -50,7 +50,7 @@ Rails.application.configure do
     :address =>        'smtp.mailgun.org',
     :user_name =>      ENV['MAILGUN_USERNAME'],
     :password =>       ENV['MAILGUN_PASSWORD'],
-    :domain =>         'core-redux.herokuapp.com',
+    :domain =>         'mg.myemployeesolution.com',
     :authentication => :plain
   }
 end
