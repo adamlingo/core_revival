@@ -91,7 +91,7 @@ Rails.application.configure do
     :address =>        'smtp.mailgun.org',
     :user_name =>      ENV['MAILGUN_USERNAME'],
     :password =>       ENV['MAILGUN_PASSWORD'],
-    :domain =>         'mg.myemployeesolution.com',
+    :domain =>         ENV['MAILGUN_SENDING_DOMAIN'],
     :authentication => :plain
   }
   
