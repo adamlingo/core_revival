@@ -19,11 +19,7 @@
     <% end %>
 
     <div class="content">
-      <!-- basic yield to load contents of each page in layout -->
-      <%= yield %>
-      <% flash.each do |message_type, message| %>
-        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
-      <% end %> 
+      <%= yield %> 
     </div>
     <!--
     <div class="content">
