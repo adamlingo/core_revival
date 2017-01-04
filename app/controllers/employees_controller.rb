@@ -3,6 +3,7 @@ class EmployeesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :authorize_company!
   before_filter :authorize_manager!, except: [:show, :edit, :update]
+  before_filter :authorize_manager_or_self!, only: [:show, :edit, :update]
 
   def index
     # only show all Employees of selected company
@@ -109,5 +110,16 @@ class EmployeesController < ApplicationController
     def employee_params
       params.require(:employee).permit(:company_id, :first_name, :last_name,
          :email, :address, :city, :state, :zip, :phone_number, :user_id, :sub_id)
+    end
+
+    def authorize_manager_or_self!
+      unless current_user.admin? || current_user.manager? || employee_is_current_user?
+        redirect_to root_path
+        flash[:error] = "You do not have permission to view page"
+      end
+    end
+
+    def employee_is_current_user?
+      current_user.employee_id == params[:id].to_i
     end
 end
