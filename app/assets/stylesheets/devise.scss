@@ -1,6 +1,6 @@
 @import "colors";
 
-body.devise-sessions, body.devise-passwords, body.devise-registrations, body.devise-invitations, body.company_setup, body.users-registrations {
+body.devise-sessions, body.devise-passwords, body.devise-registrations, body.devise-invitations, body.users-registrations {
   background: $grey-dark;
   .login-page, .forgot-password, .signup-page, .change-password {
     margin-top: 110px;
