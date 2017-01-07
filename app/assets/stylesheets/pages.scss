@@ -229,43 +229,6 @@ h1{
   overflow: hidden;
 }
 
-/* line 545, ../sass/partials/_layout.scss */
-.user {
-  width: 100%;
-  border-bottom: 1px solid #e5e5e5;
-  padding: 20px 25px;
-  position: relative;
-}
-/* line 550, ../sass/partials/_layout.scss */
-.user > .media-body {
-  padding-right: 50px;
-  padding-top: 4px;
-}
-
-/* line 555, ../sass/partials/_layout.scss */
-.user__img {
-  width: 42px;
-  height: 42px;
-  margin-right: 26px !important;
-  /* BS3 */
-}
-
-/* line 559, ../sass/partials/_layout.scss */
-.user__name {
-  font-size: 15px;
-  color: #444;
-}
-/* line 562, ../sass/partials/_layout.scss */
-.user--added .user__name {
-  color: #66cccc;
-}
-
-/* line 566, ../sass/partials/_layout.scss */
-.user__location {
-  font-size: 12px;
-  color: #c8c8c8;
-}
-
 /* line 572, ../sass/partials/_layout.scss */
 .accordion__details {
   max-height: 0;
