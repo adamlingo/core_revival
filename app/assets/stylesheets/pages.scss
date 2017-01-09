@@ -223,44 +223,35 @@ h1{
   overflow: auto;
 }
 
-/* line 485, ../sass/partials/_layout.scss */
+/*  CURRENTLY IN HEADER */
 .rounded-image {
   border-radius: 50%;
   overflow: hidden;
 }
 
-/* line 721, ../sass/partials/_layout.scss */
 .profile__name {
-  font-size: 14px;
+  font-size: 16px;
 }
 
-/* line 725, ../sass/partials/_layout.scss */
 .profile {
   position: absolute;
   right: 0;
   top: 0;
-  color: #9a9a9a;
+  color: $grey;
   padding-right: 90px;
 }
-/* line 731, ../sass/partials/_layout.scss */
+/* AFFECTS LOG OUT LINK */
 .profile li {
   display: inline-block;
   vertical-align: middle;
   position: relative;
 }
-/* line 736, ../sass/partials/_layout.scss */
+
 .profile i {
   font-size: 24px;
   vertical-align: middle;
 }
-.profile .dropdown-menu i{
-  font-size: 14px;
-}
-/* line 740, ../sass/partials/_layout.scss */
-.profile i.pe-7s-angle-down {
-  font-weight: bold;
-}
-/* line 743, ../sass/partials/_layout.scss */
+
 .profile a {
   display: inline-block;
   vertical-align: middle;
@@ -276,60 +267,17 @@ h1{
   -o-transition: background-color 0.3s;
   transition: background-color 0.3s;
 }
-/* line 753, ../sass/partials/_layout.scss */
+
 .profile a:hover {
   background-color: rgba(255, 255, 255, 0.05);
 }
-/* line 758, ../sass/partials/_layout.scss */
-.profile .dropdown-menu {
-  box-shadow: none;
-  border-radius: 0;
-  background-color: #444444;
-  margin: 0;
-  border: 0;
-  padding: 0;
-}
-/* line 765, ../sass/partials/_layout.scss */
-.profile .dropdown-menu a {
-  color: #9a9a9a;
-  padding: 15px;
-  padding-right: 59px;
-  height: auto;
-}
-/* line 770, ../sass/partials/_layout.scss */
-.profile .dropdown-menu a:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-  color: white;
-}
-/* line 775, ../sass/partials/_layout.scss */
-.profile .dropdown-menu li {
-  display: block;
-}
-/* line 778, ../sass/partials/_layout.scss */
-.profile .dropdown-menu i {
-  margin-right: 5px;
-}
 
-/* line 783, ../sass/partials/_layout.scss */
 .profile__user {
   line-height: 72px;
   color: #9a9a9a;
   font-size: 14px;
 }
-.profileLarge__user {
-  line-height: 100px;
-  color: #9a9a9a;
-  font-size: 18px;
-  padding-right:10px;
-  border-right:1px solid #9a9a9a;
-}
-.profileLarge__userTitle {
-  line-height: 100px;
-  color: #9a9a9a;
-  font-size: 18px;
-  padding-left:10px;
-}
-/* line 787, ../sass/partials/_layout.scss */
+
 .profile__user:hover {
   color: inherit;
 }
@@ -352,10 +300,10 @@ h1{
 
 /* line 807, ../sass/partials/_layout.scss */
 .profile__img {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   margin-top: 15px;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 .media-object{
   display: block;
