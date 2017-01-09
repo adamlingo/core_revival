@@ -281,24 +281,22 @@ h1{
 .profile__user:hover {
   color: inherit;
 }
-/* line 790, ../sass/partials/_layout.scss */
+
 .profile__user i {
   font-size: 18px;
   margin-left: 10px;
   vertical-align: middle;
 }
 
-/* line 798, ../sass/partials/_layout.scss */
 .profile__name span {
   font-family: "open_sansbold";
   color: white;
 }
-/* line 802, ../sass/partials/_layout.scss */
+
 .profile__name i {
   margin-left: 5px;
 }
 
-/* line 807, ../sass/partials/_layout.scss */
 .profile__img {
   width: 45px;
   height: 45px;
@@ -308,23 +306,6 @@ h1{
 .media-object{
   display: block;
   max-width: 100%;
-}
-.profileLarge__img {
-  width: 100px;
-  height: 100px;
-  margin-right: 10px;
-}
-
-/* line 814, ../sass/partials/_layout.scss */
-.profile--higlighted a {
-  color: white;
-}
-
-/* line 819, ../sass/partials/_layout.scss */
-.profile__badge {
-  position: absolute;
-  right: 6px;
-  top: 18px;
 }
 
 /* line 825, ../sass/partials/_layout.scss */
