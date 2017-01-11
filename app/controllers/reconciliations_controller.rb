@@ -1,80 +1,93 @@
 class ReconciliationsController < ApplicationController
-  before_action :set_reconciliation, only: [:show, :edit, :update, :destroy]
 
-  # GET /reconciliations
-  # GET /reconciliations.json
   def index
-    @reconciliations = Reconciliation.all
+    helper_attributes = {
+      company_id: params[:company_id],
+      month: params[:month],
+      year: params[:year]      
+    }
+
+    @helper = ReconciliationHelper.new(helper_attributes)
+    if @helper.valid? && @helper.check_for_records!
+      flash[:info] = 'Ready to calculate reconciliations!'
+    else
+      flash[:error] = "Unable to process reconciliations: #{@helper.errors.full_messages.to_sentence}"
+    end
+
+    @health_invoices = []
+    @payroll_deductions = []
   end
 
   def calculate
-    company_id = 3
-    @reconciliations = Reconciliation.do_it(company_id)
-
-  end
-  
-  # GET /reconciliations/1
-  # GET /reconciliations/1.json
-  def show
-  end
-
-  # GET /reconciliations/new
-  def new
-    @reconciliation = Reconciliation.new
-  end
-
-  # GET /reconciliations/1/edit
-  def edit
-  end
-
-  # POST /reconciliations
-  # POST /reconciliations.json
-  def create
-    @reconciliation = Reconciliation.new(reconciliation_params)
-
-    respond_to do |format|
-      if @reconciliation.save
-        format.html { redirect_to @reconciliation, notice: 'Reconciliation was successfully created.' }
-        format.json { render :show, status: :created, location: @reconciliation }
+    calculator_attributes = {
+      company_id: params[:company_id],
+      month: params[:month],
+      year: params[:year]
+    }
+    @helper = ReconciliationHelper.new(calculator_attributes)
+    if @helper.valid? && @helper.check_for_records!
+      flash[:error] = ''
+      calculator = ReconciliationCalculator.new(calculator_attributes)
+      if calculator.valid? && calculator.calculate!
+        flash[:info] = 'Reconciliations calculated!'
+        flash[:error] = ''
+        @reconciliations = calculator.reconciliations
       else
-        format.html { render :new }
-        format.json { render json: @reconciliation.errors, status: :unprocessable_entity }
+        flash[:error] = "Unable to process reconciliations: #{calculator.errors.full_messages.to_sentence}"
+        redirect_to company_index_url(calculator_attributes)
       end
+    else
+      flash[:error] = "Unable to process reconciliations: #{@helper.errors.full_messages.to_sentence}"
+      redirect_to company_index_url(calculator_attributes)
     end
   end
 
-  # PATCH/PUT /reconciliations/1
-  # PATCH/PUT /reconciliations/1.json
-  def update
-    respond_to do |format|
-      if @reconciliation.update(reconciliation_params)
-        format.html { redirect_to @reconciliation, notice: 'Reconciliation was successfully updated.' }
-        format.json { render :show, status: :ok, location: @reconciliation }
-      else
-        format.html { render :edit }
-        format.json { render json: @reconciliation.errors, status: :unprocessable_entity }
-      end
+  def import_health_invoices
+    importer_attributes = {
+      company_id: params[:company_id],
+      month: params[:month],
+      year: params[:year]      
+    }
+    importer = HealthInvoicesImporter.new(importer_attributes)
+
+    upload_file = params[:file]
+
+    if importer.valid? && importer.import!(upload_file)
+      message = "Health invoices imported successfully!"
+      flash[:info] = message
+    else
+      message = "Unable to import health invoices: #{importer.errors.full_messages.to_sentence}"
+      flash[:error] = message
     end
+
+    redirect_to company_index_url(importer_attributes), notice: message
   end
 
-  # DELETE /reconciliations/1
-  # DELETE /reconciliations/1.json
-  def destroy
-    @reconciliation.destroy
-    respond_to do |format|
-      format.html { redirect_to reconciliations_url, notice: 'Reconciliation was successfully destroyed.' }
-      format.json { head :no_content }
+  def import_payroll_deductions
+    importer_attributes = {
+      company_id: params[:company_id],
+      month: params[:month],
+      year: params[:year]      
+    }
+    importer = PayrollDeductionsImporter.new(importer_attributes)
+
+    upload_file = params[:file]
+
+    if importer.valid? && importer.import!(upload_file)
+      message = "Payroll deductions imported successfully!"
+      flash[:info] = message
+    else
+      message = "Unable to import payroll deductions: #{importer.errors.full_messages.to_sentence}"
+      flash[:error] = message
     end
+
+    redirect_to company_index_url(importer_attributes)
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_reconciliation
-      @reconciliation = Reconciliation.find(params[:id])
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def reconciliation_params
-      params.fetch(:reconciliation, {})
+      params.permit(:company_id)
     end
+
 end

@@ -53,6 +53,8 @@ gem 'sentry-raven'
 gem 'rest-client'
 gem 'mailgun-ruby'
 
+# resource model
+gem 'resource_model'
 
 # jwt for swipeclock sso api
 gem 'jwt'
@@ -62,7 +64,6 @@ gem 'jwt'
 gem "refile", require: "refile/rails", :git => "https://github.com/refile/refile"
 gem "refile-mini_magick"
 gem "refile-s3"
-
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views

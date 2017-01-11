@@ -5,9 +5,21 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
+demo_employee:
+  employee_category: 'Employee'
+  benefit_category: 'my-benefit-cat'
+  benefit_method: 'FIXED'
+  benefit_amount: 100
+  benefit_profile_id: 1
+  category_sub: 100
+  category_dep: 80
+  category_sps: 0
+  category_ch_pls_one: 0
+  category_sps_pls_one: 0
+  employee_tier: 'SUB'
 
-demo:
-  employee_category: 1
+demo_owner:
+  employee_category: 'Owner'
   benefit_category: 'my-benefit-cat'
   benefit_method: 'FIXED'
   benefit_amount: 100
@@ -20,17 +32,14 @@ demo:
   employee_tier: 'SUB'
 
 example:
-  employee_category: 1
+  employee_category: 'Employee'
   benefit_category: 'my-benefit-cat'
   benefit_method: '%'
   benefit_amount: 80
-  benefit_profile_id: 1
-  category_sub: 1
-  category_dep: 1
+  benefit_profile_id: 3
+  category_sub: 80
+  category_dep: 50
   category_sps: 1
   category_ch_pls_one: 1
   category_sps_pls_one: 1
   employee_tier: 'SUB'
-
-#two: {}
-#  column: value

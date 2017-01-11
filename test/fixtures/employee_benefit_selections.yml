@@ -1,0 +1,14 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  employee_id: 1
+  benefit_type: MyString
+  decline_benefit: false
+  benefit_detail_id: 1
+
+two:
+  employee_id: 1
+  benefit_type: MyString
+  decline_benefit: false
+  benefit_detail_id: 1

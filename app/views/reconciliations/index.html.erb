@@ -1,27 +1,80 @@
+<% content_for :head do %>
+<!--   <%= csrf_meta_tag %> -->
+<% end %>
 <p id="notice"><%= notice %></p>
 
 <h1>Skeleton Test - Reconciliation</h1>
 </br>
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <div class="form-group">
-    <%= button_to 'Reconcile', calculate_reconciliations_path %>
+<h2>Reconcile it!</h2>
+
+<%= form_tag company_calculate_path, class: 'form-inline' do %>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+  <div class="field">
+    <%= label_tag :month -%><br>
+    <%= text_field_tag :month, @helper.month -%>
+  </div>
+  <div class="field">
+    <%= label_tag :year -%><br>
+    <%= text_field_tag :year, @helper.year -%>
   </div>
 
-  <tbody>
-    <% @reconciliations.each do |r| %>
-      <tr>
+  <div class="form-group">
+    <%= submit_tag "Calculate Reconciliation", class: 'btn btn-info' %>
+  </div>
 
-        <td><%= link_to 'Show', reconciliation %></td>
-        <td><%= link_to 'Edit', edit_reconciliation_path(reconciliation) %></td>
-        <td><%= link_to 'Destroy', reconciliation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% end %>
+
+<hr>
+
+<h2>Health Invoices</h2>
+<%= form_tag company_import_health_invoices_path, multipart: true, remote: true, class: 'form-inline' do %>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+  <div class="field">
+    <%= label_tag :month -%><br>
+    <%= text_field_tag :month, @helper.month -%>
+  </div>
+  <div class="field">
+    <%= label_tag :year -%><br>
+    <%= text_field_tag :year, @helper.year -%>
+  </div>
+
+  <div class="form-group">
+    <%= file_field_tag :file, class: '' %>
+  </div>
+  
+  <div class="form-group">
+    <%= submit_tag "Import Health Invoices CSV", class: 'btn btn-info' %>
+  </div>
+
+<% end %>
+
+<!-- health invoices -->
+<!--  render 'import_health_invoices' -->
+<div id='import_health_invoices' style='display:none;'></div>
+
+
+<hr>
+
+<h2>Payroll Deductions</h2>
+<%= form_tag company_import_payroll_deductions_path, multipart: true, remote: true, class: 'form-inline' do %>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+  <div class="field">
+    <%= label_tag :month -%><br>
+    <%= text_field_tag :month, @helper.month -%>
+  </div>
+  <div class="field">
+    <%= label_tag :year -%><br>
+    <%= text_field_tag :year, @helper.year -%>
+  </div>
+
+  <div class="form-group">
+    <%= file_field_tag :file, class: '' %>
+  </div>
+  
+  <div class="form-group">
+    <%= submit_tag "Import Payroll Deductions CSV", class: 'btn btn-info' %>
+  </div>
+
+<% end %>
 

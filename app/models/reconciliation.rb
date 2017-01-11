@@ -1,215 +1,175 @@
-class Reconciliation < ActiveRecord::Base
-
 # for each employee, using defined terms below, reconcile the health_invoice amount to
 # the total company amount
+class Reconciliation < ActiveRecord::Base
 
-#employees.each do |ee, dif|
-    #puts "#{ee} and #{diff}"
-#end
-    # in the controller
-    # @rows = Reconciliation.do_it(company_id)
-    # then in the view iterate over the @rows variable and display the rows.
+    def initialize(company_id, month, year)
+        @company_id = company_id
+        @company = Company.find(company_id)
+        @month = month
+        @year = year
+        @payroll_periods = PayrollPeriod.where(month: @month, year: @year, company_id: @company_id)
+        @num_payroll_periods = @payroll_periods.count
+        if @num_payroll_periods == 0
+            @pay_period = 'N/A'
+        else
+            @pay_period = @payroll_periods[0].pay_period
+        end
 
-    def self.do_it(company_id = 3)
-        company = Company.find(company_id)
-        results = []
+    end
 
-        employees = Employee.where(company_id: company.id)
+    def calculate
+        results = find_invoices_without_matching_employee
+        results.push("No payroll periods for month:  #{@month}, year: #{@year}, company_id: #{@company_id}") if @payroll_periods.empty?
+
+        employees = @company.employees
 
         employees.each {|employee|
-          diff = compute_employee(employee)
-          results.push("#{employee.last_name}, #{employee.first_name} Difference: #{diff}")
+          if (employee.sub_id.present?)
+              diff = calculate_diff(employee)
+              if diff.is_a?(Array)
+                  results.push("#{employee.last_name}, #{employee.first_name} - Annualized: #{diff[0]}; Monthly: #{diff[1]}")
+              else
+                  results.push("#{employee.last_name}, #{employee.first_name} - #{diff}")
+              end
+          else
+              results.push("#{employee.last_name}, #{employee.first_name} -  Employee.sub_id is not set!")
+          end
         }
         results
     end
 
-    def self.compute_employee(employee)
-        # this grabs every invoice row the specific employee
-        emp_invoices = HealthInvoice.where(health_sub_id: employee.sub_id)
-
-        # this grabs every payroll row the specific employee
-        emp_payroll_deduction = PayrollDeduction.where(pay_sub_id: employee.sub_id).first
-
-        # benefit details for the employee
-        benefit_detail = employee_benefit_detail(employee)
-
-        # sub totals
-        sub_invoice_total = health_invoice_sub(emp_invoices)
-
-        # dependent totals
-        dep_invoice_total = health_invoice_dep(emp_invoices)
-
-        # employee deduction
-        emp_deduction_amount = ee_deduct_amount(benefit_detail, emp_payroll_deduction)
-
-        # employer contribution/pay
-        employer_contribution = er_pay_sub(benefit_detail, sub_invoice_total) + er_pay_dep(benefit_detail, dep_invoice_total)
-
-        # get the ee_deduction_converted
-        # employee_contribution = ee_deduction_converted(employee, company)
-        #employee_contribution = 50.00
-        # puts "emp_payroll_deduction:#{emp_payroll_deduction}"
-        # puts "employer_contribution:#{employer_contribution}"
-        # puts "emp_deduction_amount:#{emp_deduction_amount}"
-        # puts "sub_invoice_total:#{sub_invoice_total}"
-        # puts "dep_invoice_total:#{dep_invoice_total}"
-
-        emp_deduction_amount + employer_contribution - sub_invoice_total - dep_invoice_total
+    def self.do_it(company_id, month, year)
+        puts "reconciliation -- company_id: #{company_id}; month: #{month}; year: #{year}"
+        reconciliation = Reconciliation.new(company_id, month, year)
+        reconciliation.calculate
     end
 
-    def self.employee_benefit_detail(employee)
-        BenefitDetail.where(employee_id: employee.id).first
-    end
+    private
 
+        def calculate_diff(employee)
 
-    # lookup health invoice for subscriber
-    # need date validation
+            emp_invoices = HealthInvoice.where(health_sub_id: employee.sub_id, month: @month, year: @year)
+            return "No Invoices for month: #{@month} year: #{@year}" if emp_invoices.nil? || emp_invoices.count == 0
 
-    def self.health_invoice_sub(emp_invoices)
-        #HealthInvoice.where(tier: "SUB").sum(:total_charges)
-        total = 0
-        emp_invoices.each {|inv|
-            total += inv.total_charges if inv.tier == 'SUB'
-        }
-        total
-    end
+            # this grabs every payroll row for the specific employee for the specific month/year
+            emp_payroll_deduction = PayrollDeduction.where(pay_sub_id: employee.sub_id, month: @month, year: @year).sum(:deduction_amount)
 
-    # lookup health invoice for dependent
-    # need date validation
+            # get the account number from the invoices
+            insurance_account_number = emp_invoices[0].account_number
 
-    def self.health_invoice_dep(emp_invoices)
-        #health_invoice_dep = Health_invoice.where(tier: "DEP").sum(:total_charges)
-        total = 0
-        emp_invoices.each {|inv|
-            total += inv.total_charges if inv.tier == 'DEP'
-        }
-        total
-    end
+            # benefit details for the employee
+            benefit_selection = employee_benefit_selection(insurance_account_number, employee)
+            return 'benefit declined' if benefit_selection.decline_benefit
 
-    # define ee category
-    def ee_category
+            benefit_detail = BenefitDetail.find(benefit_selection.benefit_detail_id)
 
-        employee.employee_category
-    end
+            # this is the actual amount payroll deducted
+            employee_contribution = emp_payroll_deduction
 
+            sub_invoice_total = health_invoice_sub_charges(emp_invoices)
+            dep_invoice_total = health_invoice_dep_charges(emp_invoices)
 
-    # defin employer pay for subscriber
-    def self.er_pay_sub(employee_benefit_detail, sub_invoice_total)
-      
-        if employee_benefit_detail.benefit_method == 'FIXED'
-            er_pay_sub = employee_benefit_detail.category_sub
-        else
-            er_pay_sub = employee_benefit_detail.category_sub * sub_invoice_total  
-        end
-    end
+            # employer contributions
+            employer_contribution_subscriber = employer_contribution_sub(benefit_detail, sub_invoice_total)
+            employer_contribution_dependent = employer_contribution_dep(benefit_detail, dep_invoice_total)
+            employer_contribution =  employer_contribution_subscriber + employer_contribution_dependent
 
-    # er_pay_dep employer pay for dependents
-    def self.er_pay_dep(employee_benefit_detail, dep_invoice_total)
-        
-        if employee_benefit_detail.benefit_method == 'FIXED'
-            employee_benefit_detail.category_dep
-        else
-            employee_benefit_detail.category_dep * dep_invoice_total
-        end
-    end
+            # We expect only one insurance invoice per month.
+            # We also expect only one payroll deduction report per month.
+            # However payroll deductions could be up to 5 payments aggregated!
+            # So we need to annualize the pay deductions to compare against the monthly invoice rates
+            # So we need to look at the number of payroll periods to know how to annualize a monthly deduction
 
-    # #  ee_deduct_amount
-    def self.ee_deduct_amount(employee_benefit_detail, payroll_deduction)
-        case employee_benefit_detail.employee_tier
-        when 'SUB', 'SPS', 'CH1', 'SPS1'
-            payroll_deduction.deduction_amount
-        else
-            0
+            # Ultimately for a given month the difference should be zero.
+            # but it might also be worth annualizing both the monthly invoice and payroll deduction and reporting those differences...
+            invoice_total = sub_invoice_total + dep_invoice_total
+            sum_total = emp_invoices.sum(:total_charges)
+            raise StandardError.new ("Totals do not match for sub_id #{employee.sub_id}: invoice_total: #{invoice_total}; sum_total: #{sum_total}") if invoice_total != sum_total
+            expected_monthly_deduction_for_invoice = InvoiceConverter.new(invoice_total, @num_payroll_periods, @payroll_periods[0].pay_period).to_monthly_expected_amount
+
+            annualizer = PayrollAnnualizer.new(invoice_total, employee_contribution, employer_contribution, @num_payroll_periods, @pay_period)
+            monthly_diff = (employee_contribution + employer_contribution) - expected_monthly_deduction_for_invoice
+
+            puts "-----------------------------------------------"
+            puts "#{employee.last_name}, #{employee.first_name}"
+            puts "employee subscriber_id: #{employee.sub_id}"
+            puts "num_payroll_periods: #{@num_payroll_periods}"
+            puts "pay_period: #{@pay_period}"
+            puts "invoice_total: #{invoice_total.truncate(2)}"
+            puts "sub_invoice_total: #{sub_invoice_total.truncate(2)}"
+            puts "dep_invoice_total: #{dep_invoice_total.truncate(2)}"
+            puts "employer_contribution total: #{employer_contribution.truncate(2)}"
+            puts "employer_contribution_subscriber: #{employer_contribution_subscriber.truncate(2)}"
+            puts "employer_contribution_dependent: #{employer_contribution_dependent.truncate(2)}"
+            puts "employee_contribution: #{employee_contribution.truncate(2)}"
+            puts "expected_monthly_deduction_for_invoice: #{expected_monthly_deduction_for_invoice.truncate(2)}"
+            puts "monthly_diff => (employer_contribution + employee_contribution) - expected_monthly_deduction_for_invoice: #{monthly_diff.truncate(2)}"
+            puts "annualizer.annualized_invoice_amount: #{annualizer.annualized_invoice_amount.truncate(2)}"
+            puts "annualizer.annualized_employer_contribution: #{annualizer.annualized_employer_contribution.truncate(2)}"
+            puts "annualizer.annualized_employee_contribution: #{annualizer.annualized_employee_contribution.truncate(2)}"
+            puts "annualizer.annualized_diff => (annualizer.annualized_employee_contribution + annualizer.annualized_employer_contribution) - annualizer.annualized_invoice_amount: #{annualizer.annualized_diff.truncate(2)}"
+            puts "-----------------------------------------------"
+
+            [annualizer.annualized_diff.truncate(2), monthly_diff.truncate(2)]
         end
 
-        
-        # # if employee(:subscriber_id).valid?
-        # #     @ee_deduct_amount = ""
-        
-        #      # if employee.employee_category == "NO MATCH"
-        #         if employee.tier == "SUB" || employee.tier == "SPS" || employee.tier == "CH1" || employee.tier == "SPS1"
-        #             ee_deduct_amount = Payroll_deduction.where().sum(:deduction_amount) 
-        #             # pay_sub_id ?  How to lookup in above call?
-        #         else
-        #             ee_deduct_amount = "N/A-DEPENDENT"
-        #         end
-                
-        #     # else 
-                
-        #     #     ee_deduct_amount = "NO MATCH"
-    end
+        def employee_benefit_selection(insurance_account_number, employee_id)
+            benefit_profiles = @company.benefit_profiles.where(account_number: insurance_account_number)
+            raise StandardError.new("No benefit_profiles found for insurance_account_number: #{insurance_account_number}") if benefit_profiles.count == 0
+            raise StandardError.new("Should only have one benefit_profiles for a given insurance_account_number: #{insurance_account_number}") if benefit_profiles.count != 1
 
-    #  ee_deduct_converted payroll.number from csv import
-    def ee_deduction_converted(company)
-            if payroll.number == 1 || payroll.number == 2 && company.pay_frequency == "Monthly" or "Semi-Monthly"
-             ee_deduct_amount
-             
-            elsif payroll.number == 2 && company.pay_frequency == "Bi-Weekly"
-             ee_deduct_amount / 2 * 26 / 12
-             
-            elsif payroll.number == 3 && company.pay_frequency == "Bi-Weekly"
-             ee_deduct_amount / 3 * 26 / 12
-             
-            elsif payroll.number == 4 && company.pay_frequency == "Weekly"
-             ee_deduct_amount / 4 * 52 / 12
-             
-            elsif payroll.number == 5 && company.pay_frequency == "Weekly"
-             ee_deduct_amount / 5 * 52 / 12
-             
+            benefit_profile = benefit_profiles.first
+            benefit_selections = EmployeeBenefitSelection.where(employee_id: employee_id, benefit_type: benefit_profile.benefit_type)
+
+            raise StandardError.new("No benefit_selection found for employee id: #{employee_id} insurance_account_number: #{insurance_account_number} benefit_type: #{benefit_profile.benefit_type}") if benefit_selections.count == 0
+            raise StandardError.new("Should only have one benefit_selection for a given employee id: #{employee_id} insurance_account_number: #{insurance_account_number} benefit_type: #{benefit_profile.benefit_type}") if benefit_selections.count != 1
+            benefit_selections.first
+        end
+
+        def health_invoice_sub_charges(emp_invoices)
+            total = BigDecimal.new("0.0")
+            emp_invoices.each {|inv|
+                total += inv.total_charges if inv.tier == 'SUB'
+            }
+
+            total
+        end
+
+        def health_invoice_dep_charges(emp_invoices)
+            total = BigDecimal.new("0.0")
+            emp_invoices.each {|inv|
+                total += inv.total_charges if inv.tier != 'SUB'
+            }
+
+            total
+        end
+
+        def employer_contribution_sub(employee_benefit_detail, sub_invoice_total)
+          
+            if employee_benefit_detail.benefit_method == 'FIXED'
+                employee_benefit_detail.category_sub
             else
-              ee_deduction_converted = ee_deduct_amount
+                employee_benefit_detail.category_sub * sub_invoice_total  
             end
-    end
+        end
 
-
-    # #  total_co_amount
-    # #  Still need to address situation where er pays portion of dependent coverage
-    def total_co_amount(employee)
-        
-        # if employee(:subscriber_id).valid?
-        #     @total_co_amount = ""
-        # else
-            if employee.employee_tier != "DEP"
-                total_co_amount = (ee_deduction_converted + er_pay_sub)
+        def employer_contribution_dep(employee_benefit_detail, dep_invoice_total)
+            # for now we are assuming all dependents are treated the same (so we're ignoring the other columns on the table for now)
+            if employee_benefit_detail.benefit_method == 'FIXED'
+                employee_benefit_detail.category_dep
             else
-                if employee.employee_tier == "DEP"
-                    total_co_amount = "0"  #what about company pay of dep?
-                else
-                    total_co_amount = "NO MATCH"
+                employee_benefit_detail.category_dep * dep_invoice_total
+            end
+        end
+
+        def find_invoices_without_matching_employee
+            info = []
+            HealthInvoice.where(month: @month, year: @year, tier: 'SUB').each {|inv|
+                emp = Employee.find_by(sub_id: inv.health_sub_id, company_id: @company_id)
+                if emp.nil?
+                    info.push("Employee not found! Name: #{inv.sub_name}; subscriber id: #{inv.health_sub_id}")
                 end
-            end
-    end
-
-    # # Difference of total company amount and health invoice amount
-    def difference
-            difference = health_invoice - total_co_amount  #need insurance.amount updated with csv reference
-            puts difference
-    end
-
-
+            }
+            info
+        end
 end
-
-# #  er_pay_amount
-
-# def er_pay_amount
-    
-    # # if employee(:subscriber_id).valid?
-    # #     @er_pay_amount = ""
- 
-    #     if ee_category.null?
-            
-    #         er_pay_amount == "NO MATCH"
-           
-    #         else if employee.benefit_method == "%"
-#                 er_pay_amount = employee.category_sub * ee_invoice_amount
-#             else
-#                 er_pay_amount = employee.category_sub 
-#                 # need to update with dep er amount
-#             end
-        
-#         end
-        
-#     er_pay_amount
-    
-# end
-# #  er_pay employer pay for subscriber

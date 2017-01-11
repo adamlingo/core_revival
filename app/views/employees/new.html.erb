@@ -1,3 +1,4 @@
+
 <h1>Add New Employee</h1>
 </br>
 <%= form_for @employee, :url => company_employees_path(@company) do |f| %>
@@ -38,5 +39,6 @@
 
 <% end %>
 
+<hr>
 
 <%= link_to 'Back', company_employees_path %>

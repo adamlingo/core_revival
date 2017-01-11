@@ -4,4 +4,7 @@ class BenefitDetail < ActiveRecord::Base
   
   validates_presence_of :benefit_profile_id
   
+  def to_s
+    "id: #{self.id}\n"
+  end
 end

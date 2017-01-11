@@ -18,13 +18,17 @@ Rails.application.routes.draw do
 
   # make Employees editable records that belong to companies by id
   resources :companies do
-    resources :employee_benefits
     resources :benefit_profiles
     resources :payroll_records, only: [:index, :create] 
     get "payroll_records/export", to: 'payroll_records#export', as: 'export'
 
-    
+    get 'reconciliations', to: 'reconciliations#index', as: :index
+    post 'reconciliations/calculate', to: 'reconciliations#calculate', as: :calculate
+    post 'reconciliations/import_health_invoices', to: 'reconciliations#import_health_invoices', as: :import_health_invoices
+    post 'reconciliations/import_payroll_deductions', to: 'reconciliations#import_payroll_deductions', as: :import_payroll_deductions
+
     resources :employees do
+      resources :employee_benefit_selections
       resources :salaries
       resources :employee_benefits
       # EmployeeFolder
@@ -118,11 +122,6 @@ Rails.application.routes.draw do
   #                                           DELETE     /payroll_deductions/:id(.:format)                                    payroll_deductions#destroy
 
 
-  resources :reconciliations do 
-    collection do
-      post :calculate
-    end
-  end
 
   
    # default route syntax at bottom instead of get... will match if all other routes fail

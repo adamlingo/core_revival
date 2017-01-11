@@ -10,14 +10,8 @@ class HealthInvoice < ActiveRecord::Base
     end
   end
 
-  def self.import(file, filename = nil)
-    puts "filename: #{filename}"
-    # puts "file.path: #{file.path}"
-    # invoice_date = HealthInvoice.convert_to_date(File.basename(file.path))
-    # puts "invoice_date: #{invoice_date}"
-    # puts "invoice_date month: #{invoice_date.month}"
-    # puts "invoice_date year: #{invoice_date.year}"
-
+  def self.import_by_month_and_year(file, month, year)
+    health_invoices = []
     # Check dups by parsing to billing profile ID and year/month 
     CSV.foreach(file.path, headers: true) do |row|
       health_invoice_hash = row.to_hash
@@ -26,19 +20,36 @@ class HealthInvoice < ActiveRecord::Base
       current_charges = HealthInvoice.convert_to_decimal(health_invoice_hash['CurrentCharges'])
       total_charges = HealthInvoice.convert_to_decimal(health_invoice_hash['TotalCharges'])
 
-      health_invoice = find_or_create_by!(account_number: health_invoice_hash['Account'],
-                                          billing_profile: health_invoice_hash['BillingProfile'],
-                                          category: health_invoice_hash['Category'],
+      health_invoice = find_or_create_by!(account_number: health_invoice_hash['Account'].to_i.to_s,
+                                          billing_profile: health_invoice_hash['BillingProfile'].to_i.to_s,
+                                          category: health_invoice_hash['Category'].to_i.to_s,
                                           product: health_invoice_hash['Product'],
-                                          health_sub_id: health_invoice_hash['Subscriber ID'],
+                                          health_sub_id: health_invoice_hash['Subscriber ID'].to_i.to_s,
                                           sub_name: health_invoice_hash['Subscriber Name'],
                                           tier: health_invoice_hash['Tier'],
                                           change_reason: health_invoice_hash['Change Reason'],
                                           retro_fee_adjustment: retro_fee_adjustment,
                                           current_charges: current_charges,
-                                          total_charges: total_charges)
+                                          total_charges: total_charges,
+                                          month: month,
+                                          year: year)
       health_invoice.save!
+      health_invoices << health_invoice
     end
+    health_invoices
+  end
+
+  def self.import(file)
+    if (file.respond_to?(:original_filename)) # .original_filename.present?)
+      filename = file.original_filename
+    else
+      filename = File.basename(file.path)
+    end
+    puts "filename: #{filename}"
+
+    invoice_date = HealthInvoice.convert_to_date(filename)
+    puts "invoice_date: #{invoice_date}"
+    HealthInvoice.import_by_month_and_year(file, invoice_date.month, invoice_date.year)
   end
 
   

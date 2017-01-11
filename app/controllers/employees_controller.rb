@@ -6,7 +6,8 @@ class EmployeesController < ApplicationController
 
   def index
     # only show all Employees of selected company
-    @employees = find_company.employees
+    @company = find_company
+    @employees = @company.employees
   end
 
   def show
@@ -45,7 +46,7 @@ class EmployeesController < ApplicationController
       @employee.user_id = user.id
       @employee.save
   
-      redirect_to company_employees_path
+      redirect_to company_employees_path, notice: 'Employee was successfully created.'
     else
       render 'new'
     end

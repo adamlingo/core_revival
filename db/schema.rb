@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(version: 20161217162725) do
     t.string   "provider_plan"
     t.string   "benefit_type"
     t.string   "benefit_method"
-    t.integer  "eligibility_days"
     t.string   "account_number"
+    t.integer  "eligibility_days"
     t.boolean  "spouse_eligible"
     t.boolean  "child_eligible"
   end
@@ -245,6 +245,16 @@ ActiveRecord::Schema.define(version: 20161217162725) do
     t.decimal  "deduction_amount"
     t.integer  "month"
     t.integer  "year"
+  end
+
+  create_table "payroll_periods", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "pay_period"
+    t.integer  "year"
+    t.integer  "month"
+    t.integer  "day"
+    t.integer  "company_id"
   end
 
   create_table "payroll_records", force: :cascade do |t|
