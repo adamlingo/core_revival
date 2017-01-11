@@ -22,7 +22,7 @@ class ReconciliationsController < ApplicationController
     calculator_attributes = {
       company_id: params[:company_id],
       month: params[:month],
-      year: params[:year]      
+      year: params[:year]
     }
     @helper = ReconciliationHelper.new(calculator_attributes)
     if @helper.valid? && @helper.check_for_records!
