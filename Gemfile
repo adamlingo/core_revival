@@ -31,6 +31,7 @@ gem 'font_assets'
 
 # LOGIN/AUTH
 gem 'devise' # UI tools for client-user login
+gem 'devise_invitable'
 
 # SERVICES/INTEGRATIONS
 # Codeship required gem:
@@ -55,6 +56,15 @@ gem 'mailgun-ruby'
 # resource model
 gem 'resource_model'
 
+# jwt for swipeclock sso api
+gem 'jwt'
+
+# FILE/FOLDER-HANDLING
+# Refile upload gems
+gem "refile", require: "refile/rails", :git => "https://github.com/refile/refile"
+gem "refile-mini_magick"
+gem "refile-s3"
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
@@ -62,6 +72,8 @@ group :development do
   gem 'spring'
   # debugging with Rails Panel (Chrome-dev-tools)
   gem 'meta_request'
+  # Brakeman static analysis of app for security vulnerabilities.
+  gem 'brakeman'
   # db map, run with "rake erd"
   gem 'rails-erd' # generate ERD diagram of db - needs brew install graphviz 
 end
@@ -78,7 +90,8 @@ group :development, :test do
   gem 'minitest-rails'
   gem 'minitest-reporters'
   # CodeClimate score
-  gem 'codeclimate-test-reporter', require: nil
+  gem 'codeclimate-test-reporter', "~> 1.0.0"
+  gem "simplecov"
   gem 'dotenv-rails'  # env variables to function like heroku
 end
 

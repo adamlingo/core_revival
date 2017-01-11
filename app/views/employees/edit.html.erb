@@ -1,8 +1,91 @@
 <h1>Editing Employee</h1>
+</br>
+<%= form_for @employee, :url => {:action => "update" } do |f| %>
+  <% if @employee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
 
-<%= render 'form_edit' %>
 
 <hr>
+      <ul>
+      <% @employee.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<%= link_to 'Show', company_employee_path(@employee.company, @employee) %> | 
-<%= link_to 'Back', company_employees_path %>
+  <div class="field">
+    <%= f.label :company_name, "Company: #{@company.name}"%>
+  </div>
+
+  <div class="field">
+    <%= f.label :first_name %><br>
+    <% if current_user.manager? || current_user.admin? %>
+      <%= f.text_field :first_name %>
+    <% else %>
+      <%= f.label @employee.first_name %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name %><br>
+    <% if current_user.manager? || current_user.admin? %>
+      <%= f.text_field :last_name %>
+    <% else %>
+      <%= f.label @employee.last_name %>
+    <% end %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address %><br>
+    <%= f.text_field :address %>
+  </div>
+
+  <div class="field">
+    <%= f.label :city %><br>
+    <%= f.text_field :city %>
+  </div>
+
+  <div class="field">
+    <%= f.label :state %><br>
+    <%= f.text_field :state %>
+  </div>
+
+  <div class="field">
+    <%= f.label :zip %><br>
+    <%= f.text_field :zip %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phone_number %><br>
+    <%= f.text_field :phone_number %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Subscriber ID' %><br>
+    <% if current_user.manager? || current_user.admin? %>  
+      <%= f.text_field :sub_id %>
+    <% else %>
+      <%= f.label @employee.sub_id %><br>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>
+
+
+<%= link_to 'Show', company_employee_path %> |
+<% if current_user.manager? || current_user.admin? %>
+  <%= link_to 'Back to Employees', company_employees_path %>
+<% else %>
+  <%= link_to 'Back to Profile', company_employee_path %>
+<% end %>

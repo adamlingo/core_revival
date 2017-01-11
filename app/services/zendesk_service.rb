@@ -6,15 +6,17 @@ class ZendeskService
 
     def create_ticket(user, subject, comment, priority = 'normal')
       client = set_credentials
-      ZendeskAPI::Ticket.create!(client, requester: user, subject: subject, comment: { value: comment }, priority: priority)
+      if Rails.env.production?
+        ZendeskAPI::Ticket.create!(client, requester: user, subject: subject, comment: { value: comment }, priority: priority)
+      end
     end
 
     private def set_credentials
       ZendeskAPI::Client.new do |config|
-        config.url = ENV['Z_URL'] # e.g. https://mydesk.zendesk.comapi/v2
-        config.username = ENV['USERNAME']
-        config.token = ENV['TOKEN']
-        config.password = ENV['PASSWORD']
+        config.url = ENV['ZENDESK_URL'] # e.g. https://mydesk.zendesk.comapi/v2
+        config.username = ENV['ZENDESK_USERNAME']
+        config.token = ENV['ZENDESK_TOKEN']
+        config.password = ENV['ZENDESK_PASSWORD']
         config.retry = true
       end
     end

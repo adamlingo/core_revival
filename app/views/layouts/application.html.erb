@@ -14,6 +14,8 @@
     <!-- sidebar partial to be conditional for EE or manager -->
     <% if current_user.manager? %>
       <%= render 'layouts/sidebar'%>
+    <% elsif current_user.admin? %>
+      <%= render 'layouts/sidebar_admin' %>
     <% elsif current_user.employee? %>
       <%= render 'layouts/sidebar_ee' %>
     <% end %>

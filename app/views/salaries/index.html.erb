@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Employee Pay History</h1>
+
+<table>
+  <thead>
+    <%=@employee.display_name%>
+    <tr>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Salary/Rate</th>
+      <th>Pay Type</th>
+      </tr>
+  </thead>
+
+  <tbody>
+ 
+        <% @salaries.each do |salary| %>
+          <tr>
+              <td><%= salary.start_date%></td>
+              <td><%= salary.end_date%></td>
+              <td><%= salary.rate%></td>
+              <td><%= salary.pay_type%></td>
+              
+          </tr>
+      <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New', new_company_employee_salary_path %>

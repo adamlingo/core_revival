@@ -1,0 +1,31 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+
+
+demo:
+    id: 1
+    company_id: 1
+    export_id: 12345
+
+
+# test_company:
+#     id: 1
+
+# first_employee:
+#     first_name: "John"
+#     last_name: "Smith"
+#     company_id: 1
+    
+# second_employee:
+#     first_name: "Poca"
+#     last_name: "Hontas"
+#     company_id: 1
+    
+# third_employee:
+#     first_employee: "Coco"
+#     last_name: "Um"
+#     company_id: 1

@@ -1,21 +1,31 @@
 <% provide(:title, 'Home') %>
 <div class="center jumbotron">
-  <h1>Under Construction</h1>
-  </br></br>
-  <h2>
-    Eventual home page for the new Core App!
-  </h2>
-  </br>
-  <a>
-  	<%= link_to 'View Companies', companies_path %>
-  </a>
-  </br></br>
-  <a>
-  	<%= link_to 'View Users', users_path %>
-  </a>
-  </br></br>
-  <a>
-  	<%= "Current User: #{current_user.email}" %>
-  </a>
+  
+  <h1> Welcome to Core </h1>
+  
+  <% if current_user.admin? %>
+    <h1>Nearly Constructed...</h1>
+    </br></br>
+    <h2>
+      Eventual home page for the new Core App!
+    </h2>
+    </br>
+    <a>
+    	<%= link_to 'View Companies', companies_path %>
+    </a>
+    </br></br>
+    <a>
+    	<%= link_to 'View Users', users_path %>
+    </a>
+    </br></br>
+  <% elsif current_user.employee? %>
+    <% if @token.present? %>
+      <%= link_to "Clock In/Out", @request_url, :target => '_blank' %>
+    <% else %>
+    <!--Employee Doesn't Have a Valid Timeclock ID-->
+    <% end %>
+    </br></br>
+  <% end %>
+  
 </div>
   

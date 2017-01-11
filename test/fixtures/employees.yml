@@ -1,11 +1,8 @@
 # Read about fixtures at
 # http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-employee_1:
-  id: 1
+demo:
+  id: 42
   name: 'Dana Demo'
-  last_name: 'Demo'
-  first_name: 'Dana'
   company_id: 1
   sub_id: 'my-sub-id'
 
@@ -16,4 +13,19 @@ employee_2:
   first_name: 'Raymond'
   company_id: 2
   sub_id: 'my-sub-id-2'
-
+  
+test_employee:
+  id: 4
+  last_name: 'Robin'
+  first_name: 'Christopher'
+  company_id: 2
+  sub_id: 'totally'
+  user_id: 3
+  
+test_manager:
+  id: 3
+  last_name: 'Doorn'
+  first_name: 'Jeremy'
+  company_id: 2
+  sub_id: 'yes'
+  user_id: 2

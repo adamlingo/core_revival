@@ -7,7 +7,8 @@
     <tr>
       <th>First Name</th>
       <th>Last Name</th>
-      <th colspan="4"></th>
+      <th>E-mail</th>
+      <th colspan="5">Actions</th>
     </tr>
   </thead>
 
@@ -16,9 +17,13 @@
       <tr>
         <td><%= employee.first_name %></td>
         <td><%= employee.last_name %></td>
+        <td><%= employee.email %></td>
         <td><%= link_to 'Show', company_employee_path(employee.company, employee) %></td>
         <td><%= link_to 'Edit', edit_company_employee_path(employee.company, employee) %></td>
         <td><%= link_to 'Benefits', company_employee_employee_benefit_selections_path(employee.company, employee) %></td>
+
+        <td><%= link_to 'Salary/Rate', company_employee_salaries_path(employee.company, employee) %></td>
+        <td><%= link_to 'Files', company_employee_folders_path(employee.company, employee) %></td>
 
         <% if false %>
         <td><%= link_to 'Destroy', company_employee_path(employee.company, employee), method: :delete, data: { confirm: 'Are you sure?' } %></td>

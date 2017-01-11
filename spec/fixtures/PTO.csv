@@ -1,0 +1,27 @@
+Last Name,First Name,EE Code,Location,Department,PayCode,Type,Beginning Balance,Accrued,Used,Ending Balance,Default Pay Rate
+"BOYER","KERMIT","0142","South Location","0002-Installation","","UTO",5.00,0.00,5.00,0.00,13.00
+"DUNCAN","STACEY","0069","North Location","0003-Service","(acc)PTO","PTO",8.00,0.00,0.00,8.00,17.00
+"GRAHAM","JAMES","0077","North Location","0003-Service","(acc)PTO","PTO",40.00,0.00,0.00,40.00,17.00
+"GRAHAM","JAMES","0077","North Location","0003-Service","","UTO",3.00,0.00,0.00,3.00,17.00
+"HENDRICKSON","HEATH","0089","North Location","0000-Management","(acc)PTO","PTO",-24.00,0.00,48.00,-72.00,28.8500
+"HERRON","SHANE","0045","North Location","0002-Installation","(acc)PTO","PTO",72.00,0.00,0.00,72.00,26.44
+"JACKSON","BRIAN","0063","South Location","0003-Service","","UTO",10.00,2.00,2.00,10.00,17.00
+"JOHNSON","JACOB","0026","North Location","0003-Service","(acc)PTO","PTO",32.00,0.00,0.00,32.00,31.25
+"JONES","BRIAN","0097","North Location","0002-Installation","(acc)PTO","PTO",0.00,0.00,0.00,0.00,14.00
+"JONES","MATTHEW","0062","North Location","0003-Service","","UTO",0.00,1.00,0.00,1.00,17.00
+"LEEDY","LORI","0103","North Location","0001-Office","(acc)PTO","PTO",40.00,0.00,0.00,40.00,16.00
+"LEEDY","LORI","0103","North Location","0001-Office","","UTO",3.00,0.00,0.00,3.00,16.00
+"PAULSON","ROY","0084","North Location","0003-Service","(acc)PTO","PTO",0.00,0.00,0.00,0.00,15.00
+"PAULSON","ROY","0084","North Location","0003-Service","","UTO",2.00,0.00,0.00,2.00,15.00
+"PFEIL","TIMOTHY","0085","North Location","0002-Installation","(acc)PTO","PTO",24.00,0.00,0.00,24.00,20.00
+"REED","GREGORY","0029","North Location","0002-Installation","(acc)PTO","PTO",16.00,0.00,0.00,16.00,20.00
+"REED","GREGORY","0029","North Location","0002-Installation","","UTO",1.00,0.00,0.00,1.00,20.00
+"REIL","JAMES","0020","South Location","0002-Installation","(acc)PTO","PTO",40.00,0.00,0.00,40.00,18.00
+"REIL","JAMES","0020","South Location","0002-Installation","","UTO",2.00,0.00,1.00,1.00,18.00
+"RUARK","JULIA","0006","North Location","0000-Management","(acc)PTO","PTO",120.00,0.00,0.00,120.00,11.54
+"RUARK","KEVIN","0001","North Location","0000-Management","(acc)PTO","PTO",120.00,0.00,0.00,120.00,34.62
+"RUARK","MADELINE","0073","North Location","0001-Office","(acc)PTO","PTO",40.00,0.00,0.00,40.00,11.54
+"SLOMAN","KERRI","0112","North Location","0001-Office","(acc)PTO","PTO",0.00,0.00,0.00,0.00,15.00
+"SLOMAN","KERRI","0112","North Location","0001-Office","","UTO",1.00,0.00,0.00,1.00,15.00
+"WOODARD","ERIK","0102","North Location","0002-Installation","(acc)PTO","PTO",40.00,0.00,0.00,40.00,17.00
+"WOODARD","ERIK","0102","North Location","0002-Installation","","UTO",3.00,0.00,0.00,3.00,17.00
