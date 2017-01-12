@@ -334,4 +334,5 @@ ActiveRecord::Schema.define(version: 20161217162725) do
   add_foreign_key "documents", "folders"
   add_foreign_key "employee_folders", "employees"
   add_foreign_key "employee_folders", "folders"
+  add_foreign_key "salaries", "employees"
 end

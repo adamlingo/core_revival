@@ -40,7 +40,7 @@ ActiveAdmin.register Employee do
       # EE must be attached to an existent Company, UNMAP FROM ALL TO CURRENT!!
       f.input :company_id, as: :select, collection: Company.all.map{|c| ["#{c.name}", c.id]}
       # EE must also be a current user
-      # f.input :user_id, as: :select, collection: User.all.map{|u| ["#{u.last_name} , #{u.first_name}", u.id]}
+      f.input :user_id, as: :select, collection: User.all.map{|u| ["#{u.email}", u.id]}.sort
       f.input :email
       f.input :sub_id, label: "Sub ID", :placeholder => "Subscriber ID"
       # f.input :password

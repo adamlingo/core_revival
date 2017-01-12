@@ -1,6 +1,6 @@
 @import "colors";
 
-body.devise-sessions, body.devise-passwords, body.devise-registrations, body.devise-invitations, body.company_setup, body.users-registrations {
+body.devise-sessions, body.devise-passwords, body.devise-registrations, body.devise-invitations, body.users-registrations {
   background: $grey-dark;
   .login-page, .forgot-password, .signup-page, .change-password {
     margin-top: 110px;
@@ -35,7 +35,7 @@ body.devise-sessions, body.devise-passwords, body.devise-registrations, body.dev
         }
       }
       .input-text {
-        font-size: 14px;
+        font-size: 16px;
         font-family: sans-serif;
         box-shadow: none;
         padding: 7px 14px;
@@ -75,13 +75,18 @@ body.devise-sessions, body.devise-passwords, body.devise-registrations, body.dev
       }
     }
     .help-links {
-      font-size: 14px;
-      text-align: center;
+      font-size: 16px;
+      text-align: left;
       margin-top: 10px;
       width: 100%;
       color: white;
       a {
         color: white;
+      }
+      p {
+        font-size: 16px;
+        text-align: center;
+        color: $notice-color;
       }
     }
   }

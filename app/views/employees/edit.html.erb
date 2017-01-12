@@ -71,7 +71,7 @@
     <%= f.label 'Subscriber ID' %><br>
     <% if current_user.manager? || current_user.admin? %>  
       <%= f.text_field :sub_id %>
-    <% else %>
+    <% elsif @employee.sub_id.present? %>
       <%= f.label @employee.sub_id %><br>
     <% end %>
   </div>
