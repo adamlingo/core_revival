@@ -18,7 +18,11 @@
       <%= render 'layouts/sidebar_ee' %>
     <% end %>
 
+    <!-- flash notifs and alerts app-wide -->
     <div class="content">
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, class: "alert alert-info" %>
+      <% end %>
       <%= yield %> 
     </div>
     <!--
