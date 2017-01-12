@@ -228,7 +228,7 @@ h1{
   border-radius: 50%;
   overflow: hidden;
 }
-
+/* All profile html in header, too*/
 .profile__name {
   font-size: 16px;
 }
@@ -302,88 +302,6 @@ h1{
   height: 45px;
   margin-top: 15px;
   margin-right: 20px;
-}
-/* Saving this for a second */
-.main-footer {
-  position: absolute;
-  bottom: 60px;
-  left: 80px;
-  color: #9a9a9a;
-  font-size: 14px;
-  text-align: right;
-}
-
-/* line 862, ../sass/partials/_layout.scss */
-.main-footer p {
-  color: #9a9a9a;
-}
-
-/* Double-check .mobile html existence */
-.mobile-nav {
-  display: none;
-  width: 68px;
-  text-align: center;
-  height: 74px;
-  line-height: 74px;
-  vertical-align: top;
-  -webkit-transition: background-color, 0.3s;
-  -moz-transition: background-color, 0.3s;
-  -o-transition: background-color, 0.3s;
-  transition: background-color, 0.3s;
-}
-/* line 920, ../sass/partials/_layout.scss */
-.mobile-nav i {
-  color: white;
-  display: inline-block;
-  vertical-align: middle;
-  font-size: 24px;
-}
-/* line 926, ../sass/partials/_layout.scss */
-.mobile-nav:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* line 931, ../sass/partials/_layout.scss */
-.err-page .main-logo {
-  margin-left: 20px;
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  -ms-transform-style: preserve-3d;
-  -o-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-}
-
-/* line 938, ../sass/partials/_layout.scss */
-.err-page i {
-  font-size: 70px;
-  position: relative;
-  display: inline-block;
-  letter-spacing: -1px;
-  border-radius: 100%;
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  -ms-transform-style: preserve-3d;
-  -o-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-  -webkit-transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-  -moz-transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-  -ms-transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-  -o-transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-  transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-  -webkit-transform-origin: 0 100%;
-  -moz-transform-origin: 0 100%;
-  -ms-transform-origin: 0 100%;
-  -o-transform-origin: 0 100%;
-  transform-origin: 0 100%;
-  -webkit-animation: ball 1500ms 3 linear;
-  -moz-animation: ball 1500ms 3 linear;
-  -ms-animation: ball 1500ms 3 linear;
-  -o-animation: ball 1500ms 3 linear;
-  animation: ball 1500ms 3 linear;
-}
-/* line 949, ../sass/partials/_layout.scss */
-.err-page h1 {
-  font-size: 34px;
 }
 
 @-webkit-keyframes ball {
