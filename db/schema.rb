@@ -82,10 +82,10 @@ ActiveRecord::Schema.define(version: 20161217162725) do
     t.string   "provider_plan"
     t.string   "benefit_type"
     t.string   "benefit_method"
-    t.string   "account_number"
     t.integer  "eligibility_days"
     t.boolean  "spouse_eligible"
     t.boolean  "child_eligible"
+    t.string   "account_number"
   end
 
   create_table "benefit_rates", force: :cascade do |t|
@@ -119,18 +119,8 @@ ActiveRecord::Schema.define(version: 20161217162725) do
   create_table "company_folders", force: :cascade do |t|
     t.integer  "company_id", null: false
     t.integer  "folder_id",  null: false
-    t.integer  "folder_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "contacts", force: :cascade do |t|
-    t.string   "full_name"
-    t.string   "email"
-    t.integer  "phone_number"
-    t.text     "address"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
   end
 
   create_table "dependents", force: :cascade do |t|
