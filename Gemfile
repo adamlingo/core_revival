@@ -26,7 +26,7 @@ gem 'sass-rails', '~> 5.0'
 # bootstrap
 gem 'bootstrap-sass'
 # scss conversion helper for deployment
-gem 'font-awesome-sass'
+gem 'font-awesome-sass', '~> 4.7.0'
 gem 'font_assets'
 
 # LOGIN/AUTH
@@ -44,7 +44,7 @@ gem 'slack-notifier', require: false
 gem 'jbuilder', '~> 2.0'
 
 # ADMIN UI
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin', :git => "https://github.com/activeadmin/activeadmin"
 
 # ERROR MONITORING
 gem 'sentry-raven'
