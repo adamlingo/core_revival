@@ -3,7 +3,7 @@
     <li role='presentation'>
       <%= link_to root_path, class: 'main-nav__link' do %>
         <span class='main-nav__icon'>
-          <i class='icon pe-7f-home'></i>
+          <i class='fa fa-home'></i>
         </span>
         Home
       <% end %>
@@ -11,7 +11,7 @@
     <li role='presentation'>
       <%= link_to company_payroll_records_path(current_user.company_id), class: 'main-nav__link' do %>
         <span class='main-nav__icon'>
-          <i class='icon pe-7f-ribbon'></i>
+          <i class='fa fa-money'></i>
         </span>
         Payroll
       <% end %>
@@ -19,7 +19,7 @@
     <li role='presentation'>
       <%= link_to company_employees_path(current_user.company_id), class: 'main-nav__link' do %>
         <span class='main-nav__icon'>
-          <i class='icon pe-7f-glasses'></i>
+          <i class='fa fa-user-circle'></i>
         </span>
         Employees
       <% end %>
@@ -27,7 +27,7 @@
     <li role='presentation'>
       <%= link_to company_employee_employee_benefits_path(current_user.company_id, current_user.employee_id), class: 'main-nav__link' do %>
         <span class='main-nav__icon'>
-          <i class='icon pe-7f-portfolio'></i>
+          <i class='fa fa-balance-scale'></i>
         </span>
         Benefits
       <% end %>
@@ -35,15 +35,15 @@
     <li role='presentation'>
       <%= link_to root_path, class: 'main-nav__link' do %>
         <span class='main-nav__icon'>
-          <i class='icon pe-7f-user'></i>
+          <i class='fa fa-line-chart'></i>
         </span>
-        Worker Comp
+        Reconciliation
       <% end %>
     </li>
     <li role='presentation'>
       <%= link_to root_path, class: 'main-nav__link' do %>
         <span class='main-nav__icon'>
-          <i class='icon pe-7f-graph1'></i>
+          <i class='fa fa-bar-chart-o'></i>
         </span>
         401 k
       <% end %>
@@ -51,7 +51,7 @@
     <li role='presentation'>
       <%= link_to company_folders_path(current_user.company_id), class: 'main-nav__link' do %>
         <span class='main-nav__icon'>
-          <i class='icon pe-7f-folder'></i>
+          <i class='fa fa-file-text'></i>
         </span>
         Co. Documents
       <% end %>
