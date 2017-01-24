@@ -1,23 +1,23 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Companies</h1>
+<h1>Company Info</h1>
+</br>
 
-<table>
-  <thead>
+<table style="border-collapse: collapse; border: 2px solid black;">
+  <thead style="border: 1px solid black;">
     <tr>
-      <th>Name</th>
-      <th colspan="4"></th>
+      <th>Co. Name</th>
+      <th>Health Ins.</th>
+      <th>Employee Roster</th>
     </tr>
   </thead>
 
-  <tbody>
+  <tbody style="text-align: center">
     <% @companies.each do |company| %>
       <tr>
         <td><%= company.name %></td>
-        <td><%= link_to 'Reconciliation', company_index_path(company) %> </td>
-        <td><%= link_to 'View Employees', company_employees_path(company) %> </td>
-        <td><%= link_to 'Show', company %></td>
-        <td><%= link_to 'Edit', edit_company_path(company) %></td>
+        <td><%= link_to 'Reconciliation', company_index_path(company) %></td>
+        <td><%= link_to 'View Employees', company_employees_path(company) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -25,4 +25,8 @@
 
 <br>
 
-<%= link_to 'New Company', new_company_path %>
+<% if current_user.admin? %>
+  <%= link_to 'New Company', new_company_path %>
+<% else %>
+  <%= link_to 'Home Screen', root_path %>
+<% end %>
