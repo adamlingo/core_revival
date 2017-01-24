@@ -1,11 +1,11 @@
 <aside class='sidebar list-group'>
   <ul class='main-nav'>
     <li role='presentation'>
-      <%= link_to root_path, class: 'main-nav__link' do %>
+      <%= link_to companies_path, class: 'main-nav__link' do %>
         <span class='main-nav__icon'>
           <i class='fa fa-home'></i>
         </span>
-        Home
+        My Home
       <% end %>
     </li>
     <li role='presentation'>
@@ -19,7 +19,7 @@
     <li role='presentation'>
       <%= link_to company_employees_path(current_user.company_id), class: 'main-nav__link' do %>
         <span class='main-nav__icon'>
-          <i class='fa fa-user-circle'></i>
+          <i class='fa fa-users'></i>
         </span>
         Employees
       <% end %>
@@ -33,19 +33,11 @@
       <% end %>
     </li>
     <li role='presentation'>
-      <%= link_to root_path, class: 'main-nav__link' do %>
+      <%= link_to company_index_path(current_user.company_id), class: 'main-nav__link' do %>
         <span class='main-nav__icon'>
           <i class='fa fa-line-chart'></i>
         </span>
         Reconciliation
-      <% end %>
-    </li>
-    <li role='presentation'>
-      <%= link_to root_path, class: 'main-nav__link' do %>
-        <span class='main-nav__icon'>
-          <i class='fa fa-bar-chart-o'></i>
-        </span>
-        401 k
       <% end %>
     </li>
     <li role='presentation'>
