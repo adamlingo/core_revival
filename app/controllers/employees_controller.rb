@@ -34,7 +34,7 @@ class EmployeesController < ApplicationController
     # @user = User.new(user_params) << want to use :email field for new user record
     # need @employee.save if/else clause to render proper template
     if @employee.save
-      flash[:success] = "New employee created!"
+      flash[:success] = "New employee successfully created!"
 
       notify_zendesk('NEW EMPLOYEE ADDED')
 
@@ -47,7 +47,7 @@ class EmployeesController < ApplicationController
       @employee.user_id = user.id
       @employee.save
   
-      redirect_to company_employees_path, notice: 'Employee was successfully created.'
+      redirect_to company_employees_path
     else
       render 'new'
     end
