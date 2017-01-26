@@ -1,24 +1,31 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Employee:</strong>
-  <%= @employee_benefit_selection.employee.display_name %>
-</p>
+<% if !@employee_benefit_selection.decline_benefit? %>
+	<p>
+	  <strong>Employee:</strong>
+	  <%= @employee_benefit_selection.employee.display_name %>
+	</p>
 
-<p>
-  <strong>Benefit type:</strong>
-  <%= @employee_benefit_selection.benefit_type %>
-</p>
+	<p>
+	  <strong>Benefit type:</strong>
+	  <%= @employee_benefit_selection.benefit_type %>
+	</p>
 
-<p>
-  <strong>Decline benefit:</strong>
-  <%= @employee_benefit_selection.decline_benefit %>
-</p>
+	<p>
+	  <strong>Decline benefit:</strong>
+	  <%= @employee_benefit_selection.decline_benefit %>
+	</p>
 
-<p>
+	<p>
+	  <strong>Benefit Rate:</strong>
+	  <%= @benefit_rate %>
+	</p>
+<% else %>
+
+<% end %>
+<!-- <p>
   <strong>Benefit detail:</strong>
   <%= @employee_benefit_selection.benefit_detail_id %>
-</p>
+</p> -->
 
-<%= link_to 'Edit', edit_company_employee_employee_benefit_selection_path(@employee_benefit_selection.employee.company, @employee_benefit_selection.employee, @employee_benefit_selection) %> |
-<%= link_to 'All Employees', company_employee_employee_benefit_selections_path %>
+<%= link_to 'Back', company_employee_employee_benefit_selections_path %>
