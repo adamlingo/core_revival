@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # Root to pages/home (requires login)
   root 'pages#home'
   get  '/home', to: "pages#home", as: "home"
+  get  '/invest', to: "pages#invest", as: "invest"
   get  'users' => 'users#index'
 
   # Devise routes with ActiveAdmin
