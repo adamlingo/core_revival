@@ -40,6 +40,14 @@
         Reconciliation
       <% end %>
     </li>
+    <li role="presentation">
+      <%= link_to invest_path, class: 'main-nav__link' do %>
+        <span class="main-nav__icon">
+          <i class="fa fa-bar-chart-o"></i>
+        </span>
+        401 k
+      <% end %>
+    </li>
     <li role='presentation'>
       <%= link_to company_folders_path(current_user.company_id), class: 'main-nav__link' do %>
         <span class='main-nav__icon'>
