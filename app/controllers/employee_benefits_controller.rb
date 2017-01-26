@@ -1,13 +1,15 @@
 class EmployeeBenefitsController < ApplicationController
     before_filter :authenticate_user!
-    # before_filter :authenticate_manager!
+    before_filter :authorize_company!
   # Empty new until decision on invitation vs. creation
   def new
   end
   
   def index
     @employee_benefits = EmployeeBenefit.all
-  end
+    company = Company.find(params[:company_id].to_i)
+    @employees = company.employees
+	end
 
 
   
