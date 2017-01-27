@@ -11,7 +11,7 @@ class ReconciliationsController < ApplicationController
     if @helper.valid? && @helper.check_for_records!
       flash[:info] = 'Ready to calculate reconciliations!'
     else
-      flash[:error] = "Unable to process reconciliations: #{@helper.errors.full_messages.to_sentence}"
+      #flash[:error] = "Unable to process reconciliations: #{@helper.errors.full_messages.to_sentence}"
     end
 
     @health_invoices = []

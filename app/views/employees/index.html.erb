@@ -2,7 +2,7 @@
 
 <h1><%= @company.name %> - Employees</h1>
 
-<table>
+<table style="border-collapse: collapse; border: 2px solid black;">
   <thead>
     <tr>
       <th>First Name</th>
@@ -12,7 +12,7 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody style="border-collapse: collapse; border: 2px solid black;">
     <% @employees.each do |employee| %>
       <tr>
         <td><%= employee.first_name %></td>
@@ -23,7 +23,7 @@
         <td><%= link_to 'Benefits', company_employee_employee_benefit_selections_path(employee.company, employee) %></td>
 
         <td><%= link_to 'Salary/Rate', company_employee_salaries_path(employee.company, employee) %></td>
-        <td><%= link_to 'Files', company_employee_folders_path(employee.company, employee) %></td>
+        <td><%= link_to 'Manage Files', company_employee_folders_path(employee.company, employee) %></td>
 
         <% if false %>
         <td><%= link_to 'Destroy', company_employee_path(employee.company, employee), method: :delete, data: { confirm: 'Are you sure?' } %></td>

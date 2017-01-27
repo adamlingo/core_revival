@@ -46,8 +46,8 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
   config.action_mailer.smtp_settings = {
-    :port =>           '587',
-    :address =>        'smtp.mailgun.org',
+    :port =>           '1025',
+    :address =>        'localhost',
     :user_name =>      ENV['MAILGUN_USERNAME'],
     :password =>       ENV['MAILGUN_PASSWORD'],
     :domain =>         ENV['MAILGUN_SENDING_DOMAIN'],

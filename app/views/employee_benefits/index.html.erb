@@ -1,35 +1,25 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Employee Benefits</h1>
+<h1>Employee Benefits</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Employee ID</th>
-      <!--<th>Employee Name</th>-->
-      <th style="text-align: right">PTO Balance</th>
-      </tr>
+<table style="border-collapse: collapse; border: 2px solid black;"">
+  <thead style="border: 1px solid black;">
+    <tr colspan="2">
+      <th>Employee Name</th>
+      <th>Benefit Selection</th>
+    </tr>
   </thead>
 
   <tbody>
-        <% @employee_benefits.each do |employee_benefit| %>
-          <tr>
-              <td><%= employee_benefit.ee_id %></td>
-              <!--<td><%= employee_benefit.employee_name%></td>-->
-              <td style="text-align: right"><%= employee_benefit.pto_balance %></td>
-
-
-          </tr>
-      <% end %>
+    <% @employees.each do |employee | %>
+      <tr>
+        <td><%= "#{employee.last_name}, #{employee.first_name}" %></td>
+        <td><%= link_to 'Benefit Selection', company_employee_employee_benefit_selections_path(employee.company, employee) %></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 
-<br>
+</br>
 
-<% @benefits_to_show = Array.new %>
-<% @employee_benefits.each do |benefit| %>
-  <%# if !(@employee.hidden_benifits.include? benefit.id) || current_admin_user.present? %>
-    <% @benefits_to_show << benefit %>
-  <%# end %>
-<% end %>
 

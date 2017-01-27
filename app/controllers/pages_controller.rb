@@ -9,6 +9,7 @@ class PagesController < ApplicationController
     end
   end
   
-  
+  def invest
 
+  end
 end
