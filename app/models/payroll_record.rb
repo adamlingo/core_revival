@@ -12,8 +12,17 @@ class PayrollRecord < ActiveRecord::Base
   
   end
   
+  def employee_name_first
+    employee = Employee.find_by(id: self.employee_id)
+ 	  employee_name_first = employee.first_name  
+ 	end
+  
+  def employee_name_last
+    employee.last_name
+  end
+  
   def self.to_csv
-    attributes = %w{export_id company_id employee_id reg_hours ot_hours other_pay sick_hours vacation_hours holiday_hours memo updated_at}
+    attributes = %w{export_id company_id employee_name_first employee_name_last reg_hours ot_hours other_pay sick_hours vacation_hours holiday_hours memo updated_at}
     CSV.generate(headers: true) do |csv|
       csv << attributes
       
