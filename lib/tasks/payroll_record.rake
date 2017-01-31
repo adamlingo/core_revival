@@ -1,8 +1,8 @@
 namespace :payroll_record do
   
   task csv: :environment do
-    pr = PayrollRecord.last_name
-    pr.to_csv
+  	csv = PayrollRecord.to_csv
+  	puts csv
   end
   
 
