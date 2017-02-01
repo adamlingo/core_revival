@@ -13,10 +13,7 @@ class BenefitRate < ActiveRecord::Base
         employee = Employee.find(employee_id)
         # if employee is eligible
         if employee.benefit_eligible == true
-            ee_dob = employee.date_of_birth
-            
-            # eff_date = benefit_rate.effective_date
-            
+            ee_dob = employee.date_of_birth            
             
             # need month and day in calculation
             ee_age = effective_date.year - ee_dob.year 
