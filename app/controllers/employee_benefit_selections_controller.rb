@@ -8,8 +8,12 @@ class EmployeeBenefitSelectionsController < ApplicationController
   end
 
   def show
-    @employee_benefit_selections = EmployeeBenefitSelection.where(employee_id: params[:employee_id])
-    @benefit_rate = BenefitRate.compute_rate(@employee_benefit_selection.employee_id, @employee_benefit_selection.benefit_detail_id, "")
+    employee = Employee.find(params[:employee_id])
+    ben_detail_id = @employee_benefit_selection.benefit_detail_id.to_i
+    ben_detail = BenefitDetail.find(ben_detail_id)
+    @ben_profile = BenefitProfile.find(ben_detail.benefit_profile_id.to_i)
+    @effective_date = @ben_profile.effective_date
+    @benefit_rate = BenefitRate.compute_rate(employee.id, ben_detail_id, @effective_date)
   end
 
   def new
