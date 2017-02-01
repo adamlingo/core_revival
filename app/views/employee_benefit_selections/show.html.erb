@@ -20,12 +20,24 @@
 	  <strong>Benefit Rate:</strong>
 	  <%= @benefit_rate %>
 	</p>
+
+	<p>
+	  <strong>Effective Date:</strong>
+	  <%= @effective_date %>
+	</p>
+
 <% else %>
 
 <% end %>
-<!-- <p>
+
+<p>
+  <strong>Benefit Profile:</strong>
+  <%= @ben_profile.id %>
+</p>
+
+<p>
   <strong>Benefit detail:</strong>
   <%= @employee_benefit_selection.benefit_detail_id %>
-</p> -->
+</p>
 
 <%= link_to 'Back', company_employee_employee_benefit_selections_path %>
