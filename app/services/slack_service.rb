@@ -3,13 +3,13 @@ require 'slack-notifier'
 class SlackService
 
   def self.notify(channel, message)
-    if Rails.env.production?
+    # if Rails.env.production?
 
       slack_message = "[#{Rails.env.capitalize}] #{message}"
       notifier = get_notifier(channel)
       notifier.ping Slack::Notifier::LinkFormatter.format(slack_message)
       
-    end
+    # end
   end
 
   private
