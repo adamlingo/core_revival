@@ -18,6 +18,7 @@ ActiveAdmin.register Employee do
     column :first_name
     column :sub_id
     column :email
+    column :date_of_birth
     column :created_at
     actions dropdown: true do |employee|
       item "Benefit Profiles", admin_company_benefit_profiles_path(employee)
@@ -48,7 +49,7 @@ ActiveAdmin.register Employee do
       f.input :state, as: :select, :collection => States::ABBREVIATIONS
       f.input :zip, :placeholder => "Zip"
       f.input :phone_number, :placeholder => "Phone"
-      f.input :date_of_birth
+      f.input :date_of_birth, :start_year => 1950, :end_year => 2005
     end
     f.actions
   end
