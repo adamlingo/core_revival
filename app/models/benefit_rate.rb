@@ -2,8 +2,6 @@ class BenefitRate < ActiveRecord::Base
     belongs_to :benefit_detail
     validates_presence_of :benefit_detail_id
     
-    
-    
     def new
     end
     
@@ -25,10 +23,13 @@ class BenefitRate < ActiveRecord::Base
             
             ee_rate = benefit_rate.rate
             puts ee_rate
+
         # take employee dob and compute age
         
         # look up rate from table
         end
+
+        return ee_rate
     end
     
     def self.import(benefit_detail_id, file_path)
