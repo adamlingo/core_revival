@@ -29,7 +29,7 @@
   <tbody>
     <% @folder.documents.each do |document| %>
       <tr>
-        <th><%= link_to document.file_filename, attachment_url(document, :file) %></th>
+        <th><%= link_to document.file_filename, attachment_url(document, :file), target: :_blank %></th>
         <th><%= document.file_content_type %></th>
         <th><%= number_to_human_size document.file_size %></th>
         <% if current_user.manager? || current_user.admin? %>

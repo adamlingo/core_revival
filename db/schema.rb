@@ -261,6 +261,8 @@ ActiveRecord::Schema.define(version: 20170201162040) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.string   "export_id"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   create_table "reconciliations", force: :cascade do |t|
