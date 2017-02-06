@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <% if current_user.manager? || current_user.admin? %>
-  <h1>File Management</h1>
+  <h1><%= "#{@employee.first_name} #{@employee.last_name}'s Documents" %></h1>
 <% else %>
-  <h1>File Overview</h1>
+  <h1>My Files</h1>
 <% end %>
 
 <p>
