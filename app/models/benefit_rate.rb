@@ -14,7 +14,10 @@ class BenefitRate < ActiveRecord::Base
             ee_dob = employee.date_of_birth            
             
             # need month and day in calculation
-            ee_age = effective_date.year - ee_dob.year 
+            ee_age = Date.today.year - ee_dob.year
+            ee_age -= 1 if Date.today < ee_dob + ee_age.years
+
+            #effective_date.year - ee_dob.year 
              
              puts "Employee Age #{ee_age}"
              puts "Effective Date #{effective_date}"
