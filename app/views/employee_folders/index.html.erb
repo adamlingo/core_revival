@@ -2,6 +2,7 @@
 
 <% if current_user.manager? || current_user.admin? %>
   <h1>File Management</h1>
+  <h1 style=text-align:center>  <%=@employee.first_name%> <%=@employee.last_name%></h1>
 <% else %>
   <h1>File Overview</h1>
 <% end %>
@@ -12,6 +13,7 @@
   <% end %>
 </p>
 </br>
+
 
 <table class="table table-bordered">
   <thead>
