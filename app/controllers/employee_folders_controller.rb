@@ -12,6 +12,7 @@ class EmployeeFoldersController < ApplicationController
   end
 
   def show
+    @employee = Employee.find(params[:employee_id])
     @folder = Folder.find(params[:id])
   end
 
