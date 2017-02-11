@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20170201162040) do
-=======
 ActiveRecord::Schema.define(version: 20170211222547) do
->>>>>>> 6e5d7bf... add ecnrypted ssn
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
