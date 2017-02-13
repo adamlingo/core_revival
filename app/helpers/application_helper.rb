@@ -23,8 +23,11 @@ module ApplicationHelper
   # sort columns in var. tables
   def sortable(column, title = nil)
     title ||= column.titleize
+    # css class in link set if column is current
+    css_class = column == sort_column ? "current #{sort_direction}" : nil
     # toggle asc/desc order if asc is already chosen
-    direction = column == params[:sort] && params[:direction] == "asc" ? "desc" : "asc"
-    link_to title, :sort => column, :direction => direction
+    direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
+    # needs 2 hashes, define where URL seperate with {}
+    link_to title, {:sort => column, :direction => direction}, {:class => css_class}
   end
 end 
