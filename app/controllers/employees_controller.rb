@@ -4,6 +4,8 @@ class EmployeesController < ApplicationController
   before_filter :authorize_company!
   before_filter :authorize_manager!, except: [:show, :edit, :update]
   before_filter :authorize_manager_or_self!, only: [:show, :edit, :update]
+  # call helper methods
+  helper_method :sort_column, :sort_direction
 
   def index
     # only show all Employees of selected company
@@ -120,12 +122,12 @@ class EmployeesController < ApplicationController
       current_user.employee_id == params[:id].to_i
     end
 
-    # sort column method
+    # sort column method (default setting)
     def sort_column
-      params[:sort] || "last_name"
+      Employee.column_names.include?(params[:sort]) ? params[:sort] : "last_name"
     end
-    # direction for columns
+    # direction for columns (default setting)
     def sort_direction
-      params[:direction] || "asc"
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end
