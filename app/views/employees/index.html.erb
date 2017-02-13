@@ -4,10 +4,10 @@
 
 <table style="border-collapse: collapse; border: 2px solid black;">
   <thead>
-    <tr>
-      <th><%= link_to "First Name", :sort => "first_name" %></th>
-      <th><%= link_to "Last Name", :sort => "last_name" %></th>
-      <th><%= link_to "E-mail", :sort => "email" %></th>
+    <tr>      
+      <th><%= sortable "last_name", "Last Name" %></th>
+      <th><%= sortable "first_name", "First Name" %></th>
+      <th><%= sortable "email" %></th>
       <th colspan="5">Actions</th>
     </tr>
   </thead>
@@ -15,8 +15,8 @@
   <tbody style="border-collapse: collapse; border: 2px solid black;">
     <% @employees.each do |employee| %>
       <tr>
-        <td><%= employee.first_name %></td>
         <td><%= employee.last_name %></td>
+        <td><%= employee.first_name %></td>        
         <td><%= employee.email %></td>
         <td><%= link_to 'Show', company_employee_path(employee.company, employee) %></td>
         <td><%= link_to 'Edit', edit_company_employee_path(employee.company, employee) %></td>
