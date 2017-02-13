@@ -19,4 +19,12 @@ module ApplicationHelper
       content_tag(:p, errors.to_sentence, class: "field-error")
     end
   end
+
+  # sort columns in var. tables
+  def sortable(column, title = nil)
+    title ||= column.titleize
+    # toggle asc/desc order if asc is already chosen
+    direction = column == params[:sort] && params[:direction] == "asc" ? "desc" : "asc"
+    link_to title, :sort => column, :direction => direction
+  end
 end 
