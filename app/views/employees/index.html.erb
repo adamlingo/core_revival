@@ -5,9 +5,9 @@
 <table style="border-collapse: collapse; border: 2px solid black;">
   <thead>
     <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>E-mail</th>
+      <th><%= link_to "First Name", :sort => "first_name" %></th>
+      <th><%= link_to "Last Name", :sort => "last_name" %></th>
+      <th><%= link_to "E-mail", :sort => "email" %></th>
       <th colspan="5">Actions</th>
     </tr>
   </thead>
