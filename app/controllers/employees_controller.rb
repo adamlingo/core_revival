@@ -8,7 +8,7 @@ class EmployeesController < ApplicationController
   def index
     # only show all Employees of selected company
     @company = find_company
-    @employees = @company.employees.order(params[:sort])
+    @employees = @company.employees.order(sort_column + " " + sort_direction)
   end
 
   def show
@@ -103,7 +103,6 @@ class EmployeesController < ApplicationController
       find_company.employees.find(params[:id].to_i)
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
       params.require(:employee).permit(:company_id, :first_name, :last_name,
          :email, :address, :city, :state, :zip, :phone_number, :user_id, :sub_id, :date_of_birth)
@@ -116,7 +115,17 @@ class EmployeesController < ApplicationController
       end
     end
 
+    # single out if EE is user when it's supposed to be manager
     def employee_is_current_user?
       current_user.employee_id == params[:id].to_i
+    end
+
+    # sort column method
+    def sort_column
+      params[:sort] || "last_name"
+    end
+    # direction for columns
+    def sort_direction
+      params[:direction] || "asc"
     end
 end
