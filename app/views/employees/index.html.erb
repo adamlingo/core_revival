@@ -2,7 +2,7 @@
 
 <h1><%= @company.name %> - Employees</h1>
 
-<table style="border-collapse: collapse; border: 2px solid black;">
+<table>
   <thead>
     <tr>      
       <th><%= sortable "last_name", "Last Name" %></th>
@@ -12,7 +12,7 @@
     </tr>
   </thead>
 
-  <tbody style="border-collapse: collapse; border: 2px solid black;">
+  <tbody>
     <% @employees.each do |employee| %>
       <tr>
         <td><%= employee.last_name %></td>
