@@ -18,9 +18,13 @@
         <td><%= employee_benefit_selection.benefit_type %></td>
         <td><%= employee_benefit_selection.decline_benefit %></td>
         <td><%= employee_benefit_selection.benefit_detail_id %></td>
-        <td><%= link_to 'Show', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %></td>
-        <td><%= link_to 'Edit', edit_company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %></td>
-        <td><%= link_to 'Destroy', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        
+        <% if current_user.manager? %>
+          <td><%= link_to 'Edit', edit_company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %></td>
+          <td><%= link_to 'Destroy', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% elsif current_user.employee? && !employee_benefit_selection.decline_benefit?%>
+          <td><%= link_to 'Benefit Rate', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -28,5 +32,9 @@
 
 <br>
 
-<%= link_to 'New Employee benefit selection', new_company_employee_employee_benefit_selection_path %> |
-<%= link_to 'Company Employees', company_employees_path %>
+<% if current_user.manager? %>
+  <%= link_to 'New Employee benefit selection', new_company_employee_employee_benefit_selection_path %> |
+  <%= link_to 'Company Employees', company_employees_path %>
+<% else %>
+
+<% end %>

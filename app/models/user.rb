@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :invitable, :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
          
-  # validates :email, presence:true, uniqueness: true
+  validates :email, presence:true, uniqueness: true
 
   # find company ID for current user.
   def company_id

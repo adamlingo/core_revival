@@ -3,29 +3,21 @@ class BenefitProfilesController < ApplicationController
   # must be logged in
   before_filter :authenticate_user!
   
-  # GET /benefit_profiles
-  # GET /benefit_profiles.json
   def index
     @benefit_profiles = BenefitProfile.all
   end
 
-  # GET /benefit_profiles/1
-  # GET /benefit_profiles/1.json
   def show
     @benefit_profile = BenefitProfile.find(params[:id])
   end
 
-  # GET /benefit_profiles/new
   def new
     @benefit_profile = BenefitProfile.new
   end
 
-  # GET /benefit_profiles/1/edit
   def edit
   end
 
-  # POST /benefit_profiles
-  # POST /benefit_profiles.json
   def create
     @benefit_profile = BenefitProfile.new(benefit_profile_params)
 
@@ -40,8 +32,6 @@ class BenefitProfilesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /benefit_profiles/1
-  # PATCH/PUT /benefit_profiles/1.json
   def update
     respond_to do |format|
       if @benefit_profile.update(benefit_profile_params)
@@ -54,8 +44,6 @@ class BenefitProfilesController < ApplicationController
     end
   end
 
-  # DELETE /benefit_profiles/1
-  # DELETE /benefit_profiles/1.json
   def destroy
     @benefit_profile.destroy
     respond_to do |format|

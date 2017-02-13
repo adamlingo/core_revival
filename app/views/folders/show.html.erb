@@ -3,9 +3,9 @@
 <h1><%= @folder.title %></h1>
 
 <p>
-  <%= link_to "Edit folder", edit_company_folder_path %>
+  <%= link_to "Edit title or description", edit_company_folder_path %>
   </br>
-  <%= link_to "Add document", company_folder_new_doc_path(folder_id: @folder.id) %>
+  <%= link_to "Add document to this folder", company_folder_new_doc_path(folder_id: @folder.id) %>
 </p>
 </br>
 <p>

@@ -4,7 +4,7 @@ ActiveAdmin.register BenefitProfile do
  belongs_to :company
 
   # Edit fields to save
-  permit_params :name, :company_id, :provider, :provider_plan, :benefit_type, :benefit_method
+  permit_params :name, :company_id, :provider, :provider_plan, :benefit_type, :benefit_method, :effective_date
 
   # Index view of benefits
   index do
@@ -15,6 +15,7 @@ ActiveAdmin.register BenefitProfile do
     column :provider_plan
     column :benefit_type
     column :benefit_method
+    column :effective_date
     actions dropdown: true do |benefit_profile|
       item "Employees", admin_company_employees_path
       item "Benefit Details", admin_benefit_profile_benefit_details_path(benefit_profile)
@@ -39,7 +40,7 @@ ActiveAdmin.register BenefitProfile do
       f.input :provider_plan, as: :select, :collection => [['Bronze'],['Silver']]
       f.input :benefit_type, as: :select, :collection => [['Medical'], ['Dental']]
       f.input :benefit_method, as: :select, :collection => [['%'], ['FIXED']]
-      
+      f.input :effective_date
     end
     f.actions
   end

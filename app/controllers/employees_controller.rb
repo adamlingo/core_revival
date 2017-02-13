@@ -37,11 +37,7 @@ class EmployeesController < ApplicationController
       flash[:success] = "New employee successfully created!"
 
       notify_zendesk('NEW EMPLOYEE ADDED')
-
-      # create User & User invite (skip invite for now)
-      user = User.invite!(:email => @employee.email) do |u|
-        u.skip_invitation = true
-      end
+      user = User.invite!(:email => @employee.email)
       user.employee = true
       user.save!
       @employee.user_id = user.id
@@ -110,7 +106,7 @@ class EmployeesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
       params.require(:employee).permit(:company_id, :first_name, :last_name,
-         :email, :address, :city, :state, :zip, :phone_number, :user_id, :sub_id)
+         :email, :address, :city, :state, :zip, :phone_number, :user_id, :sub_id, :date_of_birth)
     end
 
     def authorize_manager_or_self!
