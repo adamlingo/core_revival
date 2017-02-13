@@ -1,0 +1,26 @@
+// Place all the styles related to the Employees controller here.
+// Stylin' EE table on index load
+
+h1{
+	padding-bottom: 10px;
+	text-align: center
+}
+
+table {
+	th, td {
+		padding: 4px 20px;
+		border: solid 1px black;
+		border-collapse: collapse;
+	}
+	th {
+		text-align: center;
+		font-style: bold;
+	}
+	td {
+		text-align: left;
+		// center Actions links
+		&:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7), &:nth-child(8) {
+			text-align: center;
+		}
+	}
+}
