@@ -8,7 +8,7 @@ class EmployeesController < ApplicationController
   def index
     # only show all Employees of selected company
     @company = find_company
-    @employees = @company.employees
+    @employees = @company.employees.order(params[:sort])
   end
 
   def show
