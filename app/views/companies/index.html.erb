@@ -1,28 +1,32 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Company Info</h1>
+<div class='companies'>
+  <h1>Company Info</h1>
+</div>
+
 </br>
 
-<table style="border-collapse: collapse; border: 2px solid black;">
-  <thead style="border: 1px solid black;">
-    <tr>
-      <th>Co. Name</th>
-      <th>Health Ins.</th>
-      <th>Employee Roster</th>
-    </tr>
-  </thead>
-
-  <tbody style="text-align: center">
-    <% @companies.each do |company| %>
+<div class="companies">
+  <table class="companies">
+    <thead>
       <tr>
-        <td><%= company.name %></td>
-        <td><%= link_to 'Reconciliation', company_index_path(company) %></td>
-        <td><%= link_to 'View Employees', company_employees_path(company) %></td>
+        <th>Co. Name</th>
+        <th>Health Ins.</th>
+        <th>Employee Roster</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
+    <tbody>
+      <% @companies.each do |company| %>
+        <tr>
+          <td><%= company.name %></td>
+          <td><%= link_to 'Reconciliation', company_index_path(company) %></td>
+          <td><%= link_to 'View Employees', company_employees_path(company) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 <br>
 
 <% if current_user.admin? %>
