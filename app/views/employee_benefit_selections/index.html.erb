@@ -1,35 +1,38 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= @employee.display_name %> - Benefit Selections</h1>
+<div class="ben-selections">
+  <h1><%= @employee.display_name %> - Benefit Selections</h1>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Benefit type</th>
-      <th>Decline benefit</th>
-      <th>Benefit detail</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @employee_benefit_selections.each do |employee_benefit_selection| %>
+<div class="ben-selections">
+  <table>
+    <thead>
       <tr>
-        <td><%= employee_benefit_selection.benefit_type %></td>
-        <td><%= employee_benefit_selection.decline_benefit %></td>
-        <td><%= employee_benefit_selection.benefit_detail_id %></td>
-        
-        <% if current_user.manager? %>
-          <td><%= link_to 'Edit', edit_company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %></td>
-          <td><%= link_to 'Destroy', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% elsif current_user.employee? && !employee_benefit_selection.decline_benefit?%>
-          <td><%= link_to 'Benefit Rate', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %></td>
-        <% end %>
+        <th>Benefit type</th>
+        <th>Decline benefit</th>
+        <th>Benefit detail</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
+    <tbody>
+      <% @employee_benefit_selections.each do |employee_benefit_selection| %>
+        <tr>
+          <td><%= employee_benefit_selection.benefit_type %></td>
+          <td><%= employee_benefit_selection.decline_benefit %></td>
+          <td><%= employee_benefit_selection.benefit_detail_id %></td>
+          
+          <% if current_user.manager? %>
+            <td><%= link_to 'Edit', edit_company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %></td>
+            <td><%= link_to 'Destroy', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% elsif current_user.employee? && !employee_benefit_selection.decline_benefit?%>
+            <td><%= link_to 'Benefit Rate', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 <br>
 
 <% if current_user.manager? %>
