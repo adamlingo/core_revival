@@ -1,48 +1,53 @@
-<h1>Add New Employee</h1>
-</br>
-<%= form_for @employee, :url => company_employees_path(@company) do |f| %>
-  <% if @employee.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
+<div class="employees">
+  <h1>Add New Employee</h1>
+</div>
 
-      <ul>
-      <% @employee.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+</br>
+<div class="employees">
+  <%= form_for @employee, :url => company_employees_path(@company) do |f| %>
+    <% if @employee.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
+
+        <ul>
+        <% @employee.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :company_name, "Company: #{@company.name}"%>
     </div>
+
+    <div class="field">
+      <%= f.label :first_name %><br>
+      <%= f.text_field :first_name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :last_name %><br>
+      <%= f.text_field :last_name %>
+    </div>
+    
+    <div class="field">
+      <%= f.label :email %><br>
+      <%= f.text_field :email %>
+    </div>
+
+    <div class="field">
+      <%= f.label :date_of_birth %><br>
+      <%= f.text_field :date_of_birth, type: :date %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+
   <% end %>
 
-  <div class="field">
-    <%= f.label :company_name, "Company: #{@company.name}"%>
-  </div>
+  <hr>
 
-  <div class="field">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-
-  <div class="field">
-    <%= f.label :date_of_birth %><br>
-    <%= f.text_field :date_of_birth, type: :date %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-
-<% end %>
-
-<hr>
-
-<%= link_to 'Back', company_employees_path %>
+  <%= link_to 'Back', company_employees_path %>
+</div>
