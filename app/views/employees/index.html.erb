@@ -1,8 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= @company.name %> - Employees</h1>
+<div class="employees">
+  <h1><%= @company.name %> - Employees</h1>
+</div>
 
-<table>
+<table class="employees">
   <thead>
     <tr>      
       <th><%= sortable "last_name", "Last Name" %></th>
