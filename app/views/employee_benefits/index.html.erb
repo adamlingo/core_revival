@@ -1,24 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Employee Benefits</h1>
+<div class="ee-benefits">
+  <h1>Employee Benefits</h1>
+</div>
 
-<table style="border-collapse: collapse; border: 2px solid black;"">
-  <thead style="border: 1px solid black;">
-    <tr colspan="2">
-      <th>Employee Name</th>
-      <th>Benefit Selection</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @employees.each do |employee | %>
-      <tr>
-        <td><%= "#{employee.last_name}, #{employee.first_name}" %></td>
-        <td><%= link_to 'Benefit Selection', company_employee_employee_benefit_selections_path(employee.company, employee) %></td>
+<div class="ee-benefits">
+  <table>
+    <thead>
+      <tr colspan="2">
+        <th>Employee Name</th>
+        <th>Benefit Selection</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @employees.each do |employee | %>
+        <tr>
+          <td><%= "#{employee.last_name}, #{employee.first_name}" %></td>
+          <td><%= link_to 'Benefit Selection', company_employee_employee_benefit_selections_path(employee.company, employee) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 </br>
 
