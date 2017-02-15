@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20170201162040) do
+=======
+ActiveRecord::Schema.define(version: 20170211222547) do
+>>>>>>> 6e5d7bf... add ecnrypted ssn
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,6 +199,9 @@ ActiveRecord::Schema.define(version: 20170201162040) do
     t.date     "date_of_birth"
     t.date     "date_of_hire"
     t.boolean  "benefit_eligible"
+    t.string   "ssn"
+    t.string   "encrypted_ssn"
+    t.string   "encrypted_ssn_iv"
   end
 
   create_table "folders", force: :cascade do |t|
