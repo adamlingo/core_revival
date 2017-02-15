@@ -10,9 +10,11 @@ class Employee < ActiveRecord::Base
   has_one :employee_additional_login
   has_one :dependent
 
+
   validates :email, presence:true, uniqueness: true
   validates_presence_of :company_id
   
+    
   attr_encrypted :ssn, key: ENV['ENCRYPTION_KEY']
   
 
