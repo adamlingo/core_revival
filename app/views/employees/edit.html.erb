@@ -1,5 +1,10 @@
+<% provide(:title, 'Edit Employee') %>
 <div class="employees">
-  <h1>Editing Employee</h1>
+  <% if current_user.manager? || current_user.admin? %>
+    <h1> Edit <%= "#{@employee.first_name} #{@employee.last_name}"%></h1>
+  <% elsif current_user.employee? %>
+    <h1> Edit My Info </h1>
+  <% end %>    
 </div>
 </br>
 
