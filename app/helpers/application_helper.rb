@@ -4,7 +4,7 @@ module ApplicationHelper
   #     Example: "Home | Core Solutions"
   # Return full title on each page
   def full_title(page_title = '')
-    base_title = "Core Solutions"
+    base_title = "Core"
     if page_title.empty?
       base_title
     else
