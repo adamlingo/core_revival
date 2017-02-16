@@ -40,14 +40,12 @@
   </tbody>
 
 </table>
-
-<%= simple_format @folder.description %>
-</br>
-</br>
+<strong><%= "Folder Description: " %></strong></br></br>
+<%= simple_format @folder.description %></br></br>
 
 <% if current_user.manager? || current_user.admin? %>
   <p>
-    <%= link_to "View all folders for this Employee", company_employee_folders_path %>
+    <%= link_to "View all folders for #{@employee.first_name} #{@employee.last_name}", company_employee_folders_path %>
   </p>
   </br>
   <p>
