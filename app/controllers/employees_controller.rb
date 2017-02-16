@@ -132,6 +132,17 @@ class EmployeesController < ApplicationController
     end
     # return sorted
     def return_sorted
+      if Employee.column_names.include?(params[:sort])
+        sort_column = params[:sort]
+      else
+        sort_column = "last_name"
+      end
+
+      if ['asc', 'desc'].include?(params[:direction])
+        sort_direction = params[:direction]
+      else
+        sort_direction = "asc"
+      end
       @company.employees.order(sort_column + " " + sort_direction)
     end
 end
