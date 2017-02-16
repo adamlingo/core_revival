@@ -10,7 +10,7 @@ class EmployeesController < ApplicationController
   def index
     # only show all Employees of selected company
     @company = find_company
-    @employees = @company.employees.order(sort_column + " " + sort_direction)
+    @employees = return_sorted
   end
 
   def show
@@ -129,5 +129,9 @@ class EmployeesController < ApplicationController
     # direction for columns (default setting)
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
+    # return sorted
+    def return_sorted
+      @company.employees.order(sort_column + " " + sort_direction)
     end
 end
