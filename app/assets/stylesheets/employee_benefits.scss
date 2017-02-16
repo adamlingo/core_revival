@@ -1,9 +1,9 @@
-// Place all the styles related to the ee_ben_selections controller here.
-// Stylin' ben_selections
+// Place all the styles related to the employee_benefits controller here.
+// Stylin' EE benefits
 @import 'colors';
 @import 'fonts';
 
-.ben-selections {
+.ee-benefits {
 	font-family: open_sansregular;
 	font-size: 14px;
 	color: $text-grey;
@@ -13,6 +13,9 @@
 	padding-bottom: 10px;
 	text-align: left;
 	font-family: open_sansbold;
+	}
+	table {
+	  border: 2px solid black;
 	}
 	th, td {
 		padding: 5px 20px;

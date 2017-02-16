@@ -55,8 +55,6 @@ Rails.application.routes.draw do
     collection { post :import }
   end
 
-
-  
-   # default route syntax at bottom instead of get... will match if all other routes fail
-  match ':controller(/:action(/:id(.:format)))', :via => :get
+  # default route syntax at bottom instead of get... will match if all other routes fail
+  # match ':controller(/:action(/:id(.:format)))', :via => :get
 end

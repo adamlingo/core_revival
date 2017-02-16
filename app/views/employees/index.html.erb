@@ -1,22 +1,29 @@
+<% provide(:title, 'Employees') %>
 <p id="notice"><%= notice %></p>
 
-<h1><%= @company.name %> - Employees</h1>
+<div class="employees">
+  <h1><%= @company.name %> - Employees</h1>
+</div>
 
-<table style="border-collapse: collapse; border: 2px solid black;">
+<table class="employees">
   <thead>
-    <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>E-mail</th>
-      <th colspan="5">Actions</th>
+    <tr>      
+      <th><%= sortable "last_name", "Last Name" %></th>
+      <th><%= sortable "first_name", "First Name" %></th>
+      <th><%= sortable "email" %></th>
+      <th colspan="5">
+        <span><i class='fa fa-cog fa-spin fa-fw'></i></span>
+          Actions
+        <span><i class='fa fa-cog fa-spin fa-fw'></i></span>
+      </th>
     </tr>
   </thead>
 
-  <tbody style="border-collapse: collapse; border: 2px solid black;">
+  <tbody>
     <% @employees.each do |employee| %>
       <tr>
-        <td><%= employee.first_name %></td>
         <td><%= employee.last_name %></td>
+        <td><%= employee.first_name %></td>        
         <td><%= employee.email %></td>
         <td><%= link_to 'Show', company_employee_path(employee.company, employee) %></td>
         <td><%= link_to 'Edit', edit_company_employee_path(employee.company, employee) %></td>

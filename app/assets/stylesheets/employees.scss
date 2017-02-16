@@ -1,0 +1,75 @@
+// Place all the styles related to the Employees controller here.
+// Stylin' EE table on index load
+@import 'colors';
+@import 'fonts';
+
+.employees {
+	font-family: open_sansregular;
+	font-size: 14px;
+	color: $text-grey;
+	box-sizing: border-box;
+	
+	h1 {
+	padding-bottom: 10px;
+	text-align: left;
+	font-family: open_sansbold;
+	}
+	th, td {
+		padding: 5px 20px;
+		border: solid 1px $text-grey;
+		border-collapse: collapse;
+	}
+	th {
+		text-align: center;
+		font-family: open_sansbold;
+		font-size: 14px;
+		background-color: $green-dark;
+		.current{
+			padding-right: 12px;
+			background-repeat: no-repeat;
+			background-position: right center;
+		}
+		// up arrow from FA for sorting asc
+		.asc {
+			position:relative;
+			&:before {
+				content: "\f106";
+				font-family: FontAwesome;
+				font-size: 16px;
+				position: absolute;
+		    color: $grey-dark;
+		    top: 0;
+		    left: -15px;		    
+			}
+		}
+		// down arrow from FA for sorting desc
+		.desc {
+			position:relative;
+			&:before {
+				content: "\f107";
+				font-family: FontAwesome;
+				font-size: 16px;
+				position: absolute;
+		    color: $grey-dark;
+		    top: 0;
+		    left: -15px;		    
+			}
+		}
+	}
+	td {
+		text-align: left;
+		// center Actions links
+		&:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7), &:nth-child(8) {
+			text-align: center;
+		}
+	}
+	i {
+		color: white;
+	}
+}
+.field {
+	color: $green-2;
+	label {
+		color: $text-grey;
+	}
+}
