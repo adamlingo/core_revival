@@ -124,25 +124,24 @@ class EmployeesController < ApplicationController
 
     # sort column method (default setting)
     def sort_column
-      Employee.column_names.include?(params[:sort]) ? params[:sort] : "last_name"
+      #Employee.column_names.include?(params[:sort]) ? params[:sort] : "last_name"
+      if Employee.column_names.include?(params[:sort])
+        params[:sort]
+      else
+        "last_name"
+      end
     end
     # direction for columns (default setting)
     def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+      #%w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+      if ['asc', 'desc'].include?(params[:direction])
+        params[:direction]
+      else
+        "asc"
+      end     
     end
     # return sorted
     def return_sorted
-      if Employee.column_names.include?(params[:sort])
-        sort_column = params[:sort]
-      else
-        sort_column = "last_name"
-      end
-
-      if ['asc', 'desc'].include?(params[:direction])
-        sort_direction = params[:direction]
-      else
-        sort_direction = "asc"
-      end
-      @company.employees.order(sort_column + " " + sort_direction)
+       @company.employees.order(sort_column + " " + sort_direction)      
     end
 end
