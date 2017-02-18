@@ -9,6 +9,7 @@ gem 'pg'
 # Gem for using protected attributes (mass assignment security)
 # to gain access to attr_protected and attr_accessible in Models
 gem 'protected_attributes'
+gem 'attr_encrypted', "~> 3.0.0"
 
 # JAVASCRIPT
 # Use Uglifier as compressor for JavaScript assets

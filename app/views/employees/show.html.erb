@@ -1,29 +1,31 @@
 <% provide(:title, 'Employee') %>
 <p id="notice"><%= notice %></p>
 
-<div class="employees">
-  <div class="row">
-    <aside class="col-md-4">
-    	<%= "Name: " %>
-      <%= @employee.first_name %><%= @employee.last_name %></br></br>
-      <%= "E-mail: " %>
-      <%= @employee.email %></br>
-      <%= "Date of Birth: " %>
-      <%= @employee.date_of_birth %></br>
-      <%=	"Address: " %>
-      <%= @employee.address %></br>
-      <%= "City: " %>
-      <%= @employee.city %></br>
-      <%= "State: " %>
-      <%= @employee.state %></br>
-      <%= "Zip: " %>
-      <%= @employee.zip %></br>
-      <%= "Phone number: " %>
-      <%= @employee.phone_number %></br>
-      <%= "Subscriber ID: " %>
-      <%= @employee.sub_id %></br>
-    </aside>
-  </div>
+<div class="row">
+  <aside class="col-md-4">
+  	<%= "Name: " %>
+    <%= @employee.first_name %> <%= @employee.last_name %></br></br>
+    <%= "E-mail: " %>
+    <%= @employee.email %></br>
+    <%= "SSN: " %>
+    <%= @employee.ssn %></br>
+    <%= "Date of Birth: " %>
+    <%= @employee.date_of_birth %></br>
+    <%=	"Address: " %>
+    <%= @employee.address %></br>
+    <%= "City: " %>
+    <%= @employee.city %></br>
+    <%= "State: " %>
+    <%= @employee.state %></br>
+    <%= "Zip: " %>
+    <%= @employee.zip %></br>
+    <%= "Phone number: " %>
+    <%= @employee.phone_number %></br>
+    <%= "Subscriber ID: " %>
+    <%= @employee.sub_id %></br>
+  </aside>
+</div>
+
 
   <%= link_to 'Edit', edit_company_employee_path%> |
   <% if current_user.manager? || current_user.admin? %>

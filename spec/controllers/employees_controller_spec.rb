@@ -39,6 +39,27 @@ RSpec.describe EmployeesController, type: :controller do
     
     end
     
+    it "should save ssn as encrypted" do
+      
+            employee_payload = {
+      company_id: 1,
+      employee: {
+      first_name: 'Ima',
+      last_name: 'New Employee',
+      email: 'totally-fake@core-redux.com',
+      ssn: '123-45-6789'
+        }
+      } 
+
+      post :create, employee_payload
+      
+      after_employee = Employee.find_by(first_name: 'Ima', last_name: 'New Employee')
+      
+      expect(after_employee.ssn).to eq('123-45-6789')
+      expect(after_employee.encrypted_ssn).not_to eq(after_employee.ssn)
+      
+ 
+    end
 
     it "should create a related user" do
       before_employee = Employee.find_by(first_name: 'Ima', last_name: 'New Employee')
