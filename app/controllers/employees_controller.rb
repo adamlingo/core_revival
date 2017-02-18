@@ -4,11 +4,13 @@ class EmployeesController < ApplicationController
   before_filter :authorize_company!
   before_filter :authorize_manager!, except: [:show, :edit, :update]
   before_filter :authorize_manager_or_self!, only: [:show, :edit, :update]
+  # call helper methods
+  helper_method :sort_column, :sort_direction
 
   def index
     # only show all Employees of selected company
     @company = find_company
-    @employees = @company.employees
+    @employees = return_sorted
   end
 
   def show
@@ -103,7 +105,6 @@ class EmployeesController < ApplicationController
       find_company.employees.find(params[:id].to_i)
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
       params.require(:employee).permit(:company_id, :first_name, :last_name,
          :email, :address, :city, :state, :zip, :phone_number, :user_id, :sub_id, :date_of_birth, :encrypted_ssn, :ssn)
@@ -116,7 +117,31 @@ class EmployeesController < ApplicationController
       end
     end
 
+    # single out if EE is user when it's supposed to be manager
     def employee_is_current_user?
       current_user.employee_id == params[:id].to_i
+    end
+
+    # sort column method (default setting)
+    def sort_column
+      #Employee.column_names.include?(params[:sort]) ? params[:sort] : "last_name"
+      if Employee.column_names.include?(params[:sort])
+        params[:sort]
+      else
+        "last_name"
+      end
+    end
+    # direction for columns (default setting)
+    def sort_direction
+      #%w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+      if ['asc', 'desc'].include?(params[:direction])
+        params[:direction]
+      else
+        "asc"
+      end     
+    end
+    # return sorted
+    def return_sorted
+       @company.employees.order(sort_column + " " + sort_direction)      
     end
 end

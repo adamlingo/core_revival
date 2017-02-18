@@ -7,22 +7,22 @@
 body {
   margin: 50px 0;
   .btn-primary {
-        font-size: 16px;
-        float: none !important;
-        display: block;
-        width: 150px;
-        margin: 5px 0px 0px 0px;
-        padding: 14px 12px;
-        text-shadow: none;
-        color: #fff;
-        background-color: #5cb85c;
-        border: none;
-        border-radius: 4px;
-        background-image: none;
-        &:hover{
-          background-color: #4cae4c;
-        }
-      }
+    font-size: 16px;
+    float: none !important;
+    display: block;
+    width: 150px;
+    margin: 5px 0px 0px 0px;
+    padding: 14px 12px;
+    text-shadow: none;
+    color: #fff;
+    background-color: #5cb85c;
+    border: none;
+    border-radius: 4px;
+    background-image: none;
+    &:hover{
+      background-color: #4cae4c;
+    }
+  }
 }
 
 td.image {

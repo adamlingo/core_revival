@@ -31,6 +31,15 @@ module CoreRedux
     # Configure scaffold function for Rails back to default (fix from ActiveAdmin change)
     config.app_generators.scaffold_controller = :scaffold_controller
 
+    # Customize scaffolding here:
+    config.generators do |g|
+      g.orm             :active_record
+      g.template_engine :erb
+      g.test_framework  :test_unit, fixture: true
+      g.stylesheets     false
+      g.javascripts     false
+    end
+
     # disable mass assignment
     config.active_record.whitelist_attributes = true
   end

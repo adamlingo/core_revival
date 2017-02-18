@@ -40,7 +40,7 @@ body.devise-sessions, body.devise-passwords, body.devise-registrations, body.dev
       }
       .form-control {
         height: 49px;
-        background: rgb(250, 255, 189);
+        background: $beige;
         border: none;
         &:focus {
           color: black;
