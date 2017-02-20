@@ -30,8 +30,16 @@ describe Employee, type: :model do
         expect(e.valid?).to eq(true)
     end
     
+    it "should save ssn encrypted" do
+        e = Employee.new(ssn: '123-45-6789', email: 'unique@email.com', company_id: 1)
+        ssn = e.ssn
+        encrypted_ssn = e.encrypted_ssn
+        iv = e.encrypted_ssn_iv
+        expect(e.valid?).to eq(true)
+        expect(ssn).not_to eq(encrypted_ssn)
+        expect(ssn).to eq('123-45-6789')
+        expect(iv).to be_truthy
+    end
     
-    
-    
-    
+
 end

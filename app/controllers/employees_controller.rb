@@ -59,7 +59,7 @@ class EmployeesController < ApplicationController
       flash[:success] = "Employee updated!"
       if @employee.user_id.present?
         
-        notify_zendesk('EMPLOYEE INFO Changed')
+        # notify_zendesk('EMPLOYEE INFO Changed')
   
         # update User record email to match Employee
         user = User.find(@employee.user_id)
@@ -107,7 +107,7 @@ class EmployeesController < ApplicationController
 
     def employee_params
       params.require(:employee).permit(:company_id, :first_name, :last_name,
-         :email, :address, :city, :state, :zip, :phone_number, :user_id, :sub_id, :date_of_birth)
+         :email, :address, :city, :state, :zip, :phone_number, :user_id, :sub_id, :date_of_birth, :encrypted_ssn, :ssn)
     end
 
     def authorize_manager_or_self!

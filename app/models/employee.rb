@@ -10,9 +10,14 @@ class Employee < ActiveRecord::Base
   has_one :employee_additional_login
   has_one :dependent
 
+
   validates :email, presence:true, uniqueness: true
   validates_presence_of :company_id
   
+    
+  attr_encrypted :ssn, key: ENV['ENCRYPTION_KEY']
+  
+
   def self.import(company_id, file_path)
     # file_path = '/home/ubuntu/workspace/core_redux/lib/assets/EmployeeList.csv'
     CSV.foreach(file_path, headers: true) do |row|
