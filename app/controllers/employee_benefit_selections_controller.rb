@@ -3,17 +3,19 @@ class EmployeeBenefitSelectionsController < ApplicationController
   before_action :set_employee_benefit_selection, only: [:show, :edit, :update, :destroy]
 
   def index
-    @employee_benefit_selections = EmployeeBenefitSelection.where(employee_id: params[:employee_id])
+    # show only benefit selections that are not declined
+    @employee_benefit_selections = EmployeeBenefitSelection.where(employee_id: params[:employee_id], decline_benefit: false)
     @employee = Employee.find(params[:employee_id])
   end
 
   def show
-    employee = Employee.find(params[:employee_id])
+    @employee = Employee.find(params[:employee_id])
     ben_detail_id = @employee_benefit_selection.benefit_detail_id.to_i
     ben_detail = BenefitDetail.find(ben_detail_id)
     @ben_profile = BenefitProfile.find(ben_detail.benefit_profile_id.to_i)
     @effective_date = @ben_profile.effective_date
-    @benefit_rate = BenefitRate.compute_rate(employee.id, ben_detail_id, @effective_date)
+    @benefit_rate = BenefitRate.compute_rate(@employee.id, ben_detail_id, @effective_date)
+    @ee_age = BenefitRate.ee_age(@effective_date, @employee.date_of_birth)
   end
 
   def new
