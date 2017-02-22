@@ -20,11 +20,18 @@
 		border-collapse: collapse;
 	  box-sizing: border-box;
 	  border: solid 1px;
+	  text-align: center;
 	}
 	th {
-		text-align: center;
 		font-family: open_sansbold;
 		font-size: 14px;
 		background-color: $green-dark;
+	}
+	p {
+		text-align: left;
+	}
+	span {
+		color: $green-dark;
+		font-family: open_sansbold;
 	}
 }
