@@ -48,6 +48,6 @@
 	
 </div>
 
-<%= link_to 'Accept', company_employee_employee_benefit_selections_path %><%= " | " %>
-<%= link_to 'Decline', company_employee_employee_benefit_selections_path %><%= " | " %>
+<%= link_to 'Accept', company_employee_employee_benefit_selection_accept_benefit_path(employee_benefit_selection_id: @employee_benefit_selection.id, employee_id: @employee.id), method: :post %><%= " | " %>
+<%= link_to 'Decline', company_employee_employee_benefit_selection_decline_benefit_path(employee_benefit_selection_id: @employee_benefit_selection.id, employee_id: @employee.id), method: :post %><%= " | " %>
 <%= link_to 'Back', company_employee_employee_benefit_selections_path %>
