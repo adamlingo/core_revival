@@ -12,7 +12,7 @@
         <th>Plan</th>
         <th>Benefit type</th>
         <% if current_user.manager? %>
-          <th>Decline benefit?</th>
+          <th>Eligible?</th>
            <th colspan="5">Actions</th>
         <% else %>
           <th colspan="4">Actions</th>
@@ -23,8 +23,8 @@
     <tbody>
       <% @employee_benefit_selections.each do |employee_benefit_selection| %>
         <tr>
-          <td><%= "Provider "%></td>
-          <td><%= "Plan" %></td>
+          <td><%= employee_benefit_selection.benefit_profile.provider%></td>
+          <td><%= employee_benefit_selection.benefit_profile.provider_plan %></td>
           <td><%= employee_benefit_selection.benefit_type %></td>
                     
           <% if current_user.manager? %>
