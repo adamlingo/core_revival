@@ -6,8 +6,4 @@ class BenefitAccept < ActiveRecord::Base
   def new
   end
 
-  def self.accept_or_decline()
-
-  end
-    
 end
