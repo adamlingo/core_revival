@@ -68,6 +68,18 @@ class EmployeeBenefitSelectionsController < ApplicationController
     end
   end
 
+  def accept_benefit
+    benefit_profile_id = 5
+    BenefitAccept.create!(accept: true, benefit_profile_id: benefit_profile_id, employee_id: params[:employee_id])
+    redirect_to company_employee_employee_benefit_selections_path
+  end
+
+  def decline_benefit
+    benefit_profile_id = 5
+    BenefitAccept.create!(accept: false, benefit_profile_id: benefit_profile_id, employee_id: params[:employee_id])
+    redirect_to company_employee_employee_benefit_selections_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_employee_benefit_selection
