@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe FoldersController, type: :controller do 
-    fixtures :folders, :employees, :companies, :users
+    fixtures :employees, :companies, :users
 
     context 'authenticated' do 
         before(:each) do
@@ -9,27 +9,41 @@ RSpec.describe FoldersController, type: :controller do
             sign_in(admin_user)
         end
         
-        it "should should save a document" 
+        # it "should should save a document" do
             
-            # post :add_doc
+        #     doc_payload = {
+                
+        #     }
             
+        #     post :add_doc
+            
+        # end
  
         it "should create a new folder" do
             
             folder_payload = {
-            company_id: 1,
-            title: "New Folder",
-            description: "This is a test folder"
+                folder: {
+                    title: "New Folder",
+                    description: "This is a test folder"
+                },
+                company_id: 1
             }
             
             post :create, folder_payload
             
-            expect(flash[:info] = "Document added to folder").to_be_present
+            new_folder = Folder.find_by(title: "New Folder")
+
+            expect(response).to have_http_status(:found)
+            expect(response).to redirect_to(company_folder_path(id: new_folder.id))
+            expect(new_folder).not_to be(nil)
+            
         end
         
-        it "should delete a folder" 
+        # it "should delete a folder" do
             
-            # post :destory
+        #     post :destory
+            
+        # end
         
         
         it "should update a folder" 
