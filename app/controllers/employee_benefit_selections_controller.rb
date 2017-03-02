@@ -32,6 +32,7 @@ class EmployeeBenefitSelectionsController < ApplicationController
   def create
     @employee_benefit_selection = EmployeeBenefitSelection.new(employee_benefit_selection_params)
 
+    puts "*******************************************************"
     puts employee_benefit_selection_params
     puts @employee_benefit_selection
 
@@ -69,14 +70,18 @@ class EmployeeBenefitSelectionsController < ApplicationController
   end
 
   def accept_benefit
-    benefit_profile_id = 5
-    BenefitAccept.create!(accept: true, benefit_profile_id: benefit_profile_id, employee_id: params[:employee_id])
+    @accept = EmployeeBenefitSelection.find(params[:employee_benefit_selection_id])
+    @accept.update(benefit_accept: true)
+    @accept.save!
+    flash[:success] = "Benefit Rate Accepted"
     redirect_to company_employee_employee_benefit_selections_path
   end
 
   def decline_benefit
-    benefit_profile_id = 5
-    BenefitAccept.create!(accept: false, benefit_profile_id: benefit_profile_id, employee_id: params[:employee_id])
+    @decline = EmployeeBenefitSelection.find(params[:employee_benefit_selection_id])
+    @decline.update(benefit_accept: false)
+    @decline.save!
+    flash[:success] = "Benefit Rate Declined"
     redirect_to company_employee_employee_benefit_selections_path
   end
 
@@ -88,6 +93,6 @@ class EmployeeBenefitSelectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_benefit_selection_params
-      params.require(:employee_benefit_selection).permit(:employee_id, :benefit_type, :decline_benefit, :benefit_detail_id)
+      params.require(:employee_benefit_selection).permit(:employee_id, :benefit_type, :decline_benefit, :benefit_detail_id, :benefit_accept)
     end
 end
