@@ -11,6 +11,14 @@ class BenefitProfilesController < ApplicationController
 
   def show
     @benefit_profile = BenefitProfile.find(params[:id])
+    benefit_detail = BenefitDetail.where(benefit_profile_id: @benefit_profile.id, employee_category: "1 Employee")
+    puts "^^^^^^^^^^^^^^^^^^^^^^^"
+    puts benefit_detail
+    @employees = Company.find(@benefit_profile.company_id).employees
+    @selections = EmployeeBenefitSelection.where(employee_id: @employees.ids, benefit_detail_id: benefit_detail.ids)
+    puts "*********************"
+    puts "*********************"
+    puts @selections
   end
 
   def new
