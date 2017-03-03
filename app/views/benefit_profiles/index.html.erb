@@ -19,7 +19,7 @@
           <td><%= benefit_profile.provider %></td>
           <td><%= benefit_profile.provider_plan %></td>
           <td><%= benefit_profile.benefit_type %></td>
-          <td><%= link_to 'Employee Rates' %></td>
+          <td><%= link_to 'Employee Rates', company_benefit_profile_path(benefit_profile.company, benefit_profile) %></td>
         </tr>
       <% end %>
     </tbody>
