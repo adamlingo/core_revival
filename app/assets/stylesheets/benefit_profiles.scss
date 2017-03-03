@@ -1,0 +1,36 @@
+// Place all the styles related to the ee_ben_selections controller here.
+// Stylin' ben_selections
+@import 'colors';
+@import 'fonts';
+
+.profiles {
+	font-family: open_sansregular;
+	font-size: 14px;
+	color: $text-grey;
+	box-sizing: border-box;
+
+	h1 {
+	padding-bottom: 10px;
+	text-align: left;
+	font-family: open_sansbold;
+	}
+	th, td {
+		padding: 5px 20px;
+		border: solid 1px $text-grey;
+		border-collapse: collapse;
+	  box-sizing: border-box;
+	  border: solid 1px;
+	  text-align: center;
+	}
+	th {
+		font-family: open_sansbold;
+		font-size: 14px;
+		background-color: $green-dark;
+	}
+	p {
+		text-align: left;
+	}
+	i {
+		color: white;
+	}
+}
