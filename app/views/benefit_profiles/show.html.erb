@@ -1,14 +1,29 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @benefit_profile.name %>
-</p>
+<div class='profiles'>
+	<h1> Employee Rates: <%= "#{@benefit_profile.provider}" " #{@benefit_profile.benefit_type}" %></h1>
+	<table>
+    <thead>
+      <tr>
+        <th>Last</th>
+        <th>First</th>
+        <th>Accept/Decline</th>
+        <th colspan="4">Actions <span><i class='fa fa-cog fa-spin fa-fw'></i></span></th>
+      </tr>
+    </thead>
 
-<p>
-  <strong>Company:</strong>
-  <%= @benefit_profile.company_id %>
-</p>
+    <tbody>
+      <% @employees.each do |employee| %>
+        <tr>
+          <td><%= employee.last_name %></td>
+          <td><%= employee.first_name %></td>
+          <td><%= @selections %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'Edit', edit_benefit_profile_path(@benefit_profile) %> |
-<%= link_to 'Back', benefit_profiles_path %>
+</br></br>
+<p><%= link_to 'Back', company_benefit_profiles_path %></p>
+
+</div>
