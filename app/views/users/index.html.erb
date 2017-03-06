@@ -1,7 +1,10 @@
 <ul>
+  <li>
+    <%= link_to 'BACK', root_path %></br></br>
+  </li>
   <% @users.each do |user| %>
   <li>
-  	<%= 'User e-mail: ' %>
+  	<%= 'E-mail: ' %>
     <%= user.email %>
     	<% if user.manager? %>
     		</br>
