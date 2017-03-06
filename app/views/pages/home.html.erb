@@ -4,19 +4,16 @@
   <h1 style="text-align: center"> Welcome to Core </h1>
   
   <% if current_user.admin? %>
-    <h1>Nearly Constructed...</h1>
-    </br></br>
-    <h2>
-      Eventual home page for the new Core App!
-    </h2>
+    
     </br>
-    <a>
-    	<%= link_to 'View Companies', companies_path %>
-    </a>
-    </br></br>
-    <a>
-    	<%= link_to 'View Users', users_path %>
-    </a>
+    	<h2 style="text-align: center">Admin Home</h2>
+    </br>
+    
+    <p style="text-align: center">
+      <%= link_to 'Companies', companies_path %>
+      <%= ' | ' %>
+      <%= link_to 'Users', users_path %>
+    </p>
     </br></br>
   <% elsif current_user.employee? %>
     <% if @token.present? %>
