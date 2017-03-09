@@ -11,14 +11,10 @@ class BenefitProfilesController < ApplicationController
 
   def show
     @benefit_profile = BenefitProfile.find(params[:id])
-    benefit_detail = BenefitDetail.where(benefit_profile_id: @benefit_profile.id, employee_category: "1 Employee")
-    puts "^^^^^^^^^^^^^^^^^^^^^^^"
-    puts benefit_detail
+    benefit_detail = BenefitDetail.where(benefit_profile_id: @benefit_profile.id)
     @employees = Company.find(@benefit_profile.company_id).employees
-    @selections = EmployeeBenefitSelection.where(employee_id: @employees.ids, benefit_detail_id: benefit_detail.ids)
-    puts "*********************"
-    puts "*********************"
-    puts @selections
+    @selections = EmployeeBenefitSelection.where(employee_id: @employees.ids, benefit_detail_id: benefit_detail.ids) 
+    # @declined = EmployeeBenefitSelection.where(employee_id: @employees.ids, decline_benefit: true)   
   end
 
   def new
