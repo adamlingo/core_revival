@@ -39,11 +39,22 @@ RSpec.describe FoldersController, type: :controller do
             
         end
         
-        # it "should delete a folder" do
+        it "should delete a folder" do
+            folder_payload = {
+                folder: {
+                    title: "New Folder",
+                    description: "This is a test folder"
+                },
+                company_id: 1
+            }
             
-        #     post :destory
+            post :create, folder_payload
             
-        # end
+            new_folder = Folder.find_by(title: "New Folder")
+
+            post :destory, new_folder.id
+            
+        end
         
         
         it "should update a folder" 
