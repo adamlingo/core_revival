@@ -3,7 +3,7 @@
 @import 'colors';
 @import 'fonts';
 
-.ben-selections {
+.profiles {
 	font-family: open_sansregular;
 	font-size: 14px;
 	color: $text-grey;
@@ -30,8 +30,7 @@
 	p {
 		text-align: left;
 	}
-	span {
-		color: $green-dark;
-		font-family: open_sansbold;
+	i {
+		color: white;
 	}
 }

@@ -3,17 +3,19 @@ class EmployeeBenefitSelectionsController < ApplicationController
   before_action :set_employee_benefit_selection, only: [:show, :edit, :update, :destroy]
 
   def index
-    @employee_benefit_selections = EmployeeBenefitSelection.where(employee_id: params[:employee_id])
+    # show only benefit selections that are not declined
+    @employee_benefit_selections = EmployeeBenefitSelection.where(employee_id: params[:employee_id], decline_benefit: false)
     @employee = Employee.find(params[:employee_id])
   end
 
   def show
-    employee = Employee.find(params[:employee_id])
+    @employee = Employee.find(params[:employee_id])
     ben_detail_id = @employee_benefit_selection.benefit_detail_id.to_i
     ben_detail = BenefitDetail.find(ben_detail_id)
     @ben_profile = BenefitProfile.find(ben_detail.benefit_profile_id.to_i)
     @effective_date = @ben_profile.effective_date
-    @benefit_rate = BenefitRate.compute_rate(employee.id, ben_detail_id, @effective_date)
+    @benefit_rate = BenefitRate.compute_rate(@employee.id, ben_detail_id, @effective_date)
+    @ee_age = BenefitRate.ee_age(@effective_date, @employee.date_of_birth)
   end
 
   def new
@@ -30,6 +32,7 @@ class EmployeeBenefitSelectionsController < ApplicationController
   def create
     @employee_benefit_selection = EmployeeBenefitSelection.new(employee_benefit_selection_params)
 
+    puts "*******************************************************"
     puts employee_benefit_selection_params
     puts @employee_benefit_selection
 
@@ -66,6 +69,22 @@ class EmployeeBenefitSelectionsController < ApplicationController
     end
   end
 
+  def accept_benefit
+    @accept = EmployeeBenefitSelection.find(params[:employee_benefit_selection_id])
+    @accept.update(benefit_accept: true)
+    @accept.save!
+    flash[:success] = "Benefit Rate Accepted"
+    redirect_to company_employee_employee_benefit_selections_path
+  end
+
+  def decline_benefit
+    @decline = EmployeeBenefitSelection.find(params[:employee_benefit_selection_id])
+    @decline.update(benefit_accept: false)
+    @decline.save!
+    flash[:success] = "Benefit Rate Declined"
+    redirect_to company_employee_employee_benefit_selections_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_employee_benefit_selection
@@ -74,6 +93,6 @@ class EmployeeBenefitSelectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_benefit_selection_params
-      params.require(:employee_benefit_selection).permit(:employee_id, :benefit_type, :decline_benefit, :benefit_detail_id)
+      params.require(:employee_benefit_selection).permit(:employee_id, :benefit_type, :decline_benefit, :benefit_detail_id, :benefit_accept)
     end
 end
