@@ -52,7 +52,7 @@ RSpec.describe FoldersController, type: :controller do
             
             new_folder = Folder.find_by(title: "New Folder")
 
-            post :destory, new_folder.id
+            delete :destroy, {company_id: 1, id: new_folder.id}
             
         end
         
