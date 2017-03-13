@@ -5,7 +5,9 @@ class EmployeeBenefitSelection < ActiveRecord::Base
   validates :benefit_detail_id, :presence => true, :unless => :is_benefit_declined?
   before_save :unset_benefit_detail_if_declined
 
-
+  def benefit_profile
+    BenefitProfile.find_by(id: self.benefit_detail.benefit_profile_id)
+  end
 
   private
     def unset_benefit_detail_if_declined

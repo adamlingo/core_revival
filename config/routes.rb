@@ -29,7 +29,10 @@ Rails.application.routes.draw do
 
     resources :employees do
       get "invite" => 'employees#invite', as: 'invite'
-      resources :employee_benefit_selections
+      resources :employee_benefit_selections do
+        post "accept_benefit", to: 'employee_benefit_selections#accept_benefit', as: 'accept_benefit'
+        post "decline_benefit", to: 'employee_benefit_selections#decline_benefit', as: 'decline_benefit'
+      end
       resources :salaries
       resources :employee_benefits
       # EmployeeFolder

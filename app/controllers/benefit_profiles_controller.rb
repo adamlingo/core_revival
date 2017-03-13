@@ -2,13 +2,19 @@ class BenefitProfilesController < ApplicationController
   before_action :set_benefit_profile, only: [:show, :edit, :update, :destroy]
   # must be logged in
   before_filter :authenticate_user!
+  before_filter :authorize_company!
+  before_filter :authorize_manager!
   
   def index
-    @benefit_profiles = BenefitProfile.all
+    @benefit_profiles = BenefitProfile.where(company_id: current_user.company_id)
   end
 
   def show
     @benefit_profile = BenefitProfile.find(params[:id])
+    benefit_detail = BenefitDetail.where(benefit_profile_id: @benefit_profile.id)
+    @employees = Company.find(@benefit_profile.company_id).employees
+    @selections = EmployeeBenefitSelection.where(employee_id: @employees.ids, benefit_detail_id: benefit_detail.ids) 
+    # @declined = EmployeeBenefitSelection.where(employee_id: @employees.ids, decline_benefit: true)   
   end
 
   def new
