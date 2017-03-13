@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     post 'reconciliations/import_payroll_deductions', to: 'reconciliations#import_payroll_deductions', as: :import_payroll_deductions
 
     resources :employees do
+      get "invite" => 'employees#invite', as: 'invite'
       resources :employee_benefit_selections
       resources :salaries
       resources :employee_benefits
