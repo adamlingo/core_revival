@@ -42,11 +42,7 @@
     
     <div class="field">
       <%= f.label :date_of_birth %><br>
-      <% if current_user.manager? || current_user.admin? %>
-        <%= f.text_field :date_of_birth, type: :date %>
-      <% else %>
-        <%= f.label @employee.date_of_birth %>
-      <% end %>
+      <%= f.text_field :date_of_birth, type: :date %>
     </div>
 
     <div class="field">
@@ -85,11 +81,11 @@
     </div>
 
     <div class="field">
-      <%= f.label 'Subscriber ID' %><br>
-      <% if current_user.manager? || current_user.admin? %>  
+      <% if current_user.manager? || current_user.admin? %> 
+        <%= f.label 'Subscriber ID' %><br>
         <%= f.text_field :sub_id %>
-      <% elsif @employee.sub_id.present? %>
-        <%= f.label @employee.sub_id %><br>
+      <% elsif current_user.employee? %>
+        </br>
       <% end %>
     </div>
 
