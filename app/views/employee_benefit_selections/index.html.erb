@@ -37,7 +37,11 @@
             </td>
             <td><%= link_to 'Edit', edit_company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %>
             <%= " | " %>
-            <%= link_to 'Destroy', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <%= link_to 'Destroy', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection), method: :delete, data: { confirm: 'Are you sure?' } %>
+            </td>
+            
+          <% elsif current_user.employee? && !employee_benefit_selection.decline_benefit? && @employee.date_of_birth == nil %>
+            <td><%= link_to 'Add your birthday', edit_company_employee_path(@employee.company, @employee) %></td>
           <% elsif current_user.employee? && !employee_benefit_selection.decline_benefit? && employee_benefit_selection.benefit_accept == nil %>
             <td><%= link_to 'Benefit Rate', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %></td>
           <% elsif employee_benefit_selection.benefit_accept == true %>
@@ -54,7 +58,8 @@
 
 <% if current_user.manager? %>
   <%= link_to 'New Employee benefit selection', new_company_employee_employee_benefit_selection_path %> |
-  <%= link_to 'Company Employees', company_employees_path %>
+  <%= link_to 'Company Benefit Profiles', company_benefit_profiles_path() %> |
+  <%= link_to 'See Company Employees', company_employees_path %> 
 <% else %>
 
 <% end %>
