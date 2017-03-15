@@ -90,15 +90,31 @@ RSpec.describe FoldersController, type: :controller do
             
         
                 
-        # it "should should save a document" do
+        it "should should save a document" do
             
-        #     doc_payload = {
-                
-        #     }
+                        
+            folder_payload = {
+                folder: {
+                    title: "New Folder",
+                    description: "This is a test folder"
+                },
+                company_id: 1
+            }
             
-        #     post :add_doc
+            post :create, folder_payload
             
-        # end
+            new_folder = Folder.find_by(title: "New Folder")
+            
+            doc = "#{Rails.root}/spec/fixtures/test.pdf".freeze
+            
+            new_doc = {
+                folder_id: new_folder.id,
+        
+            }
+            
+            post :add_doc, new_doc
+            
+        end
  
         it "should delete a document" 
             
