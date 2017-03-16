@@ -30,11 +30,26 @@ class EmployeesController < ApplicationController
   end
 
   def invite
-    @employee = set_employee
+    @employee = set_employee_for_invite
     @company = find_company
-    puts @employee.id
-    user = find(@employee.user_id)
-    user.invite!(current_user) # current_user sets invited_by attribute
+
+    if @employee.user_id.nil?
+      # do standard invitation
+      user = User.invite!({:email => @employee.email})
+      user.employee = true
+      user.save!
+      @employee.user_id = user.id
+      @employee.save
+      flash[:success] = "Initation sent to new User!"
+    else
+      # re-invite existing user
+      user = User.find(@employee.user_id)
+      user.invite!(current_user) # current_user sets invited_by attribute
+      flash[:success] = "Employee re-invited!"
+    end
+    # reload EE index after Invite button click
+    redirect_to company_employees_path
+    
   end
 
   def create
@@ -45,7 +60,7 @@ class EmployeesController < ApplicationController
       flash[:success] = "New employee successfully created!"
       notify_zendesk('NEW EMPLOYEE ADDED')
       # current_user logs who sent the invite
-      user = User.invite!({:email => @employee.email}, current_user)
+      user = User.invite!({:email => @employee.email})
       user.employee = true
       user.save!
       @employee.user_id = user.id
@@ -109,6 +124,10 @@ class EmployeesController < ApplicationController
 
     def set_employee
       find_company.employees.find(params[:id].to_i)
+    end
+
+    def set_employee_for_invite
+      find_company.employees.find(params[:employee_id].to_i)
     end
 
     def employee_params
