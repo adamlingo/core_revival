@@ -8,7 +8,7 @@ class EmployeesController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    # only show all Employees of selected company
+    # only show Employees of selected company
     @company = find_company
     @employees = return_sorted
   end
@@ -29,17 +29,38 @@ class EmployeesController < ApplicationController
     @company = find_company
   end
 
+  def invite
+    @employee = set_employee_for_invite
+    @company = find_company
+
+    if @employee.user_id.nil?
+      # do standard invitation
+      user = User.invite!({:email => @employee.email})
+      user.employee = true
+      user.save!
+      @employee.user_id = user.id
+      @employee.save
+      flash[:success] = "Initation sent to new User!"
+    else
+      # re-invite existing user
+      user = User.find(@employee.user_id)
+      user.invite!(current_user) # current_user sets invited_by attribute
+      flash[:success] = "Employee re-invited!"
+    end
+    # reload EE index after Invite button click
+    redirect_to company_employees_path
+    
+  end
+
   def create
     @employee = Employee.new(employee_params)
     @company = find_company
     @employee.company_id = @company.id
-    # @user = User.new(user_params) << want to use :email field for new user record
-    # need @employee.save if/else clause to render proper template
     if @employee.save
       flash[:success] = "New employee successfully created!"
-
       notify_zendesk('NEW EMPLOYEE ADDED')
-      user = User.invite!(:email => @employee.email)
+      # current_user logs who sent the invite
+      user = User.invite!({:email => @employee.email})
       user.employee = true
       user.save!
       @employee.user_id = user.id
@@ -103,6 +124,10 @@ class EmployeesController < ApplicationController
 
     def set_employee
       find_company.employees.find(params[:id].to_i)
+    end
+
+    def set_employee_for_invite
+      find_company.employees.find(params[:employee_id].to_i)
     end
 
     def employee_params
