@@ -58,7 +58,7 @@ class Reconciliation < ActiveRecord::Base
             insurance_account_number = emp_invoices[0].account_number
 
             # benefit details for the employee
-            benefit_selection = employee_benefit_selection(insurance_account_number, employee)
+            benefit_selection = employee_benefit_selection(insurance_account_number, employee.id)
             return 'benefit declined' if benefit_selection.decline_benefit
 
             benefit_detail = BenefitDetail.find(benefit_selection.benefit_detail_id)
