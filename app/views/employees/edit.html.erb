@@ -100,7 +100,7 @@
   <% if current_user.manager? || current_user.admin? %>
     <%= link_to 'Back to Employees', company_employees_path %>
   <% else %>
-    <%= link_to 'Back to Profile', company_employee_path %>
+    <%= link_to 'Home', root_path %>
   <% end %>
 
 </div>

@@ -22,8 +22,12 @@
       <%= @employee.zip %></br>
       <%= "Phone number: " %>
       <%= @employee.phone_number %></br>
-      <%= "Subscriber ID: " %>
-      <%= @employee.sub_id %></br>
+      <% if current_user.manager? %>
+        <%= "Subscriber ID: " %>
+        <%= @employee.sub_id %></br>
+      <% else %>
+        </br>
+      <% end %>
     </aside>
   </div>
 </div>
