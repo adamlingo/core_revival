@@ -52,12 +52,12 @@
     
     <div class="field">
       <%= f.label :email %><br>
-      <%= f.text_field :email %>
+      <%= f.text_field :email, :size=>"35" %>
     </div>  
 
     <div class="field">
       <%= f.label :address %><br>
-      <%= f.text_field :address %>
+      <%= f.text_field :address, :size=>"35" %>
     </div>
 
     <div class="field">
@@ -89,16 +89,18 @@
       <% end %>
     </div>
 
+    </br>
     <div class="actions">
       <%= f.submit %>
     </div>
   <% end %>
+  </br>
 
   <%= link_to 'Show', company_employee_path %> |
   <% if current_user.manager? || current_user.admin? %>
     <%= link_to 'Back to Employees', company_employees_path %>
   <% else %>
-    <%= link_to 'Back to Profile', company_employee_path %>
+    <%= link_to 'Home', root_path %>
   <% end %>
 
 </div>

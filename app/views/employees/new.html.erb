@@ -3,7 +3,6 @@
   <h1>Add New Employee</h1>
 </div>
 
-</br>
 <div class="employees">
   <%= form_for @employee, :url => company_employees_path(@company) do |f| %>
     <% if @employee.errors.any? %>
@@ -19,8 +18,8 @@
     <% end %>
 
     <div class="field">
-      <%= f.label :company_name, "Company: #{@company.name}"%>
-    </div>
+      <%= f.label :company_name, "#{@company.name}", style: "color: green; font-size: 18px;" %>
+    </div></br>
 
     <div class="field">
       <%= f.label :first_name %><br>
@@ -34,7 +33,7 @@
     
     <div class="field">
       <%= f.label :email %><br>
-      <%= f.text_field :email %>
+      <%= f.text_field :email, :size=>"40"%>
     </div>
 
     <div class="field">
@@ -42,6 +41,7 @@
       <%= f.text_field :date_of_birth, type: :date %>
     </div>
 
+    </br>
     <div class="actions">
       <%= f.submit %>
     </div>
@@ -50,5 +50,5 @@
 
   <hr>
 
-  <%= link_to 'Back', company_employees_path %>
+  <%= link_to 'Back', company_employees_path, class: 'btn btn-danger' %>
 </div>

@@ -5,6 +5,15 @@
   <h1><%= @company.name %> - Employees</h1>
 </div>
 
+<div class="employees">
+  <span class="btn btn-success"><i class='fa fa-user'></i>
+    <%= link_to 'New Employee', new_company_employee_path, {style: "color: white"} %>
+  </span>
+</div>
+</br>
+
+
+
 <table class="employees">
   <thead>
     <tr>      
@@ -39,10 +48,5 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Employee', new_company_employee_path %>
-
 
 
