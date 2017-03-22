@@ -1,7 +1,5 @@
 ActiveAdmin.register BenefitDetail do
 
-# menu parent: "Benefit Profiles"
-# belongs_to :benefit_profile
 belongs_to :benefit_profile
 
 permit_params :employee_category, :benefit_profile_id, :employee_tier,
