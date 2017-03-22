@@ -1,9 +1,6 @@
 class Dependent < ActiveRecord::Base
     belongs_to :employee
     validates_presence_of :employee_id
-    
-    
-    def new
-    end
 
+    # has profiles or details?
 end
