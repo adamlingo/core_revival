@@ -12,17 +12,35 @@ class BenefitRate < ActiveRecord::Base
     if employee.benefit_eligible == true
       ee_dob = employee.date_of_birth
       # call ee_age to calculate age based on eff. date 
-      benefit_rate = BenefitRate.find_by(age: ee_age(effective_date, ee_dob), benefit_detail_id: benefit_detail_id)
+      ee_benefit_rate = BenefitRate.find_by(age: ee_age(effective_date, ee_dob), benefit_detail_id: benefit_detail_id)
       
-      ee_rate = benefit_rate.rate
+      ee_rate = ee_benefit_rate.rate - compute_employer_contribution_for_employee(benefit_detail, ee_benefit_rate.rate)
       # check terminal/console if you want to see rate locally
       puts ee_rate
+      sps_rate = 0 #compute rate for spouse
+      dep_rate = 0 #compute dependent rate
+      return ee_rate + sps_rate + dep_rate 
     else
       # perhaps useful?
       return "Benefit Declined, no rate"
+    end     
+  end
+
+  def self.compute_employer_contribution_for_employee(benefit_detail, benefit_rate)
+    if benefit_detail.benefit_method == 'FIXED'
+      benefit_detail.category_sub
+    else
+      benefit_detail.category_sub * benefit_rate  
     end
 
-    return ee_rate
+  end
+
+  def self.compute_employer_contribution_for_dependent(benefit_detail, benefit_rate)
+    if benefit_detail.benefit_method == 'FIXED'
+      benefit_detail.category_sub
+    else
+      benefit_detail.category_sub * benefit_rate  
+    end
   end
 
   def self.ee_age(effective_date, ee_dob)
