@@ -4,6 +4,7 @@
   <h1><%= @employee.display_name %> - Benefit Selections</h1>
 </div>
 
+<% if @employee.benefit_eligible %>
 <div class="ben-selections">
   <table>
     <thead>
@@ -54,6 +55,9 @@
     </tbody>
   </table>
 </div>
+<% else %>
+  <%= "You shall not pass" %>
+<% end %>
 <br>
 
 <% if current_user.manager? %>
