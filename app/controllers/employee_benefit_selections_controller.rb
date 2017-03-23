@@ -3,9 +3,12 @@ class EmployeeBenefitSelectionsController < ApplicationController
   before_action :set_employee_benefit_selection, only: [:show, :edit, :update, :destroy]
 
   def index
-    # show only benefit selections that are not declined
-    @employee_benefit_selections = EmployeeBenefitSelection.where(employee_id: params[:employee_id], decline_benefit: false)
     @employee = Employee.find(params[:employee_id])
+    if @employee.benefit_eligible
+      @employee_benefit_selections = EmployeeBenefitSelection.where(employee_id: params[:employee_id])
+    else
+      @employee_benefit_selections = []
+    end
   end
 
   def show
