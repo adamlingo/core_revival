@@ -4,8 +4,9 @@
   <h1><%= @employee.display_name %> - Benefit Selections</h1>
 </div>
 
+<!-- -->
 <div class="ben-selections">
-	<% if !@employee_benefit_selection.decline_benefit? %>
+	<% if @employee.benefit_eligible %>
 		<p>
 		  <strong>Employee:</strong>
 		  <%= @employee_benefit_selection.employee.display_name %>
@@ -42,7 +43,7 @@
 		</p>
 
 	<% else %>
-
+		<%= "Not eligible" %>
 	<% end %>
 
 	
