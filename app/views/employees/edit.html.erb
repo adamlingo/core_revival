@@ -89,6 +89,15 @@
       <% end %>
     </div>
 
+    <div class="field">
+      <% if current_user.manager? || current_user.admin? %> 
+        <%= f.label 'Benefit Eligible?' %><br>
+        <%= f.check_box :benefit_eligible %>
+      <% elsif current_user.employee? %>
+        </br>
+      <% end %>
+    </div>
+
     </br>
     <div class="actions">
       <%= f.submit %>

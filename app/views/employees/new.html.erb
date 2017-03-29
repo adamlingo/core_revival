@@ -41,6 +41,11 @@
       <%= f.text_field :date_of_birth, type: :date %>
     </div>
 
+    <div class="field">
+      <%= f.label :benefit_eligible %><br>
+      <%= f.check_box :benefit_eligible %>
+    </div>
+
     </br>
     <div class="actions">
       <%= f.submit %>
@@ -48,7 +53,7 @@
 
   <% end %>
 
-  <hr>
+  <br>
 
   <%= link_to 'Back', company_employees_path, class: 'btn btn-danger' %>
 </div>
