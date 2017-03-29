@@ -9,6 +9,7 @@ class EmployeeBenefitSelectionsController < ApplicationController
     else
       @employee_benefit_selections = []
     end
+    @dependents = Dependent.where(employee_id: @employee.id)
   end
 
   def show
