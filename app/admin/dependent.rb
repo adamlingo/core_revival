@@ -22,13 +22,13 @@ ActiveAdmin.register Dependent do
 	end
 
 	form do |f|
-    f.inputs "Dependent Details" do
-      f.input :first_name, label: 'First Name', :placeholder => "First Name"
-      f.input :last_name, label: 'Last Name', :placeholder => "Last Name"
-      f.input :relationship, label: 'Relationship', :placeholder => "Relationship"
-      # leave end year as current to handle dependents that are newborns, etc.
-      f.input :date_of_birth, :start_year => 1950, :end_year => Time.current.year
-    end
-    f.actions
-  end
+	  f.inputs "Dependent Details" do
+	    f.input :first_name, label: 'First Name', :placeholder => "First Name"
+	    f.input :last_name, label: 'Last Name', :placeholder => "Last Name"
+	    f.input :relationship, label: 'Relationship', :placeholder => "Relationship"
+	    # leave end year as current to handle dependents that are newborns, etc.
+	    f.input :date_of_birth, :start_year => 1950, :end_year => Time.current.year
+	  end
+	  f.actions
+	end
 end
