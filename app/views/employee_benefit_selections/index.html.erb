@@ -12,43 +12,37 @@
         <th>Provider</th>
         <th>Plan</th>
         <th>Benefit type</th>
-        <% if current_user.manager? %>
-          <th>Eligible?</th>
-           <th colspan="5">Actions</th>
+        <% if current_user.manager? %>          
+          <th>Rate Options</th>
+          <th colspan="5">Actions</th>
         <% else %>
           <th colspan="4">Rate Options</th>
         <% end %>       
       </tr>
     </thead>
-
+    <!-- EE's selections -->
     <tbody>
       <% @employee_benefit_selections.each do |employee_benefit_selection| %>
         <tr>
           <td><%= employee_benefit_selection.benefit_profile.provider%></td>
           <td><%= employee_benefit_selection.benefit_profile.provider_plan %></td>
-          <td><%= employee_benefit_selection.benefit_type %></td>
-                    
-          <% if current_user.manager? %>
-            <td>
-              <% if employee_benefit_selection.decline_benefit == true %>
-                <%= "No" %>
-              <% elsif employee_benefit_selection.decline_benefit == false %>
-                <%= "Yes" %>
-              <% end %> 
-            </td>
-            <td><%= link_to 'Edit', edit_company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %>
-            <%= " | " %>
-            <%= link_to 'Destroy', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection), method: :delete, data: { confirm: 'Are you sure?' } %>
-            </td>
-            
-          <% elsif current_user.employee? && !employee_benefit_selection.decline_benefit? && @employee.date_of_birth == nil %>
-            <td><%= link_to 'Add your birthday', edit_company_employee_path(@employee.company, @employee) %></td>
-          <% elsif current_user.employee? && !employee_benefit_selection.decline_benefit? && employee_benefit_selection.benefit_accept == nil %>
+          <td><%= employee_benefit_selection.benefit_type %></td>                    
+                     
+          <% if @employee.benefit_eligible && @employee.date_of_birth == nil %>
+            <td><%= link_to 'Add birthday', edit_company_employee_path(@employee.company, @employee) %></td>
+          <% elsif @employee.benefit_eligible? && employee_benefit_selection.benefit_accept == nil %>
             <td><%= link_to 'Benefit Rate', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %></td>
           <% elsif employee_benefit_selection.benefit_accept == true %>
             <td><%= "Rate Accepted!" %></td>
           <% elsif employee_benefit_selection.benefit_accept == false %>
             <td><%= "Rate Declined" %></td>
+          <% end %>
+
+          <% if current_user.manager? %>
+            <td><%= link_to 'Edit', edit_company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %>
+            <%= " | " %>
+            <%= link_to 'Destroy', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection), method: :delete, data: { confirm: 'Are you sure?' } %>
+            </td> 
           <% end %>
         </tr>
       <% end %>
@@ -76,16 +70,24 @@
     </tbody>
   </table>
 
+<% else %>
+  <h2><%= "Employee not eligible for benefits" %></h2>
+  <% if current_user.manager? %>
+    <span style="font-size: 20px;"><%= link_to 'Make eligible?', edit_company_employee_path(@employee.company, @employee)%></span>
+  <% else %>
+    <span style="font-size: 20px; color: green;"><%= "Contact manager or supervisor about eligibility" %></span>
+  <% end %>
+<% end %>
+
+
+<br><br><br>
+
+
+  <% if current_user.manager? %>
+    <%= link_to 'New Employee benefit selection', new_company_employee_employee_benefit_selection_path %> |
+    <%= link_to 'Company Benefit Profiles', company_benefit_profiles_path() %> |
+    <%= link_to 'View Company Employees', company_employees_path %> 
+  <% else %>
+    <%= link_to 'Home', root_path %>
+  <% end %>
 </div>
-<% else %>
-  <%= "You shall not pass" %>
-<% end %>
-<br>
-
-<% if current_user.manager? %>
-  <%= link_to 'New Employee benefit selection', new_company_employee_employee_benefit_selection_path %> |
-  <%= link_to 'Company Benefit Profiles', company_benefit_profiles_path() %> |
-  <%= link_to 'See Company Employees', company_employees_path %> 
-<% else %>
-
-<% end %>
