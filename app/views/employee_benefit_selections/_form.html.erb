@@ -36,12 +36,8 @@
     <%= f.select(:benefit_type, @benefit_types) %>
   </div>
   <div class="field">
-    <%= f.label :decline_benefit %><br>
-    <%= f.check_box :decline_benefit %>
-  </div>
-  <div class="field">
     <%= f.label 'Benefit Selection' %><br>
-    <%= f.collection_select(:benefit_detail_id, @benefit_selections, :benefit_detail_id, :display_name, :include_blank => true) %> <br>
+    <%= f.collection_select(:benefit_detail_id, @benefit_selections, :benefit_detail_id, :display_name, :include_blank => true) %> <br><br>
   </div>
 <% if false %>
   <div class="field">
