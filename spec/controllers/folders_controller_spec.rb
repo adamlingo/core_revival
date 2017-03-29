@@ -109,7 +109,11 @@ RSpec.describe FoldersController, type: :controller do
             
             new_doc = {
                 folder_id: new_folder.id,
-        
+                company_id: 1,
+                folder: {
+                    description: 'all my documents',
+                    documents_files: []
+                }
             }
             
             post :add_doc, new_doc
