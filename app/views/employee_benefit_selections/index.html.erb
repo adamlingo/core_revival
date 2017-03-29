@@ -15,7 +15,7 @@
         <% if current_user.manager? %>          
           <th>Rate Options</th>
           <th colspan="5">Actions</th>
-        <% else %>
+        <% elsif current_user.employee? %>
           <th colspan="4">Rate Options</th>
         <% end %>       
       </tr>
@@ -28,9 +28,9 @@
           <td><%= employee_benefit_selection.benefit_profile.provider_plan %></td>
           <td><%= employee_benefit_selection.benefit_type %></td>                    
                      
-          <% if @employee.benefit_eligible && @employee.date_of_birth == nil %>
+          <% if @employee.benefit_eligible && @employee.date_of_birth == nil && current_user.employee_id == employee_benefit_selection.employee_id %>
             <td><%= link_to 'Add birthday', edit_company_employee_path(@employee.company, @employee) %></td>
-          <% elsif @employee.benefit_eligible? && employee_benefit_selection.benefit_accept == nil %>
+          <% elsif @employee.benefit_eligible? && employee_benefit_selection.benefit_accept == nil && current_user.employee_id == employee_benefit_selection.employee_id %>
             <td><%= link_to 'Benefit Rate', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %></td>
           <% elsif employee_benefit_selection.benefit_accept == true %>
             <td><%= "Rate Accepted!" %></td>
