@@ -54,6 +54,28 @@
       <% end %>
     </tbody>
   </table>
+  <!-- Dependent table -->
+  <table><br>
+    <thead> <h2>Dependents</h2>
+      <tr>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>Relationship</th>
+        <th>Rate Options</th>    
+      </tr>
+    </thead>
+    <tbody>
+      <% @dependents.each do |dependent| %>
+        <tr>
+          <td><%= dependent.last_name %></td>
+          <td><%= dependent.first_name %></td>
+          <td><%= dependent.relationship %></td>
+          <td><%= link_to "Benefit Rate" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
 </div>
 <% else %>
   <%= "You shall not pass" %>
