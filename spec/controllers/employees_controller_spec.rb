@@ -25,29 +25,31 @@ RSpec.describe EmployeesController, type: :controller do
     it "should display a new employee created message" do
         
       employee_payload = {
-      company_id: 1,
-      employee: {
-      first_name: 'Ima',
-      last_name: 'New Employee',
-      email: 'totally-fake@core-redux.com'
+        company_id: 1,
+        employee: {
+          first_name: 'Ima',
+          last_name: 'New Employee',
+          email: 'totally-fake@core-redux.com'
         }
       } 
 
       post :create, employee_payload
       
       expect(flash[:success]).to be_present
-    
+
     end
     
     it "should save ssn as encrypted" do
-      
-            employee_payload = {
-      company_id: 1,
-      employee: {
-      first_name: 'Ima',
-      last_name: 'New Employee',
-      email: 'totally-fake@core-redux.com',
-      ssn: '123-45-6789'
+        key = "01234567890123456789012345678902"
+        allow(ENV).to receive(:[]).with("ENCRYPTION_KEY").and_return(key)
+
+        employee_payload = {
+        company_id: 1,
+        employee: {
+          first_name: 'Ima',
+          last_name: 'New Employee',
+          email: 'totally-fake@core-redux.com',
+          ssn: '123-45-6789'
         }
       } 
 
@@ -58,7 +60,6 @@ RSpec.describe EmployeesController, type: :controller do
       expect(after_employee.ssn).to eq('123-45-6789')
       expect(after_employee.encrypted_ssn).not_to eq(after_employee.ssn)
       
- 
     end
 
     it "should create a related user" do
@@ -68,9 +69,9 @@ RSpec.describe EmployeesController, type: :controller do
       employee_payload = {
         company_id: 1,
         employee: {
-        first_name: 'Ima',
-        last_name: 'New Employee',
-        email: 'totally-fake@core-redux.com'
+          first_name: 'Ima',
+          last_name: 'New Employee',
+          email: 'totally-fake@core-redux.com'
         }
       }
 

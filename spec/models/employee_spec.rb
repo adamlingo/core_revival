@@ -29,8 +29,11 @@ describe Employee, type: :model do
         e = Employee.new(email: 'test@admin.com', company_id: 1)
         expect(e.valid?).to eq(true)
     end
-    
+
     it "should save ssn encrypted" do
+        key = "01234567890123456789012345678902"
+        allow(ENV).to receive(:[]).with("ENCRYPTION_KEY").and_return(key)
+
         e = Employee.new(ssn: '123-45-6789', email: 'unique@email.com', company_id: 1)
         ssn = e.ssn
         encrypted_ssn = e.encrypted_ssn
