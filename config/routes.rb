@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
     resources :employees do
       get "invite" , to: 'employees#invite', as: 'invite'
+      resources :dependents
       resources :employee_benefit_selections do
         post "accept_benefit", to: 'employee_benefit_selections#accept_benefit', as: 'accept_benefit'
         post "decline_benefit", to: 'employee_benefit_selections#decline_benefit', as: 'decline_benefit'
