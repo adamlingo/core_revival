@@ -22,7 +22,7 @@
                 <span><%= link_to ' Make Eligible', edit_company_employee_path(employee.company, employee) %></span>
             <% else %>
               <% @selections.where(employee_id: employee.id).each do |selection| %>
-                <% if !selection.benefit_accept? %>
+                <% if selection.benefit_accept.nil? %>
                   <%= "Not yet selected by Employee" %>
                 <% elsif selection.benefit_accept == true %>
                   <span style="color: green;"><%= "Accepted" %></span>
