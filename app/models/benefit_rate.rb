@@ -5,7 +5,7 @@ class BenefitRate < ActiveRecord::Base
   def new
   end
   
-  def self.compute_rate(employee_id, benefit_detail_id, effective_date)
+  def self.compute_rates(employee_id, benefit_detail_id, effective_date)
     benefit_detail = BenefitDetail.find(benefit_detail_id)
     employee = Employee.find(employee_id)
     # if employee is eligible
