@@ -12,11 +12,13 @@
         <th>Provider</th>
         <th>Plan</th>
         <th>Benefit type</th>
-        <% if current_user.manager? %>          
+        <% if current_user.manager? && @employee.user_id == current_user.id %>
           <th>Rate Options</th>
-          <th colspan="5">Actions</th>
+          <th>Actions</th>
+        <% elsif current_user.manager? %>
+          <th>Actions</th>
         <% elsif current_user.employee? %>
-          <th colspan="4">Rate Options</th>
+          <th>Rate Options</th>
         <% end %>       
       </tr>
     </thead>
@@ -49,26 +51,28 @@
     </tbody>
   </table>
   <!-- Dependent table -->
-  <table><br>
-    <thead> <h2>Dependents</h2>
-      <tr>
-        <th>Last Name</th>
-        <th>First Name</th>
-        <th>Relationship</th>
-        <th>Rate Options</th>    
-      </tr>
-    </thead>
-    <tbody>
-      <% @dependents.each do |dependent| %>
+  <% if @dependents.count > 0 %>
+    <table><br>
+      <thead> <h2>Dependents</h2>
         <tr>
-          <td><%= dependent.last_name %></td>
-          <td><%= dependent.first_name %></td>
-          <td><%= dependent.relationship %></td>
-          <td><%= link_to "Benefit Rate" %></td>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>Relationship</th>
+          <th>Rate Options</th>    
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @dependents.each do |dependent| %>
+          <tr>
+            <td><%= dependent.last_name %></td>
+            <td><%= dependent.first_name %></td>
+            <td><%= dependent.relationship %></td>
+            <td><%= link_to "Benefit Rate" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 
 <% else %>
   <h2><%= "Employee not eligible for benefits" %></h2>
