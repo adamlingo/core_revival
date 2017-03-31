@@ -1,0 +1,33 @@
+<% provide(:title, 'Dependents') %>
+<p id="notice"><%= notice %></p>
+
+<div class="dependents">
+  <h1><%= "Employee's" %> - dependents</h1>
+</div>
+
+<div class="dependents">
+  <span class="btn btn-success"><i class='fa fa-user'></i>
+    <%= link_to 'New Dependent', new_company_employee_dependent_path, {style: "color: white"} %>
+  </span>
+</div>
+</br>
+
+<table class="dependents">
+  <thead>
+    <tr>      
+      <th><%= "Last Name" %></th>
+      <th><%=  "First Name" %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dependents.each do |dependent| %>
+      <tr>
+        <td><%= dependent.last_name %></td>
+        <td><%= dependent.first_name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
