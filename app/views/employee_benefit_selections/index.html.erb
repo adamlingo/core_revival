@@ -73,7 +73,6 @@
       </tbody>
     </table>
   <% end %>
-
 <% else %>
   <h2><%= "Employee not eligible for benefits" %></h2>
   <% if current_user.manager? %>
@@ -83,7 +82,12 @@
   <% end %>
 <% end %>
 
-
+<br>
+  <!-- conditional add button for own dependents -->
+  <% if @employee.user_id == current_user.id %>
+    <span class="btn btn-success"><i class='fa fa-user'></i>
+    <%= link_to 'Add Dependent', new_company_employee_dependent_path, {style: "color: white"} %></span>
+  <% end %>
 <br><br><br>
 
 
