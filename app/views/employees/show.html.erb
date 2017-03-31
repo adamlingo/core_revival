@@ -33,7 +33,11 @@
 </div>
 
   <%= link_to 'Edit', edit_company_employee_path%> |
-  <%= link_to 'Manage Dependents', company_employee_dependents_path(employee_id: params[:id]) %> |
+
+  <% if current_user.employee_id == params[:id].to_i %>
+    <%= link_to 'Manage Dependents', company_employee_dependents_path(employee_id: params[:id]) %> |
+  <% end %>
+
   <% if current_user.manager? || current_user.admin? %>
     <%= link_to 'Back to Employees', company_employees_path %>
   <% else %>
