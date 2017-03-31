@@ -1,8 +1,7 @@
 class DependentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :authorize_company!
-  # before_filter :authorize_my_company!
-  # before_filter :authorize_manager!
+  before_filter :authorize_ee_is_user!
   
   def index
 	  @dependents = Dependent.where(employee_id: current_user.employee_id)
@@ -33,8 +32,12 @@ class DependentsController < ApplicationController
       params.require(:dependent).permit(:employee_id, :relationship, :date_of_birth, :first_name, :last_name)
     end
 
-    def authorize_my_company!
-      check_company(params[:id])
+    # can only see your own dependents
+    def authorize_ee_is_user!
+      unless current_user.employee_id == params[:employee_id].to_i
+      	redirect_to company_employee_dependents_path(employee_id: current_user.employee_id)
+      	flash[:error] = "You only have permission to view your own dependents"
+      end
     end
 
 end
