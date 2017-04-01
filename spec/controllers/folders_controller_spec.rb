@@ -87,45 +87,112 @@ RSpec.describe FoldersController, type: :controller do
             expect(after_folder.description).to eq("This is the changed folder")
             
         end
-            
-        
-                
-        it "should should save a document" do
-            
-                        
-            folder_payload = {
-                folder: {
-                    title: "New Folder",
-                    description: "This is a test folder"
-                },
-                company_id: 1
-            }
-            
-            post :create, folder_payload
-            
-            new_folder = Folder.find_by(title: "New Folder")
-            
-            doc = "#{Rails.root}/spec/fixtures/test.pdf".freeze
-            
-            new_doc = {
-                folder_id: new_folder.id,
-                company_id: 1,
-                folder: {
-                    description: 'all my documents',
-                    documents_files: []
+
+        context 'add_doc' do
+            before(:each) do
+                @doc_path = "test.pdf".freeze
+            end
+
+            it "should raise an error if no document uploaded" do
+                folder_payload = {
+                    folder: {
+                        title: "New Folder",
+                        description: "This is a test folder"
+                    },
+                    company_id: 1
                 }
-            }
-            
-            post :add_doc, new_doc
-            
+                
+                post :create, folder_payload
+                
+                new_folder = Folder.find_by(title: "New Folder")
+
+                new_doc = {
+                    folder_id: new_folder.id,
+                    company_id: 1,
+                    folder: {
+                        description: 'all my documents',
+                        documents_files: []
+                    }
+                }
+                
+                post :add_doc, new_doc
+
+                expect(flash[:info]).not_to be_present
+                expect(flash[:error]).to be_present
+                expect(flash[:error]).to eq('At least one document is required.')
+            end
+
+            it "should raise an error if documents cannot be saved" do
+                folder_payload = {
+                    folder: {
+                        title: "New Folder",
+                        description: "This is a test folder"
+                    },
+                    company_id: 1
+                }
+                
+                post :create, folder_payload
+                
+                new_folder = Folder.find_by(title: "New Folder")
+
+                new_doc = {
+                    folder_id: new_folder.id,
+                    company_id: 1,
+                    folder: {
+                        description: 'all my documents',
+                        documents_files: [42]
+                    }
+                }
+                
+                post :add_doc, new_doc
+
+                expect(flash[:info]).not_to be_present
+                expect(flash[:error]).to be_present
+                expect(flash[:error]).to eq('At least one document is required!')
+            end
+
+            it "should save documents successfully" do
+                folder_payload = {
+                    folder: {
+                        title: "New Folder",
+                        description: "This is a test folder"
+                    },
+                    company_id: 1
+                }
+                
+                post :create, folder_payload
+                
+                new_folder = Folder.find_by(title: "New Folder")
+
+                file = fixture_file_upload(@doc_path, 'application/pdf')
+
+                new_doc = {
+                    folder_id: new_folder.id,
+                    company_id: 1,
+                    folder: {
+                        description: 'all my documents',
+                        documents_files: [file]
+                    }
+                }
+                
+                post :add_doc, new_doc
+
+                expect(flash[:info]).not_to be_present
+                expect(flash[:error]).to be_present
+                expect(flash[:error]).to eq('At least one document is required!')
+            end
+
         end
- 
-        it "should delete a document" 
-            
-            # post :delete_doc
-            
-        
-        
-      
+
+        it "should delete a document" do
+            # folder = Folder.new(title: 'my folder')
+            # folder.save!
+
+            # doc = Document.new(folder_id: folder.id, )
+            # doc.save!
+
+            # delete :delete_doc, 
+
+        end
     end
 end
