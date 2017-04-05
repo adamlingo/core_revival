@@ -41,7 +41,7 @@ class DependentsController < ApplicationController
   end
 
   private
-  	def find_company
+		def find_company
       Company.find(params[:company_id].to_i)
     end
 
