@@ -1,0 +1,50 @@
+<% provide(:title, 'New Dependent') %>
+<div class="dependents">
+  <h1>Add New Dependent for <%="#{current_user.first_name} #{current_user.last_name}"%></h1>
+</div>
+
+<div class="dependents">
+  <%= form_for @dependent, :url => company_employee_dependents_path(current_user.company_id, current_user.employee_id) do |f| %>
+    <% if @dependent.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@dependent.errors.count, "error") %> prohibited this dependent from being saved:</h2>
+
+        <ul>
+        <% @dependent.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :first_name %><br>
+      <%= f.text_field :first_name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :last_name %><br>
+      <%= f.text_field :last_name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :relationship %><br>
+      <%= f.text_field :relationship %>
+    </div>    
+
+    <div class="field">
+      <%= f.label :date_of_birth %><br>
+      <%= f.text_field :date_of_birth, type: :date %>
+    </div>
+
+    </br>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+
+  <% end %>
+
+  <br>
+
+  <%= link_to 'Back', company_employee_dependents_path, class: 'btn btn-danger' %>
+</div>
