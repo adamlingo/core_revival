@@ -8,24 +8,49 @@ class DependentsController < ApplicationController
   end
 
   def show
-    
+    @dependent = set_dependent
   end
 
   def new
     @dependent = Dependent.new
+    @employee = find_employee
+    @company = find_company
+  end
+
+  def create
+  	@dependent = Dependent.new(dependent_params)
+  	@employee = find_employee
+  	if @dependent.save
+  		flash[:success] = "Dependent created"
+  	else
+  		render 'new'
+  	end
   end
 
   def edit
-    
-  end
+    @dependent = set_dependent
+  end  
 
   def update
-    
+    @dependent = set_dependent
+    if @dependent.update_attributes(dependent_params)
+    	flash[:success] = "Dependent updated!"
+    else
+    	render 'edit'
+    end
   end
 
   private
+  	def find_company
+      Company.find(params[:company_id].to_i)
+    end
+
+  	def find_employee
+  		Employee.find(params[:employee_id].to_i)
+  	end
+
     def set_dependent
-      @dependent = Dependent.find(params[:id])
+      find_employee.dependents.find(params[:id].to_i)
     end
 
     def dependent_params
