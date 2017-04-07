@@ -28,11 +28,6 @@
 		</p>
 
 		<p>
-		  <strong>Benefit Rate:</strong>
-		  <span><%= "$#{@benefit_rate}"%></span>
-		</p>
-
-		<p>
 		  <strong>Effective Date:</strong>
 		  <%= @effective_date.strftime("%B, %d, %Y") %>
 		</p>
@@ -41,6 +36,19 @@
 		  <strong>Age on effective date:</strong>
 		  <%= @ee_age %>
 		</p>
+
+		<h2> Pricing Options </h2>
+
+		<p>
+      <input type="checkbox" id="employee_only"></input>
+		  <strong>Employee only: </strong>
+		  <%= @benefit_rate[:employee_only] %>
+		</p>
+
+    <p>
+      <strong>Employee plus spouse: </strong>
+      <%= @benefit_rate[:employee_plus_spouse] %>
+    </p>
 
 	<% else %>
 		<%= "Not eligible" %>
