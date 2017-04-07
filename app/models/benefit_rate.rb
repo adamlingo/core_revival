@@ -5,6 +5,7 @@ class BenefitRate < ActiveRecord::Base
   def new
   end
   
+  # Employee rate
   def self.compute_rates(employee_id, benefit_detail_id, effective_date)
     benefit_detail = BenefitDetail.find(benefit_detail_id)
     employee = Employee.find(employee_id)
@@ -26,6 +27,23 @@ class BenefitRate < ActiveRecord::Base
     end     
   end
 
+  def self.compute_all_rates(employee_id, benefit_detail_id, effective_date)
+    benefit_detail = BenefitDetail.find(benefit_detail_id)
+    employee = Employee.find(employee_id)
+    dependents = Dependent.where(employee_id: employee.id, relationship: "dependent")
+    spouse = Dependent.where(employee_id: employee.id, relationship: "spouse").first
+
+    rates = {
+      employee_only: compute_rates(employee_id, benefit_detail_id, effective_date),
+      employee_plus_spouse: 215.00,
+      employee_plus_dependent: 187.00,
+      employee_plus_multiple_dependents: 5001.00,
+      employee_plus_family_one: 1450.00,
+      employee_plus_family_two: 1865.00, 
+    }  
+    return rates
+  end
+
   def self.compute_employer_contribution_for_employee(benefit_detail, benefit_rate)
     if benefit_detail.benefit_method == 'FIXED'
       benefit_detail.category_sub
@@ -43,6 +61,7 @@ class BenefitRate < ActiveRecord::Base
     end
   end
 
+  # effective age
   def self.ee_age(effective_date, ee_dob)
     # PUTS STATEMENTS FOR TERMINAL CHILLNESS
     puts "effective_date ====== #{effective_date}"
