@@ -19,7 +19,7 @@ class EmployeeBenefitSelectionsController < ApplicationController
     ben_detail = BenefitDetail.find(ben_detail_id)
     @ben_profile = BenefitProfile.find(ben_detail.benefit_profile_id.to_i)
     @effective_date = @ben_profile.effective_date
-    @benefit_rate = BenefitRate.compute_rates(@employee.id, ben_detail_id, @effective_date)
+    @benefit_rate = BenefitRate.compute_all_rates(@employee.id, ben_detail_id, @effective_date)
     @ee_age = BenefitRate.ee_age(@effective_date, @employee.date_of_birth)
   end
 
