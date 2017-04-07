@@ -20,8 +20,10 @@ class DependentsController < ApplicationController
   def create
   	@dependent = Dependent.new(dependent_params)
   	@employee = find_employee
+    @dependent.employee_id = @employee.id
   	if @dependent.save
   		flash[:success] = "Dependent created"
+      redirect_to company_employee_dependents_path
   	else
   		render 'new'
   	end
@@ -35,6 +37,7 @@ class DependentsController < ApplicationController
     @dependent = set_dependent
     if @dependent.update_attributes(dependent_params)
     	flash[:success] = "Dependent updated!"
+      redirect_to company_employee_dependents_path
     else
     	render 'edit'
     end
@@ -54,7 +57,7 @@ class DependentsController < ApplicationController
     end
 
     def dependent_params
-      params.require(:dependent).permit(:employee_id, :relationship, :date_of_birth, :first_name, :last_name)
+      params.require(:dependent).permit(:relationship, :date_of_birth, :first_name, :last_name)
     end
 
     # can only see your own dependents
