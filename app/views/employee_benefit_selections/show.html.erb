@@ -4,51 +4,22 @@
   <h1><%= @employee.display_name %> - Benefit Selections</h1>
 </div>
 
-<!-- -->
 <div class="ben-selections">
-	<% if @employee.benefit_eligible %>
-		<p>
-		  <strong>Employee:</strong>
-		  <%= @employee_benefit_selection.employee.display_name %>
-		</p>
+  <% if @employee.benefit_eligible? %>
+  <!-- new form object -->
+	<%= form_for @rate_selection, url: company_employee_employee_benefit_selection_accept_benefit_path(company_id: @company.id, employee_id: @employee.id, employee_benefit_selection_id: @rate_selection.employee_benefit_selection.id) do |f| %>
 
-		<p>
-		  <strong>Benefit Provider:</strong>
-		  <%= @ben_profile.provider %>
-		</p>
+    <%= f.fields_for :choices, @rate_selection.choices do |choice_form| %>
+      <%= choice_form.text_field :name %>
 
-		<p>
-		  <strong>Plan:</strong>
-		  <%= @ben_profile.provider_plan %>
-		</p>
+      <%= choice_form.text_field :label %>
+      <%= choice_form.check_box :selected %>
+      <br>
 
-		<p>
-		  <strong>Benefit type:</strong>
-		  <%= @employee_benefit_selection.benefit_type %>
-		</p>
+    <% end %>
 
-		<p>
-		  <strong>Effective Date:</strong>
-		  <%= @effective_date.strftime("%B, %d, %Y") %>
-		</p>
-
-		<p>
-		  <strong>Age on effective date:</strong>
-		  <%= @ee_age %>
-		</p>
-
-		<h2> Pricing Options </h2>
-
-		<p>
-      <input type="checkbox" id="employee_only"></input>
-		  <strong>Employee only: </strong>
-		  <%= @benefit_rate[:employee_only] %>
-		</p>
-
-    <p>
-      <strong>Employee plus spouse: </strong>
-      <%= @benefit_rate[:employee_plus_spouse] %>
-    </p>
+    <%= f.submit %>
+  <% end %>
 
 	<% else %>
 		<%= "Not eligible" %>
