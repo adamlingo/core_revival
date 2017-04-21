@@ -126,8 +126,11 @@ class EmployeeBenefitSelectionsController < ApplicationController
       @employee_benefit_selection = EmployeeBenefitSelection.find(params[:id])
     end
 
+    def rate_selection_params
+      params.require(:rate_selection).permit(:employee_id, :company_id, choices_attributes: [:name, :label, :selected] )
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_benefit_selection_params
-      params.require(:employee_benefit_selection).permit(:employee_id, :benefit_type, :decline_benefit, :benefit_detail_id, :benefit_accept)
+      params.require(:employee_benefit_selection).permit(:employee_id, :benefit_type, :decline_benefit, :benefit_detail_id, :benefit_accept, choices_attributes: [:name, :label, :selected] )
     end
 end
