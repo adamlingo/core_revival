@@ -9,7 +9,6 @@ class Employee < ActiveRecord::Base
   has_many :employee_benefit_selections
   has_many :payroll_records
   has_one :employee_additional_login
-  # many dependents?
   has_many :dependents
 
 
