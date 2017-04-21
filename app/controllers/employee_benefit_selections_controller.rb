@@ -86,11 +86,30 @@ class EmployeeBenefitSelectionsController < ApplicationController
   end
 
   def accept_benefit
-    @accept = EmployeeBenefitSelection.find(params[:employee_benefit_selection_id])
-    @accept.update(benefit_accept: true)
-    @accept.save!
-    flash[:success] = "Benefit Rate Accepted"
-    redirect_to company_employee_employee_benefit_selections_path
+    @employee = Employee.find(params[:employee_id])
+    @company = Company.find(@employee.company_id)
+    @id = params[:id]
+
+    accept_params = employee_benefit_selection_params.merge({
+      employee_id: params[:employee_id],
+      employee_benefit_selection: EmployeeBenefitSelection.find(params[:employee_benefit_selection_id].to_i),
+    })
+
+    @rate_selection = RateSelection.new(accept_params)
+
+    if @rate_selection.valid? && @rate_selection.select_choice!
+      flash[:info] = "Benefit selection saved!"
+      redirect_to company_employee_employee_benefit_selections_path
+    else
+      flash[:error] = "Unable to save rate selection. #{@rate_selection.errors.full_messages.to_sentence}"
+      render :show
+    end
+
+    # @accept = EmployeeBenefitSelection.find(params[:employee_benefit_selection_id])
+    # @accept.update(benefit_accept: true)
+    # @accept.save!
+    # flash[:success] = "Benefit Rate Accepted"
+    # redirect_to company_employee_employee_benefit_selections_path
   end
 
   def decline_benefit
