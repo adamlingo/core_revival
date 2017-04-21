@@ -14,13 +14,15 @@ class EmployeeBenefitSelectionsController < ApplicationController
   end
 
   def show
-    @employee = Employee.find(params[:employee_id])
-    ben_detail_id = @employee_benefit_selection.benefit_detail_id.to_i
-    ben_detail = BenefitDetail.find(ben_detail_id)
-    @ben_profile = BenefitProfile.find(ben_detail.benefit_profile_id.to_i)
-    @effective_date = @ben_profile.effective_date
-    @benefit_rate = BenefitRate.compute_all_rates(@employee.id, ben_detail_id, @effective_date)
-    @ee_age = BenefitRate.ee_age(@effective_date, @employee.date_of_birth)
+    
+    
+    # @employee = Employee.find(params[:employee_id])
+    # ben_detail_id = @employee_benefit_selection.benefit_detail_id.to_i
+    # ben_detail = BenefitDetail.find(ben_detail_id)
+    # @ben_profile = BenefitProfile.find(ben_detail.benefit_profile_id.to_i)
+    # @effective_date = @ben_profile.effective_date
+    # @benefit_rate = BenefitRate.compute_all_rates(@employee.id, ben_detail_id, @effective_date)
+    # @ee_age = BenefitRate.ee_age(@effective_date, @employee.date_of_birth)
   end
 
   def new
