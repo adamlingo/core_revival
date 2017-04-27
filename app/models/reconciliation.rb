@@ -59,8 +59,8 @@ class Reconciliation < ActiveRecord::Base
 
             # benefit details for the employee
             benefit_selection = employee_benefit_selection(insurance_account_number, employee.id)
-            return 'benefit not yet selected' if benefit_selection.benefit_accept.nil?
-            return 'benefit declined' unless benefit_selection.benefit_accept
+            # return 'benefit not yet selected' if benefit_selection.benefit_accept.nil?
+            # return 'benefit declined' unless benefit_selection.benefit_accept
 
             benefit_detail = BenefitDetail.find(benefit_selection.benefit_detail_id)
 
