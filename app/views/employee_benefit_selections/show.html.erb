@@ -7,11 +7,10 @@
 <div class="ben-selections">
   <% if @employee.benefit_eligible? %>
   <!-- new form object -->
-	<%= form_for @rate_selection, url: company_employee_employee_benefit_selection_accept_benefit_path(company_id: @company.id, employee_id: @employee.id, employee_benefit_selection_id: @rate_selection.employee_benefit_selection.id) do |f| %>
-
+	<%= form_for @rate_selection, url: company_employee_rate_selections_path(company_id: @company.id, employee_id: @employee.id) do |f| %>
+    <%= f.hidden_field :employee_benefit_selection_id %>
     <%= f.fields_for :choices, @rate_selection.choices do |choice_form| %>
       <%= choice_form.text_field :name %>
-
       <%= choice_form.text_field :label %>
       <%= choice_form.check_box :selected %>
       <br>
