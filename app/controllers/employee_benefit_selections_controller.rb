@@ -25,13 +25,6 @@ class EmployeeBenefitSelectionsController < ApplicationController
     @rate_selection = RateSelection.new(default_params)
     @rate_selection.build_choices!
 
-    # @employee = Employee.find(params[:employee_id])
-    # ben_detail_id = @employee_benefit_selection.benefit_detail_id.to_i
-    # ben_detail = BenefitDetail.find(ben_detail_id)
-    # @ben_profile = BenefitProfile.find(ben_detail.benefit_profile_id.to_i)
-    # @effective_date = @ben_profile.effective_date
-    # @benefit_rate = BenefitRate.compute_all_rates(@employee.id, ben_detail_id, @effective_date)
-    # @ee_age = BenefitRate.ee_age(@effective_date, @employee.date_of_birth)
   end
 
   def new
@@ -85,52 +78,16 @@ class EmployeeBenefitSelectionsController < ApplicationController
     end
   end
 
-  def accept_benefit
-    @employee = Employee.find(params[:employee_id])
-    @company = Company.find(@employee.company_id)
-    @id = params[:id]
-
-    accept_params = employee_benefit_selection_params.merge({
-      employee_id: params[:employee_id],
-      employee_benefit_selection: EmployeeBenefitSelection.find(params[:employee_benefit_selection_id].to_i),
-    })
-
-    @rate_selection = RateSelection.new(accept_params)
-
-    if @rate_selection.valid? && @rate_selection.select_choice!
-      flash[:info] = "Benefit selection saved!"
-      redirect_to company_employee_employee_benefit_selections_path
-    else
-      flash[:error] = "Unable to save rate selection. #{@rate_selection.errors.full_messages.to_sentence}"
-      render :show
-    end
-
-    # @accept = EmployeeBenefitSelection.find(params[:employee_benefit_selection_id])
-    # @accept.update(benefit_accept: true)
-    # @accept.save!
-    # flash[:success] = "Benefit Rate Accepted"
-    # redirect_to company_employee_employee_benefit_selections_path
-  end
-
-  def decline_benefit
-    @decline = EmployeeBenefitSelection.find(params[:employee_benefit_selection_id])
-    @decline.update(benefit_accept: false)
-    @decline.save!
-    flash[:success] = "Benefit Rate Declined"
-    redirect_to company_employee_employee_benefit_selections_path
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_employee_benefit_selection
       @employee_benefit_selection = EmployeeBenefitSelection.find(params[:id])
     end
-
-    def rate_selection_params
-      params.require(:rate_selection).permit(:employee_id, :company_id, choices_attributes: [:name, :label, :selected] )
-    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_benefit_selection_params
-      params.require(:employee_benefit_selection).permit(:employee_id, :benefit_type, :decline_benefit, :benefit_detail_id, :benefit_accept, choices_attributes: [:name, :label, :selected] )
+      params.require(:employee_benefit_selection).permit(:employee_id, :benefit_type, 
+                                                          :decline_benefit, :benefit_detail_id, 
+                                                          :benefit_selection_category_id, 
+                                                          choices_attributes: [:name, :label, :selected] )
     end
 end
