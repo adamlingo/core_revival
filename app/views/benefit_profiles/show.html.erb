@@ -21,15 +21,7 @@
             <% if !employee.benefit_eligible? %><i class='fa fa-plus-square', style='color: black;'></i>
                 <span><%= link_to ' Make Eligible', edit_company_employee_path(employee.company, employee) %></span>
             <% else %>
-              <% @selections.where(employee_id: employee.id).each do |selection| %>
-                <% if selection.benefit_accept.nil? %>
-                  <%= "Not yet selected by Employee" %>
-                <% elsif selection.benefit_accept == true %>
-                  <span style="color: green;"><%= "Accepted" %></span>
-                <% elsif selection.benefit_accept == false %>
-                  <span style="color: red"><%= "Declined" %></span>
-                <% end %>  
-              <% end %>
+              <!-- new block here to show if accepted or declined -->
             <% end %>    
           </td>
           <td><%= link_to "Edit Selection", company_employee_employee_benefit_selections_path(employee_id: employee.id) %></td>
