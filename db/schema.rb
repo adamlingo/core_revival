@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170302211915) do
+ActiveRecord::Schema.define(version: 20170427185526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,14 @@ ActiveRecord::Schema.define(version: 20170302211915) do
     t.date     "effective_date"
   end
 
+  create_table "benefit_selection_categories", force: :cascade do |t|
+    t.string   "code",        null: false
+    t.string   "name",        null: false
+    t.string   "description", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "companies", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",          null: false
@@ -143,13 +151,13 @@ ActiveRecord::Schema.define(version: 20170302211915) do
   end
 
   create_table "employee_benefit_selections", force: :cascade do |t|
-    t.integer  "employee_id",                       null: false
-    t.string   "benefit_type",                      null: false
-    t.boolean  "decline_benefit",   default: false, null: false
+    t.integer  "employee_id",                                   null: false
+    t.string   "benefit_type",                                  null: false
+    t.boolean  "decline_benefit",               default: false, null: false
     t.integer  "benefit_detail_id"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.boolean  "benefit_accept"
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.integer  "benefit_selection_category_id"
   end
 
   create_table "employee_benefits", force: :cascade do |t|
@@ -321,6 +329,7 @@ ActiveRecord::Schema.define(version: 20170302211915) do
   add_foreign_key "company_folders", "companies"
   add_foreign_key "company_folders", "folders"
   add_foreign_key "documents", "folders"
+  add_foreign_key "employee_benefit_selections", "benefit_selection_categories"
   add_foreign_key "employee_folders", "employees"
   add_foreign_key "employee_folders", "folders"
   add_foreign_key "salaries", "employees"
