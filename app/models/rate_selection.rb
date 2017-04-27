@@ -3,6 +3,7 @@ class RateSelection < ResourceModel::Base
   class RateChoice < ResourceModel::Base
     string_accessor :name # employee only, employee + spouse, etc...
     string_accessor :label # amount
+    string_accessor :code 
     boolean_accessor :selected # is the checkbox is checked?
   end
 
@@ -18,7 +19,7 @@ class RateSelection < ResourceModel::Base
 
   def build_choices!
   	self.choices = []
-  	self.choices.push(RateChoice.new(name: 'Employee only', label: '286.52', selected: false))
+  	self.choices.push(RateChoice.new(name: 'Employee only', code: "SUB", label: '286.52', selected: false))
   	self.choices.push(RateChoice.new(name: 'Employee plus spouse', label: '386.52', selected: false))
   	self.choices.push(RateChoice.new(name: 'Employee plus child', label: '486.52', selected: false))
   end
@@ -29,10 +30,14 @@ class RateSelection < ResourceModel::Base
 
     self.errors.add(:base, 'not implemented yet!!')
     false
+    selected = self.choices. # find choice where selected = true
+    benefit_selection_category = BenefitSelectionCategory.find_by(code: selected.code)
+    employee_benefit_selection.benefit_selection_category_id = benefit_selection_category.id
     # wrap record creation in a transaction...
     # create the employee benefit selection record...
     # and/or create the dependent selection records
     # return true if all succeeds!
+    
   end
 
   private
