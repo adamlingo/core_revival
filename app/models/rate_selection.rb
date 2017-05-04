@@ -19,9 +19,31 @@ class RateSelection < ResourceModel::Base
 
   def build_choices!
   	self.choices = []
-  	self.choices.push(RateChoice.new(name: 'Employee only', code: "SUB", label: '286.52', selected: false))
-  	self.choices.push(RateChoice.new(name: 'Employee plus spouse', label: '386.52', selected: false))
-  	self.choices.push(RateChoice.new(name: 'Employee plus child', label: '486.52', selected: false))
+  	return unless self.employee.benefit_eligible
+ 
+  	dependents = Dependent.where(employee_id: self.employee.id, relationship: "dependent")
+    spouse = Dependent.where(employee_id: self.employee.id, relationship: "spouse").first
+    num_dependents = dependents.count
+
+    sub_category = BenefitSelectionCategory.find_by(code: "SUB")
+    rate = BenefitRate.compute_employee_rate(self.employee.id, self.employee_benefit_selection.id)
+    self.choices.push(RateChoice.new(name: sub_category.description, code: sub_category.code, label: rate.to_s, selected: false))
+    if spouse.present?
+      sub_category = BenefitSelectionCategory.find_by(code: "SUB-SPS")
+      self.choices.push(RateChoice.new(name: sub_category.description, code: sub_category.code, label: '386.52', selected: false))
+      if num_dependents > 0
+        sub_category = BenefitSelectionCategory.find_by(code: "SUB-SPS-PLUS-ONE")
+        self.choices.push(RateChoice.new(name: sub_category.description, code: sub_category.code, label: '576.52', selected: false))
+      end
+    end
+
+    if num_dependents == 1
+      sub_category = BenefitSelectionCategory.find_by(code: "SUB-DEP")
+  	  self.choices.push(RateChoice.new(name: sub_category.description, code: sub_category.code, label: '668.52', selected: false))
+    elsif num_dependents > 1
+      sub_category = BenefitSelectionCategory.find_by(code: "SUB-DEP-PLUS-ONE")
+      self.choices.push(RateChoice.new(name: sub_category.description, code: sub_category.code, label: '145.52', selected: false))
+    end
   end
 
   def select_choice!
@@ -30,9 +52,11 @@ class RateSelection < ResourceModel::Base
 
     self.errors.add(:base, 'not implemented yet!!')
     false
-    selected = self.choices. # find choice where selected = true
-    benefit_selection_category = BenefitSelectionCategory.find_by(code: selected.code)
-    employee_benefit_selection.benefit_selection_category_id = benefit_selection_category.id
+    puts "**************************"
+    puts self.choices.to_s
+    # selected = choices.selected # find choice where selected = true
+    # benefit_selection_category = BenefitSelectionCategory.find_by(code: selected.code)
+    # employee_benefit_selection.benefit_selection_category_id = benefit_selection_category.id
     # wrap record creation in a transaction...
     # create the employee benefit selection record...
     # and/or create the dependent selection records
