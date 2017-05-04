@@ -43,6 +43,10 @@ class DependentsController < ApplicationController
     end
   end
 
+  def destroy
+    # need destroy method for users!
+  end
+
   private
     def find_company
       Company.find(params[:company_id].to_i)
