@@ -16,8 +16,8 @@
 
   <%= link_to 'Edit', edit_company_employee_dependent_path%> |
 
-  <% if current_user.employee_id == params[:id].to_i %>
-    <%= link_to 'Manage Dependents', company_employee_dependents_path(employee_id: params[:id]) %> |
+  <% if current_user.employee_id == params[:employee_id].to_i %>
+    <%= link_to 'Manage Dependents', company_employee_dependents_path() %> |
   <% end %>
 
   <% if current_user.manager? || current_user.admin? %>
