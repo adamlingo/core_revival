@@ -2,10 +2,22 @@ class BenefitRate < ActiveRecord::Base
   belongs_to :benefit_detail
   validates_presence_of :benefit_detail_id
   
-  def new
-  end
-  
   # Employee rate
+  def self.compute_employee_rate(employee_id, employee_benefit_selection_id)
+    ee_selection = EmployeeBenefitSelection.find(employee_benefit_selection_id)
+    benefit_detail = BenefitDetail.find(ee_selection.benefit_detail_id)
+    employee = Employee.find(employee_id)
+    effective_date = BenefitProfile.find(benefit_detail.benefit_profile_id).effective_date
+    if employee.benefit_eligible == true
+      ee_dob = employee.date_of_birth
+      ee_benefit_rate = BenefitRate.find_by(age: ee_age(effective_date, ee_dob), benefit_detail_id: benefit_detail.id)
+      ee_rate = ee_benefit_rate.rate - compute_employer_contribution_for_employee(benefit_detail, ee_benefit_rate.rate)
+      ee_rate
+    else
+      0
+    end
+  end  
+  
   def self.compute_rates(employee_id, benefit_detail_id, effective_date)
     benefit_detail = BenefitDetail.find(benefit_detail_id)
     employee = Employee.find(employee_id)
