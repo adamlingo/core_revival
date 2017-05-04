@@ -51,7 +51,6 @@ class RateSelection < ResourceModel::Base
     return false unless self.valid?
 
     self.errors.add(:base, 'not implemented yet!!')
-    false
     puts "**************************"
     puts self.choices.to_s
     # selected = choices.selected # find choice where selected = true
