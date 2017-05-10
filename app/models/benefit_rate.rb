@@ -17,44 +17,25 @@ class BenefitRate < ActiveRecord::Base
       0
     end
   end  
+
+  def self.compute_employee_spouse_rate(employee_id, employee_benefit_selection_id)
+    500.45
+  end
+
+  def self.compute_employee_spouse_plus_one_rate(employee_id, employee_benefit_selection_id)
+    600.33
+  end
+
+  def self.compute_employee_dependent_rate(employee_id, employee_benefit_selection_id)
+    675.32
+  end
+
+  def self.compute_employee_dependent_plus_one_rate(employee_id, employee_benefit_selection_id)
+    899.12
+  end
+
   
-  # def self.compute_rates(employee_id, benefit_detail_id, effective_date)
-  #   benefit_detail = BenefitDetail.find(benefit_detail_id)
-  #   employee = Employee.find(employee_id)
-  #   # if employee is eligible
-  #   if employee.benefit_eligible == true
-  #     ee_dob = employee.date_of_birth
-  #     # call ee_age to calculate age based on eff. date 
-  #     ee_benefit_rate = BenefitRate.find_by(age: ee_age(effective_date, ee_dob), benefit_detail_id: benefit_detail_id)
-      
-  #     ee_rate = ee_benefit_rate.rate - compute_employer_contribution_for_employee(benefit_detail, ee_benefit_rate.rate)
-  #     # check terminal/console if you want to see rate locally
-  #     puts ee_rate
-  #     sps_rate = 0 #compute rate for spouse
-  #     dep_rate = 0 #compute dependent rate
-  #     return ee_rate + sps_rate + dep_rate 
-  #   else
-  #     # perhaps useful?
-  #     return "Benefit Declined, no rate"
-  #   end     
-  # end
-
-  # def self.compute_all_rates(employee_id, benefit_detail_id, effective_date)
-  #   benefit_detail = BenefitDetail.find(benefit_detail_id)
-  #   employee = Employee.find(employee_id)
-  #   dependents = Dependent.where(employee_id: employee.id, relationship: "dependent")
-  #   spouse = Dependent.where(employee_id: employee.id, relationship: "spouse").first
-
-  #   rates = {
-  #     employee_only: compute_rates(employee_id, benefit_detail_id, effective_date),
-  #     employee_plus_spouse: 215.00,
-  #     employee_plus_dependent: 187.00,
-  #     employee_plus_multiple_dependents: 5001.00,
-  #     employee_plus_family_one: 1450.00,
-  #     employee_plus_family_two: 1865.00, 
-  #   }  
-  #   return rates
-  # end
+  
 
   def self.compute_employer_contribution_for_employee(benefit_detail, benefit_rate)
     if benefit_detail.benefit_method == 'FIXED'
