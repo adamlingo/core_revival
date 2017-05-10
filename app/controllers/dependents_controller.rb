@@ -23,6 +23,7 @@ class DependentsController < ApplicationController
     @dependent.employee_id = @employee.id
   	if @dependent.save
   		flash[:success] = "Dependent created"
+      #Slack notif
       redirect_to company_employee_dependents_path
   	else
   		render 'new'
@@ -37,6 +38,7 @@ class DependentsController < ApplicationController
     @dependent = set_dependent
     if @dependent.update_attributes(dependent_params)
     	flash[:success] = "Dependent updated!"
+      #Slack notif
       redirect_to company_employee_dependents_path
     else
     	render 'edit'
