@@ -87,7 +87,6 @@ class EmployeeBenefitSelectionsController < ApplicationController
     def employee_benefit_selection_params
       params.require(:employee_benefit_selection).permit(:employee_id, :benefit_type, 
                                                           :decline_benefit, :benefit_detail_id, 
-                                                          :benefit_selection_category_id, 
-                                                          choices_attributes: [:name, :label, :selected] )
+                                                          :benefit_selection_category_id)
     end
 end
