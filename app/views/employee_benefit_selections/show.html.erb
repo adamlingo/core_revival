@@ -10,8 +10,11 @@
 	<%= form_for @rate_selection, url: company_employee_rate_selections_path(company_id: @company.id, employee_id: @employee.id) do |f| %>
     <%= f.hidden_field :employee_benefit_selection_id %>
     <%= f.fields_for :choices, @rate_selection.choices do |choice_form| %>
-      <%= choice_form.text_field :name %>
-      <%= choice_form.text_field :label %>
+      <%= choice_form.hidden_field :code %>
+      <%= choice_form.hidden_field :amount %>
+      <%= choice_form.label :name, choice_form.object.name, class: "choice_name" %>
+      <%= choice_form.hidden_field :name %>
+      <%= choice_form.label :label, choice_form.object.label, class: "choice_amount" %>
       <%= choice_form.check_box :selected %>
       <br>
 
