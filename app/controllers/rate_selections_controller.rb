@@ -25,6 +25,6 @@ class RateSelectionsController < ApplicationController
       params.require(:rate_selection).permit(:employee_id, 
                                             :employee_benefit_selection_id,
                                             :company_id, 
-                                            choices_attributes: [:name, :label, :selected] )
+                                            choices_attributes: [:name, :label, :selected, :code, :amount] )
     end
 end
