@@ -28,20 +28,8 @@ class BenefitRate < ActiveRecord::Base
       ee_dob = employee.date_of_birth
       spouse_dob = spouse.date_of_birth
       ee_benefit_rate = BenefitRate.find_by(age: find_age(effective_date, ee_dob), benefit_detail_id: benefit_detail.id)
-      puts "*******************"
-      puts ee_benefit_rate
-      puts ee_benefit_rate.rate
       sps_benefit_rate = BenefitRate.find_by(age: find_age(effective_date, spouse_dob), benefit_detail_id: benefit_detail.id)
-      puts "*******************"
-      puts sps_benefit_rate
-      puts sps_benefit_rate.rate
       ee_sps_rate = (ee_benefit_rate.rate - compute_employer_contribution_for_employee(benefit_detail, ee_benefit_rate.rate)) + (sps_benefit_rate.rate - compute_employer_contribution_for_spouse(benefit_detail, sps_benefit_rate.rate))
-      puts "TOTAL TOTAL TOTAL"
-      puts ee_benefit_rate.rate
-      puts compute_employer_contribution_for_employee(benefit_detail, ee_benefit_rate.rate)
-      puts sps_benefit_rate.rate
-      puts compute_employer_contribution_for_spouse(benefit_detail, sps_benefit_rate.rate)
-      puts ee_sps_rate
       ee_sps_rate
     else
       0
@@ -93,7 +81,12 @@ class BenefitRate < ActiveRecord::Base
     # return age of EE on the effective date of the Benefit Profile
     return effective_age
   end
+
+  def self.find_oldest_dependent(dep_dob)
+    
+  end
   
+  # Import rate/age table
   def self.import(benefit_detail_id, file_path)
    # file_path = '/home/ubuntu/workspace/core_redux/test/fixtures/BCBS_G712PFR.csv'
     CSV.foreach(file_path, headers: true) do |row|
