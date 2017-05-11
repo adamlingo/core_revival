@@ -60,8 +60,6 @@ class RateSelection < ResourceModel::Base
     selected_rate = choices.select{|choice| choice.selected }.first
     self.employee_benefit_selection.amount = selected_rate.amount
     benefit_selection_category = BenefitSelectionCategory.find_by(code: selected_rate.code)
-    puts "**************************"
-    puts selected_rate.code
     self.employee_benefit_selection.benefit_selection_category_id = benefit_selection_category.id
     self.employee_benefit_selection.save!
 
