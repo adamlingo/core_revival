@@ -14,7 +14,7 @@
       <%= choice_form.hidden_field :amount %>
       <%= choice_form.label :name, choice_form.object.name, class: "choice_name" %>
       <%= choice_form.hidden_field :name %>
-      <%= choice_form.label :label, choice_form.object.label, class: "choice_amount" %>
+      <%= choice_form.label :label, number_to_currency(choice_form.object.amount), class: "choice_amount" %>
       <%= choice_form.check_box :selected %>
       <br>
 

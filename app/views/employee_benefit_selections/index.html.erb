@@ -55,7 +55,7 @@
           <th>Last Name</th>
           <th>First Name</th>
           <th>Relationship</th>
-          <th colspan="3">Actions</th>    
+          <th colspan="2">Actions</th>    
         </tr>
       </thead>
       <tbody>
@@ -65,8 +65,7 @@
             <td><%= dependent.first_name %></td>
             <td><%= dependent.relationship %></td>
             <td><%= link_to "Show", company_employee_dependent_path(current_user.company_id, current_user.employee_id, dependent.id) %></td>
-            <td><%= link_to "Edit" %></td>
-            <td><%= link_to "Destroy" %></td>
+            <td><%= link_to "Edit", edit_company_employee_dependent_path(current_user.company_id, current_user.employee_id, dependent.id) %></td>            
           </tr>
         <% end %>
       </tbody>
