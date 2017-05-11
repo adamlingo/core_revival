@@ -14,6 +14,8 @@
         <th>Co. Name</th>
         <th>Health Ins.</th>
         <th>Employee Roster</th>
+        <th>My Profile</th>
+        <th>View Dependents</th>
       </tr>
     </thead>
 
@@ -23,6 +25,8 @@
           <td><%= company.name %></td>
           <td><%= link_to 'Reconciliation', company_index_path(company) %></td>
           <td><%= link_to 'View Employees', company_employees_path(company) %></td>
+          <td><%= link_to 'Profile', company_employee_path(current_user.company_id, current_user.employee_id) %></td>
+          <td><%= link_to 'Dependents', company_employee_dependents_path(current_user.company_id, current_user.employee_id) %></td>
         </tr>
       <% end %>
     </tbody>
