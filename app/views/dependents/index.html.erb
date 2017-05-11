@@ -2,7 +2,7 @@
 <p id="notice"><%= notice %></p>
 
 <div class="dependents">
-  <h1><%= "Employee's" %> - dependents</h1>
+  <h1>Dependents</h1>
 </div>
 
 <div class="dependents">
@@ -19,6 +19,7 @@
       <th>First Name</th>
       <th>Relationship</th>
       <th>Date of Birth</th>
+      <th>Age</th>
       <th colspan="2">Actions</th>
     </tr>
   </thead>
@@ -30,7 +31,7 @@
         <td><%= dependent.first_name %></td>
         <td><%= dependent.relationship %></td>
         <td><%= dependent.date_of_birth.strftime("%D") %></td>
-        
+        <td><%= dependent.dep_age(dependent.id, dependent.date_of_birth) %></td>
         <td><%= link_to "Edit", edit_company_employee_dependent_path(current_user.company_id, current_user.employee_id, dependent.id)%></td>
         <td><%= link_to "Remove" %></td>
       </tr>
