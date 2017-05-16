@@ -65,7 +65,7 @@
             <td><%= dependent.last_name %></td>
             <td><%= dependent.first_name %></td>
             <td><%= dependent.relationship %></td>
-            <td><%= dependent.dep_age(dependent.id, dependent.date_of_birth) %></td>
+            <td><%= dependent.dep_age(dependent.date_of_birth) %></td>
             <td><%= link_to "Show", company_employee_dependent_path(current_user.company_id, current_user.employee_id, dependent.id) %></td>
             <td><%= link_to "Edit", edit_company_employee_dependent_path(current_user.company_id, current_user.employee_id, dependent.id) %></td>            
           </tr>
