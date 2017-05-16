@@ -40,11 +40,13 @@ class RateSelection < ResourceModel::Base
       end
     end
 
-    if num_dependents >= 1 # needs ammending
+    if num_dependents >= 1
       rate = BenefitRate.compute_employee_dependent_rate(self.employee.id, self.employee_benefit_selection.id)
       benefit_selection_category = BenefitSelectionCategory.find_by(code: "SUB-DEP")
   	  self.choices.push(RateChoice.new(name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
-    elsif num_dependents > 1
+    end
+
+    if num_dependents >= 2 
       rate = BenefitRate.compute_employee_dependent_plus_one_rate(self.employee.id, self.employee_benefit_selection.id)
       benefit_selection_category = BenefitSelectionCategory.find_by(code: "SUB-DEP-PLUS-ONE")
       self.choices.push(RateChoice.new(name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
