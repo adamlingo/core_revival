@@ -37,7 +37,34 @@ class BenefitRate < ActiveRecord::Base
   end
 
   def self.compute_employee_spouse_plus_one_rate(employee_id, employee_benefit_selection_id)
-    600.33
+    ee_selection = EmployeeBenefitSelection.find(employee_benefit_selection_id)
+    benefit_detail = BenefitDetail.find(ee_selection.benefit_detail_id)
+    employee = Employee.find(employee_id)
+    spouse = Dependent.find_by(employee_id: employee.id, relationship: "spouse")
+    dependents = []
+    Dependent.where(employee_id: employee.id, relationship: "dependent").each{|dependent|
+      unless dependent.dep_age(dependent.id, dependent.date_of_birth) > 26
+        dependents << dependent.dep_age(dependent.id, dependent.date_of_birth) # order??
+        # single out highest age dependent and return
+        # if age < 20, age is == 20 for rate
+      end
+    }
+    puts "******************"
+    puts dependents
+    puts "******************"
+    effective_date = BenefitProfile.find(benefit_detail.benefit_profile_id).effective_date
+    if employee.benefit_eligible == true
+      ee_dob = employee.date_of_birth
+      spouse_dob = spouse.date_of_birth
+      # dep_dob = dependents.date_of_birth
+      ee_benefit_rate = BenefitRate.find_by(age: find_age(effective_date, ee_dob), benefit_detail_id: benefit_detail.id)
+      sps_benefit_rate = BenefitRate.find_by(age: find_age(effective_date, spouse_dob), benefit_detail_id: benefit_detail.id)
+      # dep_benefit_rate = BenefitRate.find_by(age: find_age(effective_date, dep_dob), benefit_detail_id: benefit_detail.id)
+      ee_sps_rate = (ee_benefit_rate.rate - compute_employer_contribution_for_employee(benefit_detail, ee_benefit_rate.rate)) + (sps_benefit_rate.rate - compute_employer_contribution_for_spouse(benefit_detail, sps_benefit_rate.rate))
+      ee_sps_rate
+    else
+      0
+    end
   end
 
   def self.compute_employee_dependent_rate(employee_id, employee_benefit_selection_id)
@@ -65,6 +92,14 @@ class BenefitRate < ActiveRecord::Base
     end
   end
 
+  def self.compute_employer_contribution_for_dependent(benefit_detail, benefit_rate)
+    if benefit_detail.benefit_method == 'FIXED'
+      benefit_detail.category_dep
+    else
+      benefit_detail.category_dep * benefit_rate  
+    end
+  end
+
   # effective age
   def self.find_age(effective_date, ee_dob)
     # PUTS STATEMENTS FOR TERMINAL CHILLNESS
@@ -82,8 +117,12 @@ class BenefitRate < ActiveRecord::Base
     return effective_age
   end
 
-  def self.find_oldest_dependent(dep_dob)
-    
+  def self.find_one_dependent(dep_dob)
+
+  end
+
+  def self.find_two_dependents()
+
   end
   
   # Import rate/age table
