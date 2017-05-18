@@ -9,7 +9,7 @@ class Employee < ActiveRecord::Base
   has_many :employee_benefit_selections
   has_many :payroll_records
   has_one :employee_additional_login
-  has_one :dependent
+  has_many :dependents
 
 
   validates :email, presence:true, uniqueness: true

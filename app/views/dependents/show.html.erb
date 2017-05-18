@@ -1,0 +1,28 @@
+<% provide(:title, 'Dependent') %>
+<p id="notice"><%= notice %></p>
+
+<div class="dependents">
+  <div class="row">
+    <aside class="col-md-4">
+    	<%= "Name: " %>
+      <%= @dependent.first_name %> <%= @dependent.last_name %></br></br>
+      <%= "Date of Birth: " %>
+      <%= @dependent.date_of_birth %></br>
+      <%=	"Relationship: " %>
+      <%= @dependent.relationship %></br>
+    </aside>
+  </div>
+</div>
+
+  <%= link_to 'Edit', edit_company_employee_dependent_path%> |
+
+  <% if current_user.employee_id == params[:employee_id].to_i %>
+    <%= link_to 'Manage Dependents', company_employee_dependents_path() %> |
+  <% end %>
+
+  <% if current_user.manager? || current_user.admin? %>
+    <%= link_to 'Back to Employees', company_employees_path %>
+  <% else %>
+    <%= link_to 'Home', root_path %>
+  <% end %>
+</div>

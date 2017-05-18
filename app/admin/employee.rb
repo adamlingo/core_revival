@@ -1,6 +1,4 @@
 ActiveAdmin.register Employee do
-  # permit_params :email, :password, :password_confirmation
-  # ^^ save defaults just in case
   menu priority: 5
   belongs_to :company
 
@@ -22,7 +20,8 @@ ActiveAdmin.register Employee do
     column :created_at
     actions dropdown: true do |employee|
       item "Benefit Profiles", admin_company_benefit_profiles_path(employee)
-      item "Return to Companies", admin_companies_path
+      item "Dependents", admin_employee_dependents_path(employee)
+      item "Return to Companies", admin_companies_path      
     end
   end
 
@@ -38,7 +37,6 @@ ActiveAdmin.register Employee do
     f.inputs "Employee Details" do
       f.input :first_name, label: 'First Name', :placeholder => "First Name"
       f.input :last_name, label: 'Last Name', :placeholder => "Last Name"
-      # EE must be attached to an existent Company, UNMAP FROM ALL TO CURRENT!!
       f.input :company_id, as: :select, collection: Company.all.map{|c| ["#{c.name}", c.id]}
       # EE must also be a current user
       f.input :user_id, as: :select, collection: User.all.map{|u| ["#{u.email}", u.id]}.sort

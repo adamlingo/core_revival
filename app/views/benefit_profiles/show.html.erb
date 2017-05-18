@@ -7,7 +7,7 @@
       <tr>
         <th>Last</th>
         <th>First</th>
-        <th>Accept/Decline</th>
+        <th>Eligibility</th>
         <th colspan="4">Actions <span><i class='fa fa-cog fa-spin fa-fw'></i></span></th>
       </tr>
     </thead>
@@ -18,14 +18,10 @@
           <td><%= employee.last_name %></td>
           <td><%= employee.first_name %></td>
           <td>
-            <% @selections.where(employee_id: employee.id).each do |selection| %>
-              <% if !selection.benefit_accept? %>
-                <%= "Not yet selected" %>
-              <% elsif selection.benefit_accept == true %>
-                <span style="color: green"><%= "Accepted" %></span>
-              <% elsif selection.benefit_accept == false %>
-                <span style="color: red"><%= "Declined" %></span>
-              <% end %>  
+            <% if !employee.benefit_eligible? %><i class='fa fa-plus-square', style='color: black;'></i>
+                <span><%= link_to ' Make Eligible', edit_company_employee_path(employee.company, employee) %></span>
+            <% else %>
+              <!-- new block here to show if accepted or declined -->
             <% end %>    
           </td>
           <td><%= link_to "Edit Selection", company_employee_employee_benefit_selections_path(employee_id: employee.id) %></td>

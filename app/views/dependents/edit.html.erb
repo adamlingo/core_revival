@@ -1,0 +1,55 @@
+<% provide(:title, 'Edit Dependent') %>
+<div class="dependents">
+  <h1> Edit <%= "#{@dependent.first_name} #{@dependent.last_name}"%></h1>
+</div>
+</br>
+
+<div class="dependents">
+  <%= form_for @dependent, :url => {:action => "update" } do |f| %>
+    <% if @dependent.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@dependent.errors.count, "error") %> prohibited this dependent from being saved:</h2>
+      <hr>
+        <ul>
+        <% @dependent.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :first_name %><br>
+      <%= f.text_field :first_name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :last_name %><br>
+      <%= f.text_field :last_name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :relationship %><br>
+      <%= f.select :relationship, ['dependent', 'spouse'] %>
+    </div>    
+
+    <div class="field">
+      <%= f.label :date_of_birth %><br>
+      <%= f.text_field :date_of_birth, type: :date %>
+    </div>
+
+    </br>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+  </br>
+
+  <%= link_to 'Dependents', company_employee_dependents_path(employee_id: current_user.employee_id) %> |
+  <% if current_user.manager? || current_user.admin? %>
+    <%= link_to 'Back to Employees', company_employees_path %>
+  <% else %>
+    <%= link_to 'Home', root_path %>
+  <% end %>
+
+</div>

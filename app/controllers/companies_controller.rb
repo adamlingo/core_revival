@@ -1,6 +1,5 @@
 class CompaniesController < ApplicationController
   before_filter :authenticate_user!
-  # before_filter :authorize_company! <-- private method instead here
   before_filter :authorize_my_company!
   before_filter :authorize_manager!
   
@@ -16,7 +15,6 @@ class CompaniesController < ApplicationController
     @company = Company.find(params[:id])
     @employees = @company.employees
     @benefits = @company.benefit_profiles
-    # @details = @employees.benefit_detail
   end
 
   def new
@@ -38,9 +36,9 @@ class CompaniesController < ApplicationController
     end
   end
 
-  # def update
-    
-  # end
+  def update
+    # no function for users here for now.
+  end
 
   def destroy
     #Company.find(params[:id].destroy
