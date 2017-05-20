@@ -18,6 +18,7 @@ describe PayrollAnnualizer, type: :model do
         expect(annualizer.annualized_invoice_amount).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_employer_contribution).to be_within(0.01).of(2138.1)
         expect(annualizer.annualized_employee_contribution).to be_within(0.01).of(2138.1)
+        expect(annualizer.annualized_combined_contribution_totals).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_diff).to eq(0)
       end
     end
@@ -32,6 +33,7 @@ describe PayrollAnnualizer, type: :model do
         expect(annualizer.annualized_invoice_amount).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_employer_contribution).to be_within(0.01).of(2138.1)
         expect(annualizer.annualized_employee_contribution).to be_within(0.01).of(2138.1)
+        expect(annualizer.annualized_combined_contribution_totals).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_diff).to eq(0)
       end
     end
@@ -75,6 +77,8 @@ describe PayrollAnnualizer, type: :model do
         annualizer = PayrollAnnualizer.new(@monthly_invoice_amount, employee_contribution, @monthly_employer_contribution, num_checks, 'weekly')
 
         expect(annualizer.annualized_invoice_amount).to eq(@annualized_invoice_amount)
+        # this is just for looking at the actual totals
+        # expect(annualizer.annualized_combined_contribution_totals).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_employer_contribution).to be_within(0.01).of(2138.1)
         expect(annualizer.annualized_employee_contribution).to be_within(0.01).of(2138.24)
         expect(annualizer.annualized_diff).to be_within(0.001).of(0.14)
@@ -101,6 +105,8 @@ describe PayrollAnnualizer, type: :model do
         annualizer = PayrollAnnualizer.new(@monthly_invoice_amount, employee_contribution, @monthly_employer_contribution, num_checks, 'bi-weekly')
 
         expect(annualizer.annualized_invoice_amount).to eq(@annualized_invoice_amount)
+        # this is just for looking at the actual totals
+        # expect(annualizer.annualized_combined_contribution_totals).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_employer_contribution).to be_within(0.01).of(2138.1)
         expect(annualizer.annualized_employee_contribution).to be_within(0.01).of(2138.24)
         expect(annualizer.annualized_diff).to be_within(0.001).of(0.14)
@@ -124,6 +130,7 @@ describe PayrollAnnualizer, type: :model do
         expect(annualizer.annualized_invoice_amount).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_employer_contribution).to be_within(0.01).of(@annualized_invoice_amount)
         expect(annualizer.annualized_employee_contribution).to be_within(0.01).of(0)
+        expect(annualizer.annualized_combined_contribution_totals).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_diff).to eq(0)
       end
     end
@@ -138,6 +145,7 @@ describe PayrollAnnualizer, type: :model do
         expect(annualizer.annualized_invoice_amount).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_employer_contribution).to be_within(0.01).of(@annualized_invoice_amount)
         expect(annualizer.annualized_employee_contribution).to be_within(0.01).of(0)
+        expect(annualizer.annualized_combined_contribution_totals).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_diff).to eq(0)
       end
     end
@@ -171,6 +179,7 @@ describe PayrollAnnualizer, type: :model do
         expect(annualizer.annualized_invoice_amount).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_employer_contribution).to be_within(0.01).of(@annualized_invoice_amount)
         expect(annualizer.annualized_employee_contribution).to be_within(0.01).of(0)
+        expect(annualizer.annualized_combined_contribution_totals).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_diff).to eq(0)
       end
 
@@ -183,6 +192,7 @@ describe PayrollAnnualizer, type: :model do
         expect(annualizer.annualized_invoice_amount).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_employer_contribution).to be_within(0.01).of(@annualized_invoice_amount)
         expect(annualizer.annualized_employee_contribution).to be_within(0.01).of(0)
+        expect(annualizer.annualized_combined_contribution_totals).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_diff).to eq(0)
       end
     end
@@ -197,6 +207,7 @@ describe PayrollAnnualizer, type: :model do
         expect(annualizer.annualized_invoice_amount).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_employer_contribution).to be_within(0.01).of(@annualized_invoice_amount)
         expect(annualizer.annualized_employee_contribution).to be_within(0.01).of(0)
+        expect(annualizer.annualized_combined_contribution_totals).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_diff).to eq(0)
       end
 
@@ -209,6 +220,7 @@ describe PayrollAnnualizer, type: :model do
         expect(annualizer.annualized_invoice_amount).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_employer_contribution).to be_within(0.01).of(@annualized_invoice_amount)
         expect(annualizer.annualized_employee_contribution).to be_within(0.01).of(0)
+        expect(annualizer.annualized_combined_contribution_totals).to eq(@annualized_invoice_amount)
         expect(annualizer.annualized_diff).to eq(0)
       end
     end

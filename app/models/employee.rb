@@ -16,8 +16,11 @@ class Employee < ActiveRecord::Base
   validates_presence_of :company_id
   
     
-  attr_encrypted :ssn, key: ENV['ENCRYPTION_KEY']
-  
+  attr_encrypted :ssn, key: :get_encryption_key
+
+  def get_encryption_key
+    ENV['ENCRYPTION_KEY']
+  end
 
   def self.import(company_id, file_path)
     # file_path = '/home/ubuntu/workspace/core_redux/lib/assets/EmployeeList.csv'

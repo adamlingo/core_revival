@@ -3,8 +3,6 @@ class User < ActiveRecord::Base
   # :registerable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
-         
-  validates :email, presence:true, uniqueness: true
 
   # find company ID for current user.
   def company_id

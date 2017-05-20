@@ -6,8 +6,14 @@ RSpec.describe SalariesController, type: :controller do
     context 'not authenticated' do
         it "blocks unauthenticated access" do
           sign_in nil
-    
-          get :index, { company_id: 1 }
+
+          employee = Employee.first!
+          company = employee.company
+
+          get :index, { 
+            company_id: company.id,
+            employee_id: employee.id
+          }
     
           expect(response).to have_http_status(:found)
           expect(response).to redirect_to(new_user_session_path)

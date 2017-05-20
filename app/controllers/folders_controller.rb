@@ -75,24 +75,30 @@ class FoldersController < ApplicationController
   def new_doc
     @folder = Folder.find(params[:folder_id])
   end
+
   # add individual document to folder
   def add_doc
     folder_id = params[:folder_id]
-    @folder = Folder.new(folder_params)
-    @folder.title = "Temporary Folder"
-    if @folder.save
-      # CompanyFolder.create!(company_id: params[:company_id], folder_id: @folder.id)
-      @folder.documents.each{|doc|
+
+    temp_folder = Folder.new(folder_params)
+    temp_folder.title = "Temporary Folder"
+
+    if temp_folder.documents.empty?
+      flash[:error] = "At least one document is required."
+      render :new_doc
+    elsif temp_folder.save!
+      # CompanyFolder.create!(company_id: params[:company_id], folder_id: folder_id)
+      temp_folder.documents.each{|doc|
         doc.folder_id = folder_id
         doc.save!
       }
-      @folder.delete
+      temp_folder.delete
 
-      redirect_to company_folder_path(company_id: params[:company_id], id: folder_id)
       flash[:info] = "Document added to folder"
+      redirect_to company_folder_path(company_id: params[:company_id], id: folder_id)
     else
-      redirect_to company_folder_new_doc_path(company_id: params[:company_id], id: params[:folder_id])
       flash[:error] = "Document NOT added to folder"
+      redirect_to company_folder_new_doc_path(company_id: params[:company_id], id: params[:folder_id])
     end 
   end
 

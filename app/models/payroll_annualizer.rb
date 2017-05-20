@@ -4,13 +4,18 @@
 # - monthly invoice amount
 # calculate difference between "annualized" contributions and annualized invoice amount
 class PayrollAnnualizer
-  attr_reader :annualized_diff, :annualized_employee_contribution, :annualized_employer_contribution, :annualized_invoice_amount
+  attr_reader :annualized_diff,
+              :annualized_employee_contribution,
+              :annualized_employer_contribution,
+              :annualized_invoice_amount,
+              :annualized_combined_contribution_totals
 
   def initialize(monthly_invoice_amount, employee_monthly_contribution, employer_monthly_contribution, num_monthly_checks, pay_period)
     @annualized_employee_contribution = compute_annualized_employee_contribution(employee_monthly_contribution, num_monthly_checks, pay_period)
     @annualized_employer_contribution = 12*employer_monthly_contribution
     @annualized_invoice_amount = 12*monthly_invoice_amount
-    @annualized_diff = (@annualized_employee_contribution + @annualized_employer_contribution) - @annualized_invoice_amount
+    @annualized_combined_contribution_totals = @annualized_employee_contribution + @annualized_employer_contribution
+    @annualized_diff = (@annualized_combined_contribution_totals) - @annualized_invoice_amount
   end
 
   private
