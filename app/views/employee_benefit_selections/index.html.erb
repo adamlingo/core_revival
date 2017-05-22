@@ -19,7 +19,8 @@
           <th>Actions</th>
         <% elsif current_user.employee? %>
           <th>Rate Options</th>
-        <% end %>       
+        <% end %>
+        <th>Amount</th>         
       </tr>
     </thead>
     <!-- EE's selections -->
@@ -44,6 +45,7 @@
             <%= link_to 'Destroy', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection), method: :delete, data: { confirm: 'Are you sure?' } %>
             </td> 
           <% end %>
+          <td><%= number_to_currency(employee_benefit_selection.amount) %></td>
         </tr>
       <% end %>
     </tbody>
@@ -57,7 +59,7 @@
           <th>First Name</th>
           <th>Relationship</th>
           <th>Age</th>
-          <th colspan="2">Actions</th>    
+          <th colspan="2">Actions</th>  
         </tr>
       </thead>
       <tbody>
