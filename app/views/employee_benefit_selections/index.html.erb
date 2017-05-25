@@ -33,9 +33,12 @@
                      
           <% if @employee.benefit_eligible && @employee.date_of_birth == nil && current_user.employee_id == employee_benefit_selection.employee_id %>
             <td><%= link_to 'Add birthday', edit_company_employee_path(@employee.company, @employee) %></td>
+          <% elsif employee_benefit_selection.amount != nil && employee_benefit_selection.amount >= 0 %>
+            <td><span color: green><%= "Rate Selected" %></span></td>
           <% elsif @employee.benefit_eligible? && current_user.employee_id == employee_benefit_selection.employee_id %>
             <!-- Need check that benefit detail has rates imported or it crashes -->
             <td><%= link_to 'Benefit Rate', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %></td>
+          
           <% end %>
 
           <% if current_user.manager? %>
