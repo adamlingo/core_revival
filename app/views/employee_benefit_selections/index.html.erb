@@ -36,7 +36,6 @@
           <% elsif @employee.benefit_eligible? && current_user.employee_id == employee_benefit_selection.employee_id %>
             <!-- Need check that benefit detail has rates imported or it crashes -->
             <td><%= link_to 'Benefit Rate', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %></td>
-          <!-- show accept or decline with other elsifs -->
           <% end %>
 
           <% if current_user.manager? %>
@@ -45,7 +44,12 @@
             <%= link_to 'Destroy', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection), method: :delete, data: { confirm: 'Are you sure?' } %>
             </td> 
           <% end %>
-          <td><%= number_to_currency(employee_benefit_selection.amount) %></td>
+          <!-- acount for nil values in amount -->
+          <% if employee_benefit_selection.amount == nil %>
+            <td><%= "N/A" %></td>
+          <% else %>
+            <td><%= number_to_currency(employee_benefit_selection.amount) %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
