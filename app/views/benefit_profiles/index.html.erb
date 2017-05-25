@@ -6,9 +6,10 @@
   <table>
     <thead>
       <tr>
-        <th>Provider</th>
-        <th>Plan</th>
+        <th>Provider</th>        
         <th>Type</th>
+        <th>Plan</th>
+        <th>Effective Date</th>
         <th colspan="4">Actions <span><i class='fa fa-cog fa-spin fa-fw'></i></span></th>
       </tr>
     </thead>
@@ -17,8 +18,9 @@
       <% @benefit_profiles.each do |benefit_profile| %>
         <tr>
           <td><%= benefit_profile.provider %></td>
-          <td><%= benefit_profile.provider_plan %></td>
           <td><%= benefit_profile.benefit_type %></td>
+          <td><%= benefit_profile.provider_plan %></td>
+          <td><%= benefit_profile.effective_date.strftime("%D")%></td>
           <td><%= link_to 'Employee Rates', company_benefit_profile_path(benefit_profile.company, benefit_profile) %></td>
           <td><%= link_to 'My Rates', company_employee_employee_benefit_selections_path(current_user.company_id, current_user.employee_id) %></td>
         </tr>

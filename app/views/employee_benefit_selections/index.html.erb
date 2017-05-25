@@ -10,8 +10,9 @@
     <thead>
       <tr>
         <th>Provider</th>
+        <th>Type</th>
         <th>Plan</th>
-        <th>Benefit type</th>
+        <th>Effective Date</th>
         <% if current_user.manager? && @employee.user_id == current_user.id %>
           <th>Rate Options</th>
           <th>Actions</th>
@@ -28,11 +29,13 @@
       <% @employee_benefit_selections.each do |employee_benefit_selection| %>
         <tr>
           <td><%= employee_benefit_selection.benefit_profile.provider%></td>
+          <td><%= employee_benefit_selection.benefit_type %></td> 
           <td><%= employee_benefit_selection.benefit_profile.provider_plan %></td>
-          <td><%= employee_benefit_selection.benefit_type %></td>                    
-                     
+          <td><%= employee_benefit_selection.benefit_profile.effective_date.strftime("%D") %></td>                  
+          <!-- EE is eligible but needs birthday in EE record -->           
           <% if @employee.benefit_eligible && @employee.date_of_birth == nil && current_user.employee_id == employee_benefit_selection.employee_id %>
             <td><%= link_to 'Add birthday', edit_company_employee_path(@employee.company, @employee) %></td>
+          <!-- Remove link if rate already selected to set amount -->
           <% elsif employee_benefit_selection.amount != nil && employee_benefit_selection.amount >= 0 %>
             <td><span><%= "Rate Selected" %></span></td>
           <% elsif @employee.benefit_eligible? && current_user.employee_id == employee_benefit_selection.employee_id %>
@@ -41,11 +44,14 @@
           
           <% end %>
 
-          <% if current_user.manager? %>
+          <% if current_user.manager? && employee_benefit_selection.amount == nil %>
             <td><%= link_to 'Edit', edit_company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %>
             <%= " | " %>
             <%= link_to 'Destroy', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection), method: :delete, data: { confirm: 'Are you sure?' } %>
-            </td> 
+            </td>
+          <% elsif current_user.manager? && employee_benefit_selection.amount >= 0 %>
+            <td><%= link_to 'Destroy', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection), method: :delete, data: { confirm: 'Are you sure?' } %>
+            </td>
           <% end %>
           <!-- acount for nil values in amount -->
           <% if employee_benefit_selection.amount == nil %>
