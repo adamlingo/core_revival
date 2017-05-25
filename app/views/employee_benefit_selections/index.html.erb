@@ -34,7 +34,7 @@
           <% if @employee.benefit_eligible && @employee.date_of_birth == nil && current_user.employee_id == employee_benefit_selection.employee_id %>
             <td><%= link_to 'Add birthday', edit_company_employee_path(@employee.company, @employee) %></td>
           <% elsif employee_benefit_selection.amount != nil && employee_benefit_selection.amount >= 0 %>
-            <td><span color: green><%= "Rate Selected" %></span></td>
+            <td><span><%= "Rate Selected" %></span></td>
           <% elsif @employee.benefit_eligible? && current_user.employee_id == employee_benefit_selection.employee_id %>
             <!-- Need check that benefit detail has rates imported or it crashes -->
             <td><%= link_to 'Benefit Rate', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %></td>
@@ -57,32 +57,6 @@
       <% end %>
     </tbody>
   </table>
-  <!-- Dependent table -->
-  <% if @dependents.count > 0 %>
-    <table><br>
-      <thead> <h2>Dependents</h2>
-        <tr>
-          <th>Last Name</th>
-          <th>First Name</th>
-          <th>Relationship</th>
-          <th>Age</th>
-          <th colspan="2">Actions</th>  
-        </tr>
-      </thead>
-      <tbody>
-        <% @dependents.each do |dependent| %>
-          <tr>
-            <td><%= dependent.last_name %></td>
-            <td><%= dependent.first_name %></td>
-            <td><%= dependent.relationship %></td>
-            <td><%= dependent.dep_age(dependent.date_of_birth) %></td>
-            <td><%= link_to "Show", company_employee_dependent_path(current_user.company_id, current_user.employee_id, dependent.id) %></td>
-            <td><%= link_to "Edit", edit_company_employee_dependent_path(current_user.company_id, current_user.employee_id, dependent.id) %></td>            
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
 <% else %>
   <h2><%= "Employee not eligible for benefits" %></h2>
   <% if current_user.manager? %>
@@ -93,13 +67,8 @@
 <% end %>
 
 <br>
-  <!-- conditional add button for own dependents -->
-  <% if @employee.user_id == current_user.id %>
-    <span class="btn btn-success"><i class='fa fa-user'></i>
-    <%= link_to 'Add Dependent', new_company_employee_dependent_path, {style: "color: white"} %></span>
-  <% end %>
-<br><br><br>
-
+<span style="color: red;"><%= "** Rates must first be imported to calculate Benefit Rate Options" %></span>
+<br><br>
 
   <% if current_user.manager? %>
     <%= link_to 'New Employee benefit selection', new_company_employee_employee_benefit_selection_path %> |
@@ -108,4 +77,6 @@
   <% else %>
     <%= link_to 'Home', root_path %>
   <% end %>
+  <%= " | " %>
+  <%= link_to 'View Dependents', company_employee_dependents_path(current_user.company_id, current_user.employee_id) %>
 </div>
