@@ -30,7 +30,9 @@
         </span>
       </a>
     </li>
-    <li><%= link_to "Profile", company_employee_path(current_user.company_id, current_user.employee_id)%>
+    <% if current_user.manager? || current_user.employee? %>
+      <li><%= link_to "Profile", company_employee_path(current_user.company_id, current_user.employee_id)%>
+    <% end %>
     <li>
       <%= link_to "Log out", destroy_user_session_path, method: :delete %>
     </li>
