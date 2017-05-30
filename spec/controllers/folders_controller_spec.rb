@@ -151,6 +151,8 @@ RSpec.describe FoldersController, type: :controller do
                 expect(flash[:error]).to eq('At least one document is required!')
             end
 
+
+# this is not done
             it "should save documents successfully" do
                 folder_payload = {
                     folder: {
