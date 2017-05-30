@@ -12,7 +12,7 @@ Rails.application.configure do
 
 
   # Enforce encrypted connection
-  config.force_ssl = ture
+  config.force_ssl = true
   
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
