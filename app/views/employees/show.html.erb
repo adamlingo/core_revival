@@ -1,37 +1,49 @@
 <% provide(:title, 'Employee') %>
 <p id="notice"><%= notice %></p>
 
-<div class="employees">
-  <div class="row">
-    <aside class="col-md-4">
-    	<%= "Name: " %>
-      <%= @employee.first_name %> <%= @employee.last_name %></br></br>
-      <%= "E-mail: " %>
-      <%= @employee.email %></br>
-      <%= "SSN: " %>
-      <%= @employee.ssn %></br>
-      <%= "Date of Birth: " %>
-      <%= @employee.date_of_birth %></br>
-      <%=	"Address: " %>
-      <%= @employee.address %></br>
-      <%= "City: " %>
-      <%= @employee.city %></br>
-      <%= "State: " %>
-      <%= @employee.state %></br>
-      <%= "Zip: " %>
-      <%= @employee.zip %></br>
-      <%= "Phone number: " %>
-      <%= @employee.phone_number %></br>
+<div class="wrapper">
+  <div class="ee_profile_headers">
+    <p>
+    	<%= "Name: " %><br>      
+      <%= "E-mail: " %><br>      
+      <%= "SSN: " %><br>      
+      <%= "Date of Birth: " %><br>      
+      <%=	"Address: " %><br>      
+      <%= "City: " %><br>      
+      <%= "State: " %><br>      
+      <%= "Zip: " %><br>      
+      <%= "Phone number: " %><br>      
       <% if current_user.manager? %>
-        <%= "Subscriber ID: " %>
-        <%= @employee.sub_id %></br>
+        <%= "Subscriber ID: " %><br>
       <% else %>
         </br>
       <% end %>
-    </aside>
+    </p>
+  </div>
+
+  <div class="ee_profile_info">
+    <p>
+      <%= @employee.first_name %> <%= @employee.last_name %><br>
+      <%= @employee.email %><br>
+      <%= @employee.ssn %><br>
+      <%= @employee.date_of_birth %><br>
+      <%= @employee.address %><br>
+      <%= @employee.city %><br>
+      <%= @employee.state %><br>
+      <%= @employee.zip %><br>
+      <%= @employee.phone_number %><br>
+      <% if current_user.manager? %>
+        <%= @employee.sub_id %><br>
+      <% else %>
+        <br>
+      <% end %>
+    </p>
   </div>
 </div>
 
+<br><br>
+<div class="links">
+  <br><br>
   <%= link_to 'Edit', edit_company_employee_path%> |
 
   <% if current_user.employee_id == params[:id].to_i %>
