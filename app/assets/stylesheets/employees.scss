@@ -69,12 +69,39 @@
 	}		
 	
 }
-.field {
-	color: $green-2;
-	label {
-		color: $text-grey;
-		font-size: 16px;
-	}	
+
+.wrapper {
+	margin: 0, 0 auto;
+	width: 500px;
+	color: red;
 }
 
+.ee_profile_headers {
+	font-size: 22px;
+	
+	p {
+		width: 200px;
+		float: left;
+		font-family: open_sansregular;
+		color: $text-grey;
+	}
+	
+}
+
+.ee_profile_info {
+	font-size: 22px;
+	
+	p {
+		// find out how to wrap 100%
+		float: left;
+		font-family: open_sansbold;		
+		color: $green-dark;
+	}
+}
+
+.links {
+	// clear both puts links under wrapper
+	clear: both;
+	text-align: left;
+}
 
