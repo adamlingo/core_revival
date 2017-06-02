@@ -72,30 +72,50 @@
 
 .wrapper {
 	margin: 0, 0 auto;
-	width: 500px;
-	color: red;
+	width: 800px;
 }
 
-.ee_profile_headers {
-	font-size: 22px;
-	
+.ee_profile_headers {	
 	p {
+		text-align: right;
 		width: 200px;
 		float: left;
+		padding-right: 20px;
+		font-size: 22px;
 		font-family: open_sansregular;
-		color: $text-grey;
+		background-color: $text-grey;
+		color: white;
+		border-bottom: solid 2px $green-dark;
+		border-left: solid 2px $green-dark;
+		border-top: solid 2px $green-dark;
+		border-right: solid 2px $green-dark;
+		box-shadow: 7px 10px 20px $grey;
+		box-shadow: 7px 10px 20px $grey;
+		padding-bottom: 20px;
+	}	
+	span {
+		border-bottom: solid 2px $green-dark;
 	}
-	
 }
 
 .ee_profile_info {
-	font-size: 22px;
-	
 	p {
-		// find out how to wrap 100%
 		float: left;
+		margin-left: 15px;
+		padding-left: 20px;
+		padding-right: 20px;
+		font-size: 22px;
 		font-family: open_sansbold;		
 		color: $green-dark;
+		border-bottom: solid 2px $grey;
+		border-left: solid 2px $grey;
+		border-top: solid 2px $grey;
+		border-right: solid 2px $grey;
+		box-shadow: 7px 10px 20px $grey;
+		padding-bottom: 20px;
+	}
+	span {
+		border-bottom: solid 2px $grey;
 	}
 }
 
@@ -103,5 +123,8 @@
 	// clear both puts links under wrapper
 	clear: both;
 	text-align: left;
+	i {
+		color: white;
+	}
 }
 
