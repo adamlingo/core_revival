@@ -75,11 +75,13 @@
 }
 
 .ee_profile_headers {	
-	
+
 	p {
 		text-align: right;
-		width: 200px;
+		width: 185px;
 		float: left;
+		padding-top: 15px;
+		padding-left: 20px;
 		padding-right: 20px;
 		font-size: 22px;
 		font-family: open_sansregular;
@@ -104,6 +106,7 @@
 	p {
 		float: left;
 		margin-left: 15px;
+		padding-top: 15px;
 		padding-left: 20px;
 		padding-right: 20px;
 		font-size: 22px;
