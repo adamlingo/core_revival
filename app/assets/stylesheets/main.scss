@@ -106,7 +106,7 @@ i {
   width: 300px;
   position: relative;
   background: #ffffff;
-  border-right: 1px solid #e5e5e5;
+  border-right: 1px solid $grey-4;
   margin-bottom: -999px;
   padding-bottom: 999px;
 }
@@ -114,6 +114,8 @@ i {
 /* line 88, ../sass/partials/_layout.scss */
 .main-nav {
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 /* line 92, ../sass/partials/_layout.scss */
@@ -133,7 +135,6 @@ i {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  padding-right: 40px;
 }
 /* line 106, ../sass/partials/_layout.scss */
 .main-nav__link:hover {
@@ -145,7 +146,7 @@ i {
   content: ">";
   font-size: 22px;
   position: absolute;
-  right: 20px;
+  right: 10px;
   color: #bcbcbc;
 }
 
