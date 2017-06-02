@@ -66,8 +66,7 @@
 	i {
 		color: white;
 		font-size: 14px;
-	}		
-	
+	}	
 }
 
 .wrapper {
@@ -76,6 +75,7 @@
 }
 
 .ee_profile_headers {	
+	
 	p {
 		text-align: right;
 		width: 200px;
@@ -85,6 +85,7 @@
 		font-family: open_sansregular;
 		background-color: $text-grey;
 		color: white;
+		border-radius: 7px;
 		border-bottom: solid 2px $green-dark;
 		border-left: solid 2px $green-dark;
 		border-top: solid 2px $green-dark;
@@ -99,6 +100,7 @@
 }
 
 .ee_profile_info {
+	
 	p {
 		float: left;
 		margin-left: 15px;
@@ -107,6 +109,7 @@
 		font-size: 22px;
 		font-family: open_sansbold;		
 		color: $green-dark;
+		border-radius: 7px;
 		border-bottom: solid 2px $grey;
 		border-left: solid 2px $grey;
 		border-top: solid 2px $grey;
@@ -120,7 +123,7 @@
 }
 
 .links {
-	// clear both puts links under wrapper
+	// clear: both puts links under wrapper
 	clear: both;
 	text-align: left;
 	i {
