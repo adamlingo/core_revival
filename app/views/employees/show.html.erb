@@ -1,39 +1,47 @@
 <% provide(:title, 'Employee') %>
 <p id="notice"><%= notice %></p>
 
+<div class="employees">
+  <h1><%="Profile for " %><%= @employee.first_name %><%=" "%><%= @employee.last_name %></h1>
+</div>
+
 <div class="wrapper">
   <div class="ee_profile_headers">
     <p>
-    	<%= "Name: " %><br>      
-      <%= "E-mail: " %><br>      
-      <%= "SSN: " %><br>      
-      <%= "Date of Birth: " %><br>      
-      <%=	"Address: " %><br>      
-      <%= "City: " %><br>      
-      <%= "State: " %><br>      
-      <%= "Zip: " %><br>      
-      <%= "Phone number: " %><br>      
+    	<span><%= "Name: " %></span><br>
+      <span><%= "E-mail: " %></span><br>
+      <span><%= "SSN: " %></span><br>
+      <span><%= "Date of Birth: " %></span><br>
+      <span><%=	"Address: " %></span><br>
+      <span><%= "City: " %></span><br>
+      <span><%= "State: " %></span><br>
+      <span><%= "Zip: " %></span><br>
+      <span><%= "Phone number: " %></span><br>
       <% if current_user.manager? %>
-        <%= "Subscriber ID: " %><br>
+        <span><%= "Subscriber ID: " %></span><br>
       <% else %>
-        </br>
+        <br>
       <% end %>
     </p>
   </div>
 
   <div class="ee_profile_info">
     <p>
-      <%= @employee.first_name %> <%= @employee.last_name %><br>
-      <%= @employee.email %><br>
-      <%= @employee.ssn %><br>
-      <%= @employee.date_of_birth %><br>
-      <%= @employee.address %><br>
-      <%= @employee.city %><br>
-      <%= @employee.state %><br>
-      <%= @employee.zip %><br>
-      <%= @employee.phone_number %><br>
+      <span><%= @employee.first_name %> <%= @employee.last_name %></span><br>
+      <span><%= @employee.email %></span><br>
+      <span><%= @employee.ssn %></span><br>
+      <% unless @employee.date_of_birth == nil %>
+        <span><%= @employee.date_of_birth.strftime("%D") %></span><br>
+      <% else %>
+        <span><%="** No birthday listed" %></span>
+      <% end %>
+      <span><%= @employee.address %></span><br>
+      <span><%= @employee.city %></span><br>
+      <span><%= @employee.state %></span><br>
+      <span><%= @employee.zip %></span><br>
+      <span><%= @employee.phone_number %></span><br>
       <% if current_user.manager? %>
-        <%= @employee.sub_id %><br>
+        <span><%= @employee.sub_id %></span><br>
       <% else %>
         <br>
       <% end %>
@@ -44,15 +52,20 @@
 <br><br>
 <div class="links">
   <br><br>
-  <%= link_to 'Edit', edit_company_employee_path%> |
-
-  <% if current_user.employee_id == params[:id].to_i %>
-    <%= link_to 'Manage Dependents', company_employee_dependents_path(employee_id: params[:id]) %> |
-  <% end %>
-
+  <!-- back button -->
   <% if current_user.manager? || current_user.admin? %>
-    <%= link_to 'Back to Employees', company_employees_path %>
+    <span class="btn btn-danger"><i class='fa fa-arrow-left'></i>
+      <%= link_to 'All Employees', company_employees_path, {style: "color: white; text-decoration: none;"} %></span> |
   <% else %>
-    <%= link_to 'Home', root_path %>
+    <span class="btn btn-danger"><i class='fa fa-home'></i>
+      <%= link_to 'Home', root_path, {style: "color: white; text-decoration: none;"} %></span> |
+  <% end %>
+  <!-- edit ee button -->
+  <span class="btn btn-success"><i class='fa fa-pencil'></i>
+    <%= link_to 'Edit Info', edit_company_employee_path(employee_id: params[:id]), {style: "color: white; text-decoration: none;"} %></span>
+  <!-- dependents index button -->
+  <% if current_user.employee_id == params[:id].to_i %>
+    | <span class="btn btn-success"><i class='fa fa-heartbeat'></i>
+      <%= link_to 'Manage Dependents', company_employee_dependents_path(employee_id: params[:id]), {style: "color: white; text-decoration: none;"} %></span>
   <% end %>
 </div>
