@@ -1,7 +1,7 @@
 # use 'rails destroy controller Pages home' if replaced with other controller/specified dashboard
 class PagesController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :redirect_by_user_type!
+  before_filter :redirect_by_user_type!, only: [:home]
 
   def home
     if current_user.current_employee.present?
