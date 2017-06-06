@@ -8,6 +8,7 @@
         <th>Last</th>
         <th>First</th>
         <th>Eligibility</th>
+        <th>Amount</th>
         <th colspan="4">Actions <span><i class='fa fa-cog fa-spin fa-fw'></i></span></th>
       </tr>
     </thead>
@@ -24,6 +25,7 @@
               <!-- new block here to show if accepted or declined -->
             <% end %>    
           </td>
+          <td></td>
           <td><%= link_to "Edit Selection", company_employee_employee_benefit_selections_path(employee_id: employee.id) %></td>
         </tr>
       <% end %>
@@ -31,6 +33,7 @@
   </table>
 
 </br></br>
-<p><%= link_to 'Back', company_benefit_profiles_path %></p>
+<span class="btn btn-danger"><i class='fa fa-arrow-left'></i>
+  <%= link_to 'Back', company_benefit_profiles_path, {style: "color: white; text-decoration: none;"} %></span>
 
 </div>
