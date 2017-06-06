@@ -33,7 +33,7 @@
       <% unless @employee.date_of_birth == nil %>
         <span><%= @employee.date_of_birth.strftime("%D") %></span><br>
       <% else %>
-        <span><%="** No birthday listed" %></span>
+        <span><%="** No birthday listed" %></span><br>
       <% end %>
       <span><%= @employee.address %></span><br>
       <span><%= @employee.city %></span><br>
