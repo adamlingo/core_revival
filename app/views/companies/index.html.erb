@@ -1,5 +1,4 @@
 <% provide(:title, 'Company') %>
-<p id="notice"><%= notice %></p>
 
 <div class='companies'>
   <h1>Company Info</h1>
@@ -36,6 +35,4 @@
 
 <% if current_user.admin? %>
   <%= link_to 'New Company', new_company_path %>
-<% else %>
-  <%= link_to 'Home Screen', root_path %>
 <% end %>

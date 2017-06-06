@@ -1,5 +1,4 @@
 <% provide(:title, 'Employee') %>
-<p id="notice"><%= notice %></p>
 
 <div class="employees">
   <h1><%="Profile for " %><%= @employee.first_name %><%=" "%><%= @employee.last_name %></h1>
@@ -56,9 +55,6 @@
   <% if current_user.manager? || current_user.admin? %>
     <span class="btn btn-danger"><i class='fa fa-arrow-left'></i>
       <%= link_to 'All Employees', company_employees_path, {style: "color: white; text-decoration: none;"} %></span> |
-  <% else %>
-    <span class="btn btn-danger"><i class='fa fa-home'></i>
-      <%= link_to 'Home', root_path, {style: "color: white; text-decoration: none;"} %></span> |
   <% end %>
   <!-- edit ee button -->
   <span class="btn btn-success"><i class='fa fa-pencil'></i>
