@@ -20,8 +20,8 @@
           <th>Actions</th>
         <% elsif current_user.employee? %>
           <th>Rate Options</th>
-        <% end %>
-        <th>Amount</th>         
+        <% end %>  
+        <th>Amount</th>     
       </tr>
     </thead>
     <!-- EE's selections -->
@@ -41,9 +41,7 @@
           <% elsif @employee.benefit_eligible? && current_user.employee_id == employee_benefit_selection.employee_id %>
             <!-- Need check that benefit detail has rates imported or it crashes -->
             <td><%= link_to 'Benefit Rate', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %></td>
-          
           <% end %>
-
           <% if current_user.manager? && employee_benefit_selection.amount == nil %>
             <td><%= link_to 'Edit', edit_company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection) %>
             <%= " | " %>
@@ -53,11 +51,11 @@
             <td><%= link_to 'Destroy', company_employee_employee_benefit_selection_path(employee_benefit_selection.employee.company, employee_benefit_selection.employee, employee_benefit_selection), method: :delete, data: { confirm: 'Are you sure?' } %>
             </td>
           <% end %>
-          <!-- acount for nil values in amount -->
+          <!-- acount for nil values in AMOUNT -->
           <% if employee_benefit_selection.amount == nil %>
             <td><%= "N/A" %></td>
           <% else %>
-            <td><%= number_to_currency(employee_benefit_selection.amount) %></td>
+            <td><span><%= number_to_currency(employee_benefit_selection.amount) %></span></td>
           <% end %>
         </tr>
       <% end %>
@@ -73,16 +71,19 @@
 <% end %>
 
 <br>
-<span style="color: red;"><%= "** Rates must first be imported to calculate Benefit Rate Options" %></span>
-<br><br>
+<!-- button collection for nav -->
+<% if current_user.manager? %>
+  <span class="btn btn-danger"><i class='fa fa-arrow-left'></i>
+    <%= link_to 'Benefit Profiles', company_benefit_profiles_path, {style: "color: white; text-decoration: none;"} %></span>
+  <span class="btn btn-success"><i class='fa fa-plus'></i>
+    <%= link_to 'New Benefit Selection', new_company_employee_employee_benefit_selection_path, {style: "color: white; text-decoration: none;"} %></span>
+  <span class="btn btn-success"><i class='fa fa-home'></i>
+    <%= link_to 'Employees', company_employees_path, {style: "color: white; text-decoration: none;"} %></span>
+<% else %>
+  <span class="btn btn-danger"><i class='fa fa-home'></i>
+    <%= link_to 'Home', root_path, {style: "color: white; text-decoration: none;"} %></span>
+<% end %>
+<span class="btn btn-success"><i class='fa fa-heartbeat'></i>
+  <%= link_to 'Dependents', company_employee_dependents_path(current_user.company_id, current_user.employee_id), {style: "color: white; text-decoration: none;"} %></span>
 
-  <% if current_user.manager? %>
-    <%= link_to 'New Employee benefit selection', new_company_employee_employee_benefit_selection_path %> |
-    <%= link_to 'Company Benefit Profiles', company_benefit_profiles_path() %> |
-    <%= link_to 'View Company Employees', company_employees_path %> 
-  <% else %>
-    <%= link_to 'Home', root_path %>
-  <% end %>
-  <%= " | " %>
-  <%= link_to 'View Dependents', company_employee_dependents_path(current_user.company_id, current_user.employee_id) %>
 </div>
