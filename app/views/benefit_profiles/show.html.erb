@@ -2,13 +2,15 @@
 
 <div class='profiles'>
 	<h1> Employee Rates: <%= "#{@benefit_profile.provider}" " #{@benefit_profile.benefit_type}" %></h1>
+  <div class="field">
+  </div>
 	<table>
     <thead>
       <tr>
         <th>Last</th>
         <th>First</th>
         <th>Eligibility</th>
-        <th>Amount</th>
+        <!--<th>Amount</th>-->
         <th colspan="4">Actions <span><i class='fa fa-cog fa-spin fa-fw'></i></span></th>
       </tr>
     </thead>
@@ -22,10 +24,10 @@
             <% if !employee.benefit_eligible? %><i class='fa fa-plus-square', style='color: black;'></i>
                 <span><%= link_to ' Make Eligible', edit_company_employee_path(employee.company, employee) %></span>
             <% else %>
-              <!-- new block here to show if accepted or declined -->
+              <!-- show if accepted or declined ? -->
             <% end %>    
           </td>
-          <td></td>
+          <!-- <td> Amount here ** </td> -->
           <td><%= link_to "Edit Selection", company_employee_employee_benefit_selections_path(employee_id: employee.id) %></td>
         </tr>
       <% end %>
