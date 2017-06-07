@@ -10,9 +10,9 @@ class BenefitProfilesController < ApplicationController
   end
 
   def show
-    benefit_profile = BenefitProfile.find(params[:id])
-    benefit_detail = BenefitDetail.where(benefit_profile_id: @benefit_profile.id)
-    @employees = Company.find(@benefit_profile.company_id).employees  
+    @employees = Company.find(@benefit_profile.company_id).employees
+    # benefit_profile = BenefitProfile.find(params[:id])
+    # benefit_detail = BenefitDetail.where(benefit_profile_id: @benefit_profile.id)
     # need variable to cherry-pick Amounts
   end
 
