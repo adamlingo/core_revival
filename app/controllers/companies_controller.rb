@@ -2,6 +2,7 @@ class CompaniesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :authorize_my_company!
   before_filter :authorize_manager!
+  before_filter :redirect_some_actions!, only: [:show, :new, :edit, :destroy]
   
   def index
     if current_user.admin?
@@ -12,6 +13,7 @@ class CompaniesController < ApplicationController
   end
 
   def show
+    
     @company = Company.find(params[:id])
     @employees = @company.employees
     @benefits = @company.benefit_profiles
@@ -59,5 +61,11 @@ class CompaniesController < ApplicationController
 
     def authorize_my_company!
       check_company(params[:id])
+    end
+
+    def redirect_some_actions!
+      unless current_user.admin?
+        redirect_to(root_path)
+      end
     end
 end

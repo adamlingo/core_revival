@@ -5,6 +5,7 @@ class DependentsController < ApplicationController
   
   def index
 	  @dependents = Dependent.where(employee_id: current_user.employee_id)
+    @employee = find_employee
   end
 
   def show

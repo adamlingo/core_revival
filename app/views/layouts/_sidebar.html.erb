@@ -9,11 +9,11 @@
       <% end %>
     </li>
     <li role='presentation'>
-      <%= link_to company_payroll_records_path(current_user.company_id), class: 'main-nav__link' do %>
+      <%= link_to company_employee_dependents_path(current_user.company_id, current_user.employee_id), class: 'main-nav__link' do %>
         <span class='main-nav__icon'>
-          <i class='fa fa-money'></i>
+          <i class='fa fa-heartbeat'></i>
         </span>
-        Payroll
+        Dependents
       <% end %>
     </li>
     <li role='presentation'>
@@ -22,6 +22,14 @@
           <i class='fa fa-users'></i>
         </span>
         Employees
+      <% end %>
+    </li>
+    <li role='presentation'>
+      <%= link_to company_payroll_records_path(current_user.company_id), class: 'main-nav__link' do %>
+        <span class='main-nav__icon'>
+          <i class='fa fa-money'></i>
+        </span>
+        Payroll
       <% end %>
     </li>
     <li role='presentation'>
