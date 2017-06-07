@@ -83,7 +83,9 @@
   <span class="btn btn-danger"><i class='fa fa-home'></i>
     <%= link_to 'Home', root_path, {style: "color: white; text-decoration: none;"} %></span>
 <% end %>
-<span class="btn btn-success"><i class='fa fa-heartbeat'></i>
-  <%= link_to 'Dependents', company_employee_dependents_path(current_user.company_id, current_user.employee_id), {style: "color: white; text-decoration: none;"} %></span>
 
+<% if current_user.employee? %>
+  <span class="btn btn-success"><i class='fa fa-heartbeat'></i>
+    <%= link_to 'Dependents', company_employee_dependents_path(current_user.company_id, current_user.employee_id), {style: "color: white; text-decoration: none;"} %></span>
+<% end %>
 </div>
