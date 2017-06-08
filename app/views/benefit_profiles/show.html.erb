@@ -2,8 +2,6 @@
 
 <div class='profiles'>
 	<h1> Employee Rates: <%= "#{@benefit_profile.provider}" " #{@benefit_profile.benefit_type}" %></h1>
-  <div class="field">
-  </div>
 	<table>
     <thead>
       <tr>
@@ -24,15 +22,17 @@
             <% if !employee.benefit_eligible? %><i class='fa fa-plus-square', style='color: black;'></i>
               <%= link_to ' Make Eligible', edit_company_employee_path(employee.company, employee) %>
             <% else %>
-              <%= "Employee is eligible for benefits" %>
+              <%= "Eligible for benefits" %>
             <% end %>    
           </td>
           <% if employee.current_benefit_selection_by_profile_id(@benefit_profile.id).present? && employee.benefit_eligible? %>
             <% if employee.current_benefit_selection_by_profile_id(@benefit_profile.id).amount.present? %>
               <td><span style="color: #5cb85c; font-size: 16px; font-family: open_sansbold;"><%= number_to_currency(employee.current_benefit_selection_by_profile_id(@benefit_profile.id).amount) %></span></td>
             <% else %>
-              <td><span style="color: red;"><%= "Rate not yet chosen" %></span></td>
+              <td><span><%= "Rate not yet chosen" %></span></td>
             <% end %>
+          <% elsif !employee.current_benefit_selection_by_profile_id(@benefit_profile.id).present? && employee.benefit_eligible? %>
+            <td><span style="color: red;"><%= "** Needs Selection **" %></span></td>
           <% else %>
             <td>N/A</td>
           <% end %>
