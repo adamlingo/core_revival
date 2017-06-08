@@ -4,7 +4,8 @@
   <h1><%= @employee.display_name %> - Benefit Selections</h1>
 </div>
 
-<% if @employee.benefit_eligible %>
+<% unless @employee.employee_benefit_selections.count == 0 %>
+<% if @employee.benefit_eligible%>
   <div class="ben-selections">
     <table>
       <thead>
@@ -74,6 +75,9 @@
       <span style="font-size: 20px; color: green;"><%= "Contact manager or supervisor about eligibility" %></span>
     <% end %>
   <% end %>
+<% else %>
+  <h3>No selections available</h3>
+<% end %>
 </div>
 <br>
 <!-- button collection for nav -->
