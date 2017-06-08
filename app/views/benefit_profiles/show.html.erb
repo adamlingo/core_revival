@@ -9,8 +9,8 @@
       <tr>
         <th>Last</th>
         <th>First</th>
-        <th>Eligibility</th>
-        <!--<th>Amount</th>-->
+        <th>Eligible?</th>
+        <th>Amount</th>
         <th colspan="4">Actions <span><i class='fa fa-cog fa-spin fa-fw'></i></span></th>
       </tr>
     </thead>
@@ -22,20 +22,27 @@
           <td><%= employee.first_name %></td>
           <td>
             <% if !employee.benefit_eligible? %><i class='fa fa-plus-square', style='color: black;'></i>
-                <span><%= link_to ' Make Eligible', edit_company_employee_path(employee.company, employee) %></span>
+              <%= link_to ' Make Eligible', edit_company_employee_path(employee.company, employee) %>
             <% else %>
-              <!-- show if accepted or declined ? -->
+              <%= "Employee is eligible for benefits" %>
             <% end %>    
           </td>
-          <!-- <td> Amount here ** </td> -->
-          <td><%= link_to "Edit Selection", company_employee_employee_benefit_selections_path(employee_id: employee.id) %></td>
+          <% if employee.current_benefit_selection_by_profile_id(@benefit_profile.id).present? && employee.benefit_eligible? %>
+            <% if employee.current_benefit_selection_by_profile_id(@benefit_profile.id).amount.present? %>
+              <td><span style="color: #5cb85c; font-size: 16px; font-family: open_sansbold;"><%= number_to_currency(employee.current_benefit_selection_by_profile_id(@benefit_profile.id).amount) %></span></td>
+            <% else %>
+              <td><span style="color: red;"><%= "Rate not yet chosen" %></span></td>
+            <% end %>
+          <% else %>
+            <td>N/A</td>
+          <% end %>
+          <td><%= link_to "View Selections", company_employee_employee_benefit_selections_path(employee_id: employee.id) %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 
-</br></br>
-<span class="btn btn-danger"><i class='fa fa-arrow-left'></i>
-  <%= link_to 'Back', company_benefit_profiles_path, {style: "color: white; text-decoration: none;"} %></span>
-
+  </br></br>
+  <span class="btn btn-danger"><i class='fa fa-arrow-left'></i>
+    <%= link_to 'Back', company_benefit_profiles_path, {style: "color: white; text-decoration: none;"} %></span>
 </div>
