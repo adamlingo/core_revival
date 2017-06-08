@@ -18,8 +18,21 @@ class Employee < ActiveRecord::Base
     
   attr_encrypted :ssn, key: :get_encryption_key
 
+  def current_benefit_selection_by_profile_id(benefit_profile_id)
+    selection = EmployeeBenefitSelection.find_by(employee_id: id, benefit_detail_id: BenefitDetail.where(benefit_profile_id: benefit_profile_id).to_a)
+    selection
+  end
+
   def get_encryption_key
     ENV['ENCRYPTION_KEY']
+  end
+ 
+  def display_name
+    "#{self.last_name}, #{self.first_name}"
+  end
+  
+  def current_salary
+    self.salaries.where(end_date: nil).first
   end
 
   def self.import(company_id, file_path)
@@ -40,13 +53,4 @@ class Employee < ActiveRecord::Base
       end
     end
   end
-  
-  def display_name
-    "#{self.last_name}, #{self.first_name}"
-  end
-  
-  def current_salary
-    self.salaries.where(end_date: nil).first
-  end
-
 end
