@@ -79,9 +79,7 @@ class EmployeesController < ApplicationController
     if @employee.update_attributes(employee_params)
       flash[:success] = "Employee updated!"
       if @employee.user_id.present?
-
         # notify_zendesk('EMPLOYEE INFO Changed')
-  
         # update User record email to match Employee
         user = User.find(@employee.user_id)
         # password reset invite
@@ -90,12 +88,10 @@ class EmployeesController < ApplicationController
         user.save!
       end
       # redirect to index for Managers, show for Employees, show for ER's own profile.
-      if current_user.manager? && employee_is_current_user?
+      if current_user.manager? && employee_is_current_user? || current_user.employee?
         redirect_to company_employee_path
       elsif current_user.manager? || current_user.admin?
         redirect_to company_employees_path
-      else
-        redirect_to company_employee_path
       end
     else
       render 'edit'
