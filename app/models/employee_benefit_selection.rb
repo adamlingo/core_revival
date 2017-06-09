@@ -10,6 +10,11 @@ class EmployeeBenefitSelection < ActiveRecord::Base
     BenefitProfile.find_by(id: self.benefit_detail.benefit_profile_id)
   end
 
+  def has_rates?
+    rate = BenefitRate.find_by(benefit_detail_id: benefit_detail.id)
+    rate.present?
+  end
+
   private
     def unset_benefit_detail_if_declined
       self.benefit_detail_id = nil if self.decline_benefit

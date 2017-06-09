@@ -11,9 +11,6 @@ class BenefitProfilesController < ApplicationController
 
   def show
     @employees = Company.find(@benefit_profile.company_id).employees
-    # benefit_profile = BenefitProfile.find(params[:id])
-    # benefit_detail = BenefitDetail.where(benefit_profile_id: @benefit_profile.id)
-    # need variable to cherry-pick Amounts
   end
 
   def new
