@@ -2,7 +2,7 @@ class EmployeeBenefitSelection < ActiveRecord::Base
   belongs_to :employee
   belongs_to :benefit_detail
   validates_presence_of :benefit_type
-  validates :benefit_detail_id, :presence => true, :unless => :is_benefit_declined?
+  validates :benefit_detail_id, :presence => true #, :unless => :is_benefit_declined?
   # validates :benefit_selection_category_id, :presence => true
   before_save :unset_benefit_detail_if_declined
 
