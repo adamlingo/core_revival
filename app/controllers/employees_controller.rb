@@ -3,8 +3,8 @@ class EmployeesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :authorize_company!
   before_filter :authorize_manager!, except: [:show, :edit, :update]
-  before_filter :authorize_manager_or_self!, only: [:show, :edit, :update]
-  # call helper methods
+  before_filter :authorize_manager_or_self!, only: [:index, :show, :edit, :update]
+  # call helper methods for sorting
   helper_method :sort_column, :sort_direction
 
   def index
