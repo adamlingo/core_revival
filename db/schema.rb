@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170427200659) do
+ActiveRecord::Schema.define(version: 20170613133758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -182,8 +182,8 @@ ActiveRecord::Schema.define(version: 20170427200659) do
   create_table "employees", force: :cascade do |t|
     t.string   "name"
     t.integer  "company_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "email"
     t.string   "address"
     t.string   "city"
@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(version: 20170427200659) do
     t.string   "ssn"
     t.string   "encrypted_ssn"
     t.string   "encrypted_ssn_iv"
+    t.boolean  "view_salary",      default: true, null: false
   end
 
   create_table "folders", force: :cascade do |t|
