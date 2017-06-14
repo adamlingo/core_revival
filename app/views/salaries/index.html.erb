@@ -1,41 +1,44 @@
 <!-- <p id="notice"><%= notice %></p> -->
 
-<div class='salaries'>
+<div class="salaries">
   <h1>Listing Employee Pay History</h1>
 </div>
 
-<div class='salaries'>
-  <table>
-    <thead>
-      <h2><%= @employee.display_name %></h2>
-      <tr>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Salary/Rate</th>
-        <th>Pay Type</th>
-        </tr>
-    </thead>
-
-    <tbody>
-      <% @salaries.each do |salary| %>
+<% unless @employee.salaries.count <= 0 %>
+  <div class="salaries">
+    <table>
+      <thead>
+        <h2><%= @employee.display_name %></h2>
+        <br>
         <tr>
-          <td><%= salary.start_date.strftime("%D") %></td>
-          <% unless salary.end_date == nil %>
-            <td><%= salary.end_date.strftime("%D") %></td>
-          <% else %>
-            <td><%= " N/A " %></td>
-          <% end %>
-          <td><%= salary.rate %></td>
-          <td><%= salary.pay_type %></td>          
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Salary/Rate</th>
+          <th>Pay Type</th>
+          </tr>
+      </thead>
+
+      <tbody>
+        <% @salaries.each do |salary| %>
+          <tr>
+            <td><%= salary.start_date.strftime("%D") %></td>
+            <% unless salary.end_date == nil %>
+              <td><%= salary.end_date.strftime("%D") %></td>
+            <% else %>
+              <td><%= " N/A " %></td>
+            <% end %>
+            <td><%= number_to_currency(salary.rate) %></td>
+            <td><%= salary.pay_type %></td>          
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 </div>
+<% end %>
 
 <br>
 
-<div class='links'>
-  <span class='btn btn-danger'><i class='fa fa-arrow-left'></i><%= link_to " Back", company_employees_path, {style: "color: white; text-decoration: none;"} %></span>
-  <span class='btn btn-success'><i class='fa fa-plus'></i><%= link_to " Add Another Salary", new_company_employee_salary_path, {style: "color: white; text-decoration: none;"} %></span>
+<div class="links">
+  <span class="btn btn-danger"><i class="fa fa-arrow-left"></i><%= link_to " Employees", company_employees_path, {style: "color: white; text-decoration: none;"} %></span>
+  <span class="btn btn-success"><i class='fa fa-plus'></i><%= link_to " Add Salary", new_company_employee_salary_path, {style: "color: white; text-decoration: none;"} %></span>
 </div>
