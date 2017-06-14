@@ -1,31 +1,33 @@
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p> -->
 
-<h1>Listing Employee Pay History</h1>
+<div class='salaries'>
+  <h1>Listing Employee Pay History</h1>
+</div>
 
-<table>
-  <thead>
-    <%=@employee.display_name%>
-    <tr>
-      <th>Start Date</th>
-      <th>End Date</th>
-      <th>Salary/Rate</th>
-      <th>Pay Type</th>
-      </tr>
-  </thead>
+<div class='salaries'>
+  <table>
+    <thead>
+      <h2><%= @employee.display_name %></h2>
+      <tr>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Salary/Rate</th>
+        <th>Pay Type</th>
+        </tr>
+    </thead>
 
-  <tbody>
- 
-        <% @salaries.each do |salary| %>
-          <tr>
-              <td><%= salary.start_date%></td>
-              <td><%= salary.end_date%></td>
-              <td><%= salary.rate%></td>
-              <td><%= salary.pay_type%></td>
-              
-          </tr>
+    <tbody>
+      <% @salaries.each do |salary| %>
+        <tr>
+          <td><%= salary.start_date.strftime("%D") %></td>
+          <td><%= salary.end_date.strftime("%D") %></td>
+          <td><%= salary.rate %></td>
+          <td><%= salary.pay_type %></td>          
+        </tr>
       <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
 
 <br>
 
