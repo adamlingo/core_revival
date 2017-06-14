@@ -1,33 +1,35 @@
-<h1>Add New Pay/Salary Rate</h1>
+<div class="salaries">
+  <h1>Add New Pay/Salary Rate</h1>
+</div>
 
 </br>
-<%= form_for @salary, :url => company_employee_salaries_path() do |f| %>
 
-
-  <div class="field">
-      <%= f.label :employee_name, "#{@employee.display_name}"%>
-  </div>
-
-  <div class="field">
+<div class="salaries">
+  <%= form_for @salary, :url => company_employee_salaries_path() do |f| %>
+    <h2><%= @employee.display_name %></h2>    
+    <br>
+    <div class="field">
       <%= f.label :rate, "Rate Per Hour/Year"%>
       <%= f.text_field :rate%>
-  </div>
-  
+    </div>    
     <div class="field">
       <%= f.label :start_date, "Rate Effective What Date?"%>
       <%= f.date_field :start_date%>
-    </div>
-    
+    </div>      
     <div class="field">
       <%= f.label :pay_type, "Type"%>
       <%= f.select :pay_type, ['Annual Salary', 'Hourly Rate'] %>
     </div>
-    
-  <div class="field">
-    <%= f.submit class: "btn btn-primary" %>
-  </div>
-  <div class="col-md-4"></div>
+    <br>
+    <div class="field">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+
+  <% end %>
 </div>
 
-<% end %>
-<%= link_to 'Back', company_employees_path %>
+<br>
+
+<div class="links">
+  <span class='btn btn-danger'><i class='fa fa-arrow-left'></i><%= link_to " Back", company_employee_salaries_path, {style: "color: white; text-decoration: none;"} %></span>
+</div>
