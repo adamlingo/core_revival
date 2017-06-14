@@ -33,3 +33,10 @@
 		color: white;
 	}
 }
+.field {
+	color: $green-2;
+	label {
+		color: $text-grey;
+		font-size: 16px;
+	}	
+}
