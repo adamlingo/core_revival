@@ -20,7 +20,11 @@
       <% @salaries.each do |salary| %>
         <tr>
           <td><%= salary.start_date.strftime("%D") %></td>
-          <td><%= salary.end_date.strftime("%D") %></td>
+          <% unless salary.end_date == nil %>
+            <td><%= salary.end_date.strftime("%D") %></td>
+          <% else %>
+            <td><%= " N/A " %></td>
+          <% end %>
           <td><%= salary.rate %></td>
           <td><%= salary.pay_type %></td>          
         </tr>
@@ -31,4 +35,7 @@
 
 <br>
 
-<%= link_to 'New', new_company_employee_salary_path %>
+<div class='links'>
+  <span class='btn btn-danger'><i class='fa fa-arrow-left'></i><%= link_to " Back", company_employees_path, {style: "color: white; text-decoration: none;"} %></span>
+  <span class='btn btn-success'><i class='fa fa-plus'></i><%= link_to " Add Another Salary", new_company_employee_salary_path, {style: "color: white; text-decoration: none;"} %></span>
+</div>
