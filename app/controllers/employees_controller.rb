@@ -3,8 +3,8 @@ class EmployeesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :authorize_company!
   before_filter :authorize_manager!, except: [:show, :edit, :update]
-  before_filter :authorize_manager_or_self!, only: [:show, :edit, :update]
-  # call helper methods
+  before_filter :authorize_manager_or_self!, only: [:index, :show, :edit, :update]
+  # call helper methods for sorting
   helper_method :sort_column, :sort_direction
 
   def index
@@ -131,7 +131,7 @@ class EmployeesController < ApplicationController
     def employee_params
       params.require(:employee).permit(:company_id, :first_name, :last_name, :email, 
         :address, :city, :state, :zip, :phone_number, :user_id, :sub_id, :date_of_birth,
-        :date_of_hire, :encrypted_ssn, :ssn, :benefit_eligible)
+        :date_of_hire, :encrypted_ssn, :ssn, :benefit_eligible, :view_salary)
     end
 
     def authorize_manager_or_self!

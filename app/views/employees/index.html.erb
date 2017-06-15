@@ -34,13 +34,15 @@
         <td><%= link_to 'Show', company_employee_path(employee.company, employee) %></td>
         <td><%= link_to 'Edit', edit_company_employee_path(employee.company, employee) %></td>
         <td><%= link_to 'Benefits', company_employee_employee_benefit_selections_path(employee.company, employee) %></td>
-        <td><%= link_to 'Salary/Rate', company_employee_salaries_path(employee.company, employee) %></td>
+        <% if current_user.current_employee.view_salary == true %>
+          <td><%= link_to 'Salary/Rate', company_employee_salaries_path(employee.company, employee) %></td>
+        <!-- no ELSE, just don't show Salary link -->
+        <% end %>
         <td><%= link_to 'Manage Files', company_employee_folders_path(employee.company, employee) %></td>
         <td><%= link_to 'Invite', company_employee_invite_path(employee.company, employee), :class => "btn btn-success" %></td>
         <% if false %>
           <td><%= link_to 'Destroy', company_employee_path(employee.company, employee), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
-
       </tr>
     <% end %>
   </tbody>

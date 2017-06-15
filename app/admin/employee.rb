@@ -4,7 +4,8 @@ ActiveAdmin.register Employee do
 
   # Edit fields to save
   permit_params :name, :first_name, :last_name, :company_id, :email, :address, 
-                :city, :state, :zip, :phone_number, :sub_id, :user_id, :date_of_birth
+                :city, :state, :zip, :phone_number, :sub_id, :user_id, :date_of_birth,
+                :benefit_eligible, :view_salary
   
   index do
     selectable_column
@@ -14,6 +15,8 @@ ActiveAdmin.register Employee do
     # make EE list reflect showing name of Company here
     column :last_name
     column :first_name
+    column :benefit_eligible
+    column :view_salary
     column :sub_id
     column :email
     column :date_of_birth
@@ -48,6 +51,8 @@ ActiveAdmin.register Employee do
       f.input :zip, :placeholder => "Zip"
       f.input :phone_number, :placeholder => "Phone"
       f.input :date_of_birth, :start_year => 1950, :end_year => 2005
+      f.input :benefit_eligible
+      f.input :view_salary
     end
     f.actions
   end
