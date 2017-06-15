@@ -5,7 +5,7 @@ class SalariesController < ApplicationController
   def index
     @employee = set_employee
     @company = find_company
-    @salaries = Salary.where(employee_id: @employee.id).sort.reverse
+    @salaries = Salary.where(employee_id: @employee.id).sort_by{|sal| [sal.start_date]}.reverse
   end
 
   def show
