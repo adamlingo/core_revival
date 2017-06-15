@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613133758) do
+ActiveRecord::Schema.define(version: 20170615183517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -285,6 +285,8 @@ ActiveRecord::Schema.define(version: 20170613133758) do
     t.decimal  "rate",        null: false
     t.string   "pay_type",    null: false
   end
+
+  add_index "salaries", ["employee_id"], name: "index_salaries_on_employee_id", unique: true, where: "(end_date IS NULL)", using: :btree
 
   create_table "timeworks", force: :cascade do |t|
     t.datetime "created_at",   null: false
