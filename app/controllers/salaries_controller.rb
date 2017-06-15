@@ -5,7 +5,7 @@ class SalariesController < ApplicationController
   def index
     @employee = set_employee
     @company = find_company
-    @salaries = Salary.where(employee_id: @employee.id)
+    @salaries = Salary.where(employee_id: @employee.id).sort.reverse
   end
 
   def show
@@ -27,37 +27,36 @@ class SalariesController < ApplicationController
   def create
     @employee = Employee.find(params[:employee_id])
     @company = find_company
-    
-    if @employee.current_salary.present?
-      @current_start_date = @employee.current_salary.start_date
-    else
-      @current_start_date = nil
-    end
-      
     @salary = Salary.new(salary_params)
     @salary.employee_id = @employee.id
-    
-    if @current_start_date.nil?
-      if @salary.save
-        flash[:success] = "New payrate updated"
-        redirect_to company_employees_path
-      else
-        flash[:error] = "Save new Pay Rate failed"
-        render 'new'
-      end
-    elsif @current_start_date <= @salary.start_date
-      @employee.current_salary.end_date = @salary.start_date
-      if @salary.save && @employee.current_salary.save!
-        flash[:success] = "New Payrate Updated"
+
+    if @employee.current_salary.nil?      
+      if @salary.valid? && @salary.save
+        flash[:success] = "New Pay Rate added"
         redirect_to company_employees_path
       else
         flash[:error] = "Save new Pay Rate failed"
         render 'new'
       end
     else
-      flash[:error] = "Start Date must be after Current Pay Start Date"
-      render 'new'
-    end      
+      current_salary = @employee.current_salary
+      current_start_date = current_salary.start_date
+      if @salary.start_date.present? && current_start_date <= @salary.start_date
+        current_salary.end_date = @salary.start_date
+        if @salary.valid?
+          current_salary.save!
+          @salary.save! # method to handle --> both need to fail or succeed
+          flash[:success] = "New Pay Rate Updated"
+          redirect_to company_employees_path
+        else
+          flash[:error] = "Save new Pay Rate failed. #{@salary.errors.full_messages.to_sentence}"
+          render 'new'
+        end
+      else
+        flash[:error] = "Start Date must exist and cannot be before Current Pay Start Date"
+        render 'new'
+      end      
+    end
   end
     
     
