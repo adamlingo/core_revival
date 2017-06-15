@@ -11,15 +11,15 @@
     <h2><%= @employee.display_name %></h2>    
     <br>
     <div class="field">
-      <%= f.label :rate, "Rate Per Hour/Year"%><br>
-      <%= f.text_field :rate%>
+      <%= f.label :rate, "Rate Per Hour/Year" %><br>
+      <%= f.text_field :rate %>
     </div>    
     <div class="field">
-      <%= f.label :start_date, "Rate Effective What Date?"%><br>
-      <%= f.date_field :start_date%>
+      <%= f.label :start_date, "Rate Effective What Date?" %><br>
+      <%= f.date_field :start_date %>
     </div>      
     <div class="field">
-      <%= f.label :pay_type, "Type"%><br>
+      <%= f.label :pay_type, "Type" %><br>
       <%= f.select :pay_type, ['Annual Salary', 'Hourly Rate'] %>
     </div>
     <br>
