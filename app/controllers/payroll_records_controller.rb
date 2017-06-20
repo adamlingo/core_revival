@@ -5,8 +5,8 @@ class PayrollRecordsController < ApplicationController
   before_filter :authorize_manager!
 
   def index
-    # @payroll_records = []
     @employees = find_company.employees.order(:last_name, :first_name).to_a
+    # @payroll_records = []
     # @employees.each {|employee|
     #   @payroll_records << PayrollRecord.new(employee_id: employee.id)
     # }
