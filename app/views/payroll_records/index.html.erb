@@ -2,16 +2,16 @@
 <p id="notice"><%= notice %></p>
 
 <div class="payroll">
-  <h1>NetClient Login</h1>
+  <h1>NetClient Login (to Payroll)</h1>
 </div>
 
-<div class="payroll">
+<div class="netclient">
   <form class="no-p" action="https://secure.netlinksolution.com/nextgen/login" method="post"><input name="firmID" type="hidden" value="60062"/><br />
   <input name="redirect" type="hidden" value="true"/><br />
   <label for="trLogin">Login:</label><br />
   <input id="trLogin" class="form-control" spellcheck="false" name="loginUsername" type="text"/><br />
   <label for="trPassword">Password:</label><br />
   <input id="trPassword" class="form-control no-mb" autocomplete="off" name="loginPassword" type="password"/><br />
-  <button class="btn btn-default" type="submit">Login</button></form>
+  <button class="btn btn-success" type="submit">Login</button></form>
 </div>
 <br>
