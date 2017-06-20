@@ -22,8 +22,8 @@
 		padding: 5px 20px;
 		border: solid 1px $text-grey;
 		border-collapse: collapse;
-	  box-sizing: border-box;
-	  border: solid 1px;
+	    box-sizing: border-box;
+	    border: solid 1px;
 	}
 	th {
 		text-align: center;
@@ -47,6 +47,22 @@
 			color: white;
 			background-color: $green-dark;
 			width: 80px;
+		}
+	}
+}
+.netclient {
+	input {
+		width: 350px;
+		color: $text-grey;
+	}
+	button {
+		width: 100px;
+		background-color: $green-dark;
+		border: solid 2px $green-2;
+		&:hover {
+			background-color: $grey;
+			color: black;
+			border: solid 2px black;	
 		}
 	}
 }
