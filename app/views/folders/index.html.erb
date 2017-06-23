@@ -10,23 +10,25 @@
 </div>
 </br>
 
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <!-- document count here? -->
-    </tr>
-  </thead>
-  <tbody>
-    <% @folders.each do |folder| %>
+<div class="folders">
+  <table class="table table-bordered">
+    <thead>
       <tr>
-        <td>
-          <%= link_to folder.title, company_folder_path(id: folder.id) %>
-        </td>
-          <!-- document count here? -->        
+        <th>FOLDERS</th>
+        <!-- document count here? -->
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @folders.each do |folder| %>
+        <tr>
+          <td><span><i class='fa fa-folder'></i></span>
+            <%= link_to folder.title, company_folder_path(id: folder.id) %>
+          </td>
+            <!-- document count here? -->        
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 
