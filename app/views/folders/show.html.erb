@@ -1,17 +1,17 @@
+<% provide(:title, "#{@folder.title}") %>
+
 <p id="notice"><%= notice %></p>
 
-<h1><%= @folder.title %></h1>
-
-<p>
-  <%= link_to "Edit title or description", edit_company_folder_path %>
-  </br>
-  <%= link_to "Add document to this folder", company_folder_new_doc_path(folder_id: @folder.id) %>
-</p>
-</br>
-<p>
-  <%= attachment_image_tag(@folder, :image, :fill, 200, 200) %>
-</p>
-
+<div class='folders'>
+  <h1><%= "Folder: #{@folder.title}" %></h1>
+  <h4><%= simple_format @folder.description %></h4><br>
+    <span><i class='fa fa-pencil'></i></span><%= link_to "Edit title or description", edit_company_folder_path %><br>
+    <span><i class='fa fa-plus'></i></span><%= link_to "Add document to this folder", company_folder_new_doc_path(folder_id: @folder.id) %><br>
+  <!-- image not currently in use -->
+  <p>
+    <%= attachment_image_tag(@folder, :image, :fill, 200, 200) %>
+  </p>
+</div>
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -28,21 +28,20 @@
         <th><%= link_to document.file_filename, attachment_url(document, :file), target: :_blank %></th>
         <th><%= document.file_content_type %></th>
         <th><%= number_to_human_size document.file_size %></th>
-        <th><%= link_to 'delete', company_folder_delete_doc_path(folder_id: @folder.id, doc_id: document.id), data: { method: "delete", confirm: "Are you sure?" } %></th> 
+        <th><%= link_to 'Delete', company_folder_delete_doc_path(folder_id: @folder.id, doc_id: document.id), data: { method: "delete", confirm: "Are you sure?" } %></th> 
       </tr>
     <% end %>
   </tbody>
 
 </table>
 
-<%= simple_format @folder.description %>
-</br>
-</br>
-<p>
-  <%= link_to "RETURN TO YOUR FOLDERS", company_folders_path(current_user.company_id) %>
-</p>
-</br>
-<p>
-  <%= link_to "Delete folder", company_folder_path(folder_id: @folder.id), data: { method: "delete", confirm: "Are you sure?" }, class: "btn btn-danger" %>	
-</p>
+<div class="links">
+  <span class="btn btn-success"><i class='fa fa-arrow-left'></i>
+    <%= link_to "All Folders", company_folders_path(current_user.company_id) %>
+  </span><br><br>
+  <span class="btn btn-danger"><i class='fa fa-trash'></i>
+    <%= link_to "Delete Folder", company_folder_path(folder_id: @folder.id), data: { method: "delete", confirm: "Are you sure?" } %>
+  </span>  
+</div>
+
 
