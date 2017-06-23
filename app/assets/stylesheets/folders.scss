@@ -25,6 +25,7 @@ body {
   }
 }
 
+
 td.image {
   width: 60px;
 }
@@ -43,6 +44,10 @@ td.image img {
     text-align: left;
     font-family: open_sansbold;
   }
+  h4 {
+    padding-top: 20px;
+    color: $green-2;
+  }
   a { 
     border: 1px black; 
     color: black;
@@ -57,10 +62,40 @@ td.image img {
     font-size: 20px;
   }
   span {
-    padding-right: 10px;
+    padding-right: 7px;
   }
 }
 
 .form-group {
   font-size: 16px;
+}
+
+.links {
+  .btn-danger{
+    border: solid 2px black;
+    &:hover{
+      background-color: $grey;
+      color: black;
+      border: solid 2px black;
+    }
+  }
+  .btn-success{
+    border: solid 2px $green-2;
+    &:hover{
+      background-color: $grey;
+      color: black;
+      border: solid 2px black;
+    }
+  }
+  i {
+    color: white;
+  }
+  a {
+    color: white;
+    text-decoration: none;
+    &:hover{
+      color: white;
+      text-decoration: none;
+    }
+  }
 }
