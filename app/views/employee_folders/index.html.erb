@@ -1,42 +1,47 @@
+<% provide(:title, 'Employee Folders') %>
+
 <p id="notice"><%= notice %></p>
 
-<% if current_user.manager? || current_user.admin? %>
-  <h1><%= "#{@employee.first_name} #{@employee.last_name}'s Documents" %></h1>
-<% else %>
-  <h1>My Folders</h1>
-<% end %>
-
-<p>
+<div class="folders">
   <% if current_user.manager? || current_user.admin? %>
+    <h1><%= "#{@employee.first_name} #{@employee.last_name}'s Documents" %></h1></div>
     <%= link_to "New Folder", :new_company_employee_folder, class: "btn btn-primary", role: "button" %>
-  <% end %>
-</p>
-</br>
-
-
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <!-- document count here? -->
-    </tr>
-  </thead>
-  <tbody>
-    <% @folders.each do |folder| %>
-      <tr>
-        <td>
-          <%= link_to folder.title, company_employee_folder_path(id: folder.id) %>
-        </td>
-          <!-- document count here? -->
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<p>
-  <% if current_user.manager? || current_user.admin? %>
-    <%= link_to "RETURN TO ALL EMPLOYEES", company_employees_path %>
   <% else %>
-    <%= link_to "Home", root_path %>
+    <h1>My Folders</h1></div>
   <% end %>
-</p>
+<br>
+
+<div class="folders">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Folder</th>
+        <th>Documents</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @folders.each do |folder| %>
+        <tr>
+          <td><span><i class='fa fa-folder'></i></span>
+            <%= link_to folder.title, company_employee_folder_path(id: folder.id) %>
+          </td>
+          <td><%= folder.documents.count %></td> 
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="links">
+  <% if current_user.manager? || current_user.admin? %>
+    <br><br>
+    <span class="btn btn-success"><i class='fa fa-arrow-left'></i>
+      <%= link_to "RETURN TO ALL EMPLOYEES", company_employees_path %>
+    </span>
+  <% else %>
+    <br><br>
+    <span class="btn btn-success"><i class='fa fa-home'></i>
+      <%= link_to "Home", root_path %>
+    </span>
+  <% end %>
+</div>
