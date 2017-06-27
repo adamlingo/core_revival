@@ -10,7 +10,7 @@ class BenefitRate < ActiveRecord::Base
     employee = Employee.find(employee_id)
     if employee.benefit_eligible == true
       ee_dob = employee.date_of_birth
-      ee_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, ee_dob), benefit_detail_id: benefit_detail.id)
+      ee_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, ee_dob, benefit_detail.id), benefit_detail_id: benefit_detail.id)
       ee_rate = ee_benefit_rate.rate - compute_employer_contribution_for_employee(benefit_detail, ee_benefit_rate.rate)
       ee_rate
     else
@@ -27,8 +27,8 @@ class BenefitRate < ActiveRecord::Base
     if employee.benefit_eligible == true
       ee_dob = employee.date_of_birth
       spouse_dob = spouse.date_of_birth
-      ee_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, ee_dob), benefit_detail_id: benefit_detail.id)
-      sps_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, spouse_dob), benefit_detail_id: benefit_detail.id)
+      ee_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, ee_dob, benefit_detail.id), benefit_detail_id: benefit_detail.id)
+      sps_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, spouse_dob, benefit_detail.id), benefit_detail_id: benefit_detail.id)
       ee_sps_rate = (ee_benefit_rate.rate - compute_employer_contribution_for_employee(benefit_detail, ee_benefit_rate.rate)) + (sps_benefit_rate.rate - compute_employer_contribution_for_spouse(benefit_detail, sps_benefit_rate.rate))
       ee_sps_rate
     else
@@ -42,14 +42,14 @@ class BenefitRate < ActiveRecord::Base
     effective_date = BenefitProfile.find(benefit_detail.benefit_profile_id).effective_date
     employee = Employee.find(employee_id)
     dependents_by_age = Dependent.where(employee_id: employee.id, relationship: "dependent")
-    dependents = dependents_by_age.select{|d| effective_age(effective_date, d.date_of_birth) < 26 }
+    dependents = dependents_by_age.select{|d| effective_age(effective_date, d.date_of_birth, benefit_detail.id) < 26 }
     dependents.sort_by{|dep| [dep.date_of_birth]}.reverse
     oldest_dependent = dependents.first
     if employee.benefit_eligible == true
       ee_dob = employee.date_of_birth
       dep_dob = oldest_dependent.date_of_birth
-      ee_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, ee_dob), benefit_detail_id: benefit_detail.id)
-      dep_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, dep_dob), benefit_detail_id: benefit_detail.id)
+      ee_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, ee_dob, benefit_detail.id), benefit_detail_id: benefit_detail.id)
+      dep_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, dep_dob, benefit_detail.id), benefit_detail_id: benefit_detail.id)
       ee_dep_rate = (ee_benefit_rate.rate - compute_employer_contribution_for_employee(benefit_detail, ee_benefit_rate.rate)) + (dep_benefit_rate.rate - compute_employer_contribution_for_dependent(benefit_detail, dep_benefit_rate.rate))
       ee_dep_rate
     else
@@ -64,16 +64,16 @@ class BenefitRate < ActiveRecord::Base
     employee = Employee.find(employee_id)
     spouse = Dependent.find_by(employee_id: employee.id, relationship: "spouse")
     dependents_by_age = Dependent.where(employee_id: employee.id, relationship: "dependent")
-    dependents = dependents_by_age.select{|d| effective_age(effective_date, d.date_of_birth) < 26 }
+    dependents = dependents_by_age.select{|d| effective_age(effective_date, d.date_of_birth, benefit_detail.id) < 26 }
     dependents.sort_by{|dep| [dep.date_of_birth]}.reverse
     oldest_dependent = dependents.first
     if employee.benefit_eligible == true
       ee_dob = employee.date_of_birth
       spouse_dob = spouse.date_of_birth
       dep_dob = oldest_dependent.date_of_birth
-      ee_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, ee_dob), benefit_detail_id: benefit_detail.id)
-      sps_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, spouse_dob), benefit_detail_id: benefit_detail.id)
-      dep_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, dep_dob), benefit_detail_id: benefit_detail.id)
+      ee_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, ee_dob, benefit_detail.id), benefit_detail_id: benefit_detail.id)
+      sps_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, spouse_dob, benefit_detail.id), benefit_detail_id: benefit_detail.id)
+      dep_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, dep_dob, benefit_detail.id), benefit_detail_id: benefit_detail.id)
       total = ee_benefit_rate.rate + sps_benefit_rate.rate + dep_benefit_rate.rate
       ee_sps_plus_one_rate = total - compute_employer_contribution_for_spouse_plus_one(benefit_detail, total)
       ee_sps_plus_one_rate
@@ -88,7 +88,7 @@ class BenefitRate < ActiveRecord::Base
     effective_date = BenefitProfile.find(benefit_detail.benefit_profile_id).effective_date
     employee = Employee.find(employee_id)
     dependents_by_age = Dependent.where(employee_id: employee.id, relationship: "dependent")
-    dependents = dependents_by_age.select{|d| effective_age(effective_date, d.date_of_birth) < 26 }
+    dependents = dependents_by_age.select{|d| effective_age(effective_date, d.date_of_birth, benefit_detail.id) < 26 }
     dependents.sort_by{|dep| [dep.date_of_birth]}.reverse
     oldest_dependent = dependents.first
     second_dependent = dependents.second
@@ -97,8 +97,8 @@ class BenefitRate < ActiveRecord::Base
       oldest_dep_dob = oldest_dependent.date_of_birth
       second_dep_dob = second_dependent.date_of_birth
       ee_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, ee_dob), benefit_detail_id: benefit_detail.id)
-      oldest_dep_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, oldest_dep_dob), benefit_detail_id: benefit_detail.id)
-      second_dep_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, second_dep_dob), benefit_detail_id: benefit_detail.id)
+      oldest_dep_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, oldest_dep_dob, benefit_detail.id), benefit_detail_id: benefit_detail.id)
+      second_dep_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, second_dep_dob, benefit_detail.id), benefit_detail_id: benefit_detail.id)
       total = ee_benefit_rate.rate + oldest_dep_benefit_rate.rate + second_dep_benefit_rate.rate
       ee_dep_plus_one_rate = total - compute_employer_contribution_for_dependent_plus_one(benefit_detail, total)
       ee_dep_plus_one_rate
@@ -149,7 +149,7 @@ class BenefitRate < ActiveRecord::Base
   end
 
   # AGE ON BENEFIT PROFILE EFFECTIVE DATE
-  def self.effective_age(effective_date, dob)
+  def self.effective_age(effective_date, dob, detail_id)
     # PUTS STATEMENTS FOR TERMINAL CHILLNESS
     puts "effective_date ====== #{effective_date}"
     puts "DOB of ee ====== #{dob}"
@@ -161,8 +161,16 @@ class BenefitRate < ActiveRecord::Base
     effective_age = effective_date.year - dob.year
     effective_age -= 1 if effective_date < dob + effective_age.years
     puts "EFFECTIVE_AGE of ee ====== #{effective_age}"
-    # return age of EE on the effective date of the Benefit Profile
-    effective_age
+    # return age of subject on the effective date of the Benefit Profile (default to lowest age if lower)
+    youngest_imported_age = BenefitRate.where(benefit_detail_id: detail_id).first
+    puts "******************8=============*************"
+    puts youngest_imported_age.age
+    if effective_age < youngest_imported_age.age
+      effective_age = youngest_imported_age.age
+      effective_age
+    else
+      effective_age
+    end
   end
   
   # IMPORT RATE/AGE TABLE
