@@ -18,10 +18,12 @@ class EmployeeFoldersController < ApplicationController
   end
 
   def new
+    @employee = Employee.find(params[:employee_id])
     @folder = Folder.new
   end
 
   def edit
+    @employee = Employee.find(params[:employee_id])
     @folder = Folder.find(params[:id])
   end
 
