@@ -12,6 +12,8 @@
     <%= attachment_image_tag(@folder, :image, :fill, 200, 200) %>
   </p>
 </div>
+
+<div class='folders'>
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -25,15 +27,15 @@
   <tbody>
     <% @folder.documents.each do |document| %>
       <tr>
-        <th><%= link_to document.file_filename, attachment_url(document, :file), target: :_blank %></th>
+        <th><span><i class='fa fa-file'></i></span><%= link_to document.file_filename, attachment_url(document, :file), target: :_blank %></th>
         <th><%= document.file_content_type %></th>
         <th><%= number_to_human_size document.file_size %></th>
         <th><%= link_to 'Delete', company_folder_delete_doc_path(folder_id: @folder.id, doc_id: document.id), data: { method: "delete", confirm: "Are you sure?" } %></th> 
       </tr>
     <% end %>
   </tbody>
-
 </table>
+</div>
 
 <div class="links">
   <span class="btn btn-success"><i class='fa fa-arrow-left'></i>
