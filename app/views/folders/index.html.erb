@@ -16,7 +16,7 @@
     <thead>
       <tr>
         <th>FOLDERS</th>
-        <!-- document count here? -->
+        <th>DOCUMENTS</th>
       </tr>
     </thead>
     <tbody>
@@ -25,7 +25,7 @@
           <td><span><i class='fa fa-folder'></i></span>
             <%= link_to folder.title, company_folder_path(id: folder.id) %>
           </td>
-            <!-- document count here? -->        
+          <td><%= folder.documents.count %></td> 
         </tr>
       <% end %>
     </tbody>
