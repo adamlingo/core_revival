@@ -14,27 +14,26 @@
 </div>
 
 <div class='folders'>
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Filename</th>
-      <th>Content type</th>
-      <th>Size</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @folder.documents.each do |document| %>
+  <table class="table table-bordered">
+    <thead>
       <tr>
-        <th><span><i class='fa fa-file'></i></span><%= link_to document.file_filename, attachment_url(document, :file), target: :_blank %></th>
-        <th><%= document.file_content_type %></th>
-        <th><%= number_to_human_size document.file_size %></th>
-        <th><%= link_to 'Delete', company_folder_delete_doc_path(folder_id: @folder.id, doc_id: document.id), data: { method: "delete", confirm: "Are you sure?" } %></th> 
+        <th>Filename</th>
+        <th>Content type</th>
+        <th>Size</th>
+        <th>Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @folder.documents.each do |document| %>
+        <tr>
+          <th><span><i class='fa fa-file-text-o'></i></span><%= link_to document.file_filename, attachment_url(document, :file), target: :_blank %></th>
+          <th><%= document.file_content_type %></th>
+          <th><%= number_to_human_size document.file_size %></th>
+          <th><%= link_to 'Delete', company_folder_delete_doc_path(folder_id: @folder.id, doc_id: document.id), data: { method: "delete", confirm: "Are you sure?" } %></th> 
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
 <div class="links">
