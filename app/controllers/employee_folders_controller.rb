@@ -9,6 +9,7 @@ class EmployeeFoldersController < ApplicationController
     EmployeeFolder.where(employee_id: params[:employee_id]).each{|ee_folder|
       @folders << Folder.find(ee_folder.folder_id)
     }
+    @folders.reverse!
   end
 
   def show
@@ -17,10 +18,12 @@ class EmployeeFoldersController < ApplicationController
   end
 
   def new
+    @employee = Employee.find(params[:employee_id])
     @folder = Folder.new
   end
 
   def edit
+    @employee = Employee.find(params[:employee_id])
     @folder = Folder.find(params[:id])
   end
 

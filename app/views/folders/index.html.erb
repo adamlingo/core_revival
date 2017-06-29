@@ -2,30 +2,33 @@
 
 <p id="notice"><%= notice %></p>
 
-<h1>Company Documents</h1>
+<div class="folders">
+  <h1>Company Documents</h1>
+</div>
 
-<p>
-  <%= link_to "New folder", :new_company_folder, class: "btn btn-primary", role: "button" %>
-</p>
+<%= link_to "New folder", :new_company_folder, class: "btn btn-primary", role: "button" %>
+
 </br>
 
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <!-- document count here? -->
-    </tr>
-  </thead>
-  <tbody>
-    <% @folders.each do |folder| %>
+<div class="folders">
+  <table class="table table-bordered">
+    <thead>
       <tr>
-        <td>
-          <%= link_to folder.title, company_folder_path(id: folder.id) %>
-        </td>
-          <!-- document count here? -->        
+        <th>FOLDERS</th>
+        <th>DOCUMENTS</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @folders.each do |folder| %>
+        <tr>
+          <td><span><i class='fa fa-folder'></i></span>
+            <%= link_to folder.title, company_folder_path(id: folder.id) %>
+          </td>
+          <td><%= folder.documents.count %></td> 
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 

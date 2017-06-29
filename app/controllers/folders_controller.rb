@@ -10,6 +10,7 @@ class FoldersController < ApplicationController
     CompanyFolder.where(company_id: params[:company_id]).each{|company_folder|
       @folders << Folder.find(company_folder.folder_id)
     }
+    @folders.reverse!
   end
 
   def show

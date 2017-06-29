@@ -1,58 +1,54 @@
+<% provide(:title, "#{@folder.title}") %>
+
 <p id="notice"><%= notice %></p>
 
-<h1><%= @folder.title %></h1>
-
-<p>
+<div class='folders'>
+  <h1><%= @folder.title %></h1>
   <% if current_user.manager? || current_user.admin? %>
-    <%= link_to "Edit folder", edit_company_employee_folder_path %>
-    </br>
-    <%= link_to "Add document", company_employee_folder_new_doc_path(folder_id: @folder.id) %>
+    <h4><%= simple_format @folder.description %></h4><br>
+    <span><i class='fa fa-pencil'></i></span><%= link_to "Edit title or description", edit_company_employee_folder_path %><br>
+    <span><i class='fa fa-plus'></i></span><%= link_to "Add document to this folder", company_employee_folder_new_doc_path(folder_id: @folder.id) %><br>
   <% end %>
-</p>
-</br>
-<p>
-  <%= attachment_image_tag(@folder, :image, :fill, 200, 200) %>
-</p>
+</div>
 
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Filename</th>
-      <th>Content type</th>
-      <th>Size</th>
-      <% if current_user.manager? || current_user.admin? %>
-        <th>Actions</th>
-      <% end %>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @folder.documents.each do |document| %>
+<div class='folders'>
+  <table class="table table-bordered">
+    <thead>
       <tr>
-        <th><%= link_to document.file_filename, attachment_url(document, :file), target: :_blank %></th>
-        <th><%= document.file_content_type %></th>
-        <th><%= number_to_human_size document.file_size %></th>
+        <th>Filename</th>
+        <th>Content type</th>
+        <th>Size</th>
         <% if current_user.manager? || current_user.admin? %>
-          <th><%= link_to 'delete', company_employee_folder_delete_doc_path(folder_id: @folder.id, doc_id: document.id), data: { method: "delete", confirm: "Are you sure?" } %></th>
+          <th>Actions</th>
         <% end %>
       </tr>
-    <% end %>
-  </tbody>
+    </thead>
+    <tbody>
+      <% @folder.documents.each do |document| %>
+        <tr>
+          <th><span><i class='fa fa-file-text-o'></i></span><%= link_to document.file_filename, attachment_url(document, :file), target: :_blank %></th>
+          <th><%= document.file_content_type %></th>
+          <th><%= number_to_human_size document.file_size %></th>
+          <% if current_user.manager? || current_user.admin? %>
+            <th><%= link_to 'delete', company_employee_folder_delete_doc_path(folder_id: @folder.id, doc_id: document.id), data: { method: "delete", confirm: "Are you sure?" } %></th>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-</table>
-<strong><%= "Folder Description: " %></strong></br></br>
-<%= simple_format @folder.description %></br></br>
-
-<% if current_user.manager? || current_user.admin? %>
-  <p>
-    <%= link_to "View all folders for #{@employee.first_name} #{@employee.last_name}", company_employee_folders_path %>
-  </p>
-  </br>
-  <p>
-    <%= link_to "Delete folder", company_employee_folder_path(folder_id: @folder.id), data: { method: "delete", confirm: "Are you sure?" }, class: "btn btn-danger" %>	
-  </p>
-<% elsif current_user.employee? %>
-  <p>
-    <%= link_to "Return to all Folders", company_employee_folders_path %>
-  </p>
-<% end %>
+<div class="links">
+  <% if current_user.manager? || current_user.admin? %>
+    <span class="btn btn-success"><i class='fa fa-arrow-left'></i>
+      <%= link_to "View all folders for #{@employee.first_name} #{@employee.last_name}", company_employee_folders_path %>
+    </span><br><br>
+    <span class="btn btn-danger"><i class='fa fa-trash'></i>
+      <%= link_to "Delete folder", company_employee_folder_path(folder_id: @folder.id), data: { method: "delete", confirm: "Are you sure?" }%>	
+    </span>
+  <% elsif current_user.employee? %>
+    <span class="btn btn-success"><i class='fa fa-arrow-left'></i>
+      <%= link_to "Return to all Folders", company_employee_folders_path %>
+    </span>
+  <% end %>
+</div>
