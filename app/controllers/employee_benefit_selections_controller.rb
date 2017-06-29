@@ -16,6 +16,9 @@ class EmployeeBenefitSelectionsController < ApplicationController
   def show
     @employee = Employee.find(params[:employee_id])
     @company = Company.find(@employee.company_id)
+    benefit_selection = EmployeeBenefitSelection.find(params[:id])
+    benefit_detail = BenefitDetail.find(benefit_selection.benefit_detail_id)
+    @benefit_profile = BenefitProfile.find(benefit_detail.benefit_profile_id)
     @id = params[:id]
 
     default_params = {
