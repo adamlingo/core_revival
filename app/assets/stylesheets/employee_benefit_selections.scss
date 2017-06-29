@@ -18,9 +18,9 @@
 		padding: 5px 20px;
 		border: solid 1px $text-grey;
 		border-collapse: collapse;
-	  box-sizing: border-box;
-	  border: solid 1px;
-	  text-align: center;
+	    box-sizing: border-box;
+	  	border: solid 1px;
+	  	stext-align: center;
 	}
 	th {
 		font-family: open_sansbold;
@@ -40,9 +40,33 @@
 }
 
 .buttons {
-	i {
-		color: white;
-	}
+	.btn-danger{
+    	border: solid 2px black;
+    	&:hover{
+	      background-color: $grey;
+	      color: black;
+	      border: solid 2px black;
+	    }
+  	}
+    .btn-success{
+	    border: solid 2px $green-2;
+	    &:hover{
+	      background-color: $grey;
+	      color: black;
+	      border: solid 2px black;
+	    }
+  	}
+    i {
+    	color: white;
+  	}
+  	a {
+	    color: white;
+	    text-decoration: none;
+	    &:hover{
+	      color: white;
+	      text-decoration: none;
+	    }
+  	}
 }
 
 .choice_name {
