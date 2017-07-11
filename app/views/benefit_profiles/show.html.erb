@@ -36,7 +36,12 @@
           <% else %>
             <td>N/A</td>
           <% end %>
-          <td><%= link_to "View Selections", company_employee_employee_benefit_selections_path(employee_id: employee.id) %></td>
+          <!-- only link to selections if eligible -->
+          <% if employee.benefit_eligible? %>
+            <td><%= link_to "View Selections", company_employee_employee_benefit_selections_path(employee_id: employee.id) %></td>
+          <% else %>
+            <td><%= "Not eligible" %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
