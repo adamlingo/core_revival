@@ -162,6 +162,7 @@ class BenefitRate < ActiveRecord::Base
     effective_age -= 1 if effective_date < dob + effective_age.years
     puts "EFFECTIVE_AGE of ee ====== #{effective_age}"
     # return age of subject on the effective date of the Benefit Profile (default to lowest age if lower)
+    # ensure it sorts by age
     youngest_imported_age = BenefitRate.where(benefit_detail_id: detail_id).first
     puts "*****************************"
     puts youngest_imported_age.age
