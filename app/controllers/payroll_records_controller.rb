@@ -2,7 +2,7 @@ class PayrollRecordsController < ApplicationController
   # before_action :set_payroll_record, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
   before_filter :authorize_company!
-  before_filter :authorize_manager!
+  before_filter :authorize_manager!, except: [:index]
 
   def index
     @employees = find_company.employees.order(:last_name, :first_name).to_a

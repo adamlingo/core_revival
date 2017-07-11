@@ -17,6 +17,14 @@
       <% end %>
     </li>
     <li role="presentation">
+      <%= link_to company_payroll_records_path(current_user.company_id), class: 'main-nav__link' do %>
+        <span class="main-nav__icon">
+          <i class="fa fa-money"></i>
+        </span>
+        NetClient
+      <% end %>
+    </li>
+    <li role="presentation">
       <%= link_to company_employee_employee_benefit_selections_path(current_user.company_id, current_user.employee_id), class: 'main-nav__link' do %>
         <span class="main-nav__icon">
           <i class="fa fa-balance-scale"></i>
