@@ -24,14 +24,14 @@ permit_params :benefit_detail_id, :subscriber_cap, :subscriber_increment, :spous
 
 # form
   form do |f|
-      f.inputs "Life Benefit Details" do
-      #f.input :benefit_profile_id, as: :select, collection: BenefitProfile.where(company_id: BenefitProfile.find(resource.benefit_profile_id).company_id).map{|b| ["#{b.provider} #{b.provider_plan}", b.id]}
-      f.input :subscriber_cap, label: 'Cap for Subscriber Coverage'
-      f.input :subscriber_increment, label: 'Increment (by thousands)'
-      f.input :spouse_cap, label: 'Cap for Spouse Coverage'
-      f.input :spouse_increment, label: 'Increment (by thousands)'
-      f.input :dependent_coverage, label: 'Dependent Total Coverage Amount'
-      f.input :dependent_rate, label: 'Monthly renewal rate for dependents'
+    f.inputs "Life Benefit Details" do
+	    #f.input :benefit_profile_id, as: :select, collection: BenefitProfile.where(company_id: BenefitProfile.find(resource.benefit_profile_id).company_id).map{|b| ["#{b.provider} #{b.provider_plan}", b.id]}
+	    f.input :subscriber_cap, label: 'Cap for Subscriber Coverage'
+	    f.input :subscriber_increment, label: 'Increment (by thousands)'
+	    f.input :spouse_cap, label: 'Cap for Spouse Coverage'
+	    f.input :spouse_increment, label: 'Increment (by thousands)'
+	    f.input :dependent_coverage, label: 'Dependent Total Coverage Amount'
+	    f.input :dependent_rate, label: 'Monthly renewal rate for dependents'
     end
     f.actions
   end
