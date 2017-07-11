@@ -5,8 +5,8 @@ belongs_to :benefit_profile
 permit_params :employee_category, :benefit_profile_id, :employee_tier,
   :category_sub, :category_dep, :category_sps, :category_ch_pls_one, :category_sps_pls_one
 
-# index details to benefit_profile
-index do
+# index details to benefit_detail
+  index do
     selectable_column
     column :benefit_profile_id
     id_column
@@ -18,8 +18,9 @@ index do
     column :category_ch_pls_one
     column :category_sps_pls_one
     
-    actions dropdown: true do
+    actions dropdown: true do | benefit_detail |
       item "Return to Companies", admin_companies_path
+      item "Life Insurance Details", admin_benefit_detail_life_benefit_details_path(benefit_detail)
     end
   end
 
