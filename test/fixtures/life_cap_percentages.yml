@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  age: 
+  cap_percentage: 
+
+two:
+  age: 
+  cap_percentage: 
