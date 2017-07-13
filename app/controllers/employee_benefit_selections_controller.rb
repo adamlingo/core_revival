@@ -25,7 +25,7 @@ class EmployeeBenefitSelectionsController < ApplicationController
       employee_id: params[:employee_id],
       employee_benefit_selection: EmployeeBenefitSelection.find(params[:id].to_i)
     }
-    @rate_selection = RateSelection.new(default_params)
+    @rate_selection = get_benefit_rate_selection_model(default_params, @benefit_profile)
     @rate_selection.build_choices!
 
   end
@@ -91,5 +91,14 @@ class EmployeeBenefitSelectionsController < ApplicationController
       params.require(:employee_benefit_selection).permit(:employee_id, :benefit_type, 
                                                           :decline_benefit, :benefit_detail_id, 
                                                           :benefit_selection_category_id)
+    end
+    # find rate selection for profile by benefit type
+    def get_benefit_rate_selection_model(params, benefit_profile)
+      if benefit_profile.benefit_type == "Life"
+        LifeRateSelection.new(params)
+      elsif benefit_profile.benefit_type == "Medical"
+        RateSelection.new(params)
+      end
+
     end
 end
