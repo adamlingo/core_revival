@@ -3,13 +3,14 @@ ActiveAdmin.register LifeBenefitDetail do
 belongs_to :benefit_detail
 
 permit_params :benefit_detail_id, :subscriber_cap, :subscriber_increment, :spouse_cap, 
-	:spouse_increment, :dependent_coverage, :dependent_rate
+	:spouse_increment, :dependent_coverage, :dependent_rate, :base_coverage
 
 	# index details to life_benefit_detail
   index do
     selectable_column
     column :benefit_detail_id
     id_column
+    column :base_coverage
     column :subscriber_cap
     column :subscriber_increment
     column :spouse_cap
@@ -26,7 +27,8 @@ permit_params :benefit_detail_id, :subscriber_cap, :subscriber_increment, :spous
   form do |f|
     f.inputs "Life Benefit Details" do
 	    #f.input :benefit_profile_id, as: :select, collection: BenefitProfile.where(company_id: BenefitProfile.find(resource.benefit_profile_id).company_id).map{|b| ["#{b.provider} #{b.provider_plan}", b.id]}
-	    f.input :subscriber_cap, label: 'Cap for Subscriber Coverage'
+	    f.input :base_coverage, label: 'Base Coverage for Subscriber'
+      f.input :subscriber_cap, label: 'Cap for Subscriber Coverage'
 	    f.input :subscriber_increment, label: 'Increment'
 	    f.input :spouse_cap, label: 'Cap for Spouse Coverage'
 	    f.input :spouse_increment, label: 'Increment'
