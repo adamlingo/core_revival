@@ -7,8 +7,7 @@ class LifeRateSelection < ResourceModel::Base
     string_accessor :monthly_rate
     attr_accessor :cap_amount
     attr_accessor :increment_amount
-
-  end
+	end
 
 	string_accessor :type
 	string_accessor :base_coverage
