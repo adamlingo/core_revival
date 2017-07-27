@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713175950) do
+ActiveRecord::Schema.define(version: 20170727175643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -242,6 +242,7 @@ ActiveRecord::Schema.define(version: 20170713175950) do
     t.decimal  "dependent_rate"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "base_coverage"
   end
 
   create_table "life_cap_percentages", force: :cascade do |t|
