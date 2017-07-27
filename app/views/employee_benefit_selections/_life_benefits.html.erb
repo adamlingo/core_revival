@@ -1,3 +1,30 @@
 <div class="ben-selections">
-  <%= "LIFE" %>
+  <%= form_for @rate_selection, url: company_employee_rate_selections_path(company_id: @company.id, employee_id: @employee.id) do |f| %>
+  	<%= f.text_field :base_coverage %><br>
+    <%= f.hidden_field :employee_benefit_selection_id %>
+    <hr>
+    <%= f.fields_for :choices, @rate_selection.choices do |choice_form| %>
+    <div class="#{choice_form.object.name}">
+      <%= choice_form.label :name, choice_form.object.name, class: "choice_name" %><br>
+      <%= choice_form.text_field :cap_amount %><br>
+      <%= choice_form.text_field :increment_amount, class: "increment_amount" %><br>
+      <%= choice_form.text_field :selected_amount, class: "selected_amount" %><%= " = " %>
+      <%= choice_form.text_field :monthly_rate, class: "monthly_rate" %><br>
+    </div>
+    <% end %>
+
+    <%= f.submit %>
+  <% end %>
 </div>
+
+<% content_for :scripts do %>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$(".selected_amount").on("change", function(){
+			var $parent = $(this).parent();
+			var $monthly_rate = $parent.find(".monthly_rate");
+			$monthly_rate.val("BOOM")
+		});
+	});
+	</script>
+<% end %>
