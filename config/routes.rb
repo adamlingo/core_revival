@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get  '/invest', to: "pages#invest", as: "invest"
   get  'users' => 'users#index'
 
+  post 'life_insurance_rate_selection/find', to: 'life_insurance_rate_selection#find', as: :find
+  
   # Devise routes with ActiveAdmin
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -30,7 +32,7 @@ Rails.application.routes.draw do
     resources :employees do
       get "invite" , to: 'employees#invite', as: 'invite'
       resources :dependents
-      resources :employee_benefit_selections # only index, show?
+      resources :employee_benefit_selections
       resources :rate_selections, only: [:new, :create]
       resources :salaries
       resources :employee_benefits
