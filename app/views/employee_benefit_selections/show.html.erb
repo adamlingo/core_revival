@@ -10,7 +10,6 @@
 <!-- load partial view based on insurance type -->
 
 <% if @employee.benefit_eligible? %>
-  <%= "Base Coverage:" %><%= @rate_selection.type %><br>
   <% if @benefit_profile.benefit_type == "Life" %>
     <%= render :partial => 'life_benefits'%>
   <% else %>
