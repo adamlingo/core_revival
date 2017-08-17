@@ -12,7 +12,6 @@ class LifeRateSelection < ResourceModel::Base
 	string_accessor :type
 	string_accessor :base_coverage
 	has_associated_resource_model_collection :choices, class_name: 'RateChoice'
-
 	has_associated_model :employee
   has_associated_model :employee_benefit_selection
 
@@ -47,6 +46,7 @@ class LifeRateSelection < ResourceModel::Base
   def get_life_benefit_detail
     benefit_detail = BenefitDetail.find(self.employee_benefit_selection.benefit_detail_id)
     life_benefit_detail = LifeBenefitDetail.find_by(benefit_detail_id: benefit_detail.id)
+    life_benefit_detail
   end
 
   # def self.compute_employee_rate(employee_id, employee_benefit_selection_id)
