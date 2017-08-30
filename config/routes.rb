@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   resources :companies do
     resources :benefit_profiles
+    resources :employee_benefit_selection_types, only: [:index]
     resources :payroll_records, only: [:index, :create] 
     get "payroll_records/export", to: 'payroll_records#export', as: 'export'
 
@@ -59,7 +60,4 @@ Rails.application.routes.draw do
   resources :payroll_deductions do
     collection { post :import }
   end
-
-  # default route syntax at bottom instead of get... will match if all other routes fail
-  # match ':controller(/:action(/:id(.:format)))', :via => :get
 end
