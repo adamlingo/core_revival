@@ -1,0 +1,28 @@
+<% provide(:title, 'Benefit Selections') %>
+
+<div class='ben-selections'>
+  <h1>Benefit Selections</h1>
+  <h3>Choose Type:</h3>
+</div>
+
+</br>
+
+<div class='ben-selections'>
+  <table class='ben-selections'>
+    <thead>
+      <tr>
+        <th>Insurance Type</th>
+        <th>Go to:</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @benefit_types.each do |type| %>
+        <tr>
+          <td><%="#{type} Benefits" %></td>
+          <td><%= link_to 'Choose benefits', root_path %></td>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<br>
