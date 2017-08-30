@@ -1,0 +1,8 @@
+<h1> Life Type indexing test </h1>
+
+<% @benefit_profiles.each do |profile| %>
+	<%=profile.provider%>
+	<%=profile.provider_plan%>
+	<%=profile.benefit_type%>
+	<br>
+<% end %>
