@@ -1,0 +1,27 @@
+<% provide(:title, 'Benefit Selections') %>
+
+<p id="notice"><%= notice %></p>
+
+<div class="ben-selections">
+  <h1><%= @employee.display_name %></h1>
+</div>
+
+<br>
+
+<!-- load partial view based on insurance type -->
+<% if @employee.benefit_eligible? %>
+  <% if params[:type] == "Life" %>
+    <%= render :partial => 'life_benefits'%>
+  <% elsif params[:type] == "Medical" %>
+    <%= render :partial => 'medical_benefits'%>
+  <% end %>
+<% end %>
+
+<br>
+<!-- DECLINE OPTION MAY NEED TO DROP IN HERE -->
+<!-- bottom button links -->
+<div class="buttons">
+  <span class="btn btn-danger"><i class='fa fa-arrow-left'></i>
+    <%= link_to 'Back', company_employee_benefit_selection_types_path %>
+  </span>
+</div>
