@@ -37,7 +37,7 @@ ActiveAdmin.register BenefitProfile do
       # f.input :name, label: 'Provider Co. Name', :placeholder => "(i.e. BCBS)"
       f.input :company_id, as: :select, collection: Company.all.map{|c| ["#{c.name}", c.id]}
       f.input :provider, as: :select, :collection => [['BCBS'], ['Delta'], ['Principal']]
-      f.input :provider_plan, as: :select, :collection => [['Bronze'],['Silver'],['Primary']]
+      f.input :provider_plan, as: :select, :collection => [['Bronze'],['Silver'], ['Gold'], ['Primary']]
       f.input :benefit_type, as: :select, :collection => [['Medical'], ['Dental'],['Life']]
       f.input :benefit_method, as: :select, :collection => [['%'], ['FIXED'], ['Salary Match']]
       f.input :effective_date
