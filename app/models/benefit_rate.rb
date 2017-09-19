@@ -4,7 +4,8 @@ class BenefitRate < ActiveRecord::Base
   
   # COMPUTE BENEFIT RATES
   def self.compute_employee_rate(employee_id, employee_benefit_selection_id)
-    ee_selection = EmployeeBenefitSelection.find(employee_benefit_selection_id)
+    # ee_selection = EmployeeBenefitSelection.find(employee_benefit_selection_id)
+    employee_category = @employee.employee_category
     benefit_detail = BenefitDetail.find(ee_selection.benefit_detail_id)
     effective_date = BenefitProfile.find(benefit_detail.benefit_profile_id).effective_date
     employee = Employee.find(employee_id)
@@ -19,7 +20,8 @@ class BenefitRate < ActiveRecord::Base
   end  
 
   def self.compute_employee_spouse_rate(employee_id, employee_benefit_selection_id)
-    ee_selection = EmployeeBenefitSelection.find(employee_benefit_selection_id)
+    # ee_selection = EmployeeBenefitSelection.find(employee_benefit_selection_id)
+    employee_category = @employee.employee_category
     benefit_detail = BenefitDetail.find(ee_selection.benefit_detail_id)
     effective_date = BenefitProfile.find(benefit_detail.benefit_profile_id).effective_date
     employee = Employee.find(employee_id)
@@ -37,7 +39,8 @@ class BenefitRate < ActiveRecord::Base
   end
 
   def self.compute_employee_dependent_rate(employee_id, employee_benefit_selection_id)
-    ee_selection = EmployeeBenefitSelection.find(employee_benefit_selection_id)
+    # ee_selection = EmployeeBenefitSelection.find(employee_benefit_selection_id)
+    employee_category = @employee.employee_category
     benefit_detail = BenefitDetail.find(ee_selection.benefit_detail_id)
     effective_date = BenefitProfile.find(benefit_detail.benefit_profile_id).effective_date
     employee = Employee.find(employee_id)
@@ -58,7 +61,8 @@ class BenefitRate < ActiveRecord::Base
   end
 
   def self.compute_employee_spouse_plus_one_rate(employee_id, employee_benefit_selection_id)
-    ee_selection = EmployeeBenefitSelection.find(employee_benefit_selection_id)
+    # ee_selection = EmployeeBenefitSelection.find(employee_benefit_selection_id)
+    employee_category = @employee.employee_category
     benefit_detail = BenefitDetail.find(ee_selection.benefit_detail_id)
     effective_date = BenefitProfile.find(benefit_detail.benefit_profile_id).effective_date
     employee = Employee.find(employee_id)
@@ -83,7 +87,8 @@ class BenefitRate < ActiveRecord::Base
   end
   
   def self.compute_employee_dependent_plus_one_rate(employee_id, employee_benefit_selection_id)
-    ee_selection = EmployeeBenefitSelection.find(employee_benefit_selection_id)
+    # ee_selection = EmployeeBenefitSelection.find(employee_benefit_selection_id)
+    employee_category = @employee.employee_category
     benefit_detail = BenefitDetail.find(ee_selection.benefit_detail_id)
     effective_date = BenefitProfile.find(benefit_detail.benefit_profile_id).effective_date
     employee = Employee.find(employee_id)
