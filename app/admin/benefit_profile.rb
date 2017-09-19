@@ -4,13 +4,15 @@ ActiveAdmin.register BenefitProfile do
  belongs_to :company
 
   # Edit fields to save
-  permit_params :name, :company_id, :provider, :provider_plan, :benefit_type, :benefit_method, :effective_date
+  permit_params :name, :company_id, :provider, :provider_plan, :benefit_type, 
+                :benefit_method, :effective_date, :benefit_profile_rank
 
   # Index view of benefits
   index do
     selectable_column
     column :company_id
     id_column
+    column :benefit_profile_rank
     column :provider
     column :provider_plan
     column :benefit_type
@@ -23,6 +25,7 @@ ActiveAdmin.register BenefitProfile do
     end
   end
 
+  filter :benefit_profile_rank
   filter :provider
   filter :provider_plan
   filter :benefit_type
@@ -36,6 +39,7 @@ ActiveAdmin.register BenefitProfile do
     f.inputs "Benefit Profile" do
       # f.input :name, label: 'Provider Co. Name', :placeholder => "(i.e. BCBS)"
       f.input :company_id, as: :select, collection: Company.all.map{|c| ["#{c.name}", c.id]}
+      f.input :benefit_profile_rank, as: :select, :collection => [[1], [2], [3]]
       f.input :provider, as: :select, :collection => [['BCBS'], ['Delta'], ['Principal']]
       f.input :provider_plan, as: :select, :collection => [['Bronze'],['Silver'], ['Gold'], ['Primary']]
       f.input :benefit_type, as: :select, :collection => [['Medical'], ['Dental'],['Life']]
