@@ -1,18 +1,33 @@
-<div class="ben-selections">
-  <!-- new form object -->
-	<%= form_for @rate_selection, url: company_employee_rate_selections_path(company_id: @company.id, employee_id: @employee.id) do |f| %>
-    <%= f.hidden_field :employee_benefit_selection_id %>
-    <%= f.fields_for :choices, @rate_selection.choices do |choice_form| %>
-      <%= choice_form.hidden_field :code %>
-      <%= choice_form.hidden_field :amount %>
-      <%= choice_form.label :name, choice_form.object.name, class: "choice_name" %>
-      <%= choice_form.hidden_field :name %>
-      <%= choice_form.label :label, number_to_currency(choice_form.object.amount), class: "choice_amount" %>
-      <%= choice_form.check_box :selected %>
-      <br>
+<h1> Medical Type indexing test </h1>
 
-    <% end %>
+<h3>R<%= @rate_selection.benefit_details.count %>S</h3>
 
-    <%= f.submit %>
+<table>
+  <thead>
+    <th></th>
+    <% @benefit_profiles.each do |profile| %>
+    <th> | <%= profile.provider %> <%= profile.provider_plan%></th>
+
   <% end %>
-</div>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Employee Only</td>
+      <td>100</td>
+      <td>150</td>
+      <td>200</td>
+    </tr>
+    <tr>
+      <td>Employee plus Spouse</td>
+      <td>200</td>
+      <td>250</td>
+      <td>300</td>
+    </tr>
+    <tr>
+      <td>Employee plus Dependent</td>
+      <td>300</td>
+      <td>350</td>
+      <td>400</td>
+    </tr>
+  </tbody>
+</table>

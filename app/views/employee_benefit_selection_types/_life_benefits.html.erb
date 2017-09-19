@@ -6,3 +6,67 @@
 	<%=profile.benefit_type%>
 	<br>
 <% end %>
+
+<div class="ben-selections">
+  <%= form_for @rate_selection, url: company_employee_rate_selections_path(company_id: @company.id, employee_id: @employee.id) do |f| %>
+  	<%= "Base Coverage:" %>
+  	<%= f.label :base_coverage, number_to_currency(f.object.base_coverage) %><br>
+    <%= f.hidden_field :employee_benefit_selection_id, class: "employee_benefit_selection_id" %>
+    <%= f.hidden_field :employee_id, class: "employee_id" %>
+    <hr>
+    <%= f.fields_for :choices, @rate_selection.choices do |choice_form| %>
+    <div class="life-insurance #{choice_form.object.name}">
+      <%= choice_form.label :name, choice_form.object.name, class: "choice_name" %><br>
+      <%= choice_form.label "max amount: " %>
+      <%= choice_form.label :cap_amount, number_to_currency(choice_form.object.cap_amount) %><br>
+      <%= choice_form.label "increment amount: " %>
+      <%= choice_form.label :increment_amount, number_to_currency(choice_form.object.increment_amount), class: "increment_amount" %><br>
+      <%= choice_form.label "desired coverage amount: " %>
+      <%= choice_form.text_field :selected_amount, class: "selected_amount" %><%= " = " %>
+      <%= choice_form.label "monthly rate" %>
+      <%= choice_form.text_field :monthly_rate, class: "monthly_rate" %><br>
+    </div>
+    <% end %>
+
+    <%= f.submit %>
+  <% end %>
+</div>
+
+<% content_for :scripts do %>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		function lookupRate(amount, type, $el) {
+			var employee_id = $(".employee_id").val();
+			var employee_benefit_selection_id = $(".employee_benefit_selection_id").val();
+			// $el.val(amount);
+			var url = "/life_insurance_rate_selection/find";
+			var post_data = {
+				type: "POST",
+				url: url, 
+				data: {
+					employee_id: employee_id,
+					employee_benefit_selection_id: employee_benefit_selection_id,
+					amount: amount,
+					type: type,
+					dataType: "application/json",
+					contentType: "application/json"
+				}
+			};
+			$.ajax(post_data).done(function success_function(response_data){
+				$el.val(response_data.monthly_rate);
+			}).fail(function error_function(){
+				alert("It FAILED")
+			});
+		}
+		$(".selected_amount").on("change", function(){
+			var $parent = $(this).parent();
+			var $monthly_rate = $parent.find(".monthly_rate");
+			var $selected_amount = $parent.find(".selected_amount");
+			var amount = $selected_amount.val();
+			var type = $parent.find(".choice_name").text();
+			$monthly_rate.val("");
+			lookupRate(amount, type, $monthly_rate);
+		});
+	});
+	</script>
+<% end %>
