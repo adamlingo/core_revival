@@ -14,10 +14,12 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 	def show
 		@company = Company.find(params[:company_id].to_i) 
 		@employee = current_user.current_employee
-		@benefit_profiles = BenefitProfile.where(company_id: @company.id, benefit_type: params[:type]).sort_by {|profile| [profile.benefit_profile_rank]}
-		# @benefit_profiles.sort_by {|profile| [profile.benefit_profile_rank]}
+		@benefit_profiles = BenefitProfile.where(company_id: @company.id, benefit_type: params[:type]).sort_by {|profile| [profile.benefit_profile_rank]}.reverse!
     @rate_selection = get_benefit_rate_selection_model
-    @rate_selection.build_choices! if @rate_selection.present?
+    @choices = @rate_selection.build_choices! if @rate_selection.present?
+    puts "*********************************"
+    puts @choices
+    puts "*********************************"
 	end
 
 	def get_benefit_rate_selection_model
