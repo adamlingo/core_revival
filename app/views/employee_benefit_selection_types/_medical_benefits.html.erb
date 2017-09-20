@@ -4,14 +4,27 @@
 
 <table>
   <thead>
-    <th></th>
     <% @benefit_profiles.each do |profile| %>
     <th> | <%= profile.provider %> <%= profile.provider_plan%></th>
 
-  <% end %>
+    <% end %>
   </thead>
   <tbody>
-    <tr>
+    <% @benefit_profiles.each do |profile| %>
+      <% rate_choices = @choices[profile.provider_plan.to_sym] %>
+      <tr>
+        <td></td>
+      <% rate_choices.each do |rate_choice| %>
+        
+          <!-- one column for rate_choice.name -->
+          <td><%= rate_choice.name%></td>
+          <td><%= rate_choice.amount%></td>         
+       
+      <% end %> 
+      </tr>
+    <% end %>
+    
+    <!-- <tr>
       <td>Employee Only</td>
       <td>100</td>
       <td>150</td>
@@ -28,6 +41,6 @@
       <td>300</td>
       <td>350</td>
       <td>400</td>
-    </tr>
+    </tr> -->
   </tbody>
 </table>
