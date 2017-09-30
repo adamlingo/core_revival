@@ -1,0 +1,75 @@
+// Place all the styles related to the ee_ben_selections controller here.
+// Stylin' ben_selections
+@import 'colors';
+@import 'fonts';
+
+.ben-selections {
+	font-family: open_sansregular;
+	font-size: 14px;
+	color: $text-grey;
+	box-sizing: border-box;
+
+	h1 {
+	padding-bottom: 10px;
+	text-align: left;
+	font-family: open_sansbold;
+	}
+	th, td {
+		padding: 5px 20px;
+		border: solid 1px $text-grey;
+		border-collapse: collapse;
+	    box-sizing: border-box;
+	  	border: solid 1px;
+	  	stext-align: center;
+	}
+	th {
+		font-family: open_sansbold;
+		font-size: 14px;
+		background-color: $green-dark;
+	}
+	p {
+		text-align: left;
+	}
+	span {
+		color: $green-dark;
+		font-family: open_sansbold;
+	}
+	i {
+		color: white;
+	}
+}
+
+.buttons {
+	.btn-danger{
+    	border: solid 2px black;
+    	&:hover{
+	      background-color: $grey;
+	      color: black;
+	      border: solid 2px black;
+	    }
+  	}
+    .btn-success{
+	    border: solid 2px $green-2;
+	    &:hover{
+	      background-color: $grey;
+	      color: black;
+	      border: solid 2px black;
+	    }
+  	}
+    i {
+    	color: white;
+  	}
+  	a {
+	    color: white;
+	    text-decoration: none;
+	    &:hover{
+	      color: white;
+	      text-decoration: none;
+	    }
+  	}
+}
+
+.life-insurance {
+	margin-bottom: 10px;
+	border-bottom: 1px solid $grey;
+}
