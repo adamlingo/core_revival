@@ -1,46 +1,31 @@
-<h1> Medical Type indexing test </h1>
+<div class="ben-selections">
+  <h3> Medical Type indexing test </h1>
 
-<h3>R<%= @rate_selection.benefit_details.count %>S</h3>
+  <h3><%= @rate_selection.benefit_details.count %><%=" benefit details showing"%></h3>
+</div>
 
+<div class="ben-selections">
 <table>
   <thead>
+    <th>Subscriber details</th>
     <% @benefit_profiles.each do |profile| %>
-    <th> | <%= profile.provider %> <%= profile.provider_plan%></th>
-
+    <th><%= profile.provider %> <%= profile.provider_plan%></th>
     <% end %>
   </thead>
   <tbody>
-    <% @benefit_profiles.each do |profile| %>
-      <% rate_choices = @choices[profile.provider_plan.to_sym] %>
-      <tr>
-        <td></td>
-      <% rate_choices.each do |rate_choice| %>
-        
-          <!-- one column for rate_choice.name -->
-          <td><%= rate_choice.name%></td>
-          <td><%= rate_choice.amount%></td>         
-       
-      <% end %> 
-      </tr>
+    <% selection_categories = ["SUB", "SUB-SPS", "SUB-DEP", "SUB-SPS-PLUS-ONE", "SUB-DEP-PLUS-ONE"] %>
+    <% selection_categories.each do |selection_category| %>    
+    <% rate_choices = @choices_dto[selection_category.to_sym] %>
+      <% if rate_choices.present? %>
+        <tr>
+          <td><%= selection_category %></td>
+          <% rate_choices.each do |rate_choice| %>
+           
+          <td><%="   "%><%= rate_choice.amount%></td>
+          <% end %>
+        </tr>
+      <% end %>
     <% end %>
-    
-    <!-- <tr>
-      <td>Employee Only</td>
-      <td>100</td>
-      <td>150</td>
-      <td>200</td>
-    </tr>
-    <tr>
-      <td>Employee plus Spouse</td>
-      <td>200</td>
-      <td>250</td>
-      <td>300</td>
-    </tr>
-    <tr>
-      <td>Employee plus Dependent</td>
-      <td>300</td>
-      <td>350</td>
-      <td>400</td>
-    </tr> -->
   </tbody>
 </table>
+</div>
