@@ -3,7 +3,8 @@ class MedicalRateSelection < ResourceModel::Base
   class RateChoice < ResourceModel::Base
     string_accessor :name # employee only, employee + spouse, etc...
     string_accessor :label
-    string_accessor :code 
+    string_accessor :code
+    string_accessor :plan_name 
     boolean_accessor :selected # is the checkbox is checked?
     attr_accessor :amount
   end
@@ -61,6 +62,39 @@ class MedicalRateSelection < ResourceModel::Base
       plan_choices_hash[benefit_detail.benefit_profile.provider_plan.to_sym] = plan_choices
     }
     plan_choices_hash
+  end
+
+  def rate_choices_dto(plan_choices_hash)
+    selection_categories = ["SUB", "SUB-SPS", "SUB-DEP", "SUB-SPS-PLUS-ONE", "SUB-DEP-PLUS-ONE"]
+    dto = Hash.new
+    plan_choices_hash.each {|plan_choice_key, plan_choice_values|
+      puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+      puts plan_choice_key
+      puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+      puts plan_choice_values 
+      puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+      selection_categories.each {|category|
+        if dto[category.to_sym].present?
+          category_values = dto[category.to_sym]
+        else
+          category_values = []
+        end
+
+        plan_choice_value = plan_choice_values.select{|rate_choice|
+          rate_choice.code == category
+        }.first
+        if plan_choice_value.present?
+          plan_choice_value.plan_name = plan_choice_key
+          category_values.push(plan_choice_value)
+        end
+
+        dto[category.to_sym] = category_values
+      }
+    }
+    puts "&&&&&&&&&&&&&&&&&&&&&&&"
+    puts dto
+    puts "&&&&&&&&&&&&&&&&&&&&&&&"
+    dto
   end
 
   def select_choice!
