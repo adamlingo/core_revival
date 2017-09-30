@@ -16,10 +16,15 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 		@employee = current_user.current_employee
 		@benefit_profiles = BenefitProfile.where(company_id: @company.id, benefit_type: params[:type]).sort_by {|profile| [profile.benefit_profile_rank]}.reverse!
     @rate_selection = get_benefit_rate_selection_model
-    @choices = @rate_selection.build_choices! if @rate_selection.present?
+    choices = @rate_selection.build_choices! if @rate_selection.present?
+    # dto sanitize or transform data
+    @choices_dto = @rate_selection.rate_choices_dto(choices) if choices.present?
+
     puts "*********************************"
-    puts @choices
+    puts @choices_dto
     puts "*********************************"
+
+    
 	end
 
 	def get_benefit_rate_selection_model
