@@ -65,7 +65,7 @@ class MedicalRateSelection < ResourceModel::Base
   end
 
   def rate_choices_dto(plan_choices_hash)
-    selection_categories = ["SUB", "SUB-SPS", "SUB-DEP", "SUB-SPS-PLUS-ONE", "SUB-DEP-PLUS-ONE"]
+    selection_categories = BenefitSelectionCategory.all.pluck(:code)
     dto = Hash.new
     plan_choices_hash.each {|plan_choice_key, plan_choice_values|
       puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
