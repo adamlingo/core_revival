@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get  'users' => 'users#index'
 
   post 'life_insurance_rate_selection/find', to: 'life_insurance_rate_selection#find', as: :find
-  
+
   # Devise routes with ActiveAdmin
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -21,7 +21,10 @@ Rails.application.routes.draw do
 
   resources :companies do
     resources :benefit_profiles
-    resources :employee_benefit_selection_types, param: :type, only: [:index, :show]
+    resources :employee_benefit_selection_types, param: :type, only: [:index, :show] do
+      post 'accept', to: 'employee_benefit_selection_types#accept', as: :accept
+      post 'decline', to: 'employee_benefit_selection_types#decline', as: :decline
+    end
     resources :payroll_records, only: [:index, :create] 
     get "payroll_records/export", to: 'payroll_records#export', as: 'export'
 
