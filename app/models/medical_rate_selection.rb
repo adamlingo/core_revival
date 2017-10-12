@@ -59,44 +59,12 @@ class MedicalRateSelection < ResourceModel::Base
     self.choices
   end
 
-  # def rate_choices_dto(plan_choices_hash)
-  #   selection_categories = BenefitSelectionCategory.all.pluck(:code)
-  #   dto = Hash.new
-  #   plan_choices_hash.each {|plan_choice_key, plan_choice_values|
-  #     puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-  #     puts plan_choice_key
-  #     puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-  #     puts plan_choice_values 
-  #     puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-  #     selection_categories.each {|category|
-  #       if dto[category.to_sym].present?
-  #         category_values = dto[category.to_sym]
-  #       else
-  #         category_values = []
-  #       end
-
-  #       plan_choice_value = plan_choice_values.select{|rate_choice|
-  #         rate_choice.code == category
-  #       }.first
-  #       if plan_choice_value.present?
-  #         plan_choice_value.plan_name = plan_choice_key
-  #         category_values.push(plan_choice_value)
-  #       end
-
-  #       dto[category.to_sym] = category_values
-  #     }
-  #   }
-  #   puts "&&&&&&&&&&&&&&&&&&&&&&&"
-  #   puts dto
-  #   puts "&&&&&&&&&&&&&&&&&&&&&&&"
-  #   dto
-  # end
-
   def select_choice!
     return false unless self.valid?
-    self.errors.add(:base, 'not implemented yet!!')
-    false
-    # selected_rate = choices.select{|choice| choice.selected }.first
+    selected_rate = choices.select{|choice| choice.selected }.first
+    puts "^^^^^^^^^^^^^^^^^^^^^^^^^"
+    puts selected_rate
+    puts "^^^^^^^^^^^^^^^^^^^^^^^^^"
     # # CREATE EMPLOYEE BENEFIT SELECTION RECORD TO SAVE AMOUNT TO
     # self.employee_benefit_selection.amount = selected_rate.amount
     # benefit_selection_category = BenefitSelectionCategory.find_by(code: selected_rate.code)
@@ -117,4 +85,37 @@ class MedicalRateSelection < ResourceModel::Base
   	  	self.errors.add(:base, 'One rate must be selected')
   	  end
   	end
+
+    # def rate_choices_dto(plan_choices_hash)
+    #   selection_categories = BenefitSelectionCategory.all.pluck(:code)
+    #   dto = Hash.new
+    #   plan_choices_hash.each {|plan_choice_key, plan_choice_values|
+    #     puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+    #     puts plan_choice_key
+    #     puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+    #     puts plan_choice_values 
+    #     puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+    #     selection_categories.each {|category|
+    #       if dto[category.to_sym].present?
+    #         category_values = dto[category.to_sym]
+    #       else
+    #         category_values = []
+    #       end
+
+    #       plan_choice_value = plan_choice_values.select{|rate_choice|
+    #         rate_choice.code == category
+    #       }.first
+    #       if plan_choice_value.present?
+    #         plan_choice_value.plan_name = plan_choice_key
+    #         category_values.push(plan_choice_value)
+    #       end
+
+    #       dto[category.to_sym] = category_values
+    #     }
+    #   }
+    #   puts "&&&&&&&&&&&&&&&&&&&&&&&"
+    #   puts dto
+    #   puts "&&&&&&&&&&&&&&&&&&&&&&&"
+    #   dto
+    # end
 end
