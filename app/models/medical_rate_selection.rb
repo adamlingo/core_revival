@@ -7,6 +7,9 @@ class MedicalRateSelection < ResourceModel::Base
     string_accessor :plan_name
     boolean_accessor :selected # is the checkbox is checked?
     attr_accessor :amount
+    def to_s
+      "#{name} - #{code} - #{plan_name} - #{selected}"
+    end
   end
 
   string_accessor :type
@@ -59,8 +62,18 @@ class MedicalRateSelection < ResourceModel::Base
     self.choices
   end
 
+  def to_choices_string
+    puts "No choices" if self.choices.nil? || self.choices.length == 0
+    str = []
+    self.choices.each {|choice|
+      str.push(choice.to_s)
+    }
+    str.join(', ')
+  end
+
   def select_choice!
     return false unless self.valid?
+
     selected_rate = choices.select{|choice| choice.selected }.first
     puts "^^^^^^^^^^^^^^^^^^^^^^^^^"
     puts selected_rate
@@ -70,6 +83,7 @@ class MedicalRateSelection < ResourceModel::Base
     # benefit_selection_category = BenefitSelectionCategory.find_by(code: selected_rate.code)
     # self.employee_benefit_selection.benefit_selection_category_id = benefit_selection_category.id
     # self.employee_benefit_selection.save!
+    selected_rate.present?
   end
 
   private
