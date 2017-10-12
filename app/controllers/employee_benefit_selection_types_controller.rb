@@ -20,10 +20,6 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
     # dto sanitize or transform data
     # @choices_dto = @rate_selection.rate_choices_dto(choices) if choices.present?
     @selection_categories = BenefitSelectionCategory.all
-
-    puts "*********************************"
-   
-    puts "*********************************"
 	end
 
 	def accept
@@ -33,12 +29,13 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 		#@selection_categories = BenefitSelectionCategory.all
 		@benefit_profiles = BenefitProfile.where(company_id: @company.id, benefit_type: get_benefit_type_param).sort_by {|profile| [profile.benefit_profile_rank]}.reverse!
     @rate_selection = get_benefit_rate_selection_model_for_accept
-    if @rate_selection.valid? && @rate_selection.select_choice!
+    puts @rate_selection.choices
+    if @rate_selection.select_choice!
       flash[:info] = "Benefit selection saved!"
       redirect_to company_employee_benefit_selection_type_path
     else
       flash[:error] = "Unable to save rate selection. #{@rate_selection.errors.full_messages.to_sentence}"
-      render :show
+      redirect_to company_employee_benefit_selection_type_path(type: "Medical")
     end
 	end
 
@@ -80,6 +77,7 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
                                             :company_id,
                                             :type,
                                             :employee_benefit_selection_type_type,
+                                            :selected,
                                             choices_attributes: [:name, :plan_name, :label, :selected, :code, :amount] )
    	end
 end
