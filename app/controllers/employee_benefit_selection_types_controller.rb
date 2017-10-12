@@ -26,16 +26,17 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 		puts "ACCEPTING BENEFIT ***********************************"
 		@company = Company.find(params[:company_id].to_i) 
 		@employee = current_user.current_employee
-		#@selection_categories = BenefitSelectionCategory.all
+		@selection_categories = BenefitSelectionCategory.all
 		@benefit_profiles = BenefitProfile.where(company_id: @company.id, benefit_type: get_benefit_type_param).sort_by {|profile| [profile.benefit_profile_rank]}.reverse!
     @rate_selection = get_benefit_rate_selection_model_for_accept
-    puts @rate_selection.choices
-    if @rate_selection.select_choice!
+    puts @rate_selection.to_choices_string
+    if @rate_selection.valid? && @rate_selection.select_choice!
       flash[:info] = "Benefit selection saved!"
-      redirect_to company_employee_benefit_selection_type_path
+      redirect_to company_employee_benefit_selection_type_path(type: get_benefit_type_param)
     else
       flash[:error] = "Unable to save rate selection. #{@rate_selection.errors.full_messages.to_sentence}"
-      redirect_to company_employee_benefit_selection_type_path(type: "Medical")
+      # figure out how to get the form to reload with previous data here
+      render 'show'
     end
 	end
 
@@ -65,7 +66,7 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 	    }
 			if get_benefit_type_param == "Medical"
 				medical_params = medical_rate_selection_params.merge(default_params)
-				@rate_selection = MedicalRateSelection.new(medical_params)
+				MedicalRateSelection.new(medical_params)
 			else
 				# future Life and Dental
 				@rate_selection = nil
