@@ -1,4 +1,5 @@
 class EmployeeBenefitSelectionTypesController < ApplicationController
+	# NEEDS SECURITY METHODS FOR ROUTES
 	
 	def index
 		@company = Company.find(params[:company_id].to_i)
@@ -34,9 +35,9 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
       flash[:info] = "Benefit selection saved!"
       redirect_to company_employee_benefit_selection_type_path(type: get_benefit_type_param)
     else
-      flash[:error] = "Unable to save rate selection. #{@rate_selection.errors.full_messages.to_sentence}"
+      flash[:error] = "Unable to save rate selection: #{@rate_selection.errors.full_messages.to_sentence}"
       # figure out how to get the form to reload with previous data here
-      render 'show'
+      redirect_to :back
     end
 	end
 
