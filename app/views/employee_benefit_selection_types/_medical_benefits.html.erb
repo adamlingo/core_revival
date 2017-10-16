@@ -1,6 +1,5 @@
 <div class="ben-selections">
   <h3> Medical Type indexing test </h1>
-
   <h3><%= @rate_selection.benefit_details.count %><%=" benefit details showing"%></h3>
 </div>
 
@@ -17,7 +16,7 @@
     </tbody>
   </table>
   <%= form_for @rate_selection, url: company_employee_benefit_selection_type_accept_path(company_id: @company.id, employee_id: @employee.id, employee_benefit_selection_type_type: "Medical") do |f| %>
-        <%= f.fields_for :choices, @rate_selection.choices do |choice_form| %>
+      <%= f.fields_for :choices, @rate_selection.choices do |choice_form| %>
         <table>
           <tr>
           <%= choice_form.hidden_field :code %>

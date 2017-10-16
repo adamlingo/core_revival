@@ -1,0 +1,37 @@
+<div class="ben-selections">
+  <h3> Medical Type indexing test </h1>
+
+  <h3><%= @rate_selection.benefit_details.count %><%=" benefit details showing"%></h3>
+</div>
+
+<div class="ben-selections">
+  <table>
+    <thead>
+      <th></th>
+      <% @benefit_profiles.each do |profile| %>
+      <th><%= profile.provider %> <%= profile.provider_plan%></th>
+      <% end %>
+    </thead>
+    <tbody>
+      <%= form_for @rate_selection, url: company_employee_benefit_selection_type_accept_path(company_id: @company.id, employee_id: @employee.id, employee_benefit_selection_type_type: :type) do |f| %>
+        <% @selection_categories.each do |selection_category| %>    
+        <% rate_choices = @choices_dto[selection_category.code.to_sym] %>
+          <% if rate_choices.present? %>
+            <tr>
+              <td><%= selection_category.name %></td>
+              <% rate_choices.each do |rate_choice| %>
+               
+              <td>
+                <%= f.check_box :selected %>
+                <%=" "%><%= number_to_currency(rate_choice.amount)%></td>
+              <% end %>
+            </tr>
+          <% end %>
+        <% end %>
+        <div>
+          <%= f.submit %>
+        </div>
+      <% end %>
+    </tbody>
+  </table>
+</div>
