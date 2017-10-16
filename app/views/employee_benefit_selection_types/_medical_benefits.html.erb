@@ -7,7 +7,7 @@
 <div class="ben-selections">
   <table>
     <thead>
-      <th></th>
+      <th>Subscriber Details</th>
       <% @benefit_profiles.each do |profile| %>
       <th><%= profile.provider %> <%= profile.provider_plan%></th>
       <% end %>
@@ -18,16 +18,20 @@
   </table>
   <%= form_for @rate_selection, url: company_employee_benefit_selection_type_accept_path(company_id: @company.id, employee_id: @employee.id, employee_benefit_selection_type_type: "Medical") do |f| %>
         <%= f.fields_for :choices, @rate_selection.choices do |choice_form| %>
+        <table>
+          <tr>
           <%= choice_form.hidden_field :code %>
           <%= choice_form.hidden_field :amount %>
-          <%= choice_form.text_field :code %>
-          <%= choice_form.text_field :plan_name %>
-          <%= choice_form.label :name, choice_form.object.name, class: "choice_name" %>
+          <td><%= choice_form.text_field :code %></td>
+          <td><%= choice_form.text_field :plan_name %></td>
+          <td><%= choice_form.label :name, choice_form.object.name, class: "choice_name" %></td>
           <%= choice_form.hidden_field :name %>
-          <%= choice_form.label :label, number_to_currency(choice_form.object.amount), class: "choice_amount" %>
-          <%= choice_form.check_box :selected %>
+          <td><%= choice_form.label :label, number_to_currency(choice_form.object.amount), class: "choice_amount" %></td>
+          <td><%= choice_form.check_box :selected %></td>
           <br><hr>
         <% end %>
+          </tr>
+        </table>
         <% @selection_categories.each do |selection_category| %>
 
         <% end %>
