@@ -21,7 +21,7 @@ class MedicalRateSelection < ResourceModel::Base
 
   def init(attributes)
     super(attributes)
-    self.type = "Medical"
+    # self.type = "Medical"
   end
 
   def build_choices!
@@ -92,11 +92,11 @@ class MedicalRateSelection < ResourceModel::Base
 
   	  employee_choices = self.choices.select {|choice| choice if choice.selected }
   	  if employee_choices.count > 1
-  	  	self.errors.add(:base, 'Only one rate can be selected')
+  	  	self.errors.add(:base, 'Only ONE rate can be selected.')
   	  end
 
   	  if employee_choices.count < 1
-  	  	self.errors.add(:base, 'One rate must be selected')
+  	  	self.errors.add(:base, 'Must select a rate before submitting.')
   	  end
   	end
 
