@@ -16,6 +16,8 @@
     <%= render :partial => 'medical_benefits'%>
   <% elsif params[:type] == "Dental" %>
     <%= render :partial => 'dental_benefits'%>
+  <% elsif params[:type] == "Disability" %>
+    <%= render :partial => 'disability_benefits'%>
   <% end %>
 <% end %>
 
