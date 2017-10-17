@@ -1,0 +1,17 @@
+<div class="ben-selections">
+  <h3> Disability Type indexing test </h1>
+  <br>
+</div>
+
+<div class="ben-selections">
+<table>
+  <thead>
+    <th>Subscriber details</th>
+    <% @benefit_profiles.each do |profile| %>
+      <th><%= profile.provider %> <%= profile.provider_plan%></th>
+    <% end %>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div>
