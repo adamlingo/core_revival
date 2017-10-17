@@ -54,6 +54,8 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 
 			if get_benefit_type_param == "Medical"
 				@rate_selection = MedicalRateSelection.new(default_params)
+			elsif get_benefit_type_param == "Dental"
+				@rate_selection = DentalRateSelection.new(default_params)
 			else
 				# future Life and Dental
 				@rate_selection = nil
@@ -68,8 +70,11 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 			if get_benefit_type_param == "Medical"
 				medical_params = medical_rate_selection_params.merge(default_params)
 				MedicalRateSelection.new(medical_params)
+			# elsif get_benefit_type_param == "Dental"
+			# 	dental_params = dental_rate_selection_params.merge(default_params)
+			# 	DentalRateSelection.new(dental_params)
 			else
-				# future Life and Dental
+				# future Life
 				@rate_selection = nil
 			end
 		end
