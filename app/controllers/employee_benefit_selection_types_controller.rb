@@ -1,6 +1,7 @@
 class EmployeeBenefitSelectionTypesController < ApplicationController
 	# NEEDS SECURITY METHODS FOR ROUTES
 	before_filter :authenticate_user!
+	before_filter :authorize_company!
 	
 	def index
 		@company = Company.find(params[:company_id].to_i)
