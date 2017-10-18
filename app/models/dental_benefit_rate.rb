@@ -2,38 +2,34 @@ class DentalBenefitRate < ActiveRecord::Base
   belongs_to :benefit_detail
   validates_presence_of :benefit_detail_id
   
-  # COMPUTE BENEFIT RATES
+  # COMPUTE BENEFIT RATES (DENTAL)
   def self.compute_employee_rate(employee_id, benefit_detail)
+    rate = benefit_detail.category_sub
+    rate
   end  
 
   def self.compute_employee_spouse_rate(employee_id, benefit_detail)
+    rate = benefit_detail.category_sps
+    rate
   end
 
   # def self.compute_employee_dependent_rate(employee_id, benefit_detail)
+  # RATE NOT CURRENTLY IN USE FOR DENTAL - ONLY EMPLOYEE PLUS ALL CHILDREN, MINUS SPOUSE (dep_plus_one_rate)
   # end
 
   def self.compute_employee_spouse_plus_one_rate(employee_id, benefit_detail)
+    rate = benefit_detail.category_sps_pls_one
+    rate
   end
   
   def self.compute_employee_dependent_plus_one_rate(employee_id, benefit_detail)
+    rate = benefit_detail.category_ch_pls_one
+    rate
   end  
 
   # NO ER CONTRIBUTION FOR DENTAL (ALL FIXED RATES AS OF NOW, ELSE SEE MEDICAL)
-  def self.compute_employer_contribution_for_employee(benefit_detail, benefit_rate)
-    benefit_detail.category_sub
-  end
 
-  def self.compute_employer_contribution_for_spouse(benefit_detail, benefit_rate)
-    benefit_detail.category_sps
-  end
-
-  def self.compute_employer_contribution_for_spouse_plus_one(benefit_detail, benefit_rate)
-    benefit_detail.category_sps_pls_one
-  end
-
-  def self.compute_employer_contribution_for_dependent_plus_one(benefit_detail, benefit_rate)
-    benefit_detail.category_ch_pls_one
-  end
   # AGE ON BENEFIT PROFILE EFFECTIVE DATE (FIXED RATES NOT EFFECTED BY AGE OF SUBSCRIBERS)
   
   # NO IMPORT NEEDED FOR RATES YET, CURRENT DENTAL RATES FIXED
+end
