@@ -25,39 +25,10 @@ class DisabilityRateSelection < ResourceModel::Base
   end
 
   def build_choices!
-  	self.choices = []
-  	return unless self.employee.benefit_eligible
-  	dependents = Dependent.where(employee_id: self.employee.id, relationship: "dependent")
-    spouse = Dependent.where(employee_id: self.employee.id, relationship: "spouse").first
-    num_dependents = dependents.count
-
-    self.benefit_details.each {|benefit_detail| 
-      plan_choices = []
+    self.benefit_details.each {|benefit_detail|
       benefit_selection_category = BenefitSelectionCategory.find_by(code: "SUB")
-      rate = MedicalBenefitRate.compute_employee_rate(self.employee.id, benefit_detail)
-      self.choices.push(RateChoice.new(plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
-      if spouse.present?
-        rate = MedicalBenefitRate.compute_employee_spouse_rate(self.employee.id, benefit_detail)
-        benefit_selection_category = BenefitSelectionCategory.find_by(code: "SUB-SPS")
-        self.choices.push(RateChoice.new(plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
-        if num_dependents > 0
-          rate = MedicalBenefitRate.compute_employee_spouse_plus_one_rate(self.employee.id, benefit_detail)
-          benefit_selection_category = BenefitSelectionCategory.find_by(code: "SUB-SPS-PLUS-ONE")
-          self.choices.push(RateChoice.new(plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
-        end
-      end
-
-      if num_dependents >= 1
-        rate = MedicalBenefitRate.compute_employee_dependent_rate(self.employee.id, benefit_detail)
-        benefit_selection_category = BenefitSelectionCategory.find_by(code: "SUB-DEP")
-        self.choices.push(RateChoice.new(plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
-      end
-
-      if num_dependents >= 2 
-        rate = MedicalBenefitRate.compute_employee_dependent_plus_one_rate(self.employee.id, benefit_detail)
-        benefit_selection_category = BenefitSelectionCategory.find_by(code: "SUB-DEP-PLUS-ONE")
-        self.choices.push(RateChoice.new(plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
-      end
+      rate = DisabilityBenefitRate.get_employee_rate(self.employee.id, benefit_detail)
+      self.choices.push(RateChoice.new(plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))      
     }
     self.choices
   end
