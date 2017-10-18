@@ -1,17 +1,21 @@
 <div class="ben-selections">
   <h3> Disability Type indexing test </h1>
+  <h3><%="Current salary: #{number_to_currency(@current_salary.rate)}"%></h3>
   <br>
 </div>
 
 <div class="ben-selections">
-<table>
-  <thead>
-    <th>Subscriber details</th>
-    <% @benefit_profiles.each do |profile| %>
-      <th><%= profile.provider %> <%= profile.provider_plan%></th>
-    <% end %>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
+  <%= form_for @rate_selection, url: company_employee_benefit_selection_type_accept_path(company_id: @company.id, employee_id: @employee.id, employee_benefit_selection_type_type: "Disability") do |f| %>
+      <%= f.fields_for :choices, @rate_selection.choices do |choice_form| %>
+        <table>
+          <tr>
+            <td><%= choice_form.check_box :selected %></td>
+            <br><hr>        
+          </tr>
+        </table>
+      <% end %>
+      <div>
+        <%= f.submit %>
+      </div>
+  <% end %>
 </div>
