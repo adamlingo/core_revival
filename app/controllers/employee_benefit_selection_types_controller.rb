@@ -1,5 +1,6 @@
 class EmployeeBenefitSelectionTypesController < ApplicationController
 	# NEEDS SECURITY METHODS FOR ROUTES
+	before_filter :authenticate_user!
 	
 	def index
 		@company = Company.find(params[:company_id].to_i)
@@ -18,9 +19,12 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 		@benefit_profiles = BenefitProfile.where(company_id: @company.id, benefit_type: get_benefit_type_param).sort_by {|profile| [profile.benefit_profile_rank]}.reverse!
     @rate_selection = get_benefit_rate_selection_model
     @rate_selection.build_choices! if @rate_selection.present?
+    @selection_categories = BenefitSelectionCategory.all
+    # variable for current salary in Disability benefits
+    @current_salary = Salary.where(employee_id: @employee.id).sort_by{|sal| [sal.start_date]}.reverse.first
+
     # dto sanitize or transform data
     # @choices_dto = @rate_selection.rate_choices_dto(choices) if choices.present?
-    @selection_categories = BenefitSelectionCategory.all
 	end
 
 	def accept
@@ -56,8 +60,10 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 				@rate_selection = MedicalRateSelection.new(default_params)
 			elsif get_benefit_type_param == "Dental"
 				@rate_selection = DentalRateSelection.new(default_params)
+			elsif get_benefit_type_param == "Disability"
+				@rate_selection = DisabilityRateSelection.new(default_params)
 			else
-				# future Life and Dental
+				# future Life
 				@rate_selection = nil
 			end
 		end
