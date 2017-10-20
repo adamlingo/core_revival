@@ -21,6 +21,7 @@
           <tr>
             <%= choice_form.hidden_field :code %>
             <%= choice_form.hidden_field :amount %>
+            <%= choice_form.hidden_field :benefit_detail_id %>
             <td><%= choice_form.text_field :code %></td>
             <td><%= choice_form.text_field :plan_name %></td>
             <td><%= choice_form.label :name, choice_form.object.name, class: "choice_name" %></td>
