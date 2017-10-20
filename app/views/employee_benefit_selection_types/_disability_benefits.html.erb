@@ -9,6 +9,10 @@
       <%= f.fields_for :choices, @rate_selection.choices do |choice_form| %>
         <table>
           <tr>
+            <%= choice_form.hidden_field :code %>
+            <%= choice_form.hidden_field :amount %>
+            <%= choice_form.hidden_field :name %>
+            <td><%= choice_form.label :label, number_to_currency(choice_form.object.amount), class: "choice_amount" %></td>
             <td><%= choice_form.check_box :selected %></td>
             <br><hr>        
           </tr>
