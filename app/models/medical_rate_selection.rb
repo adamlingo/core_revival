@@ -5,6 +5,7 @@ class MedicalRateSelection < ResourceModel::Base
     string_accessor :label
     string_accessor :code
     string_accessor :plan_name
+    integer_accessor :benefit_detail_id
     boolean_accessor :selected # is the checkbox is checked?
     attr_accessor :amount
     def to_s
@@ -13,6 +14,7 @@ class MedicalRateSelection < ResourceModel::Base
   end
 
   string_accessor :type
+  string_accessor :employee_benefit_selection_type_type
   has_associated_model :employee
   has_associated_model_collection :benefit_details, class_name: 'BenefitDetail'
   has_associated_resource_model_collection :choices, class_name: 'RateChoice'
@@ -22,6 +24,28 @@ class MedicalRateSelection < ResourceModel::Base
   def init(attributes)
     super(attributes)
     # self.type = "Medical"
+  end
+
+  def select_choice!
+    return false unless self.valid?
+    benefit_type = self.employee_benefit_selection_type_type
+    selected_rate = choices.select{|choice| choice.selected }.first
+    puts "^^^^^^^^^^^^^^^^^^^^^^^^^"
+    puts selected_rate
+    puts "^^^^^^^^^^^^^^^^^^^^^^^^^"
+    # CREATE EMPLOYEE BENEFIT SELECTION RECORD TO SAVE AMOUNT TO
+    # self.employee_benefit_selection.save!
+    if selected_rate.present?
+      benefit_selection_category = BenefitSelectionCategory.find_by(code: selected_rate.code)
+      EmployeeBenefitSelection.create!(employee: employee, 
+                                      decline_benefit: false, 
+                                      benefit_detail_id: selected_rate.benefit_detail_id,
+                                      benefit_type: "Medical",
+                                      benefit_selection_category_id: benefit_selection_category.id,
+                                      amount: selected_rate.amount)
+    else
+      false
+    end
   end
 
   def build_choices!
@@ -35,28 +59,28 @@ class MedicalRateSelection < ResourceModel::Base
       plan_choices = []
       benefit_selection_category = BenefitSelectionCategory.find_by(code: "SUB")
       rate = MedicalBenefitRate.compute_employee_rate(self.employee.id, benefit_detail)
-      self.choices.push(RateChoice.new(plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
+      self.choices.push(RateChoice.new(benefit_detail_id: benefit_detail.id, plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
       if spouse.present?
         rate = MedicalBenefitRate.compute_employee_spouse_rate(self.employee.id, benefit_detail)
         benefit_selection_category = BenefitSelectionCategory.find_by(code: "SUB-SPS")
-        self.choices.push(RateChoice.new(plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
+        self.choices.push(RateChoice.new(benefit_detail_id: benefit_detail.id, plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
         if num_dependents > 0
           rate = MedicalBenefitRate.compute_employee_spouse_plus_one_rate(self.employee.id, benefit_detail)
           benefit_selection_category = BenefitSelectionCategory.find_by(code: "SUB-SPS-PLUS-ONE")
-          self.choices.push(RateChoice.new(plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
+          self.choices.push(RateChoice.new(benefit_detail_id: benefit_detail.id, plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
         end
       end
 
       if num_dependents >= 1
         rate = MedicalBenefitRate.compute_employee_dependent_rate(self.employee.id, benefit_detail)
         benefit_selection_category = BenefitSelectionCategory.find_by(code: "SUB-DEP")
-        self.choices.push(RateChoice.new(plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
+        self.choices.push(RateChoice.new(benefit_detail_id: benefit_detail.id, plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
       end
 
       if num_dependents >= 2 
         rate = MedicalBenefitRate.compute_employee_dependent_plus_one_rate(self.employee.id, benefit_detail)
         benefit_selection_category = BenefitSelectionCategory.find_by(code: "SUB-DEP-PLUS-ONE")
-        self.choices.push(RateChoice.new(plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
+        self.choices.push(RateChoice.new(benefit_detail_id: benefit_detail.id, plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
       end
     }
     self.choices
@@ -69,21 +93,6 @@ class MedicalRateSelection < ResourceModel::Base
       str.push(choice.to_s)
     }
     str.join(', ')
-  end
-
-  def select_choice!
-    return false unless self.valid?
-
-    selected_rate = choices.select{|choice| choice.selected }.first
-    puts "^^^^^^^^^^^^^^^^^^^^^^^^^"
-    puts selected_rate
-    puts "^^^^^^^^^^^^^^^^^^^^^^^^^"
-    # # CREATE EMPLOYEE BENEFIT SELECTION RECORD TO SAVE AMOUNT TO
-    # self.employee_benefit_selection.amount = selected_rate.amount
-    # benefit_selection_category = BenefitSelectionCategory.find_by(code: selected_rate.code)
-    # self.employee_benefit_selection.benefit_selection_category_id = benefit_selection_category.id
-    # self.employee_benefit_selection.save!
-    selected_rate.present?
   end
 
   private
@@ -99,37 +108,4 @@ class MedicalRateSelection < ResourceModel::Base
   	  	self.errors.add(:base, 'Must select a rate before submitting.')
   	  end
   	end
-
-    # def rate_choices_dto(plan_choices_hash)
-    #   selection_categories = BenefitSelectionCategory.all.pluck(:code)
-    #   dto = Hash.new
-    #   plan_choices_hash.each {|plan_choice_key, plan_choice_values|
-    #     puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-    #     puts plan_choice_key
-    #     puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-    #     puts plan_choice_values 
-    #     puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-    #     selection_categories.each {|category|
-    #       if dto[category.to_sym].present?
-    #         category_values = dto[category.to_sym]
-    #       else
-    #         category_values = []
-    #       end
-
-    #       plan_choice_value = plan_choice_values.select{|rate_choice|
-    #         rate_choice.code == category
-    #       }.first
-    #       if plan_choice_value.present?
-    #         plan_choice_value.plan_name = plan_choice_key
-    #         category_values.push(plan_choice_value)
-    #       end
-
-    #       dto[category.to_sym] = category_values
-    #     }
-    #   }
-    #   puts "&&&&&&&&&&&&&&&&&&&&&&&"
-    #   puts dto
-    #   puts "&&&&&&&&&&&&&&&&&&&&&&&"
-    #   dto
-    # end
 end
