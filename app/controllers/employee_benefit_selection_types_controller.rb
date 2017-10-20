@@ -76,10 +76,15 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 	    }
 			if get_benefit_type_param == "Medical"
 				medical_params = medical_rate_selection_params.merge(default_params)
+				puts "************** MEDICAL PARAMS ***************"
+				puts medical_params
 				MedicalRateSelection.new(medical_params)
-			# elsif get_benefit_type_param == "Dental"
-			# 	dental_params = dental_rate_selection_params.merge(default_params)
-			# 	DentalRateSelection.new(dental_params)
+			elsif get_benefit_type_param == "Dental"
+				dental_params = dental_rate_selection_params.merge(default_params)
+				DentalRateSelection.new(dental_params)
+			elsif get_benefit_type_param == "Disability"
+				disability_params = disability_rate_selection_params.merge(default_params)
+				DisabilityRateSelection.new(disability_params)
 			else
 				# future Life
 				@rate_selection = nil
@@ -91,7 +96,22 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
                                             :company_id,
                                             :type,
                                             :employee_benefit_selection_type_type,
-                                            :selected,
-                                            choices_attributes: [:name, :plan_name, :label, :selected, :code, :amount] )
+                                            choices_attributes: [:name, :plan_name, :label, :selected, :code, :amount, :benefit_detail_id] )
+   	end
+
+   	def dental_rate_selection_params
+      params.require(:dental_rate_selection).permit(:employee_id,
+                                            :company_id,
+                                            :type,
+                                            :employee_benefit_selection_type_type,
+                                            choices_attributes: [:name, :plan_name, :label, :selected, :code, :amount, :benefit_detail_id] )
+   	end
+
+   	def disability_rate_selection_params
+      params.require(:disability_rate_selection).permit(:employee_id,
+                                            :company_id,
+                                            :type,
+                                            :employee_benefit_selection_type_type,
+                                            choices_attributes: [:name, :plan_name, :label, :selected, :code, :amount, :benefit_detail_id] )
    	end
 end
