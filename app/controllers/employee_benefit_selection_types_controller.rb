@@ -2,6 +2,7 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 	# NEEDS SECURITY METHODS FOR ROUTES
 	before_filter :authenticate_user!
 	before_filter :authorize_company!
+	before_filter :authorize_manager_or_self! , only: [:manager_index]
 	
 	def index
 		@company = Company.find(params[:company_id].to_i)
@@ -14,6 +15,11 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 		end
 	end
 
+	# index all selections by type for manager to view EE roster
+	def manager_index
+
+	end
+
 	def show
 		@company = Company.find(params[:company_id].to_i) 
 		@employee = current_user.current_employee
@@ -21,8 +27,14 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
     @rate_selection = get_benefit_rate_selection_model
     @rate_selection.build_choices! if @rate_selection.present?
     @selection_categories = BenefitSelectionCategory.all
-    # variable for current salary in Disability benefits
-    @current_salary = Salary.where(employee_id: @employee.id).sort_by{|sal| [sal.start_date]}.reverse.first
+    # variable for current salary and disability rate in Disability benefits display
+		@current_salary = Salary.where(employee_id: @employee.id).sort_by{|sal| [sal.start_date]}.reverse.first 
+		if !@current_salary.nil?
+	  	@current_disability_rate = @benefit_profiles.sort_by{|eff_date| [eff_date.effective_date]}.reverse.first.benefit_details.last.category_sub
+	  elsif @current_salary.nil? && params[:type] == "Disability"
+	  	flash[:message] = "Salary not found in Database: Disability coverage not yet available."
+      redirect_to :back
+    end
 
     # dto sanitize or transform data
     # @choices_dto = @rate_selection.rate_choices_dto(choices) if choices.present?
@@ -37,8 +49,9 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
     @rate_selection = get_benefit_rate_selection_model_for_accept
     puts @rate_selection.to_choices_string
     if @rate_selection.valid? && @rate_selection.select_choice!
-      flash[:info] = "Benefit selection saved!"
-      redirect_to company_employee_benefit_selection_type_path(type: get_benefit_type_param)
+      flash[:info] = "Benefit Selection saved!"
+      #redirect_to company_employee_benefit_selection_type_path(type: get_benefit_type_param)
+      redirect_to company_employee_benefit_selection_types_path
     else
       flash[:error] = "Unable to save rate selection: #{@rate_selection.errors.full_messages.to_sentence}"
       # figure out how to get the form to reload with previous data here
@@ -114,4 +127,11 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
                                             :employee_benefit_selection_type_type,
                                             choices_attributes: [:name, :plan_name, :label, :selected, :code, :amount, :benefit_detail_id] )
    	end
+   	# from EE controller - could make universal eventually
+   	def authorize_manager_or_self!
+      unless current_user.admin? || current_user.manager? || employee_is_current_user?
+        redirect_to root_path
+        flash[:error] = "You do not have permission to view page"
+      end
+    end
 end
