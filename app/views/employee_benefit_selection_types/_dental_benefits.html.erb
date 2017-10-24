@@ -22,7 +22,6 @@
             <%= choice_form.hidden_field :amount %>
             <%= choice_form.hidden_field :benefit_detail_id %>
             <%= choice_form.hidden_field :name %>
-            <td><%= choice_form.text_field :code %></td>
             <td><%= choice_form.text_field :plan_name %></td>
             <td><%= choice_form.label :name, choice_form.object.name, class: "choice_name" %></td>            
             <td><%= choice_form.label :label, number_to_currency(choice_form.object.amount), class: "choice_amount" %></td>
