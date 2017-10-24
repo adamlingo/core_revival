@@ -17,7 +17,13 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 
 	# index all selections by type for manager to view EE roster
 	def manager_index
-
+		@company = Company.find(params[:company_id].to_i)
+		@all_employees = @company.employees 
+		# if @all_employees.benefit_eligible?
+    @employee_benefit_selections = EmployeeBenefitSelection.where(employee_id: @all_employees.ids, benefit_type: params[:type])
+		@benefit_profiles = BenefitProfile.where(company_id: @company.id, benefit_type: get_benefit_type_param).sort_by {|profile| [profile.benefit_profile_rank]}.reverse!
+		@selection_categories = BenefitSelectionCategory.all
+		#hmmm
 	end
 
 	def show
@@ -77,7 +83,6 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 			elsif get_benefit_type_param == "Disability"
 				@rate_selection = DisabilityRateSelection.new(default_params)
 			else
-				# future Life
 				@rate_selection = nil
 			end
 		end
