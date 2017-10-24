@@ -4,15 +4,24 @@ class DisabilityBenefitRate < ActiveRecord::Base
   
   # COMPUTE BENEFIT RATES
   def self.get_employee_rate(employee_id, benefit_detail)
-    rate = benefit_detail.category_sub
+    current_monthly_rate = benefit_detail.category_sub
     employee = Employee.find(employee_id)
-    salary = Salary.find_by(employee_id: employee.id)
-    if salary.pay_type == "Annual Salary"
+    current_salary = Salary.where(employee_id: employee.id).sort_by{|sal| [sal.start_date]}.reverse.first
+    # re-route if salary not entered, check floats in future
+    if current_salary.present? && current_salary.pay_type == "Annual Salary"
+      monthly_salary = (current_salary.rate.to_f / 12.00).round(2)
+      coverage_amount = (monthly_salary * current_monthly_rate) / (100).round(2)
+
+       # Console puts log to show calculations
       puts "(((((((((((((((((((((((((((((((((((((((((((("
-      puts salary.pay_type
+      puts current_salary.pay_type
+      puts current_salary.rate
+      puts monthly_salary
       puts "(((((((((((((((((((((((((((((((((((((((((((("
-    elsif salary.pay_type == ""
+    elsif current_salary.present? && current_salary.pay_type == ""
+      # Future computations based on hourly wages if applicable for Disability Ins.
     end
-    rate
+    # Return cost to subscriber
+    coverage_amount
   end
 end
