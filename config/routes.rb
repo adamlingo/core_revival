@@ -21,7 +21,8 @@ Rails.application.routes.draw do
 
   resources :companies do
     resources :benefit_profiles
-    resources :employee_benefit_selection_types, param: :type, only: [:index, :show] do
+    resources :employee_benefit_selection_types, param: :type, only: [:index, :show, :manager_index] do
+      get 'employee_benefit_selection_types', to: 'employee_benefit_selection_types#manager_index', as: :manager_index
       post 'accept', to: 'employee_benefit_selection_types#accept', as: :accept
       post 'decline', to: 'employee_benefit_selection_types#decline', as: :decline
     end
