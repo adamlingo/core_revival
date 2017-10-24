@@ -1,6 +1,7 @@
 <div class="ben-selections">
-  <h3> Disability Type indexing test </h1>
+  <h3> Disability Insurance Enrollment Testing </h1>
   <h3><%="Current salary: #{number_to_currency(@current_salary.rate)}"%></h3>
+  <h3><%="Current rate: #{@current_disability_rate}%"%><%=" of monthly earnings"%></h3>
   <br>
 </div>
 
@@ -11,13 +12,16 @@
           <tr>
             <%= choice_form.hidden_field :code %>
             <%= choice_form.hidden_field :amount %>
+            <%= choice_form.hidden_field :benefit_detail_id %>
             <%= choice_form.hidden_field :name %>
+            <td><%= "Monthly Cost:" %></td>
             <td><%= choice_form.label :label, number_to_currency(choice_form.object.amount), class: "choice_amount" %></td>
             <td><%= choice_form.check_box :selected %></td>
             <br><hr>        
           </tr>
         </table>
       <% end %>
+      <br>
       <div>
         <%= f.submit %>
       </div>
