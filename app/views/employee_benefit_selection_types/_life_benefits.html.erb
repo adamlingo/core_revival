@@ -8,7 +8,7 @@
 <% end %>
 
 <div class="ben-selections">
-  <%= form_for @rate_selection, url: company_employee_rate_selections_path(company_id: @company.id, employee_id: @employee.id) do |f| %>
+  <%= form_for @rate_selection, url: company_employee_benefit_selection_type_accept_path(company_id: @company.id, employee_id: @employee.id, employee_benefit_selection_type_type: "Life") do |f| %>
   	<%= "Base Coverage:" %>
   	<%= f.label :base_coverage, number_to_currency(f.object.base_coverage) %><br>
     <%= f.hidden_field :employee_benefit_selection_id, class: "employee_benefit_selection_id" %>
