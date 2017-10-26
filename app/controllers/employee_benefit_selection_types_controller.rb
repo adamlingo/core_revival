@@ -41,9 +41,6 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 	  	flash[:message] = "Salary not found in Database: Disability coverage not yet available."
       redirect_to :back
     end
-
-    # dto sanitize or transform data
-    # @choices_dto = @rate_selection.rate_choices_dto(choices) if choices.present?
 	end
 
 	def accept
@@ -115,7 +112,7 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
                                             :type,
                                             :employee_benefit_selection_type_type,
                                             choices_attributes: [:name, :plan_name, :label, :selected, :code, :amount, :benefit_detail_id] )
-   	end
+    end
 
    	def dental_rate_selection_params
       params.require(:dental_rate_selection).permit(:employee_id,

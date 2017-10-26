@@ -1,6 +1,6 @@
 class EmployeeBenefitsController < ApplicationController
-    before_filter :authenticate_user!
-    before_filter :authorize_company!
+  before_filter :authenticate_user!
+  before_filter :authorize_company!
   # Empty new until decision on invitation vs. creation
   def new
   end
@@ -9,8 +9,5 @@ class EmployeeBenefitsController < ApplicationController
     @employee_benefits = EmployeeBenefit.all
     company = Company.find(params[:company_id].to_i)
     @employees = company.employees
-	end
-
-
-  
+  end
 end

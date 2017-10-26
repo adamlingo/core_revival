@@ -7,10 +7,10 @@ class LifeInsuranceRateSelectionController < ApplicationController
 	end
 
 	def compute_monthly_rate
-		desired_coverage_amount = params[:amount]
-		type = params[:type]
-		employee_id = params[:employee_id]
-		employee_benefit_selection_id = params[:employee_benefit_selection_id]
+		# desired_coverage_amount = params[:amount]
+		# type = params[:type]
+		# employee_id = params[:employee_id]
+		# employee_benefit_selection_id = params[:employee_benefit_selection_id]
 		123456
 	end
 end
