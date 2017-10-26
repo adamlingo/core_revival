@@ -3,6 +3,7 @@ class DentalBenefitRate < ActiveRecord::Base
   validates_presence_of :benefit_detail_id
   
   # COMPUTE BENEFIT RATES (DENTAL)
+  # employee_id is unused, but passed in if future rates are age-dependent for calculations
   def self.compute_employee_rate(employee_id, benefit_detail)
     rate = benefit_detail.category_sub
     rate

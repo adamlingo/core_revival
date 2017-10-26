@@ -6,7 +6,6 @@ class MedicalBenefitRate < ActiveRecord::Base
   def self.compute_employee_rate(employee_id, benefit_detail)
     effective_date = BenefitProfile.find(benefit_detail.benefit_profile_id).effective_date
     employee = Employee.find(employee_id)
-    employee_category = employee.employee_category
     if employee.benefit_eligible == true
       ee_dob = employee.date_of_birth
       ee_benefit_rate = BenefitRate.find_by(age: effective_age(effective_date, ee_dob, benefit_detail.id), benefit_detail_id: benefit_detail.id)
@@ -20,7 +19,6 @@ class MedicalBenefitRate < ActiveRecord::Base
   def self.compute_employee_spouse_rate(employee_id, benefit_detail)
     effective_date = BenefitProfile.find(benefit_detail.benefit_profile_id).effective_date
     employee = Employee.find(employee_id)
-    employee_category = employee.employee_category
     spouse = Dependent.find_by(employee_id: employee.id, relationship: "spouse")
     if employee.benefit_eligible == true
       ee_dob = employee.date_of_birth
@@ -37,7 +35,6 @@ class MedicalBenefitRate < ActiveRecord::Base
   def self.compute_employee_dependent_rate(employee_id, benefit_detail)
     effective_date = BenefitProfile.find(benefit_detail.benefit_profile_id).effective_date
     employee = Employee.find(employee_id)
-    employee_category = employee.employee_category
     dependents_by_age = Dependent.where(employee_id: employee.id, relationship: "dependent")
     dependents = dependents_by_age.select{|d| effective_age(effective_date, d.date_of_birth, benefit_detail.id) < 26 }
     dependents.sort_by{|dep| [dep.date_of_birth]}.reverse
@@ -57,7 +54,6 @@ class MedicalBenefitRate < ActiveRecord::Base
   def self.compute_employee_spouse_plus_one_rate(employee_id, benefit_detail)
     effective_date = BenefitProfile.find(benefit_detail.benefit_profile_id).effective_date
     employee = Employee.find(employee_id)
-    employee_category = employee.employee_category
     spouse = Dependent.find_by(employee_id: employee.id, relationship: "spouse")
     dependents_by_age = Dependent.where(employee_id: employee.id, relationship: "dependent")
     dependents = dependents_by_age.select{|d| effective_age(effective_date, d.date_of_birth, benefit_detail.id) < 26 }
@@ -81,7 +77,6 @@ class MedicalBenefitRate < ActiveRecord::Base
   def self.compute_employee_dependent_plus_one_rate(employee_id, benefit_detail)
     effective_date = BenefitProfile.find(benefit_detail.benefit_profile_id).effective_date
     employee = Employee.find(employee_id)
-    employee_category = employee.employee_category
     dependents_by_age = Dependent.where(employee_id: employee.id, relationship: "dependent")
     dependents = dependents_by_age.select{|d| effective_age(effective_date, d.date_of_birth, benefit_detail.id) < 26 }
     dependents.sort_by{|dep| [dep.date_of_birth]}.reverse

@@ -28,7 +28,6 @@ class DisabilityRateSelection < ResourceModel::Base
 
   def select_choice!
     return false unless self.valid?
-    benefit_type = self.employee_benefit_selection_type_type
     selected_rate = choices.select{|choice| choice.selected }.first
     # CREATE EMPLOYEE BENEFIT SELECTION RECORD TO SAVE AMOUNT TO
     if selected_rate.present?

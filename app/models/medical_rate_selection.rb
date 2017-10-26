@@ -28,7 +28,6 @@ class MedicalRateSelection < ResourceModel::Base
 
   def select_choice!
     return false unless self.valid?
-    benefit_type = self.employee_benefit_selection_type_type
     selected_rate = choices.select{|choice| choice.selected }.first
     puts "^^^^^^^^^^^^^^^^^^^^^^^^^"
     puts selected_rate
@@ -55,8 +54,7 @@ class MedicalRateSelection < ResourceModel::Base
     spouse = Dependent.where(employee_id: self.employee.id, relationship: "spouse").first
     num_dependents = dependents.count
 
-    self.benefit_details.each {|benefit_detail| 
-      plan_choices = []
+    self.benefit_details.each {|benefit_detail|
       benefit_selection_category = BenefitSelectionCategory.find_by(code: "SUB")
       rate = MedicalBenefitRate.compute_employee_rate(self.employee.id, benefit_detail)
       self.choices.push(RateChoice.new(benefit_detail_id: benefit_detail.id, plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
