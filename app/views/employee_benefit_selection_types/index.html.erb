@@ -1,0 +1,37 @@
+<% provide(:title, 'My Benefit Selections') %>
+
+<div class='ben-selections'>
+  <h1>Benefit Selections</h1>
+  <h3>Choose By Type:</h3>
+</div>
+
+</br>
+
+<div class='ben-selections'>
+  <table class='ben-selections'>
+    <thead>
+      <tr>
+        <th>Insurance Type</th>
+        <th>Actions</th>
+        <% if current_user.manager? %>
+          <th>View full Employee roster</th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @benefit_types.each do |type| %>
+        <tr>
+          <td><%="#{type}" %></td>
+          <!-- Sort links by type -->
+          <td><%= link_to "Choose #{type} Benefits", company_employee_benefit_selection_type_path(type: type) %></td>
+          <!-- Manager optional links to full roster -->
+          <% if current_user.manager? %>
+            <td><%= link_to "Company Employee #{type} Benefits", company_employee_benefit_selection_type_manager_index_path(type: type, employee_benefit_selection_type_type: type) %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<br>

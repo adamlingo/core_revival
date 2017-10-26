@@ -1,32 +1,28 @@
 <p id="notice"><%= notice %></p>
 
 <div class="ben-selections">
-  <h1><%= @employee.display_name %> - Benefit Selections</h1>
+  <h1><%= @employee.display_name %></h1>
+  <h1><%=" #{@benefit_profile.provider} #{@benefit_profile.provider_plan} #{@benefit_profile.benefit_type}" %></h1>
 </div>
 
-<div class="ben-selections">
-  <% if @employee.benefit_eligible? %>
-  <!-- new form object -->
-	<%= form_for @rate_selection, url: company_employee_rate_selections_path(company_id: @company.id, employee_id: @employee.id) do |f| %>
-    <%= f.hidden_field :employee_benefit_selection_id %>
-    <%= f.fields_for :choices, @rate_selection.choices do |choice_form| %>
-      <%= choice_form.hidden_field :code %>
-      <%= choice_form.hidden_field :amount %>
-      <%= choice_form.label :name, choice_form.object.name, class: "choice_name" %>
-      <%= choice_form.hidden_field :name %>
-      <%= choice_form.label :label, number_to_currency(choice_form.object.amount), class: "choice_amount" %>
-      <%= choice_form.check_box :selected %>
-      <br>
+<br>
+<!-- ************** @rate_selection.type not working from controller ***********-->
+<!-- load partial view based on insurance type -->
 
-    <% end %>
-
-    <%= f.submit %>
+<% if @employee.benefit_eligible? %>
+  <% if @benefit_profile.benefit_type == "Life" %>
+    <%= render :partial => 'life_benefits'%>
+  <% else %>
+    <%= render :partial => 'medical_benefits'%>
   <% end %>
+<% end %>
 
-	<% else %>
-		<%= "Not eligible" %>
-	<% end %>
+<br>
+
+<!-- DECLINE OPTION MAY NEED TO DROP IN HERE -->
+<!-- bottom button links -->
+<div class="buttons">
+  <span class="btn btn-danger"><i class='fa fa-arrow-left'></i>
+    <%= link_to 'Back', company_employee_employee_benefit_selections_path %>
+  </span>
 </div>
-
-</br>
-<%= link_to 'Back', company_employee_employee_benefit_selections_path %>

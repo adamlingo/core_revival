@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615183517) do
+ActiveRecord::Schema.define(version: 20170919232841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,8 +68,8 @@ ActiveRecord::Schema.define(version: 20170615183517) do
   create_table "benefit_profiles", force: :cascade do |t|
     t.string   "name"
     t.integer  "company_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.string   "provider"
     t.string   "provider_plan"
     t.string   "benefit_type"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20170615183517) do
     t.boolean  "child_eligible"
     t.string   "account_number"
     t.date     "effective_date"
+    t.integer  "benefit_profile_rank"
   end
 
   create_table "benefit_rates", force: :cascade do |t|
@@ -182,8 +183,8 @@ ActiveRecord::Schema.define(version: 20170615183517) do
   create_table "employees", force: :cascade do |t|
     t.string   "name"
     t.integer  "company_id"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "email"
     t.string   "address"
     t.string   "city"
@@ -200,7 +201,8 @@ ActiveRecord::Schema.define(version: 20170615183517) do
     t.string   "ssn"
     t.string   "encrypted_ssn"
     t.string   "encrypted_ssn_iv"
-    t.boolean  "view_salary",      default: true, null: false
+    t.boolean  "view_salary",       default: true, null: false
+    t.string   "employee_category"
   end
 
   create_table "folders", force: :cascade do |t|
@@ -230,6 +232,27 @@ ActiveRecord::Schema.define(version: 20170615183517) do
     t.decimal  "total_charges"
     t.integer  "month"
     t.integer  "year"
+  end
+
+  create_table "life_benefit_details", force: :cascade do |t|
+    t.integer  "benefit_detail_id"
+    t.integer  "subscriber_cap"
+    t.integer  "subscriber_increment"
+    t.integer  "spouse_cap"
+    t.integer  "spouse_increment"
+    t.integer  "dependent_coverage"
+    t.decimal  "dependent_rate"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "base_coverage"
+  end
+
+  create_table "life_cap_percentages", force: :cascade do |t|
+    t.integer  "life_benefit_detail_id"
+    t.integer  "age"
+    t.decimal  "cap_percentage"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "payroll_deductions", force: :cascade do |t|

@@ -1,0 +1,45 @@
+<% provide(:title, 'Employee Benefit Selections') %>
+
+<div class='ben-selections'>
+  <h1>Employee Benefit Selections</h1>
+  <br>
+  <h2><%="#{params[:type]} " %>Insurance Test</h2>
+</div>
+
+<br>
+
+<div class="ben-selections">
+  <table>
+    <thead>
+      <tr>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>Provider</th>
+        <th>Type</th>
+        <th>Plan</th>
+        <th>Effective Date</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @employee_benefit_selections.each do |employee_benefit_selection| %>
+        <tr>
+          <td><%= employee_benefit_selection.employee.last_name %></td>
+          <td><%= employee_benefit_selection.employee.first_name %></td>
+          <td><%= employee_benefit_selection.benefit_profile.provider%></td>
+          <td><%= employee_benefit_selection.benefit_type %></td> 
+          <td><%= employee_benefit_selection.benefit_profile.provider_plan %></td>
+          <td><%= employee_benefit_selection.benefit_profile.effective_date.strftime("%D") %></td>
+          <td><%= number_to_currency(employee_benefit_selection.amount) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br>
+<div class="buttons">
+  <span class="btn btn-danger"><i class='fa fa-arrow-left'></i>
+    <%= link_to 'Benefit Selections', company_employee_benefit_selection_types_path %>
+  </span>
+</div>

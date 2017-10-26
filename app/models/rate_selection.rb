@@ -8,6 +8,7 @@ class RateSelection < ResourceModel::Base
     attr_accessor :amount
   end
 
+  string_accessor :type
   has_associated_model :employee
   has_associated_model :employee_benefit_selection
   has_associated_resource_model_collection :choices, class_name: 'RateChoice'
@@ -16,6 +17,7 @@ class RateSelection < ResourceModel::Base
 
   def init(attributes)
     super(attributes)
+    self.type = "Medical"
   end
 
   def build_choices!

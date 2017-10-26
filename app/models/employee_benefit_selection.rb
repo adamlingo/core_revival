@@ -53,15 +53,9 @@ class EmployeeBenefitDetailSelection
     benefit_detail_options
   end
 
-  def self.get_benefit_types(company_id)
-    benefit_types = ['']
-    benefit_profiles = BenefitProfile.where(company_id: company_id)
-    return benefit_types unless benefit_profiles.present?
-
-    benefit_profiles.each { |benefit_profile|
-      benefit_types.push(benefit_profile.benefit_type)
-    }
-
+  def self.get_benefit_types(company_id)  
+    benefit_types = BenefitProfile.where(company_id: company_id).pluck(:benefit_type).uniq
+    return [''] unless benefit_types.present?
     benefit_types
   end
 end

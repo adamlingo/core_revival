@@ -1,5 +1,5 @@
 class RateSelectionsController < ApplicationController
-
+  # potentially ammend to different selection types.
   def new
     @rate_selection = RateSelection.new
   end

@@ -5,7 +5,7 @@ ActiveAdmin.register Employee do
   # Edit fields to save
   permit_params :name, :first_name, :last_name, :company_id, :email, :address, 
                 :city, :state, :zip, :phone_number, :sub_id, :user_id, :date_of_birth,
-                :benefit_eligible, :view_salary
+                :benefit_eligible, :view_salary, :employee_category
   
   index do
     selectable_column
@@ -16,6 +16,7 @@ ActiveAdmin.register Employee do
     column :last_name
     column :first_name
     column :benefit_eligible
+    column :employee_category
     column :view_salary
     column :sub_id
     column :email
@@ -52,6 +53,7 @@ ActiveAdmin.register Employee do
       f.input :phone_number, :placeholder => "Phone"
       f.input :date_of_birth, :start_year => 1950, :end_year => 2005
       f.input :benefit_eligible
+      f.input :employee_category, as: :select, :collection => [['Employee'], ['Manager'], ['Owner']]
       f.input :view_salary
     end
     f.actions

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get  '/invest', to: "pages#invest", as: "invest"
   get  'users' => 'users#index'
 
+  post 'life_insurance_rate_selection/find', to: 'life_insurance_rate_selection#find', as: :find
+
   # Devise routes with ActiveAdmin
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -19,6 +21,11 @@ Rails.application.routes.draw do
 
   resources :companies do
     resources :benefit_profiles
+    resources :employee_benefit_selection_types, param: :type, only: [:index, :show, :manager_index] do
+      get 'employee_benefit_selection_types', to: 'employee_benefit_selection_types#manager_index', as: :manager_index
+      post 'accept', to: 'employee_benefit_selection_types#accept', as: :accept
+      post 'decline', to: 'employee_benefit_selection_types#decline', as: :decline
+    end
     resources :payroll_records, only: [:index, :create] 
     get "payroll_records/export", to: 'payroll_records#export', as: 'export'
 
@@ -30,7 +37,7 @@ Rails.application.routes.draw do
     resources :employees do
       get "invite" , to: 'employees#invite', as: 'invite'
       resources :dependents
-      resources :employee_benefit_selections # only index, show?
+      resources :employee_benefit_selections
       resources :rate_selections, only: [:new, :create]
       resources :salaries
       resources :employee_benefits
@@ -57,7 +64,4 @@ Rails.application.routes.draw do
   resources :payroll_deductions do
     collection { post :import }
   end
-
-  # default route syntax at bottom instead of get... will match if all other routes fail
-  # match ':controller(/:action(/:id(.:format)))', :via => :get
 end

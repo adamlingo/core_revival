@@ -7,10 +7,9 @@ namespace :dbmaint do
   end
 
   desc "Backs up heroku database and restores it locally."
-    task import_from_heroku: :environment do
+  task import_from_heroku: :environment do
     HEROKU_APP_NAME = 'core-redux' # Change this if app name is not picked up by `heroku` git remote.
-
-    c = Rails.configuration.database_configuration[Rails.env]
+    # c = Rails.configuration.database_configuration[Rails.env]
     heroku_app_flag = HEROKU_APP_NAME ? " --app #{HEROKU_APP_NAME}" : nil
     Bundler.with_clean_env do
       puts "[1/5] make sure you have run: 'createdb core_redux_dev'"
