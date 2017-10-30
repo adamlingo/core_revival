@@ -11,7 +11,7 @@
 <!-- load partial view based on insurance type -->
 <% if @employee.benefit_eligible? %>
   <% if params[:type] == "Life" %>
-    <h2><%= "Life Benefits coming soon! " %></h2>
+    <%= render :partial => 'life_benefits'%>
   <% elsif params[:type] == "Medical" %>
     <%= render :partial => 'medical_benefits'%>
   <% elsif params[:type] == "Dental" %>
