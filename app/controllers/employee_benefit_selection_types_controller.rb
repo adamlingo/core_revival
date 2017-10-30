@@ -72,13 +72,14 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 	      employee: @employee, 
 	      benefit_details: BenefitDetail.where(benefit_profile_id: @benefit_profiles, employee_category: @employee.employee_category)
 	    }
-
 			if get_benefit_type_param == "Medical"
 				@rate_selection = MedicalRateSelection.new(default_params)
 			elsif get_benefit_type_param == "Dental"
 				@rate_selection = DentalRateSelection.new(default_params)
 			elsif get_benefit_type_param == "Disability"
 				@rate_selection = DisabilityRateSelection.new(default_params)
+			elsif get_benefit_type_param == "Life"
+				@rate_selection = LifeRateSelection.new(default_params)
 			else
 				@rate_selection = nil
 			end
