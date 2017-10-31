@@ -81,6 +81,7 @@ class MedicalRateSelection < ResourceModel::Base
         self.choices.push(RateChoice.new(benefit_detail_id: benefit_detail.id, plan_name: benefit_detail.benefit_profile.provider_plan, name: benefit_selection_category.description, code: benefit_selection_category.code, amount: rate, label: rate.to_s, selected: false))
       end
     }
+    #parse out choices by @provider_plans?
     self.choices
   end
 

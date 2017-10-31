@@ -18,8 +18,7 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 	# index all selections by type for manager to view EE roster
 	def manager_index
 		@company = Company.find(params[:company_id].to_i)
-		@all_employees = @company.employees 
-		# if @all_employees.benefit_eligible?
+		@all_employees = @company.employees
     @employee_benefit_selections = EmployeeBenefitSelection.where(employee_id: @all_employees.ids, benefit_type: params[:type])
 		@benefit_profiles = BenefitProfile.where(company_id: @company.id, benefit_type: get_benefit_type_param).sort_by {|profile| [profile.benefit_profile_rank]}.reverse!
 		@selection_categories = BenefitSelectionCategory.all
@@ -30,9 +29,18 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 		@company = Company.find(params[:company_id].to_i) 
 		@employee = current_user.current_employee
 		@benefit_profiles = BenefitProfile.where(company_id: @company.id, benefit_type: get_benefit_type_param).sort_by {|profile| [profile.benefit_profile_rank]}.reverse!
+    # need to figure out how to separate choices by provider_plan
+    @provider_plans = []
+    @benefit_profiles.each {|plan| 
+    	plan_name = plan.provider_plan.to_s
+    	@provider_plans.push(plan_name)
+    }
     @rate_selection = get_benefit_rate_selection_model
     @rate_selection.build_choices! if @rate_selection.present?
     @selection_categories = BenefitSelectionCategory.all
+    puts "************** CATEGORIES ***************"
+    puts @provider_plans
+    puts "************** CATEGORIES ***************"
     # variable for current salary and disability rate in Disability benefits display
 		@current_salary = Salary.where(employee_id: @employee.id).sort_by{|sal| [sal.start_date]}.reverse.first 
 		if !@current_salary.nil?
@@ -69,7 +77,7 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 
 		def get_benefit_rate_selection_model
 			default_params = {
-	      employee: @employee, 
+	      employee: @employee,
 	      benefit_details: BenefitDetail.where(benefit_profile_id: @benefit_profiles, employee_category: @employee.employee_category)
 	    }
 			if get_benefit_type_param == "Medical"
