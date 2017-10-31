@@ -13,4 +13,9 @@ class LifeInsuranceRateSelectionController < ApplicationController
 		# employee_benefit_selection_id = params[:employee_benefit_selection_id]
 		123456
 	end
+
+	def validate_entry
+		# howdy
+		# duty
+	end
 end
