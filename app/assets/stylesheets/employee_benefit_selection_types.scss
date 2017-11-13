@@ -7,6 +7,51 @@
 	font-family: open_sansregular;
 	font-size: 14px;
 
+	ul.selection-header {
+		margin: 0;
+		padding: 0;
+		text-align: center;
+		font-family: open_sansbold;
+	}	
+	ul.selection-header li{
+		display: inline-block;
+		height: 50px;
+		line-height: 50px;
+		background-color: $green-dark;
+		color: white;
+		border: solid 1px white;
+		float: left;
+	}
+	div.selection-cell {
+		display: inline-block;
+		height: 50px;
+		line-height: 50px;
+		border: solid 1px $text-grey;
+	}
+	div.selection-choice-item {
+		padding: 0px 20px;
+		color: black;
+		font-family: open_sansregular;
+		font-size: 16px;
+		float: left;
+	}
+	div.selection-choice-item-name {
+		padding: 0px 20px;
+		color: $green-dark;
+		font-family: open_sansbold;
+		width: 325px;
+		float: left;
+	}
+	div.selection-disability {
+		table, td {
+			height: 40px;
+			line-height: 40px;
+			color: $green-dark;
+			font-family: open_sansbold;
+			font-size: 18px;
+			text-align: center;
+		}
+	}
 	h1 {
 		padding-bottom: 10px;
 		text-align: left;
@@ -17,7 +62,7 @@
 		border: solid 1px $text-grey;
 		border-collapse: collapse;
 		box-sizing: border-box;
-		text-align: center;
+		text-align: left;
 		color: $text-grey;
 	}
 	th {
@@ -25,6 +70,9 @@
 		font-size: 14px;
 		background-color: $green-dark;
 		color: white;
+		&:nth-child(2), &:nth-child(3) {
+			text-align: center;
+		}
 	}
 	p {
 		text-align: left;
@@ -39,32 +87,14 @@
 	a {
     color: $green-dark;
     text-decoration: none;
+    font-family: open_sansregular;
     &:hover{
-    	font-family: open_sansbold;
-      color: $green-dark;
+    	background: $yellow-hover;
+  		color: white;
       text-decoration: none;
     }
   }
 }
-
-.insurance-table {
-	
-	td {
-		border: solid 1px $green-dark;
-		text-align: center;
-		padding: 5px 20px;
-		color: $text-grey;
-	}
-}
-
-#clear {
-	clear: both;
-}
-// .index-show {
-// 	table {
-// 		width: 600px;
-// 	}
-// }
 
 .buttons {
 	.btn-danger{
