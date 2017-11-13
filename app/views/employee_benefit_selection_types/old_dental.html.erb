@@ -1,0 +1,35 @@
+<div class="selections">
+  <table>
+    <thead>
+      <th>Subscriber details</th>
+      <% @benefit_profiles.each do |profile| %>
+        <th><%= profile.provider %> <%= profile.provider_plan%></th>
+      <% end %>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <%= form_for @rate_selection, url: company_employee_benefit_selection_type_accept_path(company_id: @company.id, employee_id: @employee.id, employee_benefit_selection_type_type: "Dental") do |f| %>
+      <%= f.fields_for :choices, @rate_selection.choices do |choice_form| %>
+        <table>
+          <div class="selections">
+            <%= choice_form.hidden_field :code %>
+            <%= choice_form.hidden_field :amount %>
+            <%= choice_form.hidden_field :benefit_detail_id %>
+            <%= choice_form.hidden_field :name %>
+            <td style="width: 70px"><%= choice_form.label :plan_name, choice_form.object.plan_name %></td>
+            <td><%= choice_form.label :name, choice_form.object.name, class: "choice_name" %></td>
+            <td><%= choice_form.label :label, number_to_currency(choice_form.object.amount), class: "choice_amount" %></td>
+            <td><%= choice_form.check_box :selected %></td>
+          </div>
+        </table>
+      <% end %>
+      <% @selection_categories.each do |selection_category| %>
+
+      <% end %>
+      <br>
+      <div>
+        <%= f.submit %>
+      </div>
+  <% end %>
+</div>
