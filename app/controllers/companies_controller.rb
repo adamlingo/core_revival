@@ -13,7 +13,6 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    
     @company = Company.find(params[:id])
     @employees = @company.employees
     @benefits = @company.benefit_profiles
