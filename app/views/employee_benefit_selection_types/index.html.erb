@@ -12,17 +12,17 @@
     <thead>
       <tr>
         <th>Insurance Type</th>
-        <th>Actions</th>
+        <th style="width: 250px;">Actions</th>
         <% if current_user.manager? %>
-          <th>View full Employee roster</th>
+          <th style="width: 325px;">View full Employee roster</th>
         <% end %>
       </tr>
     </thead>
-
+    <!-- show 1 column for EE benefits, 2 for ER to see full Company selections -->
     <tbody>
       <% @benefit_types.each do |type| %>
         <tr>
-          <td><%="#{type}" %></td>
+          <td style="font-family: open_sansbold; text-align: left"><%="#{type}" %></td>
           <!-- Sort links by type -->
           <td><%= link_to "Choose #{type} Benefits", company_employee_benefit_selection_type_path(type: type) %></td>
           <!-- Manager optional links to full roster -->
@@ -34,4 +34,11 @@
     </tbody>
   </table>
 </div>
+
 <br>
+
+<div class="buttons">
+  <span class="btn btn-success"><i class='fa fa-home'></i>
+    <%= link_to 'Home', root_path, {style: "color: white; text-decoration: none;"} %></span>
+</div>
+
