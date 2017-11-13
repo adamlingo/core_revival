@@ -1,30 +1,33 @@
 <div class="selections">
   <h3> Disability Insurance Enrollment Testing </h1>
   <h3><%="Current salary: #{number_to_currency(@current_salary.rate)}"%></h3>
-  <h3><%="Current rate: #{@current_disability_rate}%"%><%=" of monthly earnings"%></h3>
   <br>
 </div>
 
 <div class="selections">
   <%= form_for @rate_selection, url: company_employee_benefit_selection_type_accept_path(company_id: @company.id, employee_id: @employee.id, employee_benefit_selection_type_type: "Disability") do |f| %>
-      <%= f.fields_for :choices, @rate_selection.choices do |choice_form| %>
+    <%= f.fields_for :choices, @rate_selection.choices do |choice_form| %>
+      <div class="selection-disability">
         <table>
           <tr>
             <%= choice_form.hidden_field :code %>
             <%= choice_form.hidden_field :amount %>
             <%= choice_form.hidden_field :benefit_detail_id %>
             <%= choice_form.hidden_field :name %>
-            <td style="width: 90px"><%= choice_form.label :plan_name, choice_form.object.plan_name %></td>
+            <td style="width: 300px"><%= choice_form.label :plan_name, choice_form.object.plan_name %></td>
             <td><%= "Monthly Cost:" %></td>
-            <td><%= choice_form.label :label, number_to_currency(choice_form.object.amount), class: "choice_amount" %></td>
-            <td><%= choice_form.check_box :selected %></td>
-            <br><hr>        
+            <td style="width: 130px"><%= choice_form.label :label, number_to_currency(choice_form.object.amount), class: "choice_amount" %></td>
+            <td style="width: 60px"><%= choice_form.check_box :selected %></td>
+            <br>
           </tr>
         </table>
-      <% end %>
-      <br>
-      <div>
-        <%= f.submit %>
       </div>
+    <% end %>
+    <br><br>
+    <div>
+      <%= f.submit nil, class: 'btn btn-success' %>
+    </div>
   <% end %>
 </div>
+
+<br>
