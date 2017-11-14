@@ -18,8 +18,8 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 	# index all selections by type for manager to view EE roster
 	def manager_index
 		@company = Company.find(params[:company_id].to_i)
-		@all_employees = @company.employees
-    @employee_benefit_selections = EmployeeBenefitSelection.where(employee_id: @all_employees.ids, benefit_type: params[:type])
+		@all_employees = @company.employees.order(:last_name)
+		@employee_benefit_selections = EmployeeBenefitSelection.where(employee_id: @all_employees.ids, benefit_type: params[:type])
 		@benefit_profiles = BenefitProfile.where(company_id: @company.id, benefit_type: get_benefit_type_param).sort_by {|profile| [profile.benefit_profile_rank]}.reverse!
 		@selection_categories = BenefitSelectionCategory.all
 		#hmmm
