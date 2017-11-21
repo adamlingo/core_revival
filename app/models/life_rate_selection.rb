@@ -64,8 +64,10 @@ class LifeRateSelection < ResourceModel::Base
 	end
 
   def build_choices!
+    # method too long currently!! - CodeShip
   	return unless self.employee.benefit_eligible
   	life_benefit_detail = get_life_benefit_detail
+    # useless assignment to variable?
     life_benefit_detail_id = life_benefit_detail.id
   	self.base_coverage = life_benefit_detail.base_coverage
   	
@@ -79,7 +81,7 @@ class LifeRateSelection < ResourceModel::Base
   	ee_rate_choice = RateChoice.new(ee_attributes)
     ee_rate_choice.build_monthly_rates()
   	self.employee_choices = ee_rate_choice
-    puts "************** Employee CHOICES #{self.employee_choices.to_s} *******"
+    puts "************** Employee CHOICES #{self.employee_choices} *******"
 
   	spouse_attributes = {
   		name: "Spouse",
