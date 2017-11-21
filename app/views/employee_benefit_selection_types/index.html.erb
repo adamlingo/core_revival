@@ -24,7 +24,13 @@
         <tr>
           <td style="font-family: open_sansbold; text-align: left"><%="#{type}" %></td>
           <!-- Sort links by type -->
-          <td><%= link_to "Choose #{type} Benefits", company_employee_benefit_selection_type_path(type: type) %></td>
+          <td>
+            <% unless type == "Life" %>
+            <%= link_to "Choose #{type} Benefits", company_employee_benefit_selection_type_path(type: type) %>
+            <% else %>
+              <%= "Reparations in progress :D " %>
+            <% end %>
+          </td>
           <!-- Manager optional links to full roster -->
           <% if current_user.manager? %>
             <td><%= link_to "Company Employee #{type} Benefits", company_employee_benefit_selection_type_manager_index_path(type: type, employee_benefit_selection_type_type: type) %></td>
