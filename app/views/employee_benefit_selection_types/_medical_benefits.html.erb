@@ -47,9 +47,11 @@
       <% end %>
       <br>
     <% end %>
-  <br>
+    <br>
     <div class="buttons">
       <%= f.submit nil, class: 'btn btn-success' %>
+      <%= " | " %>
+      <%= link_to 'Decline Benefit',  company_employee_benefit_selection_type_decline_path(employee_id: @employee.id, employee_benefit_selection_type_type: "Medical"), method: :post, class: "btn btn-danger", data: {confirm: "Decline this rate?"} %>
     </div>
     <br>
   <% end %>

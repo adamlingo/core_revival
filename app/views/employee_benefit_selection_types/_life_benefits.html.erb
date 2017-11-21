@@ -28,8 +28,10 @@
       <%= choice_form.label :monthly_rate, choice_form.object.monthly_rate, class: "monthly_rate" %><br>
     </div>
     <% end %>
-    <div>
+    <div class="buttons">
       <%= f.submit nil, class: 'btn btn-success' %>
+      <%= " | " %>
+      <%= link_to 'Decline Benefit',  company_employee_benefit_selection_type_decline_path(employee_id: @employee.id, employee_benefit_selection_type_type: "Life"), method: :post, class: "btn btn-danger", data: {confirm: "Decline this rate?"} %>
     </div>
   <% end %>
 </div>
