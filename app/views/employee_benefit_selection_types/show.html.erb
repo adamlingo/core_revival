@@ -1,6 +1,4 @@
-<% provide(:title, 'Benefit Selections') %>
-
-<p id="notice"><%= notice %></p>
+<% provide(:title, "#{params[:type].to_s} Benefit Selections") %>
 
 <div class="ben-selections">
   <h1><%= @employee.display_name %><%="- #{params[:type]} Benefits"%></h1>
