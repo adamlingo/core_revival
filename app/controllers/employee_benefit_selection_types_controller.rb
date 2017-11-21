@@ -29,19 +29,17 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 		@company = Company.find(params[:company_id].to_i) 
 		@employee = current_user.current_employee
 		@benefit_profiles = BenefitProfile.where(company_id: @company.id, benefit_type: get_benefit_type_param).sort_by {|profile| [profile.benefit_profile_rank]}.reverse!
-    # need to figure out how to separate choices by provider_plan
     @provider_plans = []
     @benefit_profiles.each {|plan| 
     	plan_name = plan.provider_plan.to_s
     	@provider_plans.push(plan_name)
     }
+    puts "***"
+    puts "#{params[:type].to_s} PROFILE #{@benefit_profiles.to_s}"
     @rate_selection = get_benefit_rate_selection_model
     @rate_selection.build_choices! if @rate_selection.present?
     @selection_categories = BenefitSelectionCategory.all
-    puts "************** CATEGORIES ***************"
-    puts @provider_plans
-    puts "************** CATEGORIES ***************"
-    # variable for current salary and disability rate in Disability benefits display
+    # variable for current salary and disability rate in Disability benefits display (move to other method?)
 		@current_salary = Salary.where(employee_id: @employee.id).sort_by{|sal| [sal.start_date]}.reverse.first 
 		if !@current_salary.nil?
 	  	@current_disability_rate = @benefit_profiles.sort_by{|eff_date| [eff_date.effective_date]}.reverse.first.benefit_details.last.category_sub
@@ -70,6 +68,11 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
     end
 	end
 
+	def decline
+		puts "DECLINE BENEFIT ***********************************"
+		
+	end
+
 	private
 		def get_benefit_type_param
 			params[:type] || params[:employee_benefit_selection_type_type]
@@ -80,6 +83,10 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 	      employee: @employee,
 	      benefit_details: BenefitDetail.where(benefit_profile_id: @benefit_profiles, employee_category: @employee.employee_category)
 	    }
+	    default_life_params = {
+	    	employee: @employee,
+	    	benefit_detail: BenefitDetail.find_by(benefit_profile_id: @benefit_profiles.first, employee_category: @employee.employee_category)
+	    }
 			if get_benefit_type_param == "Medical"
 				@rate_selection = MedicalRateSelection.new(default_params)
 			elsif get_benefit_type_param == "Dental"
@@ -87,8 +94,10 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 			elsif get_benefit_type_param == "Disability"
 				@rate_selection = DisabilityRateSelection.new(default_params)
 			elsif get_benefit_type_param == "Life"
-				@rate_selection = LifeRateSelection.new(default_params)
+				@rate_selection = LifeRateSelection.new(default_life_params)
 			else
+				flash[:error] = "#{params[:type].to_s} Rate selections not found"
+				redirect_to company_employee_benefit_selection_types_path
 				@rate_selection = nil
 			end
 		end
@@ -98,10 +107,12 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 	      employee: @employee, 
 	      benefit_details: BenefitDetail.where(benefit_profile_id: @benefit_profiles, employee_category: @employee.employee_category)
 	    }
+	    default_life_params = {
+	    	employee: @employee,
+	    	benefit_detail: BenefitDetail.find_by(benefit_profile_id: @benefit_profiles.first, employee_category: @employee.employee_category)
+	    }
 			if get_benefit_type_param == "Medical"
 				medical_params = medical_rate_selection_params.merge(default_params)
-				puts "************** MEDICAL PARAMS ***************"
-				puts medical_params
 				MedicalRateSelection.new(medical_params)
 			elsif get_benefit_type_param == "Dental"
 				dental_params = dental_rate_selection_params.merge(default_params)
@@ -109,9 +120,13 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 			elsif get_benefit_type_param == "Disability"
 				disability_params = disability_rate_selection_params.merge(default_params)
 				DisabilityRateSelection.new(disability_params)
+			elsif get_benefit_type_param == "Life"
+				life_params = life_rate_selection_params.merge(default_life_params)
+				puts "************** LIFE PARAMS ***************"
+				puts life_params
 			else
-				# future Life
 				@rate_selection = nil
+				flash[:error] = "Rate selections not found"
 			end
 		end
 
@@ -137,6 +152,15 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
                                             :type,
                                             :employee_benefit_selection_type_type,
                                             choices_attributes: [:name, :plan_name, :label, :selected, :code, :amount, :benefit_detail_id] )
+   	end
+
+   	def life_rate_selection_params
+   		params.require(:life_rate_selection).permit(:employee_id,
+   																					:company_id,
+   																					:type,
+   																					:employee_benefit_selection_type_type,
+   																					choices_attributes: [:name, :label, :selected_amount, :monthly_rate, :employee_id, :benefit_detail_id,
+   																					 :life_benefit_detail_id, :monthly_rates, :cap_amount, :base_coverage, :increment_amount])
    	end
    	# from EE controller - could make universal eventually
    	def authorize_manager_or_self!
