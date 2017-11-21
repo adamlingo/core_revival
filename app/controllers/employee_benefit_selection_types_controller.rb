@@ -2,7 +2,8 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 	# NEEDS SECURITY METHODS FOR ROUTES
 	before_filter :authenticate_user!
 	before_filter :authorize_company!
-	before_filter :authorize_manager_or_self! , only: [:manager_index]
+	before_filter :authorize_manager_or_self!, only: [:manager_index]
+	before_filter :check_for_selection!, only: [:show]
 	
 	def index
 		@company = Company.find(params[:company_id].to_i)
@@ -19,7 +20,7 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 	def manager_index
 		@company = Company.find(params[:company_id].to_i)
 		@all_employees = @company.employees.order(:last_name)
-		@employee_benefit_selections = EmployeeBenefitSelection.where(employee_id: @all_employees.ids, benefit_type: params[:type])
+		@employee_benefit_selections = EmployeeBenefitSelection.where(employee_id: @all_employees.ids, benefit_type: params[:type]).sort_by {|selection| [selection.employee.last_name]}
 		@benefit_profiles = BenefitProfile.where(company_id: @company.id, benefit_type: get_benefit_type_param).sort_by {|profile| [profile.benefit_profile_rank]}.reverse!
 		@selection_categories = BenefitSelectionCategory.all
 		#hmmm
@@ -70,7 +71,20 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 
 	def decline
 		puts "DECLINE BENEFIT ***********************************"
-		
+		@company = Company.find(params[:company_id].to_i) 
+		@employee = current_user.current_employee
+		@benefit_profiles = BenefitProfile.where(company_id: @company.id, benefit_type: get_benefit_type_param).sort_by {|profile| [profile.benefit_profile_rank]}.reverse!
+		# single out 1 BenefitProfile record, then single out 1 benefit detail (need to check nil)
+		profile_to_decline = @benefit_profiles.first
+		benefit_detail = BenefitDetail.find_by(benefit_profile_id: profile_to_decline.id, employee_category: @employee.employee_category)
+		puts "BENEFIT DETAIL #{benefit_detail} ***********************************"
+		EmployeeBenefitSelection.create!(employee: @employee,
+                                      decline_benefit: true,
+                                      benefit_detail_id: benefit_detail.id,
+                                      benefit_type: get_benefit_type_param,
+                                      benefit_selection_category_id: nil,
+                                      amount: 0)
+		redirect_to company_employee_benefit_selection_types_path
 	end
 
 	private
@@ -124,6 +138,7 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 				life_params = life_rate_selection_params.merge(default_life_params)
 				puts "************** LIFE PARAMS ***************"
 				puts life_params
+				# continue here for accepting life selection
 			else
 				@rate_selection = nil
 				flash[:error] = "Rate selections not found"
@@ -169,4 +184,16 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
         flash[:error] = "You do not have permission to view page"
       end
     end
+
+    private
+    	# If a user already has a selection, redirect them so they can't have more than one of the same type
+    	def check_for_selection!
+    		user_selections_by_type = EmployeeBenefitSelection.where(benefit_type: get_benefit_type_param, employee_id: current_user.employee_id)
+    		if user_selections_by_type.count > 0
+    			flash[:notice] = "#{get_benefit_type_param.to_s} selections already made for this user"
+    			redirect_to company_employee_benefit_selection_types_path
+    		else
+    			# flash[:notice] = "#{get_benefit_type_param.to_s} selections NOT made yet"
+    		end
+    	end
 end
