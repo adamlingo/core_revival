@@ -22,16 +22,19 @@
       </tr>
     </thead>
     <tbody>
-      <% @employee_benefit_selections.each do |employee_benefit_selection| %>
+      <% @all_employees.each do |employee| %>
         <tr>
-          <td><%= employee_benefit_selection.employee.last_name %></td>
-          <td><%= employee_benefit_selection.employee.first_name %></td>
-          <td><%= employee_benefit_selection.benefit_profile.provider%></td>
-          <td><%= employee_benefit_selection.benefit_type %></td> 
-          <td><%= employee_benefit_selection.benefit_profile.provider_plan %></td>
-          <td><%= employee_benefit_selection.benefit_profile.effective_date.strftime("%D") %></td>
-          <td><%= number_to_currency(employee_benefit_selection.amount) %></td>
+          <td><%= employee.last_name %></td>
         </tr>
+      <% end %>
+      <% @employee_benefit_selections.each do |employee_benefit_selection| %>
+        <td><%= employee_benefit_selection.employee.last_name %></td>
+        <td><%= employee_benefit_selection.employee.first_name %></td>
+        <td><%= employee_benefit_selection.benefit_profile.provider%></td>
+        <td><%= employee_benefit_selection.benefit_type %></td> 
+        <td><%= employee_benefit_selection.benefit_profile.provider_plan %></td>
+        <td><%= employee_benefit_selection.benefit_profile.effective_date.strftime("%D") %></td>
+        <td><%= number_to_currency(employee_benefit_selection.amount) %></td>
       <% end %>
     </tbody>
   </table>
