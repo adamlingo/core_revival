@@ -36,7 +36,7 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
     	@provider_plans.push(plan_name)
     }
     puts "***"
-    puts "#{params[:type].to_s} PROFILE #{@benefit_profiles.to_s}"
+    puts "#{params[:type]} PROFILE #{@benefit_profiles}"
     @rate_selection = get_benefit_rate_selection_model
     @rate_selection.build_choices! if @rate_selection.present?
     @selection_categories = BenefitSelectionCategory.all
@@ -110,7 +110,7 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 			elsif get_benefit_type_param == "Life"
 				@rate_selection = LifeRateSelection.new(default_life_params)
 			else
-				flash[:error] = "#{params[:type].to_s} Rate selections not found"
+				flash[:error] = "#{params[:type]} Rate selections not found"
 				redirect_to company_employee_benefit_selection_types_path
 				@rate_selection = nil
 			end
@@ -184,16 +184,14 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
         flash[:error] = "You do not have permission to view page"
       end
     end
-
-    private
-    	# If a user already has a selection, redirect them so they can't have more than one of the same type
-    	def check_for_selection!
-    		user_selections_by_type = EmployeeBenefitSelection.where(benefit_type: get_benefit_type_param, employee_id: current_user.employee_id)
-    		if user_selections_by_type.count > 0
-    			flash[:notice] = "#{get_benefit_type_param.to_s} selections already made for this user"
-    			redirect_to company_employee_benefit_selection_types_path
-    		else
-    			# flash[:notice] = "#{get_benefit_type_param.to_s} selections NOT made yet"
-    		end
-    	end
+  	# If a user already has a selection, redirect them so they can't have more than one of the same type
+  	def check_for_selection!
+  		user_selections_by_type = EmployeeBenefitSelection.where(benefit_type: get_benefit_type_param, employee_id: current_user.employee_id)
+  		if user_selections_by_type.count > 0
+  			flash[:notice] = "#{get_benefit_type_param} selections already made for this user"
+  			redirect_to company_employee_benefit_selection_types_path
+  		else
+  			# flash[:notice] = "#{get_benefit_type_param.to_s} selections NOT made yet"
+  		end
+  	end
 end
