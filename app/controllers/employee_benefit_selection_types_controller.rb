@@ -3,24 +3,22 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 	before_filter :authenticate_user!
 	before_filter :authorize_company!
 	before_filter :authorize_manager_or_self!, only: [:manager_index]
+	before_filter :check_for_birthday!, only: [:index]
+	before_filter :check_for_benefit_eligibility!, only: [:index]
 	before_filter :check_for_selection!, only: [:show]
 	
 	def index
 		@company = Company.find(params[:company_id].to_i)
 		employee = current_user.current_employee
-		if employee.benefit_eligible
-			@benefit_types = BenefitProfile.where(company_id: @company.id).pluck(:benefit_type).uniq
-		else
-			redirect_to '/home'
-			flash[:message] = "Not eligible for benefits."
-		end
+		@current_employee_selections = EmployeeBenefitSelection.where(employee_id: employee.id)
+		@benefit_types = BenefitProfile.where(company_id: @company.id).pluck(:benefit_type).uniq
 	end
 
 	# index all selections by type for manager to view EE roster
 	def manager_index
 		@company = Company.find(params[:company_id].to_i)
 		@all_employees = @company.employees.order(:last_name)
-		@employee_benefit_selections = EmployeeBenefitSelection.where(employee_id: @all_employees.ids, benefit_type: params[:type]).sort_by {|selection| [selection.employee.last_name]}
+		@employee_benefit_selections = EmployeeBenefitSelection.where(employee_id: @all_employees.ids, benefit_type: get_benefit_type_param).sort_by {|selection| [selection.employee.last_name]}
 		@benefit_profiles = BenefitProfile.where(company_id: @company.id, benefit_type: get_benefit_type_param).sort_by {|profile| [profile.benefit_profile_rank]}.reverse!
 		@selection_categories = BenefitSelectionCategory.all
 		#hmmm
@@ -184,6 +182,25 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
         flash[:error] = "You do not have permission to view page"
       end
     end
+    # disallow use of benefits index for User/Employee with no birtday on record
+    def check_for_birthday!
+    	current_employee = current_user.current_employee
+    	if current_employee.date_of_birth == nil
+    		flash[:notice] = "Enter your date of birth to view Benefit options!"
+    		redirect_to edit_company_employee_path(id: current_employee.id)
+    	end
+    end
+    # disallow use of benefits index for User/Employee who is not benefit_eligible
+		def check_for_benefit_eligibility!
+			current_employee = current_user.current_employee
+			if !current_employee.benefit_eligible? && current_user.manager?
+				flash[:notice] = "Make Employee benefit-eligible to view Benefits"
+    		redirect_to edit_company_employee_path(id: current_employee.id)
+    	elsif !current_employee.benefit_eligible? && current_user.employee?
+    		flash[:notice] = "Not currently listed as benefit-eligible"
+    		redirect_to company_employee_path(id: current_employee.id)
+    	end
+		end
   	# If a user already has a selection, redirect them so they can't have more than one of the same type
   	def check_for_selection!
   		user_selections_by_type = EmployeeBenefitSelection.where(benefit_type: get_benefit_type_param, employee_id: current_user.employee_id)
