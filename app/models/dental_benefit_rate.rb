@@ -7,7 +7,7 @@ class DentalBenefitRate < ActiveRecord::Base
   def self.compute_employee_rate(employee_id, benefit_detail)
     rate = benefit_detail.category_sub
     rate
-  end  
+  end
 
   def self.compute_employee_spouse_rate(employee_id, benefit_detail)
     rate = benefit_detail.category_sps

@@ -1,37 +1,61 @@
-<div class="ben-selections">
-  <h3> Medical Type indexing test </h1>
-
-  <h3><%= @rate_selection.benefit_details.count %><%=" benefit details showing"%></h3>
-</div>
-
-<div class="ben-selections">
-  <table>
-    <thead>
-      <th></th>
-      <% @benefit_profiles.each do |profile| %>
-      <th><%= profile.provider %> <%= profile.provider_plan%></th>
-      <% end %>
-    </thead>
-    <tbody>
-      <%= form_for @rate_selection, url: company_employee_benefit_selection_type_accept_path(company_id: @company.id, employee_id: @employee.id, employee_benefit_selection_type_type: :type) do |f| %>
-        <% @selection_categories.each do |selection_category| %>    
-        <% rate_choices = @choices_dto[selection_category.code.to_sym] %>
-          <% if rate_choices.present? %>
-            <tr>
-              <td><%= selection_category.name %></td>
-              <% rate_choices.each do |rate_choice| %>
-               
-              <td>
-                <%= f.check_box :selected %>
-                <%=" "%><%= number_to_currency(rate_choice.amount)%></td>
-              <% end %>
-            </tr>
+<h1> CHOPABLE </h1>
+<div class="selections">
+  <% current_choice_code = nil %>
+  <% @selection_categories.each do |category| %>
+    <% category_choices = @rate_selection.choices.select{|choice| choice.code == category.code} %>
+    <% @provider_plans.each do |plan_name| %>
+      <% category_plan_choice = category_choices.select{|category_choice| category_choice.plan_name == plan_name}.first %>
+      <% if category_plan_choice.present? %>
+        <div class="selection-row">
+          <div class="selection-choice-item"><%= category_plan_choice.plan_name %></div>
+          <% if current_choice_code != category.code %>
+            <div class="selection-choice-item"><%= category_plan_choice.name %></div>
           <% end %>
-        <% end %>
-        <div>
-          <%= f.submit %>
+          <div class="selection-choice-item"><%= category_plan_choice.label %></div>
         </div>
       <% end %>
-    </tbody>
+    <% current_choice_code = category.code %>
+     <!-- CLOSE FORM LOOP -->
+    <% end %>
+    <br>
+  <% end %>
+</div>
+
+<h1> DIVISION TO OLD COLUMN</h1>
+<!-- <div class="selections">
+  <table>
+    <thead>
+      <tr>
+        <% @benefit_profiles.each do |profile| %>
+        <th style="width: 90px"><%= profile.provider %></th>
+        <th style="width: 145px">Subscriber Details</th>
+        <th style="width: 125px">Monthly Cost</th>
+        <th style="width: 65px"></th>
+        <% end %>
+      </tr>
+    </thead>
   </table>
+</div> -->
+<div class="insurance-table">
+  <%= form_for @rate_selection, url: company_employee_benefit_selection_type_accept_path(company_id: @company.id, employee_id: @employee.id, employee_benefit_selection_type_type: "Medical") do |f| %>
+    <%= f.fields_for :choices, @rate_selection.choices do |choice_form| %>
+      <table>
+        <%= choice_form.hidden_field :code %>
+        <%= choice_form.hidden_field :amount %>
+        <%= choice_form.hidden_field :benefit_detail_id %>
+        <td style="width: 90px"><%= choice_form.label :plan_name, choice_form.object.plan_name %></td>
+        <td style="width: 145px"><%= choice_form.label :name, choice_form.object.name, class: "choice_name" %></td>
+        <%= choice_form.hidden_field :name %>
+        <td style="width: 125px"><%= choice_form.label :label, number_to_currency(choice_form.object.amount), class: "choice_amount" %></td>
+        <td style="width: 65px"><%= choice_form.check_box :selected %></td>
+      </table>
+    <% end %>
+    <br>
+    <div>
+      <%= f.submit %>
+    </div>
+    <br>
+  <% end %>
+</div>
+<div id="clear">
 </div>

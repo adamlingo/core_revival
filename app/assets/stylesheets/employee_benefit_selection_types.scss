@@ -3,29 +3,76 @@
 @import 'colors';
 @import 'fonts';
 
-.ben-selections {
+.selections {
 	font-family: open_sansregular;
 	font-size: 14px;
-	color: $text-grey;
-	box-sizing: border-box;
 
+	ul.selection-header {
+		margin: 0;
+		padding: 0;
+		text-align: center;
+		font-family: open_sansbold;
+	}	
+	ul.selection-header li{
+		display: inline-block;
+		height: 50px;
+		line-height: 50px;
+		background-color: $green-dark;
+		color: white;
+		border: solid 1px white;
+		float: left;
+	}
+	div.selection-cell {
+		display: inline-block;
+		height: 50px;
+		line-height: 50px;
+		border: solid 1px $text-grey;
+	}
+	div.selection-choice-item {
+		padding: 0px 20px;
+		color: black;
+		font-family: open_sansregular;
+		font-size: 16px;
+		float: left;
+	}
+	div.selection-choice-item-name {
+		padding: 0px 20px;
+		color: $green-dark;
+		font-family: open_sansbold;
+		width: 325px;
+		float: left;
+	}
+	div.selection-disability {
+		table, td {
+			height: 40px;
+			line-height: 40px;
+			color: $green-dark;
+			font-family: open_sansbold;
+			font-size: 18px;
+			text-align: center;
+		}
+	}
 	h1 {
-	padding-bottom: 10px;
-	text-align: left;
-	font-family: open_sansbold;
+		padding-bottom: 10px;
+		text-align: left;
+		font-family: open_sansbold;
 	}
 	th, td {
 		padding: 5px 20px;
 		border: solid 1px $text-grey;
 		border-collapse: collapse;
-	    box-sizing: border-box;
-	  	border: solid 1px;
-	  	stext-align: center;
+		box-sizing: border-box;
+		text-align: left;
+		color: $text-grey;
 	}
 	th {
 		font-family: open_sansbold;
 		font-size: 14px;
 		background-color: $green-dark;
+		color: white;
+		&:nth-child(2), &:nth-child(3) {
+			text-align: center;
+		}
 	}
 	p {
 		text-align: left;
@@ -37,6 +84,16 @@
 	i {
 		color: white;
 	}
+	a {
+    color: $green-dark;
+    text-decoration: none;
+    font-family: open_sansregular;
+    &:hover{
+    	background: $yellow-hover;
+  		color: white;
+      text-decoration: none;
+    }
+  }
 }
 
 .buttons {

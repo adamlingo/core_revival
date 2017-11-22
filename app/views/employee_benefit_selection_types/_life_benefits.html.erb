@@ -7,28 +7,35 @@
 	<br>
 <% end %>
 
-<div class="ben-selections">
+<div class="selections">
   <%= form_for @rate_selection, url: company_employee_benefit_selection_type_accept_path(company_id: @company.id, employee_id: @employee.id, employee_benefit_selection_type_type: "Life") do |f| %>
   	<%= "Base Coverage:" %>
   	<%= f.label :base_coverage, number_to_currency(f.object.base_coverage) %><br>
-    <%= f.hidden_field :employee_benefit_selection_id, class: "employee_benefit_selection_id" %>
     <%= f.hidden_field :employee_id, class: "employee_id" %>
+    <%= f.hidden_field :life_benefit_detail_id, class: "life_benefit_detail_id" %>
     <hr>
-    <%= f.fields_for :choices, @rate_selection.choices do |choice_form| %>
+    <!-- make fields for each type of choices (not just employee_choices) -->
+    <%= f.fields_for :employee_choices, @rate_selection.employee_choices do |choice_form| %>
     <div class="life-insurance #{choice_form.object.name}">
       <%= choice_form.label :name, choice_form.object.name, class: "choice_name" %><br>
-      <%= choice_form.label "max amount: " %>
+      <%= choice_form.label "maximum coverage: " %>
       <%= choice_form.label :cap_amount, number_to_currency(choice_form.object.cap_amount) %><br>
       <%= choice_form.label "increment amount: " %>
       <%= choice_form.label :increment_amount, number_to_currency(choice_form.object.increment_amount), class: "increment_amount" %><br>
       <%= choice_form.label "desired coverage amount: " %>
       <%= choice_form.text_field :selected_amount, class: "selected_amount" %><%= " = " %>
       <%= choice_form.label "monthly rate" %>
-      <%= choice_form.text_field :monthly_rate, class: "monthly_rate" %><br>
+      <%= choice_form.object.monthly_rates.count %>
+      <%= choice_form.select :selected_amount, choice_form.object.monthly_rates.map {|rate| ["Coverage: #{rate.selected_amount} - Monthly Cost: #{rate.monthly_rate}", rate.selected_amount]}%><br>
     </div>
     <% end %>
 
-    <%= f.submit %>
+    <!-- add other 2 f.fields_for -->
+    <div class="buttons">
+      <%= f.submit nil, class: 'btn btn-success' %>
+      <%= " | " %>
+      <%= link_to 'Decline Benefit',  company_employee_benefit_selection_type_decline_path(employee_id: @employee.id, employee_benefit_selection_type_type: "Life"), method: :post, class: "btn btn-danger", data: {confirm: "Decline this rate?"} %>
+    </div>
   <% end %>
 </div>
 
@@ -37,7 +44,7 @@
 	$(document).ready(function() {
 		function lookupRate(amount, type, $el) {
 			var employee_id = $(".employee_id").val();
-			var employee_benefit_selection_id = $(".employee_benefit_selection_id").val();
+			var life_benefit_detail_id = $(".life_benefit_detail_id").val();
 			// $el.val(amount);
 			var url = "/life_insurance_rate_selection/find";
 			var post_data = {
@@ -45,7 +52,7 @@
 				url: url, 
 				data: {
 					employee_id: employee_id,
-					employee_benefit_selection_id: employee_benefit_selection_id,
+					life_benefit_detail_id: life_benefit_detail_id,
 					amount: amount,
 					type: type,
 					dataType: "application/json",
@@ -55,7 +62,7 @@
 			$.ajax(post_data).done(function success_function(response_data){
 				$el.val(response_data.monthly_rate);
 			}).fail(function error_function(){
-				alert("It FAILED")
+				alert("IT FAILED")
 			});
 		}
 		$(".selected_amount").on("change", function(){

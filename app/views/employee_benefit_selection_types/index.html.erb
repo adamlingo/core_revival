@@ -7,24 +7,30 @@
 
 </br>
 
-<div class='ben-selections'>
-  <table class='ben-selections'>
+<div class='selections'>
+  <table>
     <thead>
       <tr>
         <th>Insurance Type</th>
-        <th>Actions</th>
+        <th style="width: 250px;">Actions</th>
         <% if current_user.manager? %>
-          <th>View full Employee roster</th>
+          <th style="width: 325px;">View full Employee roster</th>
         <% end %>
       </tr>
     </thead>
-
+    <!-- show 1 column for EE benefits, 2 for ER to see full Company selections -->
     <tbody>
       <% @benefit_types.each do |type| %>
         <tr>
-          <td><%="#{type}" %></td>
+          <td style="font-family: open_sansbold; text-align: left"><%="#{type}" %></td>
           <!-- Sort links by type -->
-          <td><%= link_to "Choose #{type} Benefits", company_employee_benefit_selection_type_path(type: type) %></td>
+          <td>
+            <% unless type == "Life" %>
+            <%= link_to "Choose #{type} Benefits", company_employee_benefit_selection_type_path(type: type) %>
+            <% else %>
+              <%= "In Development - Coming Soon! " %>
+            <% end %>
+          </td>
           <!-- Manager optional links to full roster -->
           <% if current_user.manager? %>
             <td><%= link_to "Company Employee #{type} Benefits", company_employee_benefit_selection_type_manager_index_path(type: type, employee_benefit_selection_type_type: type) %></td>
@@ -34,4 +40,43 @@
     </tbody>
   </table>
 </div>
+<br><br>
+<!-- show user their selections if they exist -->
+<% if @current_employee_selections.count > 0 %>
+  <h3> My Plans: </h3>
+  <div class='selections'>
+    <table>
+      <thead>
+        <tr>
+          <th>Provider</th>
+          <th>Type</th>
+          <th>Plan</th>
+          <th>Effective Date</th>
+          <th style="text-align: center;">Benefit Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @current_employee_selections.each do |employee_benefit_selection| %>
+          <tr>
+            <td><%= employee_benefit_selection.benefit_profile.provider %></td>
+            <td><%= employee_benefit_selection.benefit_profile.benefit_type %></td>
+            <td><%= employee_benefit_selection.benefit_profile.provider_plan %></td>
+            <td><%= employee_benefit_selection.benefit_profile.effective_date.strftime("%D") %></td>
+            <% if !employee_benefit_selection.decline_benefit == true %>
+              <td style="color: green; text-align: center;"><%= number_to_currency(employee_benefit_selection.amount) %></td>
+            <% else %>
+              <td style="color: red; text-align: center;"><%="Declined"%></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
 <br>
+
+<div class="buttons">
+  <span class="btn btn-success"><i class='fa fa-home'></i>
+    <%= link_to 'Home', root_path, {style: "color: white; text-decoration: none;"} %></span>
+</div>
+
