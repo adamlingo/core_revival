@@ -28,7 +28,7 @@
             <% unless type == "Life" %>
             <%= link_to "Choose #{type} Benefits", company_employee_benefit_selection_type_path(type: type) %>
             <% else %>
-              <%= "Reparations in progress :D " %>
+              <%= "In Development - Coming Soon! " %>
             <% end %>
           </td>
           <!-- Manager optional links to full roster -->
@@ -40,7 +40,39 @@
     </tbody>
   </table>
 </div>
-
+<br><br>
+<!-- show user their selections if they exist -->
+<% if @current_employee_selections.count > 0 %>
+  <h3> My Plans: </h3>
+  <div class='selections'>
+    <table>
+      <thead>
+        <tr>
+          <th>Provider</th>
+          <th>Type</th>
+          <th>Plan</th>
+          <th>Effective Date</th>
+          <th style="text-align: center;">Benefit Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @current_employee_selections.each do |employee_benefit_selection| %>
+          <tr>
+            <td><%= employee_benefit_selection.benefit_profile.provider %></td>
+            <td><%= employee_benefit_selection.benefit_profile.benefit_type %></td>
+            <td><%= employee_benefit_selection.benefit_profile.provider_plan %></td>
+            <td><%= employee_benefit_selection.benefit_profile.effective_date.strftime("%D") %></td>
+            <% if !employee_benefit_selection.decline_benefit == true %>
+              <td style="color: green; text-align: center;"><%= number_to_currency(employee_benefit_selection.amount) %></td>
+            <% else %>
+              <td style="color: red; text-align: center;"><%="Declined"%></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
 <br>
 
 <div class="buttons">
