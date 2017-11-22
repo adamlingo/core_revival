@@ -18,7 +18,7 @@
         <th>Type</th>
         <th>Plan</th>
         <th>Effective Date</th>
-        <th>Amount</th>
+        <th style="text-align: center;">Amount</th>
       </tr>
     </thead>
     <tbody>
@@ -31,8 +31,8 @@
             <td><%= employee_benefit_selection.benefit_profile.provider%></td>
             <td><%= employee_benefit_selection.benefit_type %></td> 
             <td><%= employee_benefit_selection.benefit_profile.provider_plan %></td>
-            <td><%= employee_benefit_selection.benefit_profile.effective_date.strftime("%D") %></td>
-            <td style="color: red;"><%= "Declined" %></td>
+            <td style="text-align: center;"><%= employee_benefit_selection.benefit_profile.effective_date.strftime("%D") %></td>
+            <td style="color: red;"><%= "Declined Benefit" %></td>
           </tr>
         <% elsif !employee_benefit_selection.decline_benefit %>
           <tr>
@@ -41,18 +41,24 @@
             <td><%= employee_benefit_selection.benefit_profile.provider%></td>
             <td><%= employee_benefit_selection.benefit_type %></td> 
             <td><%= employee_benefit_selection.benefit_profile.provider_plan %></td>
-            <td><%= employee_benefit_selection.benefit_profile.effective_date.strftime("%D") %></td>
+            <td style="text-align: center;"><%= employee_benefit_selection.benefit_profile.effective_date.strftime("%D") %></td>
             <td style="color: green;"><%= number_to_currency(employee_benefit_selection.amount) %></td>
           </tr>
         <% end %>
       <% end %>
       <!-- show employees with no selections yet -->
       <% @all_employees.each do |employee| %>
-        <% if employee.employee_benefit_selections.count == 0 %>
+        <% if employee.employee_benefit_selections.where(benefit_type: params[:type]).count == 0 %>
         <tr>
           <td><%= employee.last_name %></td>
           <td><%= employee.first_name %></td>
-          <td colspan="5", style="text-align: center;"> No selection yet </td>
+          <% if employee.date_of_birth == nil %>
+            <td colspan="5", style="text-align: center;"><%= link_to 'Add Birthday for Employee', edit_company_employee_path(id: employee.id) %></td>
+          <% elsif !employee.benefit_eligible? && employee.date_of_birth != nil? %>
+            <td colspan="5", style="text-align: center; color: orange;"><%= link_to 'Make Eligible for Benefits', edit_company_employee_path(id: employee.id) %></td>
+          <% else %>
+            <td colspan="5", style="text-align: center; color: red;"> Eligible, but no selection yet </td>
+          <% end %>
         </tr>
         <% end %>
       <% end %>
