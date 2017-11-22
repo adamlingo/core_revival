@@ -4,7 +4,7 @@ class LifeRateSelection < ResourceModel::Base
     string_accessor :name # employee only, employee + spouse, etc...
     string_accessor :label
     string_accessor :selected_amount
-    string_accessor :monthly_rate
+    # has_associated_model :monthly_rate
     integer_accessor :employee_id
     integer_accessor :benefit_detail_id
     integer_accessor :life_benefit_detail_id
@@ -14,14 +14,14 @@ class LifeRateSelection < ResourceModel::Base
     attr_accessor :increment_amount
 
     def build_monthly_rates
-      monthly_rates = []
+      @monthly_rates = []
       # rate_per_thousand = lookup_rate_per_thousand
       # age_cap_percentage = lookup_age_cap_percentage
       # compute_rates base_amount, or 0 for no-coverage -> cap amount by increments
       # while !cap_amount
-      @monthly_rate = MonthlyRate.new(selected_amount: 10000, monthly_rate: 14.32)
+      monthly_rate = MonthlyRate.new(selected_amount: 10000, monthly_rate: 14.32)
       puts "^^^^^^^^^^^^^^ #{@monthly_rate}"
-      monthly_rates.push(monthly_rate)
+      @monthly_rates.push(monthly_rate)
     end
 
     def lookup_rate_per_thousand
@@ -64,7 +64,7 @@ class LifeRateSelection < ResourceModel::Base
 	end
 
   def build_choices!
-    # method too long currently!! - CodeShip
+    # method too long currently!! - CodeClimate
   	return unless self.employee.benefit_eligible
   	life_benefit_detail = get_life_benefit_detail
     # useless assignment to variable?
