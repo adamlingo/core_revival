@@ -62,7 +62,11 @@ ActiveAdmin.register Employee do
   # Creating an Employee Adds a correlated User in Admin
   after_save do |employee|
     user = User.invite!({:email => employee.email})
-    user.employee = true
+    if employee.employee_category == "Manager"
+      user.manager = true
+    else employee.employee_category == "Employee"
+      user.employee = true
+    end
     user.save!
     employee.user_id = user.id
     employee.save
