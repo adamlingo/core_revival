@@ -70,7 +70,7 @@ class LifeRateSelection < ResourceModel::Base
     employee_selected_rates = employee_choices
     spouse_selected_rates = spouse_choices
     dependent_selected_rate = dependent_choices
-    binding.pry
+    # binding.pry
     false
     # CREATE EMPLOYEE BENEFIT SELECTION RECORD TO SAVE AMOUNT TO
     # self.employee_benefit_selection.save!
