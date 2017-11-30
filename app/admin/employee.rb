@@ -64,7 +64,7 @@ ActiveAdmin.register Employee do
     user = User.invite!({:email => employee.email})
     if employee.employee_category == "Manager"
       user.manager = true
-    else employee.employee_category == "Employee"
+    elsif employee.employee_category == "Employee"
       user.employee = true
     end
     user.save!
