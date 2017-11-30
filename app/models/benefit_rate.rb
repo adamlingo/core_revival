@@ -149,30 +149,30 @@ class BenefitRate < ActiveRecord::Base
   end
 
   # AGE ON BENEFIT PROFILE EFFECTIVE DATE
-  def self.effective_age(effective_date, dob, detail_id)
-    # PUTS STATEMENTS FOR TERMINAL CHILLNESS
-    puts "effective_date ====== #{effective_date}"
-    puts "DOB of ee ====== #{dob}"
-    # calculate current age of ee
-    age = Date.today.year - dob.year
-    age -= 1 if Date.today < dob + age.years
-    puts "AGE of ee ====== #{age}"
-    # calculate age of ee on effective date of Benefit Profile
-    effective_age = effective_date.year - dob.year
-    effective_age -= 1 if effective_date < dob + effective_age.years
-    puts "EFFECTIVE_AGE of ee ====== #{effective_age}"
-    # return age of subject on the effective date of the Benefit Profile (default to lowest age if lower)
-    # ensure it sorts by age
-    youngest_imported_age = BenefitRate.where(benefit_detail_id: detail_id).first
-    puts "*****************************"
-    puts youngest_imported_age.age
-    if effective_age < youngest_imported_age.age
-      effective_age = youngest_imported_age.age
-      effective_age
-    else
-      effective_age
-    end
-  end
+  # def self.effective_age(effective_date, dob, detail_id)
+  #   # PUTS STATEMENTS FOR TERMINAL CHILLNESS
+  #   puts "effective_date ====== #{effective_date}"
+  #   puts "DOB of ee ====== #{dob}"
+  #   # calculate current age of ee
+  #   age = Date.today.year - dob.year
+  #   age -= 1 if Date.today < dob + age.years
+  #   puts "AGE of ee ====== #{age}"
+  #   # calculate age of ee on effective date of Benefit Profile
+  #   effective_age = effective_date.year - dob.year
+  #   effective_age -= 1 if effective_date < dob + effective_age.years
+  #   puts "EFFECTIVE_AGE of ee ====== #{effective_age}"
+  #   # return age of subject on the effective date of the Benefit Profile (default to lowest age if lower)
+  #   # ensure it sorts by age
+  #   youngest_imported_age = BenefitRate.where(benefit_detail_id: detail_id).first
+  #   puts "*****************************"
+  #   puts youngest_imported_age.age
+  #   if effective_age < youngest_imported_age.age
+  #     effective_age = youngest_imported_age.age
+  #     effective_age
+  #   else
+  #     effective_age
+  #   end
+  # end
   
   # IMPORT RATE/AGE TABLE
   def self.import(benefit_detail_id, file_path)
