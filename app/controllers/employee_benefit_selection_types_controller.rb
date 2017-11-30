@@ -55,15 +55,15 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 		@selection_categories = BenefitSelectionCategory.all
 		@benefit_profiles = BenefitProfile.where(company_id: @company.id, benefit_type: get_benefit_type_param).sort_by {|profile| [profile.benefit_profile_rank]}.reverse!
     @rate_selection = get_benefit_rate_selection_model_for_accept
-    puts @rate_selection.to_choices_string
+    
+    # Prompt User with custom flash before accepting benefits??
     if @rate_selection.valid? && @rate_selection.select_choice!
       flash[:info] = "Benefit Selection saved!"
-      #redirect_to company_employee_benefit_selection_type_path(type: get_benefit_type_param)
       redirect_to company_employee_benefit_selection_types_path
     else
       flash[:error] = "Unable to save rate selection: #{@rate_selection.errors.full_messages.to_sentence}"
       # figure out how to get the form to reload with previous data here
-      redirect_to :back
+      render :show
     end
 	end
 
@@ -134,9 +134,7 @@ class EmployeeBenefitSelectionTypesController < ApplicationController
 				DisabilityRateSelection.new(disability_params)
 			elsif get_benefit_type_param == "Life"
 				life_params = life_rate_selection_params.merge(default_life_params)
-				puts "************** LIFE PARAMS ***************"
-				puts life_params
-				# continue here for accepting life selection
+				LifeRateSelection.new(life_params)
 			else
 				@rate_selection = nil
 				flash[:error] = "Rate selections not found"
