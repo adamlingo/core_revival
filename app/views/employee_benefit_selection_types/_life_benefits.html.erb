@@ -30,6 +30,21 @@
     </div>
     <% end %>
 
+    <%= f.fields_for :spouse_choices, @rate_selection.spouse_choices do |choice_form| %>
+    <div class="life-insurance #{choice_form.object.name}">
+      <%= choice_form.label :name, choice_form.object.name, class: "choice_name" %><br>
+      <%= choice_form.label "maximum coverage: " %>
+      <%= choice_form.label :cap_amount, number_to_currency(choice_form.object.cap_amount) %><br>
+      <%= choice_form.label "increment amount: " %>
+      <%= choice_form.label :increment_amount, number_to_currency(choice_form.object.increment_amount), class: "increment_amount" %><br>
+      <%= choice_form.label "desired coverage amount: " %>
+      <%= choice_form.text_field :selected_amount, class: "selected_amount" %><%= " = " %>
+      <%= choice_form.label "monthly rate" %>
+      <%= choice_form.object.monthly_rates.count %>
+      <%= choice_form.select :selected_amount, choice_form.object.monthly_rates.map {|rate| ["Coverage: #{rate.selected_amount} - Monthly Cost: #{rate.monthly_rate}", rate.selected_amount]}%><br>
+    </div>
+    <% end %>
+
     <!-- add other 2 f.fields_for -->
     <div class="buttons">
       <%= f.submit nil, class: 'btn btn-success' %>
