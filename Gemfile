@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.0'
+ruby '2.3.3'
 
 # DEFAULTS AND POSTGRES
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -25,13 +25,13 @@ gem 'turbolinks'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # bootstrap
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '>= 3.4.1'
 # scss conversion helper for deployment
 gem 'font-awesome-sass', '~> 4.7.0'
 gem 'font_assets'
 
 # LOGIN/AUTH
-gem 'devise' # UI tools for client-user login
+gem 'devise', '>= 4.6.0' # UI tools for client-user login
 gem 'devise_invitable'
 
 # SERVICES/INTEGRATIONS
