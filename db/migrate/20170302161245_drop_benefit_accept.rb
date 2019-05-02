@@ -1,5 +1,5 @@
 class DropBenefitAccept < ActiveRecord::Migration
   def change
-  	drop_table :benefit_accepts
+  	table_exists?(:benefit_accept) ? drop_table(:benefit_accept) : nil
   end
 end

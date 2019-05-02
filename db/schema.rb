@@ -74,10 +74,10 @@ ActiveRecord::Schema.define(version: 20170919232841) do
     t.string   "provider_plan"
     t.string   "benefit_type"
     t.string   "benefit_method"
+    t.string   "account_number"
     t.integer  "eligibility_days"
     t.boolean  "spouse_eligible"
     t.boolean  "child_eligible"
-    t.string   "account_number"
     t.date     "effective_date"
     t.integer  "benefit_profile_rank"
   end
@@ -183,8 +183,8 @@ ActiveRecord::Schema.define(version: 20170919232841) do
   create_table "employees", force: :cascade do |t|
     t.string   "name"
     t.integer  "company_id"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "email"
     t.string   "address"
     t.string   "city"
@@ -201,8 +201,8 @@ ActiveRecord::Schema.define(version: 20170919232841) do
     t.string   "ssn"
     t.string   "encrypted_ssn"
     t.string   "encrypted_ssn_iv"
-    t.boolean  "view_salary",       default: true, null: false
-    t.string   "employee_category"
+    t.boolean  "view_salary",       default: true,       null: false
+    t.string   "employee_category", default: "Employee"
   end
 
   create_table "folders", force: :cascade do |t|
