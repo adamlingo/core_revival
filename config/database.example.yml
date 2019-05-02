@@ -8,8 +8,8 @@ default: &default
 
 development:
   <<: *default
-  database: core_redux_dev
+  database: core_revival_dev
 
 test:
   <<: *default
-  database: core_redux_test
+  database: core_revival_test
