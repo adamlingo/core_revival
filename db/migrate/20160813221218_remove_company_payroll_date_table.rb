@@ -1,5 +1,5 @@
 class RemoveCompanyPayrollDateTable < ActiveRecord::Migration
   def change
-    drop_table :company_payroll_dates
+    table_exists?(:company_payroll_date_table) ? drop_table(:company_payroll_date_table) : nil
   end
 end
