@@ -5,4 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# Admin User default for logging into Active Admin Panel
 AdminUser.create!(email: 'admin@core.com', password: 'Core1204', password_confirmation: 'Core1204')
