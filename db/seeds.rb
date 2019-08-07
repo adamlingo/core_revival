@@ -8,11 +8,3 @@
 
 # Admin User default for logging into Active Admin Panel
 AdminUser.create!(email: 'admin@core.com', password: 'Core1204', password_confirmation: 'Core1204')
-
-# Seed default Company as parent to seeded Manager and Employee users
-
-
-# Seed Manager Empmloyee Record
-
-
-# Seed EE, regular Employee Record
