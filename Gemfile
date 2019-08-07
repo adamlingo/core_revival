@@ -3,7 +3,7 @@ ruby '2.4.6'
 
 # DEFAULTS AND POSTGRES
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2', '>= 4.2.5.1'
+gem 'rails', '~> 4.2', '>= 4.2.9'
 # Use postgres as the database for Active Record
 gem 'pg'
 # Gem for using protected attributes (mass assignment security)
