@@ -19,7 +19,7 @@
 Clone the repo and `bundle install` the gems.
 
 ```
-git clone https://github.com/CoreEmployeeSolutions/core_redux.git
+git clone https://github.com/adamlingo/core_revival.git
 cd core_redux
 bundle install
 ```
@@ -54,18 +54,17 @@ Behold! The app is running: http://locahost:3000/
 ## Testing
 This app uses minitest for testing. Run the tests with the following command:
 ``` rake test ```
-* @ryoe is transitioning tests into Rspec for greater functionality and can be run with:
+* @ryoe wrote tests into Rspec for greater functionality and can be run with:
 ``` rspec ```
 
 ----
 
 ### Production
 The app is live at:
-https://core-redux.herokuapp.com
+https://core-revival.herokuapp.com
 
 ### Hosting
 The app is hosted at heroku.
-DNS is hosted at Godaddy
 
 ### Custom Rake
 Read more about copying the production db: https://github.com/CoreEmployeeSolutions/core_redux/wiki/Heroku-Restore
