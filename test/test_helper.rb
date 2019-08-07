@@ -1,7 +1,7 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'simplecov'
+# require 'simplecov'
 
 SimpleCov.start
 # Add minitest for green/red pass/fail
