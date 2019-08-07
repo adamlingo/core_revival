@@ -2,6 +2,8 @@
 
 ## Integrations & Code Quality
 [![Codeship Status for adamlingo/core_revival](https://app.codeship.com/projects/0a613800-9b56-0137-ed11-763e4514bc3d/status?branch=master)](https://app.codeship.com/projects/358484/)
+[![Coverage Status](https://coveralls.io/repos/github/adamlingo/core_revival/badge.svg?branch=master)](https://coveralls.io/github/adamlingo/core_revival?branch=master)
+
 ## Requirements
 
 - Ruby
