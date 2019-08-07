@@ -16,5 +16,6 @@
 !/log/.keep
 /tmp
 .env
+.coveralls.yml
 config/database.yml
 coverage
