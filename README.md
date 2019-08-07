@@ -1,9 +1,8 @@
 # Core
 
 ## Integrations & Code Quality
-[ ![Codeship Status for CoreEmployeeSolutions/core_redux](https://app.codeship.com/projects/fbb227e0-e949-0133-529a-7a94674dea5d/status?branch=master)](https://app.codeship.com/projects/147535)
-[![Code Climate](https://codeclimate.com/repos/576c5b1cb43e07008d001e28/badges/c72d3ca9182ffcfc94b2/gpa.svg)](https://codeclimate.com/repos/576c5b1cb43e07008d001e28/feed)
-<a href="https://codeclimate.com/repos/576c5b1cb43e07008d001e28/feed"><img src="https://codeclimate.com/repos/576c5b1cb43e07008d001e28/badges/c72d3ca9182ffcfc94b2/issue_count.svg" /></a>
+[![Codeship Status for adamlingo/core_revival](https://app.codeship.com/projects/0a613800-9b56-0137-ed11-763e4514bc3d/status?branch=master)](https://app.codeship.com/projects/358484/)
+[![Coverage Status](https://coveralls.io/repos/github/adamlingo/core_revival/badge.svg?branch=master)](https://coveralls.io/github/adamlingo/core_revival?branch=master)
 
 ## Requirements
 
@@ -19,7 +18,7 @@
 Clone the repo and `bundle install` the gems.
 
 ```
-git clone https://github.com/CoreEmployeeSolutions/core_redux.git
+git clone https://github.com/adamlingo/core_revival.git
 cd core_redux
 bundle install
 ```
@@ -54,18 +53,17 @@ Behold! The app is running: http://locahost:3000/
 ## Testing
 This app uses minitest for testing. Run the tests with the following command:
 ``` rake test ```
-* @ryoe is transitioning tests into Rspec for greater functionality and can be run with:
+* @ryoe wrote tests into Rspec for greater functionality and can be run with:
 ``` rspec ```
 
 ----
 
 ### Production
 The app is live at:
-https://core-redux.herokuapp.com
+https://core-revival.herokuapp.com
 
 ### Hosting
 The app is hosted at heroku.
-DNS is hosted at Godaddy
 
 ### Custom Rake
 Read more about copying the production db: https://github.com/CoreEmployeeSolutions/core_redux/wiki/Heroku-Restore
