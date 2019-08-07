@@ -1,7 +1,7 @@
 # Core
 
 ## Integrations & Code Quality
-[ ![Codeship Status for adamlingo/core_revival](https://app.codeship.com/projects/0a613800-9b56-0137-ed11-763e4514bc3d/status?branch=master)
+[![Codeship Status for adamlingo/core_revival](https://app.codeship.com/projects/0a613800-9b56-0137-ed11-763e4514bc3d/status?branch=master)](https://app.codeship.com/projects/358484/)
 [![Code Climate](https://codeclimate.com/repos/576c5b1cb43e07008d001e28/badges/c72d3ca9182ffcfc94b2/gpa.svg)](https://codeclimate.com/repos/576c5b1cb43e07008d001e28/feed)
 <a href="https://codeclimate.com/repos/576c5b1cb43e07008d001e28/feed"><img src="https://codeclimate.com/repos/576c5b1cb43e07008d001e28/badges/c72d3ca9182ffcfc94b2/issue_count.svg" /></a>
 
