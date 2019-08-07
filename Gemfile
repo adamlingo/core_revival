@@ -92,8 +92,11 @@ group :development, :test do
   gem 'minitest-reporters'
   # CodeClimate score
   gem 'codeclimate-test-reporter', "~> 1.0.0"
-  gem "simplecov"
-  gem 'dotenv-rails'  # env variables to function like heroku
+  # gem "simplecov"
+  # COVERAGE GEM
+  gem 'coveralls', require: false
+  # env variables to function like heroku
+  gem 'dotenv-rails'
 end
 
 group :production do 
