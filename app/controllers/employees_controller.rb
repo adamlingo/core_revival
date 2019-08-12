@@ -58,7 +58,7 @@ class EmployeesController < ApplicationController
     @employee.company_id = @company.id
     if @employee.save
       flash[:success] = "New employee successfully created!"
-      notify_zendesk('NEW EMPLOYEE ADDED')
+      # notify_zendesk('NEW EMPLOYEE ADDED')
       # current_user logs who sent the invite
       user = User.invite!({:email => @employee.email})
       user.employee = true
