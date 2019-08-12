@@ -9,26 +9,29 @@
 <%= link_to "New folder", :new_company_folder, class: "btn btn-primary", role: "button" %>
 
 </br>
-
-<div class="folders">
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>FOLDERS</th>
-        <th>DOCUMENTS</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @folders.each do |folder| %>
+<% if @folders.count > 0 %>
+  <div class="folders">
+    <table class="table table-bordered">
+      <thead>
         <tr>
-          <td><span><i class='fa fa-folder'></i></span>
-            <%= link_to folder.title, company_folder_path(id: folder.id) %>
-          </td>
-          <td><%= folder.documents.count %></td> 
+          <th>FOLDERS</th>
+          <th>DOCUMENTS</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody>
+        <% @folders.each do |folder| %>
+          <tr>
+            <td><span><i class='fa fa-folder'></i></span>
+              <%= link_to folder.title, company_folder_path(id: folder.id) %>
+            </td>
+            <td><%= folder.documents.count %></td> 
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <div class="folders"><h4>Add folder ^^</h4></div>
+<% end %>
 
 
