@@ -11,26 +11,30 @@
   <% end %>
 <br>
 
-<div class="folders">
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Folder</th>
-        <th>Documents</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @folders.each do |folder| %>
+<% if @folders.count > 0 %>
+  <div class="folders">
+    <table class="table table-bordered">
+      <thead>
         <tr>
-          <td><span><i class='fa fa-folder'></i></span>
-            <%= link_to folder.title, company_employee_folder_path(id: folder.id) %>
-          </td>
-          <td><%= folder.documents.count %></td> 
+          <th>Folder</th>
+          <th>Documents</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody>
+        <% @folders.each do |folder| %>
+          <tr>
+            <td><span><i class='fa fa-folder'></i></span>
+              <%= link_to folder.title, company_employee_folder_path(id: folder.id) %>
+            </td>
+            <td><%= folder.documents.count %></td> 
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <div class="folders"><h4>No folders have been currently added for you.</h4></div>
+<% end %>
 
 <div class="links">
   <% if current_user.manager? || current_user.admin? %>
