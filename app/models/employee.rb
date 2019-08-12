@@ -13,19 +13,20 @@ class Employee < ActiveRecord::Base
 
 
   validates :email, presence:true, uniqueness: true
+  # validates :ssn, uniqueness: true
   validates_presence_of :company_id
   
-    
-  attr_encrypted :ssn, key: :get_encryption_key
+  # Depreciated encryption gem/method 
+  # attr_encrypted :ssn, key: :get_encryption_key
 
   def current_benefit_selection_by_profile_id(benefit_profile_id)
     selection = EmployeeBenefitSelection.find_by(employee_id: id, benefit_detail_id: BenefitDetail.where(benefit_profile_id: benefit_profile_id).to_a)
     selection
   end
 
-  def get_encryption_key
-    ENV['ENCRYPTION_KEY']
-  end
+  # def get_encryption_key
+  #   ENV['ENCRYPTION_KEY']
+  # end
  
   def display_name
     "#{self.last_name}, #{self.first_name}"
