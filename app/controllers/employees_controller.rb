@@ -35,7 +35,7 @@ class EmployeesController < ApplicationController
 
     if @employee.user_id.nil?
       # do standard invitation
-      user = User.invite!({:email => @employee.email})
+      # user = User.invite!({:email => @employee.email})
       user.employee = true
       user.save!
       @employee.user_id = user.id
@@ -60,7 +60,7 @@ class EmployeesController < ApplicationController
       flash[:success] = "New employee successfully created!"
       # notify_zendesk('NEW EMPLOYEE ADDED')
       # current_user logs who sent the invite
-      user = User.invite!({:email => @employee.email})
+      # user = User.invite!({:email => @employee.email})
       user.employee = true
       user.save!
       @employee.user_id = user.id
