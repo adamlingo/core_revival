@@ -38,7 +38,7 @@
         <!-- no ELSE, just don't show Salary link -->
         <% end %>
         <td><%= link_to 'Manage Files', company_employee_folders_path(employee.company, employee) %></td>
-        <td><%= link_to 'Invite', company_employee_invite_path(employee.company, employee), :class => "btn btn-success" %></td>
+        <!-- <td><%= link_to 'Invite', company_employee_invite_path(employee.company, employee), :class => "btn btn-success" %></td> -->
       </tr>
     <% end %>
   </tbody>
