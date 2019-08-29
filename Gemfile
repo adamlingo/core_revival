@@ -36,7 +36,8 @@ gem 'devise_invitable'
 
 # SERVICES/INTEGRATIONS
 # Codeship required gem:
-gem 'nokogiri' # xlm/html parser
+# xlm/html parser
+gem 'nokogiri', ">= 1.10.4"
 gem 'zendesk_api'
 gem 'slack-notifier', require: false
 

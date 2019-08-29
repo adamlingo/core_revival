@@ -44,8 +44,8 @@ class EmployeesController < ApplicationController
     else
       # re-invite existing user
       user = User.find(@employee.user_id)
-      user.invite!(current_user) # current_user sets invited_by attribute
-      flash[:success] = "Employee re-invited!"
+      # user.invite!(current_user) # current_user sets invited_by attribute
+      # flash[:success] = "Employee re-invited!"
     end
     # reload EE index after Invite button click
     redirect_to company_employees_path
@@ -61,6 +61,7 @@ class EmployeesController < ApplicationController
       # notify_zendesk('NEW EMPLOYEE ADDED')
       # current_user logs who sent the invite
       # user = User.invite!({:email => @employee.email})
+      user = User.new(email: @employee.email, password: "password")
       user.employee = true
       user.save!
       @employee.user_id = user.id
