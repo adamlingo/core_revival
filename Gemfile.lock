@@ -115,7 +115,7 @@ GEM
       simplecov (>= 0.7)
       term-ansicolor
       thor
-    crass (1.0.4)
+    crass (1.0.6)
     debug_inspector (0.0.2)
     devise (4.7.1)
       bcrypt (~> 3.0)
@@ -192,7 +192,7 @@ GEM
       kaminari-core (= 1.0.0)
     kaminari-core (1.0.0)
     kgio (2.10.0)
-    loofah (2.2.3)
+    loofah (2.18.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -263,8 +263,8 @@ GEM
       activesupport (>= 3.2)
       choice (~> 0.2.0)
       ruby-graphviz (~> 1.2)
-    rails-html-sanitizer (1.2.0)
-      loofah (~> 2.2, >= 2.2.2)
+    rails-html-sanitizer (1.4.3)
+      loofah (~> 2.3)
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
